@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "730092740154",
+    "project_id": "lokerin-2d090",
+    "storage_bucket": "lokerin-2d090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730092740154:android:03615fe290d0768b7f5f03",
+        "android_client_info": {
+          "package_name": "com.example.lokerin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHTiAdwj7Iv-xFqYR7roFbV5IVFVamNcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
