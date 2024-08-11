@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16sp"
+        android:layout_weight="1"
+        android:paddingTop="16sp"
+        android:paddingRight="16sp"
+        android:paddingLeft="16sp"
         android:orientation="vertical"
         android:background="#1977F3">
 
@@ -25,30 +29,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/poppins_bold"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register your account here"
-            android:textSize="20sp"
+            android:textSize="12sp"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/poppins_medium"
-            android:layout_marginBottom="77sp"/>
-
+            android:fontFamily="@font/poppins_regular" />
         <ImageView
-            android:paddingRight="16sp"
             android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_width="160dp"
             android:src="@drawable/register_page_image"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20sp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:orientation="vertical"
         android:padding="16sp"
         android:background="#FFFFFF">
@@ -67,8 +68,7 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:layout_below="@id/description"
+            android:inputType="textEmailAddress"
             android:layout_marginBottom="8dp"
             android:padding="10dp"
             android:background="@drawable/rounded_blue_border"
@@ -89,6 +89,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:passwordToggleTint="@color/blue"
             app:passwordToggleEnabled="true">
 
             <EditText
@@ -96,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
+                android:textColor="@color/black"
                 android:layout_below="@id/description"
                 android:layout_marginBottom="8dp"
                 android:padding="10dp"
@@ -118,9 +120,11 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:passwordToggleTint="@color/blue"
             app:passwordToggleEnabled="true">
 
             <EditText
+                android:textColor="@color/black"
                 android:id="@+id/input_confirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

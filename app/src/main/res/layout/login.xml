@@ -8,7 +8,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16sp"
+        android:paddingTop="16sp"
+        android:paddingRight="16sp"
+        android:paddingLeft="16sp"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:background="#1977F3">
 
@@ -25,30 +28,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Welcome"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/poppins_bold"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign In to continue"
-            android:textSize="20sp"
+            android:textSize="12sp"
             android:textColor="#FFFFFF"
-            android:fontFamily="@font/poppins_medium"
-            android:layout_marginBottom="77sp"/>
+            android:fontFamily="@font/poppins_regular"
+            />
 
         <ImageView
-            android:paddingRight="16sp"
             android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="160dp"
+            android:layout_height="fill_parent"
             android:src="@drawable/login_page_image"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="20sp"
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:orientation="vertical"
         android:padding="16sp"
         android:background="#FFFFFF">
@@ -64,6 +67,7 @@
             android:fontFamily="@font/poppins_regular" />
 
         <EditText
+            android:textColor="@color/black"
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,12 +93,14 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:passwordToggleTint="@color/blue"
             app:passwordToggleEnabled="true">
 
             <EditText
                 android:id="@+id/input_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textPassword"
                 android:layout_below="@id/description"
                 android:layout_marginBottom="8dp"
@@ -133,7 +139,7 @@
                 android:textColor="#1977F3"
                 android:layout_below="@id/description"
                 android:fontFamily="@font/poppins_regular"
-                android:layout_marginTop="40sp"
+
                 android:layout_gravity="start"
                 android:textAlignment="textStart"/>
             <TextView
@@ -145,7 +151,6 @@
                 android:textColor="#1977F3"
                 android:layout_below="@id/description"
                 android:fontFamily="@font/poppins_regular"
-                android:layout_marginTop="40sp"
                 android:layout_gravity="end"
                 android:textAlignment="textEnd"/>
         </LinearLayout>
