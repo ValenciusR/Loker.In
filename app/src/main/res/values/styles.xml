@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PoppinsBlack" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_black</item>
+    </style>
+
+    <style name="PoppinsBold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_bold</item>
+    </style>
+
+    <style name="PoppinsExtraBold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_extrabold</item>
+    </style>
+
+    <style name="PoppinsExtraLight" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_extralight</item>
+    </style>
+
+    <style name="PoppinsLight" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_light</item>
+    </style>
+
+    <style name="PoppinsMedium" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+    </style>
+
+    <style name="PoppinsRegular" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="PoppinsSemibold" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+    </style>
+
+    <style name="PoppinsThin" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/poppins_thin</item>
+    </style>
+</resources>
