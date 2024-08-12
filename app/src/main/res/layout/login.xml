@@ -62,7 +62,6 @@
             android:text="Email Address"
             android:textSize="12sp"
             android:textColor="#1977F3"
-            android:layout_below="@id/description"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_regular" />
 
@@ -71,8 +70,7 @@
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:layout_below="@id/description"
+            android:inputType="textEmailAddress"
             android:layout_marginBottom="8dp"
             android:padding="10dp"
             android:background="@drawable/rounded_blue_border"
@@ -85,7 +83,6 @@
             android:text="Password"
             android:textSize="12sp"
             android:textColor="#1977F3"
-            android:layout_below="@id/description"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_regular"
             android:layout_marginTop="20sp"/>
@@ -118,7 +115,6 @@
             android:layout_height="wrap_content"
             android:text="Login"
             android:textColor="#FFFFFF"
-            android:layout_alignParentEnd="true"
             android:layout_marginTop="40sp"
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
@@ -137,7 +133,6 @@
                 android:text="Sign Up"
                 android:textSize="12sp"
                 android:textColor="#1977F3"
-                android:layout_below="@id/description"
                 android:fontFamily="@font/poppins_regular"
 
                 android:layout_gravity="start"
@@ -149,7 +144,6 @@
                 android:text="Forgot Password"
                 android:textSize="12sp"
                 android:textColor="#1977F3"
-                android:layout_below="@id/description"
                 android:fontFamily="@font/poppins_regular"
                 android:layout_gravity="end"
                 android:textAlignment="textEnd"/>

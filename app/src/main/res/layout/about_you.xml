@@ -3,20 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center_vertical"
     android:background="#1977F3"
     android:padding="16dp">
 
     <TextView
         android:id="@+id/title"
-        android:layout_marginTop="80dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="About You"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="8dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:fontFamily="@font/poppins_bold"/>
 
     <TextView
@@ -26,10 +25,8 @@
         android:text="Let's Create your biography"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
-        android:layout_below="@id/title"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="16dp"
-        android:layout_alignParentStart="true"
         android:fontFamily="@font/poppins_medium"/>
 
     <!-- Label for Name -->
@@ -39,16 +36,15 @@
         android:text="Name"
         android:textSize="14sp"
         android:textColor="#FFFFFF"
-        android:layout_below="@id/description"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular" />
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:layout_below="@id/description"
         android:layout_marginBottom="8dp"
         android:padding="10dp"
         android:background="@drawable/rounded_border"
@@ -61,16 +57,15 @@
         android:text="Phone Number"
         android:textSize="14sp"
         android:textColor="#FFFFFF"
-        android:layout_below="@id/input_name"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular"/>
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/input_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
-        android:layout_below="@id/input_name"
         android:layout_marginBottom="8dp"
         android:padding="10dp"
         android:background="@drawable/rounded_border"
@@ -83,16 +78,15 @@
         android:text="Location"
         android:textSize="14sp"
         android:textColor="#FFFFFF"
-        android:layout_below="@id/input_phone"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular"/>
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/input_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
-        android:layout_below="@id/input_phone"
         android:layout_marginBottom="8dp"
         android:padding="10dp"
         android:background="@drawable/rounded_border"
@@ -102,7 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@id/input_location"
         android:layout_marginBottom="8dp">
 
         <LinearLayout
@@ -126,6 +119,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
+                android:textColor="@color/black"
                 android:padding="10dp"
                 android:background="@drawable/rounded_border"
                 android:fontFamily="@font/poppins_regular"/>
@@ -152,6 +146,7 @@
                 android:id="@+id/input_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:inputType="textPersonName"
                 android:padding="10dp"
                 android:background="@drawable/rounded_border"
@@ -182,12 +177,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="end"
             android:layout_marginTop="16dp">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_next"
@@ -196,7 +187,6 @@
                 android:text="Next"
                 android:textColor="#1977F3"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="16dp"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
                 android:backgroundTint="@null"

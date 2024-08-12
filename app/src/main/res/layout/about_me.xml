@@ -9,15 +9,13 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_marginTop="80dp"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tell us more about yourself!"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="16dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:fontFamily="@font/poppins_bold"/>
 
     <TextView
@@ -34,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="148dp"
         android:inputType="textImeMultiLine|textMultiLine"
-
+        android:gravity="top|left"
+        android:textColor="@color/black"
         android:padding="10dp"
         android:background="@drawable/rounded_border"
         android:height="40dp"
@@ -48,7 +47,7 @@
         android:layout_marginTop="16dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
 
@@ -70,8 +69,6 @@
             android:layout_height="wrap_content"
             android:text="Next"
             android:textColor="#1977F3"
-            android:layout_alignParentEnd="true"
-
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:backgroundTint="@null"
