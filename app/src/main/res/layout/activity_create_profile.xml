@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:background="#1977F3"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    tools:context=".CreateProfile">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Your Amazing Profile"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_bold"/>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First, choose the profile you would like to create."
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_medium"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pekerja"
+        android:textAllCaps="false"
+        android:textColor="#1977F3"
+        android:background="@drawable/rounded_button"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_medium"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pelanggan"
+        android:textAllCaps="false"
+        android:textColor="#1977F3"
+        android:backgroundTint="@null"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/poppins_medium"/>
+
+    <ImageView
+        android:layout_gravity="end"
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:src="@drawable/character"/>
+
+</LinearLayout>
