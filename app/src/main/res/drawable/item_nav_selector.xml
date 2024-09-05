@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:state_selected="true"
         android:color = "@color/white"/>
     <item
         android:state_selected="false"
-        android:color = "@color/whitebg"/>
-<!--    tar ganti warna yang false jadi abu" -->
+        android:color = "@color/whitebg"
+        android:alpha="0.5"/>
 
 </selector>

@@ -31,7 +31,9 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemIconSize="40dp"
         app:itemIconTint="@drawable/item_nav_selector"
-        app:itemRippleColor="@android:color/transparent"/>
+        app:itemTextColor="@drawable/item_nav_selector"
+        app:itemRippleColor="@android:color/transparent"
+        app:itemBackground="@android:color/transparent"/>
 
 
 

@@ -1,11 +1,9 @@
 package com.example.lokerin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,25 +14,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
-        bottomNavigationView.setSelectedItemId(R.id.bottom_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = null;
             int id = item.getItemId();
             if (id == R.id.bottom_home) {
-                return true;
+                    selectedFragment = new HomeFragment();
             } else if (id == R.id.bottom_search) {
-                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                finish();
-                return true;
+                    selectedFragment = new SearchFragment();
             } else if (id == R.id.bottom_chat) {
-                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
-                finish();
-                return true;
+                    selectedFragment = new ChatFragment();
             }
-            return false;
+            if (selectedFragment != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectedFragment)
+                        .commit();
+            }
+            return true;
         });
 
+        // Load the default fragment (home)
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        }
     }
-
-
-
 }
