@@ -6,29 +6,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    <include layout="@layout/toolbar"/>
+
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
         android:layout_above="@id/bottomNavView"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_nav_bg"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
-        android:elevation="2dp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="6dp"
+        android:background="@drawable/bottom_nav_bg"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconSize="40dp"
         app:itemIconTint="@drawable/item_nav_selector"
         app:itemTextColor="@drawable/item_nav_selector"
         app:itemRippleColor="@android:color/transparent"
-        app:itemBackground="@android:color/transparent"/>
+        app:itemBackground="@android:color/transparent"
+        app:itemTextAppearanceActive="@style/ActiveTextAppearance"
+        app:itemTextAppearanceInactive="@style/InactiveTextAppearance"
+        style="@style/RemoveRippleColor"
+        />
 
 </RelativeLayout>
