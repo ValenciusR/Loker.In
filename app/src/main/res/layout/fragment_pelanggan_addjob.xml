@@ -1,12 +1,254 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search Fragment" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="16sp">
+
+            <!-- SECTION : JOB INFORMATION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_extrabold"
+                android:text="JOB INFORMATION"
+                android:textColor="@color/darkBlue"
+                android:textSize="20dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- JOB TITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="JOB TITLE"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_job_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <!-- CATEGORY [NEED ENHANCEMENT] -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="CATEGORY"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_category_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="DESCRIPTION"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_description_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textImeMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <!-- SALARY -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="SALARY"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_salary_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="0dp"
+                android:layout_margin="0dp">
+
+                <!-- Daily Button -->
+                <Button
+                    android:id="@+id/btn_dailySalary_addJob"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_salary_bg_selector"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Daily"
+                    android:textColor="@drawable/item_salary_text_selector"
+                    android:textSize="12sp" />
+
+                <!-- Weekly Button -->
+                <Button
+                    android:id="@+id/btn_weeklySalary_addJob"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_salary_bg_selector"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Weekly"
+                    android:textColor="@drawable/item_salary_text_selector"
+                    android:textSize="12sp" />
+
+                <!-- Monthly Button -->
+                <Button
+                    android:id="@+id/btn_monthlySalary_addJob"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_salary_bg_selector"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Monthly"
+                    android:textColor="@drawable/item_salary_text_selector"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <!-- SECTION : ADDRESS DETAIL -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_extrabold"
+                android:layout_marginTop="20dp"
+                android:text="ADDRESS DETAIL"
+                android:textColor="@color/darkBlue"
+                android:textSize="20dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- PROVINCE [NEED ENHANCEMENT] -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="PROVINCE"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_province_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType=""
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <!-- REGENCY [NEED ENHANCEMENT] -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="REGENCY"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_regency_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType=""
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <!-- ADDRESS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="ADDRESS"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_address_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textImeMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:background="@drawable/rounded_blue_button"
+                android:backgroundTint="@null"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:text="Upload Job"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
