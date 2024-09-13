@@ -51,7 +51,7 @@
                 android:padding="10dp"
                 android:textColor="@color/black" />
 
-            <!-- CATEGORY [NEED ENHANCEMENT] -->
+            <!-- CATEGORY [NEED ENHANCEMENT ON THE CATEGORY PAGE] -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,16 +60,20 @@
                 android:text="CATEGORY"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
-            <EditText
-                android:id="@+id/et_category_addJob"
+            <Button
+                android:id="@+id/btn_category_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_blue_border"
-                android:fontFamily="@font/poppins_regular"
-                android:inputType="text"
+                android:background="@drawable/rounded_dark_blue_button"
+                android:fontFamily="@font/poppins_medium"
                 android:padding="10dp"
-                android:textColor="@color/black" />
+                android:textColor="#FFFFFF"
+                android:drawableEnd="@drawable/icon_arrow_forward"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical|start"
+                android:text="Choose Category"
+                android:textAllCaps="false"/>
 
             <!-- DESCRIPTION -->
             <TextView
@@ -175,7 +179,7 @@
                 android:background="@color/blue"
                 android:layout_marginBottom="16dp"/>
 
-            <!-- PROVINCE [NEED ENHANCEMENT] -->
+            <!-- PROVINCE [NEED ENHANCEMENT USE OPEN API] -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -184,18 +188,20 @@
                 android:text="PROVINCE"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
-            <EditText
-                android:id="@+id/et_province_addJob"
+            <Spinner
+                android:id="@+id/spinner_province_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_blue_border"
-                android:fontFamily="@font/poppins_regular"
-                android:inputType=""
+                android:background="@drawable/spinner_background"
                 android:padding="10dp"
-                android:textColor="@color/black" />
+                android:spinnerMode="dropdown"
+                android:popupBackground="@drawable/spinner_dropdown_background"
+                android:dropDownVerticalOffset="10dp"
+                android:dropDownHorizontalOffset="10dp"
+                android:dropDownWidth="match_parent" />
 
-            <!-- REGENCY [NEED ENHANCEMENT] -->
+            <!-- REGENCY [NEED ENHANCEMENT USE OPEN API] -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -204,16 +210,17 @@
                 android:text="REGENCY"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
-            <EditText
-                android:id="@+id/et_regency_addJob"
+            <Spinner
+                android:id="@+id/spinner_regency_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/rounded_blue_border"
-                android:fontFamily="@font/poppins_regular"
-                android:inputType=""
+                android:background="@drawable/spinner_background"
                 android:padding="10dp"
-                android:textColor="@color/black" />
+                android:spinnerMode="dropdown"
+                android:popupBackground="@drawable/spinner_dropdown_background"
+                android:dropDownVerticalOffset="0dp"
+                android:enabled="false" />
 
             <!-- ADDRESS -->
             <TextView
@@ -228,7 +235,6 @@
                 android:id="@+id/et_address_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="148dp"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="textImeMultiLine"
