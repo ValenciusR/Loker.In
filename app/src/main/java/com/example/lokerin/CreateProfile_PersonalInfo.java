@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,36 +21,46 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateProfile extends AppCompatActivity {
+public class CreateProfile_PersonalInfo extends AppCompatActivity {
 
-    Button pekerjaBtn, pelangganBtn;
+    EditText nameET, phoneET, locationET, ageET, genderET;
+    Button nextBtn;
 
     FirebaseApp firebaseApp;
     FirebaseAuth mAuth ;
     FirebaseDatabase firebaseDatabase ;
     DatabaseReference userReference;
 
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_create_profile);
+        setContentView(R.layout.activity_create_profile_personal_info);
 
-        pekerjaBtn = findViewById(R.id.btn_pekerja_createProfilePage);
-        pelangganBtn = findViewById(R.id.btn_pelanggan_createProfilePage);
+        nameET = findViewById(R.id.input_name_personalInfoPage);
+        phoneET = findViewById(R.id.input_phone_personalInfoPage);
+        locationET = findViewById(R.id.input_location_personalInfoPage);
+        ageET = findViewById(R.id.input_age_personalInfoPage);
+        genderET = findViewById(R.id.input_gender_personalInfoPage);
+        nextBtn = findViewById(R.id.btn_next_personalInfoPage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        pekerjaBtn.setOnClickListener(view -> {
+        nextBtn.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
-            updates.put("type", "pekerja");
+            updates.put("name", nameET.getText().toString());
+            updates.put("phoneNumber", phoneET.getText().toString());
+            updates.put("location", locationET.getText().toString());
+            updates.put("age", Integer.parseInt(ageET.getText().toString()));
+            updates.put("gender", genderET.getText().toString());
             userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                 if (task2.isSuccessful()) {
-                    Intent loginIntent = new Intent(this, CreateProfile_PersonalInfo.class);
+                    Intent loginIntent = new Intent(this, CreateProfile_AboutMe.class);
                     startActivity(loginIntent);
                     finish();
                 } else {
@@ -58,23 +69,6 @@ public class CreateProfile extends AppCompatActivity {
                 }
             });
         });
-
-        pelangganBtn.setOnClickListener(view -> {
-            userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
-            Map<String, Object> updates = new HashMap<>();
-            updates.put("type", "pelanggan");
-            userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
-                if (task2.isSuccessful()) {
-                    Intent loginIntent = new Intent(this, CreateProfile_PersonalInfo.class);
-                    startActivity(loginIntent);
-                    finish();
-                } else {
-                    // Handle the error here
-                    Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show();
-                }
-            });
-        });
-
 
     }
 }

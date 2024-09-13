@@ -28,7 +28,7 @@
         android:fontFamily="@font/poppins_regular" />
 
     <EditText
-        android:id="@+id/input_about_me"
+        android:id="@+id/input_aboutMe_aboutMePage"
         android:layout_width="match_parent"
         android:layout_height="148dp"
         android:inputType="textImeMultiLine|textMultiLine"
@@ -52,6 +52,7 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/text_skip_aboutMePage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -64,7 +65,7 @@
 
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_next_aboutMePage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Next"

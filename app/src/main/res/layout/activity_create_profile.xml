@@ -33,6 +33,7 @@
         android:fontFamily="@font/poppins_medium"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_pekerja_createProfilePage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pekerja"
@@ -43,6 +44,7 @@
         android:fontFamily="@font/poppins_medium"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_pelanggan_createProfilePage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pelanggan"

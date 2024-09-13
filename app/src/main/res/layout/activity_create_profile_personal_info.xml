@@ -41,7 +41,7 @@
 
     <EditText
         android:textColor="@color/black"
-        android:id="@+id/input_name"
+        android:id="@+id/input_name_personalInfoPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
@@ -62,7 +62,7 @@
 
     <EditText
         android:textColor="@color/black"
-        android:id="@+id/input_phone"
+        android:id="@+id/input_phone_personalInfoPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="phone"
@@ -83,7 +83,7 @@
 
     <EditText
         android:textColor="@color/black"
-        android:id="@+id/input_location"
+        android:id="@+id/input_location_personalInfoPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
@@ -115,7 +115,7 @@
                 android:fontFamily="@font/poppins_regular"/>
 
             <EditText
-                android:id="@+id/input_age"
+                android:id="@+id/input_age_personalInfoPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -143,7 +143,7 @@
                 android:fontFamily="@font/poppins_regular"/>
 
             <EditText
-                android:id="@+id/input_gender"
+                android:id="@+id/input_gender_personalInfoPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -154,44 +154,44 @@
         </LinearLayout>
     </LinearLayout>
 
-<!--    &lt;!&ndash; Label for About Me &ndash;&gt;-->
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="About me"-->
-<!--        android:textSize="14sp"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:layout_below="@id/input_age"-->
-<!--        android:layout_marginBottom="4dp" />-->
+    <!--    &lt;!&ndash; Label for About Me &ndash;&gt;-->
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="About me"-->
+    <!--        android:textSize="14sp"-->
+    <!--        android:textColor="#FFFFFF"-->
+    <!--        android:layout_below="@id/input_age"-->
+    <!--        android:layout_marginBottom="4dp" />-->
 
-<!--    <EditText-->
-<!--        android:id="@+id/input_about_me"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="103dp"-->
-<!--        android:layout_below="@id/input_age"-->
-<!--        android:layout_marginBottom="8dp"-->
-<!--        android:background="@drawable/rounded_border"-->
-<!--        android:inputType="textMultiLine" />-->
+    <!--    <EditText-->
+    <!--        android:id="@+id/input_about_me"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="103dp"-->
+    <!--        android:layout_below="@id/input_age"-->
+    <!--        android:layout_marginBottom="8dp"-->
+    <!--        android:background="@drawable/rounded_border"-->
+    <!--        android:inputType="textMultiLine" />-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="16dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_next_personalInfoPage"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            android:layout_marginTop="16dp">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Next"
-                android:textColor="#1977F3"
-                android:layout_alignParentEnd="true"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="8dp"
-                android:backgroundTint="@null"
-                android:background="@drawable/rounded_button"
-                android:fontFamily="@font/poppins_bold"/>
-            </LinearLayout>
+            android:text="Next"
+            android:textColor="#1977F3"
+            android:layout_alignParentEnd="true"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="8dp"
+            android:backgroundTint="@null"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/poppins_bold"/>
+    </LinearLayout>
 
 </LinearLayout>
