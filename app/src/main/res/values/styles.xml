@@ -35,4 +35,9 @@
     <style name="PoppinsThin" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/poppins_thin</item>
     </style>
+    
+    <style name="roundedProfileImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
