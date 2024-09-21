@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".EditProfilePelangganActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProfilePelangganActivity"
             android:exported="false" />
         <activity

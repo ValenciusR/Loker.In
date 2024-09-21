@@ -3,13 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#FFFFFF">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80sp"
+        android:background="#1977F3"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/iv_back_profilePelangganPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_button_icon"
+            android:clickable="true"
+            android:layout_marginHorizontal="20sp"/>
+        <TextView
+            android:id="@+id/tv_viewProfile_profilePelangganPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View Profile"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:paddingTop="5sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginEnd="20sp">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_profile1_profilePelangganPage"
+                android:layout_width="40sp"
+                android:layout_height="40sp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_no_profile_icon"
+                app:shapeAppearanceOverlay="@style/roundedProfileImage" />
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:id="@+id/iv_profile_profilePelangganPage"
+        android:id="@+id/iv_profile2_profilePelangganPage"
         app:shapeAppearanceOverlay="@style/roundedProfileImage"
         android:src="@drawable/default_no_profile_icon"
         android:scaleType="centerCrop"
