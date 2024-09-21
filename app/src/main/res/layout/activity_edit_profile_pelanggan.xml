@@ -148,7 +148,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Emaul"
+            android:text="Email"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:fontFamily="@font/poppins_bold" />
