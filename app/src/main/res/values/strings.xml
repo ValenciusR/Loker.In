@@ -1,5 +1,103 @@
 <resources>
     <string name="app_name">Lokerin</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="province">
+        <item>West Java</item>
+        <item>Central Java</item>
+        <item>East Java</item>
+    </string-array>
+
+    <!-- Regency West Java -->
+    <string-array name="regency_west_java">
+        <item>Select Regency</item>
+        <item>Bandung</item>
+        <item>Bandung Barat</item>
+        <item>Bekasi (City)</item>
+        <item>Bogor</item>
+        <item>Cirebon</item>
+        <item>Garut</item>
+        <item>Indramayu</item>
+        <item>Karawang</item>
+        <item>Kuningan</item>
+        <item>Majalengka</item>
+        <item>Purwakarta</item>
+        <item>Subang</item>
+        <item>Sukabumi</item>
+        <item>Sumedang</item>
+        <item>Tasikmalaya</item>
+        <item>Depok (City)</item>
+        <item>Cimahi (City)</item>
+        <item>Banjar (City)</item>
+    </string-array>
+
+    <!-- Regency Central Java -->
+    <string-array name="regency_central_java">
+        <item>Select Regency</item>
+        <item>Banyumas</item>
+        <item>Batang</item>
+        <item>Blora</item>
+        <item>Boyolali</item>
+        <item>Brebes</item>
+        <item>Cilacap</item>
+        <item>Demak</item>
+        <item>Grobogan</item>
+        <item>Jepara</item>
+        <item>Karanganyar</item>
+        <item>Kebumen</item>
+        <item>Kendal</item>
+        <item>Klaten</item>
+        <item>Kudus</item>
+        <item>Magelang</item>
+        <item>Pekalongan</item>
+        <item>Pemalang</item>
+        <item>Purbalingga</item>
+        <item>Purworejo</item>
+        <item>Salatiga (City)</item>
+        <item>Semarang</item>
+        <item>Sragen</item>
+        <item>Sukoharjo</item>
+        <item>Tegal</item>
+        <item>Temanggung</item>
+        <item>Wonosobo</item>
+    </string-array>
+
+    <!-- Regency East Java -->
+    <string-array name="regency_east_java">
+        <item>Select Regency</item>
+        <item>Bangkalan</item>
+        <item>Banyuwangi</item>
+        <item>Batu (City)</item>
+        <item>Blitar</item>
+        <item>Bojonegoro</item>
+        <item>Bondowoso</item>
+        <item>Jember</item>
+        <item>Jombang</item>
+        <item>Kediri</item>
+        <item>Lamongan</item>
+        <item>Lumajang</item>
+        <item>Madiun (City)</item>
+        <item>Magetan</item>
+        <item>Malang</item>
+        <item>Mojokerto</item>
+        <item>Nganjuk</item>
+        <item>Ngawi</item>
+        <item>Pacitan</item>
+        <item>Pamekasan</item>
+        <item>Pasuruan</item>
+        <item>Ponorogo</item>
+        <item>Probolinggo</item>
+        <item>Sampang</item>
+        <item>Sidoarjo</item>
+        <item>Situbondo</item>
+        <item>Sumenep</item>
+        <item>Trenggalek</item>
+        <item>Tulungagung</item>
+    </string-array>
+
+    <!-- Default State -->
+    <string-array name="empty_array">
+        <item>No regency available</item>
+    </string-array>
 </resources>

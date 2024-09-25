@@ -35,4 +35,22 @@
     <style name="PoppinsThin" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/poppins_thin</item>
     </style>
+
+    <!-- NAVBAR STYLE -->
+    <style name="RemoveRippleColor" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemRippleColor">@android:color/transparent</item>
+    </style>
+
+    <style name="ActiveTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">12sp</item>
+        <item name="font">@font/poppins_medium</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
+
+    <style name="InactiveTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">10sp</item>
+        <item name="font">@font/poppins_medium</item>
+        <item name="android:paddingTop">6dp</item>
+    </style>
+
 </resources>

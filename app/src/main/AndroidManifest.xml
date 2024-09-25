@@ -48,6 +48,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+            <activity
+            android:name=".RatingReviewActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
