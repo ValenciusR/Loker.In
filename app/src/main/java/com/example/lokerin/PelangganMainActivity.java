@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class PelangganMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pelanggan_main);
 
         ImageView btnBackToolbar = findViewById(R.id.btn_back_toolbar);
         ImageView btnProfileToolbar = findViewById(R.id.btn_back_toolbar);

@@ -9,9 +9,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,7 +51,7 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
             updates.put("jobDesc", jobDescET.getText().toString());
             userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                 if (task2.isSuccessful()) {
-                    Intent loginIntent = new Intent(this, MainActivity.class);
+                    Intent loginIntent = new Intent(this, PelangganMainActivity.class);
                     startActivity(loginIntent);
                     finish();
                 } else {
@@ -65,7 +62,7 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
         });
 
         skipText.setOnClickListener(view -> {
-            Intent loginIntent = new Intent(this, MainActivity.class);
+            Intent loginIntent = new Intent(this, PelangganMainActivity.class);
             startActivity(loginIntent);
             finish();
         });

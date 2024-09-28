@@ -43,7 +43,7 @@
             android:layout_gravity="end"
             android:layout_height="fill_parent"
             android:layout_width="160dp"
-            android:src="@drawable/register_page_image"/>
+            android:src="@drawable/image_register_page"/>
     </LinearLayout>
 
     <LinearLayout
@@ -76,7 +76,7 @@
             android:inputType="textEmailAddress"
             android:layout_marginBottom="8dp"
             android:padding="10dp"
-            android:background="@drawable/rounded_blue_border"
+            android:background="@drawable/shape_rounded_blue_border"
             android:fontFamily="@font/poppins_regular" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +107,7 @@
                 android:layout_below="@id/description"
                 android:layout_marginBottom="8dp"
                 android:padding="10dp"
-                android:background="@drawable/rounded_blue_border"
+                android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -137,7 +137,7 @@
                 android:inputType="textPassword"
                 android:layout_marginBottom="8dp"
                 android:padding="10dp"
-                android:background="@drawable/rounded_blue_border"
+                android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -152,7 +152,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:backgroundTint="@null"
-            android:background="@drawable/rounded_blue_button"
+            android:background="@drawable/shape_blue_rounded"
             android:fontFamily="@font/poppins_medium"/>
         <TextView
             android:id="@+id/login_link_registerPage"

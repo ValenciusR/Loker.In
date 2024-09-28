@@ -7,5 +7,4 @@
         android:state_selected="false"
         android:color = "@color/whitebg"
         android:alpha="0.5"/>
-
 </selector>
