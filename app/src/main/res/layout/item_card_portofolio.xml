@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:padding="16dp"
+    android:backgroundTint="#FFFFFF"
+    android:layout_gravity="center"
+    app:cardCornerRadius="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <!-- LEFT SECTION -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/text_left_upper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Left Upper"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/text_left_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Left Bottom"
+                android:textColor="#99202124"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- RIGHT SECTION -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end">
+            <TextView
+                android:id="@+id/text_right_upper"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Right Upper"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/text_right_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Right Bottom"
+                android:textColor="#99202124"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="end|center_vertical">
+
+            <CheckBox
+                android:layout_marginHorizontal="20sp"
+                android:id="@+id/checkbox_jobPortofolio_portofolioRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+<!--            android:button="@drawable/selector_item_checkbox"-->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -10,16 +10,11 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.io.Console;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -78,7 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(this, "Register Success, go Back to Login", Toast.LENGTH_SHORT).show();
                         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
                         userReference.setValue(new User(email,password,"","","","",0,"","","","","",""));
-                        Intent loginIntent = new Intent(this, CreateProfile.class);
+                        Intent loginIntent = new Intent(this, CreateProfileActivity.class);
                         startActivity(loginIntent);
                         finish();
 

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".EditPortofolioPekerjaActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProfilePekerjaActivity"
             android:exported="false" />
         <activity
@@ -22,16 +25,16 @@
             android:name=".ProfilePelangganActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateProfile_WorkExperience"
+            android:name=".CreateProfile_WorkExperienceActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateProfile_Skills"
+            android:name=".CreateProfile_SkillsActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateProfile_AboutMe"
+            android:name=".CreateProfile_AboutMeActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateProfile_PersonalInfo"
+            android:name=".CreateProfile_PersonalInfoActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
@@ -46,7 +49,7 @@
             android:name=".LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".CreateProfile"
+            android:name=".CreateProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
@@ -57,7 +60,7 @@
         <activity
             android:name=".PelangganMainActivity"
             android:exported="true" />
-            <activity
+        <activity
             android:name=".PelangganRatingReviewActivity"
             android:exported="false" />
     </application>
