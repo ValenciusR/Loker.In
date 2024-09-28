@@ -35,7 +35,7 @@
         android:gravity="top|left"
         android:textColor="@color/black"
         android:padding="10dp"
-        android:background="@drawable/rounded_border"
+        android:background="@drawable/shape_rounded"
         android:height="40dp"
         android:fontFamily="@font/poppins_regular"/>
 
@@ -73,7 +73,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:backgroundTint="@null"
-            android:background="@drawable/rounded_button"
+            android:background="@drawable/shape_rounded"
             android:fontFamily="@font/poppins_bold"/>
     </LinearLayout>
 

@@ -46,10 +46,10 @@
             android:name=".SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".PelangganMainActivity"
             android:exported="true" />
             <activity
-            android:name=".RatingReviewActivity"
+            android:name=".PelangganRatingReviewActivity"
             android:exported="false" />
     </application>
 

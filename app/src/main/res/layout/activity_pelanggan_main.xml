@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".PelangganMainActivity">
     <include layout="@layout/toolbar_main"/>
 
     <FrameLayout
@@ -26,11 +26,11 @@
         android:layout_marginBottom="20dp"
         android:paddingHorizontal="0dp"
         android:paddingVertical="6dp"
-        android:background="@drawable/bottom_nav_bg"
+        android:background="@drawable/shape_bottom_nav"
         app:menu="@menu/bottom_nav_menu"
         app:itemIconSize="40dp"
-        app:itemIconTint="@drawable/item_nav_selector"
-        app:itemTextColor="@drawable/item_nav_selector"
+        app:itemIconTint="@drawable/selector_item_nav"
+        app:itemTextColor="@drawable/selector_item_nav"
         app:itemRippleColor="@android:color/transparent"
         app:itemBackground="@android:color/transparent"
         app:itemTextAppearanceActive="@style/ActiveTextAppearance"
