@@ -1,5 +1,7 @@
 package com.example.lokerin;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +15,17 @@ import java.util.List;
 public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardViewHolder> {
 
     private List<JobData> jobDataList;
+    private Context context;
 
-    public ListJobAdapter(List<JobData> jobDataList) {
+    public ListJobAdapter(Context context, List<JobData> jobDataList) {
+        this.context = context;
         this.jobDataList = jobDataList;
     }
 
     @NonNull
     @Override
     public CardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_txt, parent, false);
         return new CardViewHolder(view);
     }
 
@@ -32,6 +36,17 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
         holder.jobLocation.setText(data.getJobLocation());
         holder.jobDateUpload.setText(data.getJobDateUpload());
         holder.jobCategory.setText(data.getJobCategory());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, PelangganDetailJobActivity.class);
+            intent.putExtra("jobTitle", data.getJobTitle());
+            intent.putExtra("jobLocation", data.getJobLocation());
+            intent.putExtra("jobDateUpload", data.getJobDateUpload());
+            intent.putExtra("jobCategory", data.getJobCategory());
+            intent.putExtra("jobStatus", data.getJobStatus());
+            intent.putExtra("jobApplicants", data.getApplicants().toArray(new User[0]));
+            context.startActivity(intent);
+        });
     }
 
     @Override
