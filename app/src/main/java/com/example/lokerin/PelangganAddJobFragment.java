@@ -1,5 +1,7 @@
 package com.example.lokerin;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
@@ -12,9 +14,10 @@ import android.widget.Spinner;
 
 public class PelangganAddJobFragment extends Fragment {
 
-    private Button btnDaily, btnWeekly, btnMonthly;
+    private Button btnCategory, btnDaily, btnWeekly, btnMonthly, btnSubmit;
     private Spinner spinnerProvince, spinnerRegency;
     private ArrayAdapter<CharSequence> regencyAdapter;
+    private String selectedSalaryType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,9 +25,11 @@ public class PelangganAddJobFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_pelanggan_addjob, container, false);
 
+        btnCategory = view.findViewById(R.id.btn_category_addJob);
         btnDaily = view.findViewById(R.id.btn_dailySalary_addJob);
         btnWeekly = view.findViewById(R.id.btn_weeklySalary_addJob);
         btnMonthly = view.findViewById(R.id.btn_monthlySalary_addJob);
+        btnSubmit = view.findViewById(R.id.btn_addJob);
         spinnerProvince = view.findViewById(R.id.spinner_province_addJob);
         spinnerRegency = view.findViewById(R.id.spinner_regency_addJob);
 
@@ -53,6 +58,15 @@ public class PelangganAddJobFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parentView) {
                 spinnerRegency.setEnabled(false);
             }
+        });
+
+        btnCategory.setOnClickListener(item -> {
+            PelangganAddJobCategoryFragment newFragment = new PelangganAddJobCategoryFragment();
+
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, newFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         return view;
