@@ -21,27 +21,27 @@ public class PelangganMyJobFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListJobAdapter adapter = new ListJobAdapter(getJobDataList());
+        ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
         recyclerView.setAdapter(adapter);
 
         return view;
     }
 
-
     private List<JobData> getJobDataList() {
         List<JobData> dataList = new ArrayList<>();
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1"));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2"));
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1"));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2"));
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1"));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2"));
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1"));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2"));
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1"));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2"));
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1"));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2"));
+        List<User> applicants1 = new ArrayList<>();
+        applicants1.add(new User("bangjago@gmail.com", "BangJago"));
+        applicants1.add(new User("jagoan@gmail.com", "Jagoan"));
+
+        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1", "Open", applicants1));
+        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2", "Active", new ArrayList<>()));
+        dataList.add(new JobData("Job Title 3", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
+        dataList.add(new JobData("Job Title 4", "Location 2", "Date 2", "Category 2", "Ended", new ArrayList<>()));
+        dataList.add(new JobData("Applicant Open", "Location 2", "Date 2", "Category 2", "Open", applicants1));
+        dataList.add(new JobData("Applicant Active", "Location 2", "Date 2", "Category 2", "Active", applicants1));;
+        dataList.add(new JobData("Applicant On Going", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
+        dataList.add(new JobData("Applicant Ended", "Location 2", "Date 2", "Category 2", "Ended", applicants1));
+
         return dataList;
     }
 }

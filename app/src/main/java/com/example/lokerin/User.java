@@ -1,6 +1,8 @@
 package com.example.lokerin;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String email;
     private String password;
     private String type;
@@ -29,6 +31,11 @@ public class User {
         this.skillDesc = skillDesc;
         this.job = job;
         this.jobDesc = jobDesc;
+    }
+
+    public User(String email, String name){
+        this.email = email;
+        this.name = name;
     }
 
     public String getType() {
