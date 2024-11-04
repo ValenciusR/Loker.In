@@ -17,7 +17,7 @@
             android:id="@+id/iv_back_editProfilePelangganPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_button_back"
+            android:src="@drawable/back_button_icon"
             android:clickable="true"
             android:layout_marginHorizontal="20sp"/>
         <TextView
@@ -40,39 +40,23 @@
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_no_picture_default"
+                android:src="@drawable/default_no_profile_icon"
                 app:shapeAppearanceOverlay="@style/roundedProfileImage"/>
         </LinearLayout>
 
 
     </LinearLayout>
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="100sp"
+        android:layout_height="100sp"
+        android:id="@+id/iv_profile2_editProfilePelangganPage"
+        app:shapeAppearanceOverlay="@style/roundedProfileImage"
+        android:src="@drawable/default_no_profile_icon"
+        android:scaleType="centerCrop"
         android:layout_gravity="center"
-        android:layout_marginTop="20sp">
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_profile2_editProfilePelangganPage"
-            android:layout_width="100sp"
-            android:layout_height="100sp"
-            android:background="#000000"
-            android:scaleType="centerCrop"
-            app:shapeAppearanceOverlay="@style/roundedProfileImage"
-            android:src="@drawable/icon_no_picture_default" />
-
-        <TextView
-            android:id="@+id/tv_profile2_editProfilePelangganPage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Change profile"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="@color/whitebg"
-            android:textSize="12sp"
-            android:gravity="center"/>
-    </FrameLayout>
+        android:layout_marginTop="20sp"
+        android:clickable="true"/>
 
     <LinearLayout
 
@@ -104,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:padding="10dp"
-                android:background="@drawable/shape_rounded_blue_border"
+                android:background="@drawable/rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:padding="10dp"
-                android:background="@drawable/shape_rounded_blue_border"
+                android:background="@drawable/rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="10dp"
-                android:background="@drawable/shape_rounded_blue_border"
+                android:background="@drawable/rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -182,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:background="@drawable/shape_rounded_blue_border"
+                android:background="@drawable/rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -195,7 +179,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:backgroundTint="@null"
-            android:background="@drawable/shape_blue_rounded"
+            android:background="@drawable/rounded_blue_button"
             android:fontFamily="@font/poppins_medium"/>
     </LinearLayout>
 </LinearLayout>

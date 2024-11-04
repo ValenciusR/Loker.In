@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,9 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CreateProfile_WorkExperienceActivity extends AppCompatActivity {
+public class CreateProfile_Skills extends AppCompatActivity {
 
-    EditText jobET, jobDescET;
+    EditText skillET, skillDescET;
     Button nextBtn;
     TextView skipText;
 
@@ -33,12 +36,12 @@ public class CreateProfile_WorkExperienceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_create_profile_work_experience);
+        setContentView(R.layout.activity_create_profile_skills);
 
-        jobET = findViewById(R.id.input_job_workExperiencePage);
-        jobDescET = findViewById(R.id.input_jobDesc_workExperiencePage);
-        nextBtn = findViewById(R.id.btn_next_workExperiencePage);
-        skipText = findViewById(R.id.text_skip_workExperiencePage);
+        skillET = findViewById(R.id.input_skill_skillsPage);
+        skillDescET = findViewById(R.id.input_skillDesc_skillsPage);
+        nextBtn = findViewById(R.id.btn_next_skillsPage);
+        skipText = findViewById(R.id.text_skip_skillsPage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
@@ -47,11 +50,11 @@ public class CreateProfile_WorkExperienceActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
-            updates.put("job", jobET.getText().toString());
-            updates.put("jobDesc", jobDescET.getText().toString());
+            updates.put("skill", skillET.getText().toString());
+            updates.put("skillDesc", skillDescET.getText().toString());
             userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                 if (task2.isSuccessful()) {
-                    Intent loginIntent = new Intent(this, PelangganMainActivity.class);
+                    Intent loginIntent = new Intent(this, CreateProfile_WorkExperience.class);
                     startActivity(loginIntent);
                     finish();
                 } else {
@@ -62,7 +65,7 @@ public class CreateProfile_WorkExperienceActivity extends AppCompatActivity {
         });
 
         skipText.setOnClickListener(view -> {
-            Intent loginIntent = new Intent(this, PelangganMainActivity.class);
+            Intent loginIntent = new Intent(this, CreateProfile_WorkExperience.class);
             startActivity(loginIntent);
             finish();
         });

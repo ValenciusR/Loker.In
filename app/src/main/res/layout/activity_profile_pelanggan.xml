@@ -16,7 +16,7 @@
             android:id="@+id/iv_back_profilePelangganPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_button_back"
+            android:src="@drawable/back_button_icon"
             android:clickable="true"
             android:layout_marginHorizontal="20sp"/>
         <TextView
@@ -39,7 +39,7 @@
                 android:layout_width="40sp"
                 android:layout_height="40sp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/icon_no_picture_default"
+                android:src="@drawable/default_no_profile_icon"
                 app:shapeAppearanceOverlay="@style/roundedProfileImage" />
         </LinearLayout>
 
@@ -51,7 +51,7 @@
         android:layout_height="100sp"
         android:id="@+id/iv_profile2_profilePelangganPage"
         app:shapeAppearanceOverlay="@style/roundedProfileImage"
-        android:src="@drawable/icon_no_picture_default"
+        android:src="@drawable/default_no_profile_icon"
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:layout_marginTop="20sp"/>

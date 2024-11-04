@@ -9,7 +9,7 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    tools:context=".CreateProfileActivity">
+    tools:context=".CreateProfile">
 
     <TextView
         android:id="@+id/title"
@@ -58,6 +58,6 @@
         android:layout_gravity="end"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:src="@drawable/image_character"/>
+        android:src="@drawable/character"/>
 
 </LinearLayout>

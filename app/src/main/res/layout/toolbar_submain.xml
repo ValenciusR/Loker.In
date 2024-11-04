@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20sp">
+        android:padding="16dp">
         <ImageView
             android:id="@+id/btn_back_toolbar"
             android:layout_width="wrap_content"
@@ -21,10 +21,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:layout_marginStart="16sp"
+            android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/btn_back_toolbar"
             android:layout_centerVertical="true"
-            android:textSize="24sp"
+            android:textSize="24dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Page"/>
 
