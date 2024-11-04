@@ -79,7 +79,7 @@ public class PelangganAddJobFragment extends Fragment {
         spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position >= 0 && position < 3) {
+                if (position >= 0 && position < 38) {
                     spinnerRegency.setEnabled(true);
                     updateRegencySpinner(position);
                 } else {
@@ -114,18 +114,124 @@ public class PelangganAddJobFragment extends Fragment {
         int regencyArrayId;
 
         switch (provincePosition) {
-            case 0: // West Java
-                regencyArrayId = R.array.regency_west_java;
+            case 0:
+                regencyArrayId = R.array.regency_aceh;
                 break;
-            case 1: // Central Java
-                regencyArrayId = R.array.regency_central_java;
+            case 1:
+                regencyArrayId = R.array.regency_bali;
                 break;
-            case 2: // East Java
-                regencyArrayId = R.array.regency_east_java;
+            case 2:
+                regencyArrayId = R.array.regency_banten;
+                break;
+            case 3:
+                regencyArrayId = R.array.regency_bengkulu;
+                break;
+            case 4:
+                regencyArrayId = R.array.regency_gorontalo;
+                break;
+            case 5:
+                regencyArrayId = R.array.regency_jambi;
+                break;
+            case 6:
+                regencyArrayId = R.array.regency_jawa_barat;
+                break;
+            case 7:
+                regencyArrayId = R.array.regency_jawa_tengah;
+                break;
+            case 8:
+                regencyArrayId = R.array.regency_jawa_timur;
+                break;
+            case 9:
+                regencyArrayId = R.array.regency_jakarta;
+                break;
+            case 10:
+                regencyArrayId = R.array.regency_kalimantan_barat;
+                break;
+            case 11:
+                regencyArrayId = R.array.regency_kalimantan_selatan;
+                break;
+            case 12:
+                regencyArrayId = R.array.regency_kalimantan_tengah;
+                break;
+            case 13:
+                regencyArrayId = R.array.regency_kalimantan_timur;
+                break;
+            case 14:
+                regencyArrayId = R.array.regency_kalimantan_utara;
+                break;
+            case 15:
+                regencyArrayId = R.array.regency_kepulauan_bangka_belitung;
+                break;
+            case 16:
+                regencyArrayId = R.array.regency_kepulauan_riau;
+                break;
+            case 17:
+                regencyArrayId = R.array.regency_lampung;
+                break;
+            case 18:
+                regencyArrayId = R.array.regency_maluku;
+                break;
+            case 19:
+                regencyArrayId = R.array.regency_maluku_utara;
+                break;
+            case 20:
+                regencyArrayId = R.array.regency_nusa_tenggara_barat;
+                break;
+            case 21:
+                regencyArrayId = R.array.regency_nusa_tenggara_timur;
+                break;
+            case 22:
+                regencyArrayId = R.array.regency_papua;
+                break;
+            case 23:
+                regencyArrayId = R.array.regency_papua_barat;
+                break;
+            case 24:
+                regencyArrayId = R.array.regency_papua_barat_daya;
+                break;
+            case 25:
+                regencyArrayId = R.array.regency_papua_pegunungan;
+                break;
+            case 26:
+                regencyArrayId = R.array.regency_papua_selatan;
+                break;
+            case 27:
+                regencyArrayId = R.array.regency_papua_tengah;
+                break;
+            case 28:
+                regencyArrayId = R.array.regency_riau;
+                break;
+            case 29:
+                regencyArrayId = R.array.regency_sulawesi_barat;
+                break;
+            case 30:
+                regencyArrayId = R.array.regency_sulawesi_selatan;
+                break;
+            case 31:
+                regencyArrayId = R.array.regency_sulawesi_tengah;
+                break;
+            case 32:
+                regencyArrayId = R.array.regency_sulawesi_tenggara;
+                break;
+            case 33:
+                regencyArrayId = R.array.regency_sulawesi_utara;
+                break;
+            case 34:
+                regencyArrayId = R.array.regency_sumatra_barat;
+                break;
+            case 35:
+                regencyArrayId = R.array.regency_sumatra_selatan;
+                break;
+            case 36:
+                regencyArrayId = R.array.regency_sumatra_utara;
+                break;
+            case 37:
+                regencyArrayId = R.array.regency_yogyakarta;
                 break;
             default:
                 regencyArrayId = R.array.empty_array;
         }
+
 
         regencyAdapter = ArrayAdapter.createFromResource(getContext(),
                 regencyArrayId, R.layout.spinner_item);

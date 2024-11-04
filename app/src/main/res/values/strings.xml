@@ -4,37 +4,165 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="province">
-        <item>West Java</item>
-        <item>Central Java</item>
-        <item>East Java</item>
+        <item>Aceh</item>
+        <item>Bali</item>
+        <item>Banten</item>
+        <item>Bengkulu</item>
+        <item>Gorontalo</item>
+        <item>Jambi</item>
+        <item>Jawa Barat</item>
+        <item>Jawa Tengah</item>
+        <item>Jawa Timur</item>
+        <item>Jakarta</item>
+        <item>Kalimantan Barat</item>
+        <item>Kalimantan Selatan</item>
+        <item>Kalimantan Tengah</item>
+        <item>Kalimantan Timur</item>
+        <item>Kalimantan Utara</item>
+        <item>Kepulauan Bangka Belitung</item>
+        <item>Kepulauan Riau</item>
+        <item>Lampung</item>
+        <item>Maluku</item>
+        <item>Maluku Utara</item>
+        <item>Nusa Tenggara Barat</item>
+        <item>Nusa Tenggara Timur</item>
+        <item>Papua</item>
+        <item>Papua Barat</item>
+        <item>Papua Barat Daya</item>
+        <item>Papua Pegunungan</item>
+        <item>Papua Selatan</item>
+        <item>Papua Tengah</item>
+        <item>Riau</item>
+        <item>Sulawesi Barat</item>
+        <item>Sulawesi Selatan</item>
+        <item>Sulawesi Tengah</item>
+        <item>Sulawesi Tenggara</item>
+        <item>Sulawesi Utara</item>
+        <item>Sumatra Barat</item>
+        <item>Sumatra Selatan</item>
+        <item>Sumatra Utara</item>
+        <item>Yogyakarta</item>
     </string-array>
 
-    <!-- Regency West Java -->
-    <string-array name="regency_west_java">
-        <item>Select Regency</item>
+    <!-- Regency Aceh -->
+    <string-array name="regency_aceh">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Aceh Barat</item>
+        <item>Aceh Barat Daya</item>
+        <item>Aceh Besar</item>
+        <item>Aceh Jaya</item>
+        <item>Aceh Selatan</item>
+        <item>Aceh Singkil</item>
+        <item>Aceh Tamiang</item>
+        <item>Aceh Tengah</item>
+        <item>Aceh Tenggara</item>
+        <item>Aceh Timur</item>
+        <item>Aceh Utara</item>
+        <item>Banda Aceh</item>
+        <item>Lhokseumawe</item>
+        <item>Langsa</item>
+        <item>Sabang</item>
+        <item>Subulussalam</item>
+    </string-array>
+    <!-- Regency Bali -->
+    <string-array name="regency_bali">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Badung</item>
+        <item>Bangli</item>
+        <item>Buleleng</item>
+        <item>Gianyar</item>
+        <item>Jembrana</item>
+        <item>Karangasem</item>
+        <item>Klungkung</item>
+        <item>Tabanan</item>
+        <item>Denpasar</item>
+    </string-array>
+    <!-- Regency Banten -->
+    <string-array name="regency_banten">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Cilegon</item>
+        <item>Lebak</item>
+        <item>Pandeglang</item>
+        <item>Serang</item>
+        <item>Tangerang</item>
+        <item>Tangerang Selatan</item>
+        <item>Kota Serang</item>
+        <item>Kota Tangerang</item>
+    </string-array>
+    <!-- Regency Bengkulu -->
+    <string-array name="regency_bengkulu">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bengkulu Selatan</item>
+        <item>Bengkulu Tengah</item>
+        <item>Bengkulu Utara</item>
+        <item>Kaur</item>
+        <item>Kepahiang</item>
+        <item>Lebong</item>
+        <item>Mukomuko</item>
+        <item>Rejang Lebong</item>
+        <item>Seluma</item>
+        <item>Kota Bengkulu</item>
+    </string-array>
+    <!-- Regency Gorontalo -->
+    <string-array name="regency_gorontalo">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Boalemo</item>
+        <item>Bone Bolango</item>
+        <item>Gorontalo</item>
+        <item>Gorontalo Utara</item>
+        <item>Pohuwato</item>
+        <item>Kota Gorontalo</item>
+    </string-array>
+    <!-- Regency Jambi -->
+    <string-array name="regency_jambi">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Batanghari</item>
+        <item>Bungo</item>
+        <item>Kerinci</item>
+        <item>Merangin</item>
+        <item>Muaro Jambi</item>
+        <item>Sarolangun</item>
+        <item>Tanjung Jabung Barat</item>
+        <item>Tanjung Jabung Timur</item>
+        <item>Tebo</item>
+        <item>Kota Jambi</item>
+        <item>Kota Sungai Penuh</item>
+    </string-array>
+    <!-- Regency Jawa Barat -->
+    <string-array name="regency_jawa_barat">
+        <item>Pilih Kabupaten/Kota</item>
         <item>Bandung</item>
         <item>Bandung Barat</item>
-        <item>Bekasi (City)</item>
+        <item>Bekasi</item>
         <item>Bogor</item>
+        <item>Ciamis</item>
+        <item>Cianjur</item>
         <item>Cirebon</item>
         <item>Garut</item>
         <item>Indramayu</item>
         <item>Karawang</item>
         <item>Kuningan</item>
         <item>Majalengka</item>
-        <item>Purwakarta</item>
+        <item>Pangandaran</item>
+        <item>PURWAKARTA</item>
         <item>Subang</item>
         <item>Sukabumi</item>
         <item>Sumedang</item>
         <item>Tasikmalaya</item>
-        <item>Depok (City)</item>
-        <item>Cimahi (City)</item>
-        <item>Banjar (City)</item>
+        <item>Kota Bandung</item>
+        <item>Kota Banjar</item>
+        <item>Kota Bekasi</item>
+        <item>Kota Bogor</item>
+        <item>Kota Cimahi</item>
+        <item>Kota Cirebon</item>
+        <item>Kota Depok</item>
+        <item>Kota Sukabumi</item>
+        <item>Kota Tasikmalaya</item>
     </string-array>
-
-    <!-- Regency Central Java -->
-    <string-array name="regency_central_java">
-        <item>Select Regency</item>
+    <!-- Regency Jawa Tengah -->
+    <string-array name="regency_jawa_tengah">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Banjarnegara</item>
         <item>Banyumas</item>
         <item>Batang</item>
         <item>Blora</item>
@@ -43,41 +171,46 @@
         <item>Cilacap</item>
         <item>Demak</item>
         <item>Grobogan</item>
-        <item>Jepara</item>
-        <item>Karanganyar</item>
-        <item>Kebumen</item>
         <item>Kendal</item>
+        <item>Kebumen</item>
         <item>Klaten</item>
         <item>Kudus</item>
         <item>Magelang</item>
+        <item>Pati</item>
         <item>Pekalongan</item>
         <item>Pemalang</item>
         <item>Purbalingga</item>
-        <item>Purworejo</item>
-        <item>Salatiga (City)</item>
+        <item>Puworejo</item>
+        <item>Rembang</item>
         <item>Semarang</item>
         <item>Sragen</item>
         <item>Sukoharjo</item>
         <item>Tegal</item>
         <item>Temanggung</item>
+        <item>Wonogiri</item>
         <item>Wonosobo</item>
+        <item>Kota Magelang</item>
+        <item>Kota Pekalongan</item>
+        <item>Kota Salatiga</item>
+        <item>Kota Semarang</item>
+        <item>Kota Surakarta</item>
+        <item>Kota Tegal</item>
     </string-array>
-
-    <!-- Regency East Java -->
-    <string-array name="regency_east_java">
-        <item>Select Regency</item>
+    <!-- Regency Jawa Timur -->
+    <string-array name="regency_jawa_timur">
+        <item>Pilih Kabupaten/Kota</item>
         <item>Bangkalan</item>
         <item>Banyuwangi</item>
-        <item>Batu (City)</item>
         <item>Blitar</item>
         <item>Bojonegoro</item>
         <item>Bondowoso</item>
+        <item>Gresik</item>
         <item>Jember</item>
         <item>Jombang</item>
         <item>Kediri</item>
         <item>Lamongan</item>
         <item>Lumajang</item>
-        <item>Madiun (City)</item>
+        <item>Madiun</item>
         <item>Magetan</item>
         <item>Malang</item>
         <item>Mojokerto</item>
@@ -93,7 +226,445 @@
         <item>Situbondo</item>
         <item>Sumenep</item>
         <item>Trenggalek</item>
+        <item>Tuban</item>
         <item>Tulungagung</item>
+        <item>Kota Batu</item>
+        <item>Kota Blitar</item>
+        <item>Kota Kediri</item>
+        <item>Kota Madiun</item>
+        <item>Kota Malang</item>
+        <item>Kota Mojokerto</item>
+        <item>Kota Pasuruan</item>
+        <item>Kota Probolinggo</item>
+        <item>Kota Surabaya</item>
+    </string-array>
+    <!-- Regency Jakarta -->
+    <string-array name="regency_jakarta">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Jakarta Barat</item>
+        <item>Jakarta Pusat</item>
+        <item>Jakarta Selatan</item>
+        <item>Jakarta Timur</item>
+        <item>Jakarta Utara</item>
+        <item>Kepulauan Seribu</item>
+    </string-array>
+    <!-- Regency Kalimantan Barat -->
+    <string-array name="regency_kalimantan_barat">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bengkayang</item>
+        <item>Kapuas Hulu</item>
+        <item>Kayong Utara</item>
+        <item>Kubu Raya</item>
+        <item>Landak</item>
+        <item>Melawi</item>
+        <item>Mempawah</item>
+        <item>Sambas</item>
+        <item>Sanggau</item>
+        <item>Sekadau</item>
+        <item>Sintang</item>
+        <item>Kota Pontianak</item>
+        <item>Kota Singkawang</item>
+    </string-array>
+    <!-- Regency Kalimantan Selatan -->
+    <string-array name="regency_kalimantan_selatan">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Balangan</item>
+        <item>Banjar</item>
+        <item>Barito Kuala</item>
+        <item>Hulu Sungai Selatan</item>
+        <item>Hulu Sungai Tengah</item>
+        <item>Hulu Sungai Utara</item>
+        <item>Kotabaru</item>
+        <item>Tabalong</item>
+        <item>Tanah Bumbu</item>
+        <item>Tanah Laut</item>
+        <item>Tapin</item>
+        <item>Kota Banjarbaru</item>
+        <item>Kota Banjarmasin</item>
+    </string-array>
+    <!-- Regency Kalimantan Tengah -->
+    <string-array name="regency_kalimantan_tengah">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Barito Selatan</item>
+        <item>Barito Timur</item>
+        <item>Barito Utara</item>
+        <item>Gunung Mas</item>
+        <item>Kapuas</item>
+        <item>Katingan</item>
+        <item>Kotawaringin Barat</item>
+        <item>Kotawaringin Timur</item>
+        <item>Lamandau</item>
+        <item>Murung Raya</item>
+        <item>Pulang Pisau</item>
+        <item>Sukamara</item>
+        <item>Seruyan</item>
+        <item>Kota Palangka Raya</item>
+    </string-array>
+    <!-- Regency Kalimantan Timur -->
+    <string-array name="regency_kalimantan_timur">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Berau</item>
+        <item>Kutai Barat</item>
+        <item>Kutai Kartanegara</item>
+        <item>Kutai Timur</item>
+        <item>Mahakam Ulu</item>
+        <item>Paser</item>
+        <item>Penajam Paser Utara</item>
+        <item>Kota Balikpapan</item>
+        <item>Kota Bontang</item>
+        <item>Kota Samarinda</item>
+    </string-array>
+    <!-- Regency Kalimantan Utara -->
+    <string-array name="regency_kalimantan_utara">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bulungan</item>
+        <item>Malinau</item>
+        <item>Nunukan</item>
+        <item>Tana Tidung</item>
+        <item>Kota Tarakan</item>
+    </string-array>
+    <!-- Regency Kepulauan Bangka Belitung -->
+    <string-array name="regency_kepulauan_bangka_belitung">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bangka</item>
+        <item>Bangka Barat</item>
+        <item>Bangka Selatan</item>
+        <item>Bangka Tengah</item>
+        <item>Belitung</item>
+        <item>Belitung Timur</item>
+        <item>Kota Pangkal Pinang</item>
+    </string-array>
+    <!-- Regency Kepulauan Riau -->
+    <string-array name="regency_kepulauan_riau">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bintan</item>
+        <item>Karimun</item>
+        <item>Kepulauan Anambas</item>
+        <item>Lingga</item>
+        <item>Natuna</item>
+        <item>Kota Batam</item>
+        <item>Kota Tanjung Pinang</item>
+    </string-array>
+    <!-- Regency Lampung -->
+    <string-array name="regency_lampung">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bandar Lampung</item>
+        <item>Lampung Barat</item>
+        <item>Lampung Selatan</item>
+        <item>Lampung Tengah</item>
+        <item>Lampung Timur</item>
+        <item>Lampung Utara</item>
+        <item>Mesuji</item>
+        <item>Pesawaran</item>
+        <item>Pringsewu</item>
+        <item>Tanggamus</item>
+        <item>Tulang Bawang</item>
+        <item>Tulang Bawang Barat</item>
+        <item>Way Kanan</item>
+        <item>Kota Bandar Lampung</item>
+        <item>Kota Metro</item>
+    </string-array>
+    <!-- Regency Maluku -->
+    <string-array name="regency_maluku">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Buru</item>
+        <item>Buru Selatan</item>
+        <item>Kepulauan Aru</item>
+        <item>Maluku Barat Daya</item>
+        <item>Maluku Tengah</item>
+        <item>Maluku Tenggara</item>
+        <item>Maluku Tenggara Barat</item>
+        <item>Seram Bagian Barat</item>
+        <item>Seram Bagian Timur</item>
+        <item>Kota Ambon</item>
+        <item>Kota Tual</item>
+    </string-array>
+    <!-- Regency Maluku Utara -->
+    <string-array name="regency_maluku_utara">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Halmahera Barat</item>
+        <item>Halmahera Tengah</item>
+        <item>Halmahera Utara</item>
+        <item>Halmahera Selatan</item>
+        <item>Halmahera Timur</item>
+        <item>Kepulauan Sula</item>
+        <item>Pulau Morotai</item>
+        <item>Pulau Taliabu</item>
+        <item>Kota Ternate</item>
+        <item>Kota Tidore Kepulauan</item>
+    </string-array>
+    <!-- Regency Nusa Tenggara Barat -->
+    <string-array name="regency_nusa_tenggara_barat">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bima</item>
+        <item>Dompu</item>
+        <item>Lombok Barat</item>
+        <item>Lombok Tengah</item>
+        <item>Lombok Timur</item>
+        <item>Sumba Waingapu</item>
+        <item>Sumbawa</item>
+        <item>Sumbawa Barat</item>
+        <item>Kota Mataram</item>
+        <item>Kota Bima</item>
+    </string-array>
+    <!-- Regency Nusa Tenggara Timur -->
+    <string-array name="regency_nusa_tenggara_timur">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Alor</item>
+        <item>Ende</item>
+        <item>Flores Timur</item>
+        <item>Kapuas</item>
+        <item>Lebak</item>
+        <item>Lembata</item>
+        <item>NTT</item>
+        <item>Sikka</item>
+        <item>SoE</item>
+        <item>Sumba Barat</item>
+        <item>Sumba Timur</item>
+        <item>Timor Tengah Selatan</item>
+        <item>Timor Tengah Utara</item>
+        <item>Kota Kupang</item>
+    </string-array>
+    <!-- Regency Papua -->
+    <string-array name="regency_papua">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Asmat</item>
+        <item>Boven Digoel</item>
+        <item>Deiyai</item>
+        <item>Dogiyai</item>
+        <item>Intan Jaya</item>
+        <item>Jayapura</item>
+        <item>Jayawijaya</item>
+        <item>Kepulauan Yapen</item>
+        <item>Merauke</item>
+        <item>Paniai</item>
+        <item>Pengunungan Bintang</item>
+        <item>PT. Rindang</item>
+        <item>Supiori</item>
+        <item>Sarmi</item>
+        <item>Kota Jayapura</item>
+    </string-array>
+    <!-- Regency Papua Barat -->
+    <string-array name="regency_papua_barat">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Fakfak</item>
+        <item>Kaimana</item>
+        <item>Manokwari</item>
+        <item>Pegunungan Arfak</item>
+        <item>Raja Ampat</item>
+        <item>Semua</item>
+        <item>Tambrauw</item>
+        <item>Teluk Bintuni</item>
+        <item>Teluk Wondama</item>
+        <item>Kota Sorong</item>
+        <item>Kota Manokwari</item>
+    </string-array>
+    <!-- Regency Riau -->
+    <string-array name="regency_riau">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bengkalis</item>
+        <item>Indragiri Hilir</item>
+        <item>Indragiri Hulu</item>
+        <item>Kampar</item>
+        <item>Kerinci</item>
+        <item>Pekanbaru</item>
+        <item>Rokan Hilir</item>
+        <item>Rokan Hulu</item>
+        <item>Siak</item>
+        <item>Kota Pekanbaru</item>
+        <item>Kota Dumai</item>
+    </string-array>
+    <!-- Regency Sulawesi Barat -->
+    <string-array name="regency_sulawesi_barat">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Majene</item>
+        <item>Mamuju</item>
+        <item>Mamuju Tengah</item>
+        <item>Polewali Mandar</item>
+    </string-array>
+    <!-- Regency Sulawesi Selatan -->
+    <string-array name="regency_sulawesi_selatan">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Aliansi</item>
+        <item>Barru</item>
+        <item>Bone</item>
+        <item>Bulukumba</item>
+        <item>Enrekang</item>
+        <item>Gowa</item>
+        <item>Kepulauan Selayar</item>
+        <item>Luwu</item>
+        <item>Luwu Utara</item>
+        <item>Luwu Timur</item>
+        <item>Maros</item>
+        <item>Pangkep</item>
+        <item>Pinrang</item>
+        <item>Sidrap</item>
+        <item>Soppeng</item>
+        <item>Takalar</item>
+        <item>Tana Toraja</item>
+        <item>Toraja Utara</item>
+        <item>Kota Makassar</item>
+        <item>Kota Parepare</item>
+        <item>Kota Palopo</item>
+    </string-array>
+    <!-- Regency Sulawesi Tengah -->
+    <string-array name="regency_sulawesi_tengah">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Banggai</item>
+        <item>Bangkuang</item>
+        <item>Buol</item>
+        <item>Donggala</item>
+        <item>Morowali</item>
+        <item>Morowali Utara</item>
+        <item>Palu</item>
+        <item>Parigi Moutong</item>
+        <item>Poso</item>
+        <item>Sigi</item>
+        <item>Toli Toli</item>
+    </string-array>
+    <!-- Regency Sulawesi Tenggara -->
+    <string-array name="regency_sulawesi_tenggara">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bombana</item>
+        <item>Buton</item>
+        <item>Buton Selatan</item>
+        <item>Buton Utara</item>
+        <item>Konawe</item>
+        <item>Konawe Utara</item>
+        <item>Muna</item>
+        <item>Muna Barat</item>
+        <item>Southeast Sulawesi</item>
+        <item>Wakatobi</item>
+        <item>Kota Kendari</item>
+        <item>Kota Baubau</item>
+    </string-array>
+    <!-- Regency Sulawesi Utara -->
+    <string-array name="regency_sulawesi_utara">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Minahasa</item>
+        <item>Minahasa Selatan</item>
+        <item>Minahasa Utara</item>
+        <item>Bitung</item>
+        <item>Kota Manado</item>
+        <item>Kota Tomohon</item>
+        <item>Kota Kotamobagu</item>
+        <item>Bolmong</item>
+        <item>Bolmong Selatan</item>
+        <item>Bolmong Utara</item>
+    </string-array>
+    <!-- Regency Sumatra Barat -->
+    <string-array name="regency_sumatra_barat">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Agam</item>
+        <item>Dharmasraya</item>
+        <item>Kepulauan Mentawai</item>
+        <item>Lima Puluh Kota</item>
+        <item>Pesisir Selatan</item>
+        <item>Padang Pariaman</item>
+        <item>Pasaman</item>
+        <item>Pasaman Barat</item>
+        <item>Solok</item>
+        <item>Solok Selatan</item>
+        <item>Sijunjung</item>
+        <item>Kota Padang</item>
+        <item>Kota Bukittinggi</item>
+        <item>Kota Sawahlunto</item>
+        <item>Kota Padang Panjang</item>
+    </string-array>
+    <!-- Regency Sumatra Selatan -->
+    <string-array name="regency_sumatra_selatan">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Banyuasin</item>
+        <item>Empat Lawang</item>
+        <item>Lahat</item>
+        <item>Musi Banyuasin</item>
+        <item>Musi Rawas</item>
+        <item>Musi Rawas Utara</item>
+        <item>Ogan Ilir</item>
+        <item>Ogan Komering Ilir</item>
+        <item>Ogan Komering Ulu</item>
+        <item>Palembang</item>
+        <item>Pagar Alam</item>
+        <item>Prabumulih</item>
+        <item>South Sumatra</item>
+        <item>Kota Lubuklinggau</item>
+    </string-array>
+    <!-- Regency Sumatra Utara -->
+    <string-array name="regency_sumatra_utara">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Asahan</item>
+        <item>Batu Bara</item>
+        <item>Dairi</item>
+        <item>Deli Serdang</item>
+        <item>Humbang Hasundutan</item>
+        <item>Karo</item>
+        <item>Labuhan Batu</item>
+        <item>Labuhan Batu Selatan</item>
+        <item>Labuhan Batu Utara</item>
+        <item>Nias</item>
+        <item>Nias Barat</item>
+        <item>Nias Selatan</item>
+        <item>Nias Utara</item>
+        <item>Pematang Siantar</item>
+        <item>Samosir</item>
+        <item>Serdang Bedagai</item>
+        <item>Simalungun</item>
+        <item>Tapanuli Selatan</item>
+        <item>Tapanuli Tengah</item>
+        <item>Tapanuli Utara</item>
+        <item>Tebing Tinggi</item>
+        <item>Kota Medan</item>
+        <item>Kota Sibolga</item>
+        <item>Kota Pematangsiantar</item>
+    </string-array>
+    <!-- Regency Yogyakarta -->
+    <string-array name="regency_yogyakarta">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Bantul</item>
+        <item>Gunungkidul</item>
+        <item>Kota Yogyakarta</item>
+        <item>Sleman</item>
+    </string-array>
+    <!-- Regency Papua Selatan -->
+    <string-array name="regency_papua_selatan">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Asmat</item>
+        <item>Dogiyai</item>
+        <item>Intan Jaya</item>
+        <item>Maybrat</item>
+        <item>Merauke</item>
+        <item>Puncak Jaya</item>
+        <item>Sarmi</item>
+    </string-array>
+    <!-- Regency Papua Tengah -->
+    <string-array name="regency_papua_tengah">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Biak Numfor</item>
+        <item>Deiyai</item>
+        <item>Jayawijaya</item>
+        <item>Keerom</item>
+        <item>Puncak</item>
+        <item>Yahukimo</item>
+    </string-array>
+    <!-- Regency Papua Barat Daya -->
+    <string-array name="regency_papua_barat_daya">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Fakfak</item>
+        <item>Kota Sorong</item>
+        <item>Manokwari</item>
+        <item>Raja Ampat</item>
+        <item>Teluk Bintuni</item>
+        <item>Teluk Wondama</item>
+    </string-array>
+    <!-- Regency Papua Pegunungan -->
+    <string-array name="regency_papua_pegunungan">
+        <item>Pilih Kabupaten/Kota</item>
+        <item>Jayawijaya</item>
+        <item>Lanny Jaya</item>
+        <item>Mountain Papua</item>
+        <item>Nibung</item>
+        <item>Puncak Jaya</item>
+        <item>Yalimo</item>
     </string-array>
 
     <!-- Default State -->
