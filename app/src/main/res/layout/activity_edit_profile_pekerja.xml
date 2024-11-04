@@ -45,7 +45,7 @@
                     android:layout_height="40sp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/settings_icon"
-                    app:shapeAppearanceOverlay="@style/roundesprofileImage"/>
+                    app:shapeAppearanceOverlay="@style/roundedProfileImage"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -53,7 +53,7 @@
             android:layout_width="100sp"
             android:layout_height="100sp"
             android:id="@+id/iv_profile2_editProfilePekerjaPage"
-            app:shapeAppearanceOverlay="@style/roundesprofileImage"
+            app:shapeAppearanceOverlay="@style/roundedProfileImage"
             android:src="@drawable/default_no_profile_icon"
             android:scaleType="centerCrop"
             android:layout_gravity="center"
@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:padding="10sp"
-                    android:background="@drawable/rounded_blue_border"
+                    android:background="@drawable/shape_rounded_blue_border"
                     android:fontFamily="@font/poppins_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -116,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="phone"
                     android:padding="10sp"
-                    android:background="@drawable/rounded_blue_border"
+                    android:background="@drawable/shape_rounded_blue_border"
                     android:fontFamily="@font/poppins_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="10sp"
-                    android:background="@drawable/rounded_blue_border"
+                    android:background="@drawable/shape_rounded_blue_border"
                     android:fontFamily="@font/poppins_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:padding="10sp"
-                    android:background="@drawable/rounded_blue_border"
+                    android:background="@drawable/shape_rounded_blue_border"
                     android:fontFamily="@font/poppins_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -194,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:padding="10sp"
-                    android:background="@drawable/rounded_blue_border"
+                    android:background="@drawable/shape_rounded_blue_border"
                     android:fontFamily="@font/poppins_regular"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -221,7 +221,7 @@
                     android:inputType="textMultiLine"
                     android:lines="5"
                     android:padding="10sp"
-                    android:background="@drawable/rounded_blue_border"
+                    android:background="@drawable/shape_rounded_blue_border"
                     android:fontFamily="@font/poppins_regular"
                     android:layout_marginBottom="75sp"/>
 
@@ -236,7 +236,7 @@
                 android:paddingHorizontal="8sp"
                 android:paddingVertical="8sp"
                 android:backgroundTint="@null"
-                android:background="@drawable/rounded_blue_button"
+                android:background="@drawable/shape_blue_rounded"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_marginBottom="20sp"/>
         </LinearLayout>

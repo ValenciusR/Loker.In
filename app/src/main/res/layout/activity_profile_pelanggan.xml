@@ -73,7 +73,7 @@
             android:paddingVertical="10sp"
             android:layout_marginRight="12sp"
             android:backgroundTint="@null"
-            android:background="@drawable/rounded_blue_button"
+            android:background="@drawable/shape_blue_rounded"
             android:fontFamily="@font/poppins_medium"/>
 
         <androidx.appcompat.widget.AppCompatButton

@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
                 android:padding="10dp"
-                android:background="@drawable/rounded_blue_border"
+                android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:padding="10dp"
-                android:background="@drawable/rounded_blue_border"
+                android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="text"
                 android:padding="10dp"
-                android:background="@drawable/rounded_blue_border"
+                android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
                 android:padding="10dp"
-                android:background="@drawable/rounded_blue_border"
+                android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -179,7 +179,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:backgroundTint="@null"
-            android:background="@drawable/rounded_blue_button"
+            android:background="@drawable/shape_blue_rounded"
             android:fontFamily="@font/poppins_medium"/>
     </LinearLayout>
 </LinearLayout>
