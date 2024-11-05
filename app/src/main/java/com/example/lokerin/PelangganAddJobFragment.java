@@ -19,6 +19,7 @@ public class PelangganAddJobFragment extends Fragment {
     private Spinner spinnerProvince, spinnerRegency;
     private EditText etJobTitle, etDescription, etSalary, etAddress;
     private String frequentSalary = "";
+    private boolean isCategorySelected = false; ;
     private ArrayAdapter<CharSequence> regencyAdapter;
 
     @Override
@@ -50,7 +51,8 @@ public class PelangganAddJobFragment extends Fragment {
             bundle.putString("selectedProvince", spinnerProvince.getSelectedItem().toString());
             bundle.putString("selectedRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
             bundle.putString("address", etAddress.getText().toString());
-
+            isCategorySelected = true;
+            btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
             PelangganAddJobCategoryFragment categoryFragment = new PelangganAddJobCategoryFragment();
             categoryFragment.setArguments(bundle);
             requireActivity().getSupportFragmentManager().beginTransaction()
@@ -79,7 +81,7 @@ public class PelangganAddJobFragment extends Fragment {
         spinnerProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                if (position >= 0 && position < 38) {
+                if (position >= 1 && position < 39) {
                     spinnerRegency.setEnabled(true);
                     updateRegencySpinner(position);
                 } else {
@@ -94,21 +96,94 @@ public class PelangganAddJobFragment extends Fragment {
             }
         });
 
+        btnSubmit.setOnClickListener(v -> {
+            boolean isValid = true;
+
+            if (etJobTitle.getText().toString().trim().isEmpty()) {
+                etJobTitle.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                isValid = false;
+            } else {
+                etJobTitle.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (etDescription.getText().toString().trim().isEmpty()) {
+                etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                isValid = false;
+            } else {
+                etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (etSalary.getText().toString().trim().isEmpty()) {
+                etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                isValid = false;
+            } else {
+                etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (etAddress.getText().toString().trim().isEmpty()) {
+                etAddress.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                isValid = false;
+            } else {
+                etAddress.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (frequentSalary.isEmpty()) {
+                btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
+                btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
+                btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
+                isValid = false;
+            }
+
+            if (spinnerProvince.getSelectedItemPosition() == 0) {
+                spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                isValid = false;
+            } else {
+                spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
+                spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                isValid = false;
+            } else {
+                spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (!isCategorySelected) {
+                btnCategory.setBackgroundResource(R.drawable.shape_red_rounded);
+            } else {
+                btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
+            }
+
+            if (isValid) {
+                Toast.makeText(getContext(), "Job uploaded successfully", Toast.LENGTH_SHORT).show();
+                //Function add job nya disini ya nanti
+            } else {
+                Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
     private void setSelectedButton(Button selectedButton) {
-        if (selectedButton == btnDaily){
-            btnDaily.setSelected(selectedButton == btnDaily);
+        btnDaily.setBackgroundResource(R.drawable.selector_item_salary_bg);
+        btnWeekly.setBackgroundResource(R.drawable.selector_item_salary_bg);
+        btnMonthly.setBackgroundResource(R.drawable.selector_item_salary_bg);
+
+        btnDaily.setSelected(false);
+        btnWeekly.setSelected(false);
+        btnMonthly.setSelected(false);
+        selectedButton.setSelected(true);
+
+        if (selectedButton == btnDaily) {
             frequentSalary = "Daily";
-        } else if (selectedButton == btnWeekly){
-            btnWeekly.setSelected(selectedButton == btnWeekly);
+        } else if (selectedButton == btnWeekly) {
             frequentSalary = "Weekly";
-        } else if (selectedButton == btnMonthly){
-            btnMonthly.setSelected(selectedButton == btnMonthly);
+        } else if (selectedButton == btnMonthly) {
             frequentSalary = "Monthly";
         }
     }
+
 
     private void updateRegencySpinner(int provincePosition) {
         int regencyArrayId;

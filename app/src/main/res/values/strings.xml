@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="province">
+        <item>Choose Province</item>
         <item>Aceh</item>
         <item>Bali</item>
         <item>Banten</item>
@@ -46,7 +47,7 @@
 
     <!-- Regency Aceh -->
     <string-array name="regency_aceh">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Aceh Barat</item>
         <item>Aceh Barat Daya</item>
         <item>Aceh Besar</item>
@@ -66,7 +67,7 @@
     </string-array>
     <!-- Regency Bali -->
     <string-array name="regency_bali">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Badung</item>
         <item>Bangli</item>
         <item>Buleleng</item>
@@ -79,7 +80,7 @@
     </string-array>
     <!-- Regency Banten -->
     <string-array name="regency_banten">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Cilegon</item>
         <item>Lebak</item>
         <item>Pandeglang</item>
@@ -91,7 +92,7 @@
     </string-array>
     <!-- Regency Bengkulu -->
     <string-array name="regency_bengkulu">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bengkulu Selatan</item>
         <item>Bengkulu Tengah</item>
         <item>Bengkulu Utara</item>
@@ -105,7 +106,7 @@
     </string-array>
     <!-- Regency Gorontalo -->
     <string-array name="regency_gorontalo">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Boalemo</item>
         <item>Bone Bolango</item>
         <item>Gorontalo</item>
@@ -115,7 +116,7 @@
     </string-array>
     <!-- Regency Jambi -->
     <string-array name="regency_jambi">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Batanghari</item>
         <item>Bungo</item>
         <item>Kerinci</item>
@@ -130,7 +131,7 @@
     </string-array>
     <!-- Regency Jawa Barat -->
     <string-array name="regency_jawa_barat">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bandung</item>
         <item>Bandung Barat</item>
         <item>Bekasi</item>
@@ -161,7 +162,7 @@
     </string-array>
     <!-- Regency Jawa Tengah -->
     <string-array name="regency_jawa_tengah">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Banjarnegara</item>
         <item>Banyumas</item>
         <item>Batang</item>
@@ -198,7 +199,7 @@
     </string-array>
     <!-- Regency Jawa Timur -->
     <string-array name="regency_jawa_timur">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bangkalan</item>
         <item>Banyuwangi</item>
         <item>Blitar</item>
@@ -240,7 +241,7 @@
     </string-array>
     <!-- Regency Jakarta -->
     <string-array name="regency_jakarta">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Jakarta Barat</item>
         <item>Jakarta Pusat</item>
         <item>Jakarta Selatan</item>
@@ -250,7 +251,7 @@
     </string-array>
     <!-- Regency Kalimantan Barat -->
     <string-array name="regency_kalimantan_barat">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bengkayang</item>
         <item>Kapuas Hulu</item>
         <item>Kayong Utara</item>
@@ -267,7 +268,7 @@
     </string-array>
     <!-- Regency Kalimantan Selatan -->
     <string-array name="regency_kalimantan_selatan">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Balangan</item>
         <item>Banjar</item>
         <item>Barito Kuala</item>
@@ -284,7 +285,7 @@
     </string-array>
     <!-- Regency Kalimantan Tengah -->
     <string-array name="regency_kalimantan_tengah">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Barito Selatan</item>
         <item>Barito Timur</item>
         <item>Barito Utara</item>
@@ -302,7 +303,7 @@
     </string-array>
     <!-- Regency Kalimantan Timur -->
     <string-array name="regency_kalimantan_timur">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Berau</item>
         <item>Kutai Barat</item>
         <item>Kutai Kartanegara</item>
@@ -316,7 +317,7 @@
     </string-array>
     <!-- Regency Kalimantan Utara -->
     <string-array name="regency_kalimantan_utara">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bulungan</item>
         <item>Malinau</item>
         <item>Nunukan</item>
@@ -325,7 +326,7 @@
     </string-array>
     <!-- Regency Kepulauan Bangka Belitung -->
     <string-array name="regency_kepulauan_bangka_belitung">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bangka</item>
         <item>Bangka Barat</item>
         <item>Bangka Selatan</item>
@@ -336,7 +337,7 @@
     </string-array>
     <!-- Regency Kepulauan Riau -->
     <string-array name="regency_kepulauan_riau">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bintan</item>
         <item>Karimun</item>
         <item>Kepulauan Anambas</item>
@@ -347,7 +348,7 @@
     </string-array>
     <!-- Regency Lampung -->
     <string-array name="regency_lampung">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bandar Lampung</item>
         <item>Lampung Barat</item>
         <item>Lampung Selatan</item>
@@ -366,7 +367,7 @@
     </string-array>
     <!-- Regency Maluku -->
     <string-array name="regency_maluku">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Buru</item>
         <item>Buru Selatan</item>
         <item>Kepulauan Aru</item>
@@ -381,7 +382,7 @@
     </string-array>
     <!-- Regency Maluku Utara -->
     <string-array name="regency_maluku_utara">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Halmahera Barat</item>
         <item>Halmahera Tengah</item>
         <item>Halmahera Utara</item>
@@ -395,7 +396,7 @@
     </string-array>
     <!-- Regency Nusa Tenggara Barat -->
     <string-array name="regency_nusa_tenggara_barat">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bima</item>
         <item>Dompu</item>
         <item>Lombok Barat</item>
@@ -409,7 +410,7 @@
     </string-array>
     <!-- Regency Nusa Tenggara Timur -->
     <string-array name="regency_nusa_tenggara_timur">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Alor</item>
         <item>Ende</item>
         <item>Flores Timur</item>
@@ -427,7 +428,7 @@
     </string-array>
     <!-- Regency Papua -->
     <string-array name="regency_papua">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Asmat</item>
         <item>Boven Digoel</item>
         <item>Deiyai</item>
@@ -446,7 +447,7 @@
     </string-array>
     <!-- Regency Papua Barat -->
     <string-array name="regency_papua_barat">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Fakfak</item>
         <item>Kaimana</item>
         <item>Manokwari</item>
@@ -461,7 +462,7 @@
     </string-array>
     <!-- Regency Riau -->
     <string-array name="regency_riau">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bengkalis</item>
         <item>Indragiri Hilir</item>
         <item>Indragiri Hulu</item>
@@ -476,7 +477,7 @@
     </string-array>
     <!-- Regency Sulawesi Barat -->
     <string-array name="regency_sulawesi_barat">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Majene</item>
         <item>Mamuju</item>
         <item>Mamuju Tengah</item>
@@ -484,7 +485,7 @@
     </string-array>
     <!-- Regency Sulawesi Selatan -->
     <string-array name="regency_sulawesi_selatan">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Aliansi</item>
         <item>Barru</item>
         <item>Bone</item>
@@ -509,7 +510,7 @@
     </string-array>
     <!-- Regency Sulawesi Tengah -->
     <string-array name="regency_sulawesi_tengah">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Banggai</item>
         <item>Bangkuang</item>
         <item>Buol</item>
@@ -524,7 +525,7 @@
     </string-array>
     <!-- Regency Sulawesi Tenggara -->
     <string-array name="regency_sulawesi_tenggara">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bombana</item>
         <item>Buton</item>
         <item>Buton Selatan</item>
@@ -540,7 +541,7 @@
     </string-array>
     <!-- Regency Sulawesi Utara -->
     <string-array name="regency_sulawesi_utara">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Minahasa</item>
         <item>Minahasa Selatan</item>
         <item>Minahasa Utara</item>
@@ -554,7 +555,7 @@
     </string-array>
     <!-- Regency Sumatra Barat -->
     <string-array name="regency_sumatra_barat">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Agam</item>
         <item>Dharmasraya</item>
         <item>Kepulauan Mentawai</item>
@@ -573,7 +574,7 @@
     </string-array>
     <!-- Regency Sumatra Selatan -->
     <string-array name="regency_sumatra_selatan">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Banyuasin</item>
         <item>Empat Lawang</item>
         <item>Lahat</item>
@@ -591,7 +592,7 @@
     </string-array>
     <!-- Regency Sumatra Utara -->
     <string-array name="regency_sumatra_utara">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Asahan</item>
         <item>Batu Bara</item>
         <item>Dairi</item>
@@ -619,7 +620,7 @@
     </string-array>
     <!-- Regency Yogyakarta -->
     <string-array name="regency_yogyakarta">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Bantul</item>
         <item>Gunungkidul</item>
         <item>Kota Yogyakarta</item>
@@ -627,7 +628,7 @@
     </string-array>
     <!-- Regency Papua Selatan -->
     <string-array name="regency_papua_selatan">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Asmat</item>
         <item>Dogiyai</item>
         <item>Intan Jaya</item>
@@ -638,7 +639,7 @@
     </string-array>
     <!-- Regency Papua Tengah -->
     <string-array name="regency_papua_tengah">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Biak Numfor</item>
         <item>Deiyai</item>
         <item>Jayawijaya</item>
@@ -648,7 +649,7 @@
     </string-array>
     <!-- Regency Papua Barat Daya -->
     <string-array name="regency_papua_barat_daya">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Fakfak</item>
         <item>Kota Sorong</item>
         <item>Manokwari</item>
@@ -658,7 +659,7 @@
     </string-array>
     <!-- Regency Papua Pegunungan -->
     <string-array name="regency_papua_pegunungan">
-        <item>Pilih Kabupaten/Kota</item>
+        <item>Choose Regency</item>
         <item>Jayawijaya</item>
         <item>Lanny Jaya</item>
         <item>Mountain Papua</item>
