@@ -20,6 +20,15 @@
             android:exported="false" />
         <activity
             android:name=".ProfilePelangganActivity"
+            android:exported="false"  />
+        <activity
+            android:name=".PekerjaDetailJobActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PelangganAddJobCategoryFragment"
+            android:exported="false" />
+        <activity
+            android:name=".PelangganDetailJobActivity"
             android:exported="false" />
         <activity
             android:name=".CreateProfile_WorkExperience"
@@ -35,6 +44,15 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateProfile"
+            android:exported="false" />
+        <activity
+            android:name=".PelangganMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,21 +61,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:exported="true" />
-        <activity
-            android:name=".CreateProfile"
-            android:exported="false" />
-        <activity
-            android:name=".ChatActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PelangganMainActivity"
-            android:exported="true" />
-            <activity
             android:name=".PelangganRatingReviewActivity"
             android:exported="false" />
     </application>

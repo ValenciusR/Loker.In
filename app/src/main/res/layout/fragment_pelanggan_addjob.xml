@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,11 +26,12 @@
                 android:text="JOB INFORMATION"
                 android:textColor="@color/darkBlue"
                 android:textSize="20dp" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:background="@color/blue"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp" />
 
             <!-- JOB TITLE -->
             <TextView
@@ -40,6 +42,7 @@
                 android:text="JOB TITLE"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
+
             <EditText
                 android:id="@+id/et_job_addJob"
                 android:layout_width="match_parent"
@@ -51,7 +54,6 @@
                 android:padding="10dp"
                 android:textColor="@color/black" />
 
-            <!-- CATEGORY [NEED ENHANCEMENT ON THE CATEGORY PAGE] -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +62,7 @@
                 android:text="CATEGORY"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
+
             <Button
                 android:id="@+id/btn_category_addJob"
                 android:layout_width="match_parent"
@@ -73,7 +76,7 @@
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical|start"
                 android:text="Choose Category"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false" />
 
             <!-- DESCRIPTION -->
             <TextView
@@ -84,6 +87,7 @@
                 android:text="DESCRIPTION"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
+
             <EditText
                 android:id="@+id/et_description_addJob"
                 android:layout_width="match_parent"
@@ -104,6 +108,7 @@
                 android:text="SALARY"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
+
             <EditText
                 android:id="@+id/et_salary_addJob"
                 android:layout_width="match_parent"
@@ -115,8 +120,7 @@
                 android:padding="10dp"
                 android:textColor="@color/black" />
 
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -163,6 +167,52 @@
                     android:textSize="12sp" />
             </LinearLayout>
 
+            <!-- UPLOAD IMAGE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="UPLOAD IMAGE"
+                android:textColor="#1977F3"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp" />
+
+            <RelativeLayout
+                android:id="@+id/upload_image_container"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/iv_upload_image_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/icon_add_photo"
+                    app:tint="@color/blue" />
+                <TextView
+                    android:id="@+id/tv_upload_image_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_upload_image_icon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="8dp"
+                    android:text="Tap to upload image"
+                    android:textColor="@color/blue"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="12sp" />
+                <ImageView
+                    android:id="@+id/iv_uploaded_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
 
             <!-- SECTION : ADDRESS DETAIL -->
             <TextView
@@ -179,7 +229,7 @@
                 android:background="@color/blue"
                 android:layout_marginBottom="16dp"/>
 
-            <!-- PROVINCE [NEED ENHANCEMENT USE OPEN API] -->
+            <!-- PROVINCE -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -201,7 +251,7 @@
                 android:dropDownHorizontalOffset="10dp"
                 android:dropDownWidth="match_parent" />
 
-            <!-- REGENCY [NEED ENHANCEMENT USE OPEN API] -->
+            <!-- REGENCY -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -242,7 +292,7 @@
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
@@ -251,6 +301,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
+                android:layout_marginBottom="120dp"
                 android:text="Upload Job"
                 android:textColor="#FFFFFF" />
 
