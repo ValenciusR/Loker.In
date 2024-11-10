@@ -6,6 +6,8 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/blue</item>
         <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnBackground">@color/white</item>
+        <item name="colorSurface">@color/white</item>
     </style>
 
     <style name="Theme.Lokerin" parent="Base.Theme.Lokerin" />

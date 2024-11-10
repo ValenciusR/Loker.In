@@ -1,8 +1,16 @@
 package com.example.lokerin;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +18,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class PelangganAddJobFragment extends Fragment {
 
@@ -22,24 +38,36 @@ public class PelangganAddJobFragment extends Fragment {
     private boolean isCategorySelected = false; ;
     private ArrayAdapter<CharSequence> regencyAdapter;
 
+    private static final int IMAGE_PICK_CODE = 1000;
+    private ImageView uploadedImageView;
+    private ImageView uploadIcon;
+    private TextView uploadText;
+    private ActivityResultLauncher<String> imagePickerLauncher;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_pelanggan_addjob, container, false);
 
+        etJobTitle = view.findViewById(R.id.et_job_addJob);
+        etDescription = view.findViewById(R.id.et_description_addJob);
+        etSalary = view.findViewById(R.id.et_salary_addJob);
         btnCategory = view.findViewById(R.id.btn_category_addJob);
         btnDaily = view.findViewById(R.id.btn_dailySalary_addJob);
         btnWeekly = view.findViewById(R.id.btn_weeklySalary_addJob);
         btnMonthly = view.findViewById(R.id.btn_monthlySalary_addJob);
-        btnSubmit = view.findViewById(R.id.btn_addJob);
+
+        RelativeLayout uploadContainer = view.findViewById(R.id.upload_image_container);
+        uploadedImageView = view.findViewById(R.id.iv_uploaded_image);
+        uploadIcon = view.findViewById(R.id.iv_upload_image_icon);
+        uploadText = view.findViewById(R.id.tv_upload_image_text);
+
         spinnerProvince = view.findViewById(R.id.spinner_province_addJob);
         spinnerRegency = view.findViewById(R.id.spinner_regency_addJob);
-
-        etJobTitle = view.findViewById(R.id.et_job_addJob);
-        etDescription = view.findViewById(R.id.et_description_addJob);
-        etSalary = view.findViewById(R.id.et_salary_addJob);
         etAddress = view.findViewById(R.id.et_address_addJob);
+
+        btnSubmit = view.findViewById(R.id.btn_addJob);
 
         btnCategory.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
@@ -73,6 +101,13 @@ public class PelangganAddJobFragment extends Fragment {
         btnWeekly.setOnClickListener(v -> setSelectedButton(btnWeekly));
         btnMonthly.setOnClickListener(v -> setSelectedButton(btnMonthly));
 
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                this::handleImageSelection
+        );
+
+        uploadContainer.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
+
         ArrayAdapter<CharSequence> provinceAdapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.province, R.layout.spinner_item);
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
@@ -99,66 +134,81 @@ public class PelangganAddJobFragment extends Fragment {
         btnSubmit.setOnClickListener(v -> {
             boolean isValid = true;
 
-            if (etJobTitle.getText().toString().trim().isEmpty()) {
+            if (etJobTitle.getText().toString().trim().length() < 8) {
                 etJobTitle.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                Toast.makeText(getContext(), "Job title must be at least 8 characters", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 etJobTitle.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            if (etDescription.getText().toString().trim().isEmpty()) {
+            if (isValid && !isCategorySelected) {
+                btnCategory.setBackgroundResource(R.drawable.shape_red_rounded);
+                Toast.makeText(getContext(), "Please select a category", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            } else {
+                btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
+            }
+
+            if (isValid && etDescription.getText().toString().trim().length() < 20) {
                 etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                Toast.makeText(getContext(), "Description must be at least 20 characters", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            if (etSalary.getText().toString().trim().isEmpty()) {
-                etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                isValid = false;
-            } else {
-                etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            if (isValid) {
+                try {
+                    double salaryValue = Double.parseDouble(etSalary.getText().toString().trim());
+                    if (salaryValue <= 0) {
+                        etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                        Toast.makeText(getContext(), "Salary must be a positive number", Toast.LENGTH_SHORT).show();
+                        isValid = false;
+                    } else {
+                        etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    }
+                } catch (NumberFormatException e) {
+                    etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    Toast.makeText(getContext(), "Salary must be a valid number", Toast.LENGTH_SHORT).show();
+                    isValid = false;
+                }
             }
 
-            if (etAddress.getText().toString().trim().isEmpty()) {
-                etAddress.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                isValid = false;
-            } else {
-                etAddress.setBackgroundResource(R.drawable.shape_rounded_blue_border);
-            }
-
-            if (frequentSalary.isEmpty()) {
+            if (isValid && frequentSalary.isEmpty()) {
                 btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
                 btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
                 btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
+                Toast.makeText(getContext(), "Please select a salary frequency", Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
 
-            if (spinnerProvince.getSelectedItemPosition() == 0) {
+            if (isValid && spinnerProvince.getSelectedItemPosition() == 0) {
                 spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                Toast.makeText(getContext(), "Please select a province", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            if (spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
+            if (isValid && spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
                 spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                Toast.makeText(getContext(), "Please select a regency", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            if (!isCategorySelected) {
-                btnCategory.setBackgroundResource(R.drawable.shape_red_rounded);
+            if (isValid && etAddress.getText().toString().trim().length() < 20) {
+                etAddress.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                Toast.makeText(getContext(), "Address must be at least 20 characters", Toast.LENGTH_SHORT).show();
+                isValid = false;
             } else {
-                btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
+                etAddress.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
             if (isValid) {
                 Toast.makeText(getContext(), "Job uploaded successfully", Toast.LENGTH_SHORT).show();
-                //Function add job nya disini ya nanti
-            } else {
-                Toast.makeText(getContext(), "Please fill in all required fields", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -184,6 +234,28 @@ public class PelangganAddJobFragment extends Fragment {
         }
     }
 
+    private void handleImageSelection(Uri uri) {
+        if (uri != null) {
+            try {
+                uploadedImageView.setVisibility(View.VISIBLE);
+                uploadIcon.setVisibility(View.GONE);
+                uploadText.setVisibility(View.GONE);
+                uploadedImageView.setImageURI(uri);
+
+                InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                uploadedImageView.setImageBitmap(bitmap);
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(getContext(), "No image selected", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void updateRegencySpinner(int provincePosition) {
         int regencyArrayId;
@@ -306,7 +378,6 @@ public class PelangganAddJobFragment extends Fragment {
             default:
                 regencyArrayId = R.array.empty_array;
         }
-
 
         regencyAdapter = ArrayAdapter.createFromResource(getContext(),
                 regencyArrayId, R.layout.spinner_item);
