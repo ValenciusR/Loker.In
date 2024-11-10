@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".PekerjaDetailJobActivity"
+            android:exported="false" />
+        <activity
             android:name=".PelangganAddJobCategoryFragment"
             android:exported="false" />
         <activity
@@ -35,8 +38,7 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".CreateProfile"
             android:exported="false" />

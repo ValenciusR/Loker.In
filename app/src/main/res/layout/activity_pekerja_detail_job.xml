@@ -1,0 +1,225 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PelangganDetailJobActivity"
+    android:background="#FAFCFE">
+
+    <include
+        android:id="@+id/toolbar_submain"
+        layout="@layout/toolbar_submain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true" />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_submain"
+        android:layout_margin="16sp"
+        app:cardElevation="4sp"
+        app:cardCornerRadius="8sp">
+
+        <LinearLayout
+            android:id="@+id/general_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16sp">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Center Title"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Small detail text"
+                android:textColor="#888888"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp" />
+
+            <!-- ITEMS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16sp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <!-- FIRST ITEM -->
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/icon1"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:src="@drawable/image_login_page"
+                        android:contentDescription="Icon 1" />
+
+                    <TextView
+                        android:id="@+id/label1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_medium" />
+                </LinearLayout>
+
+                <!-- SECOND ITEM -->
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/icon2"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:src="@drawable/image_login_page"
+                        android:contentDescription="Icon 2" />
+
+                    <TextView
+                        android:id="@+id/label2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_medium" />
+                </LinearLayout>
+
+                <!-- THIRD ITEM -->
+                <LinearLayout
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/icon3"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/image_login_page"
+                        android:contentDescription="Icon 3" />
+
+                    <TextView
+                        android:id="@+id/label3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="End Job Date"
+                        android:textColor="#000000"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/poppins_medium" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8sp"
+                android:padding="8sp"
+                android:text="Sample Text"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_grey_rounded"
+                android:gravity="center" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_main">
+        <LinearLayout
+            android:layout_below="@+id/card_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20sp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job Description"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_bold"
+                />
+
+            <TextView
+                android:id="@+id/tv_jobDescription_pekerjaDetailJobPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#77797c"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_light"
+                android:layout_marginStart="30sp"
+                android:text="Lorem ipsum odor amet, consectetuer adipiscing elit. Elementum aliquam sem lacinia potenti blandit risus dis dignissim tortor. Vivamus bibendum nunc faucibus parturient condimentum faucibus nisl. Rhoncus molestie elementum ultrices volutpat eleifend diam. Class cras potenti est consectetur blandit. Pulvinar justo nec metus, pellentesque suspendisse facilisi scelerisque. Congue consequat fermentum fusce orci lacus tellus elit aptent. Adipiscing congue proin pretium phasellus vehicula nisi per. Nulla dictum posuere fusce pulvinar dictum magna nostra odio scelerisque.
+\n\n
+Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc est ullamcorper finibus sagittis. Elementum tortor eu odio primis id fermentum tempor habitasse. Eleifend dapibus diam habitant ut, molestie feugiat taciti. Natoque nam aliquam nostra rutrum posuere interdum, blandit condimentum. Nibh facilisis iaculis, mollis ligula risus sodales."/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="50sp"
+                android:layout_marginBottom="10sp">
+
+                <!-- Left Button (1/5th of the screen width) -->
+                <Button
+                    android:id="@+id/bt_chat_pekerjaDetailJobPage"
+                    android:layout_width="50sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chat"
+                    android:textColor="#1977f3"
+                    android:layout_marginEnd="12sp"
+                    android:backgroundTint="@null"
+                    android:background="@drawable/shape_rounded_blue_border"/>
+
+                <!-- Right Button (remaining 4/5ths of the screen width) -->
+                <Button
+                    android:id="@+id/bt_action_pekerjaDetailJobPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:textColor="#FFFFFF"
+                    android:text="Apply Job"
+                    android:backgroundTint="@null"
+                    android:background="@drawable/shape_blue_rounded"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+
+
+
+</RelativeLayout>
