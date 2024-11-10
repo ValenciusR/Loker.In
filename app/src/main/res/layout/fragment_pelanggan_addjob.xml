@@ -301,6 +301,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="8dp"
+                android:layout_marginBottom="120dp"
                 android:text="Upload Job"
                 android:textColor="#FFFFFF" />
 
