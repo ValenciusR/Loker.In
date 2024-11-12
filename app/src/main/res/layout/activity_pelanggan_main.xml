@@ -21,7 +21,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:padding="10dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:clipChildren="false">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavView"
@@ -36,7 +38,8 @@
             app:itemBackground="@android:color/transparent"
             app:itemTextAppearanceActive="@style/ActiveTextAppearance"
             app:itemTextAppearanceInactive="@style/InactiveTextAppearance"
-            style="@style/RemoveRippleColor"/>
+            style="@style/RemoveRippleColor"
+            />
     </FrameLayout>
 
 </RelativeLayout>
