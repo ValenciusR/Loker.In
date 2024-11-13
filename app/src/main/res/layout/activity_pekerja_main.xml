@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PelangganMainActivity">
+    tools:context=".PekerjaMainActivity">
     <include layout="@layout/toolbar_main"/>
 
     <FrameLayout
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:background="@drawable/shape_bottom_nav"
-            app:menu="@menu/bottom_nav_menu_pelanggan"
+            app:menu="@menu/bottom_nav_menu_pekerja"
             app:itemIconSize="40dp"
             app:itemIconTint="@drawable/selector_item_nav"
             app:itemTextColor="@drawable/selector_item_nav"

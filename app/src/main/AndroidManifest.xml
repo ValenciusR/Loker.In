@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".PekerjaCategorizedJobActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PekerjaRecommendJobActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditProfilePekerjaActivity"
             android:exported="false" />
         <activity
@@ -20,7 +26,7 @@
             android:exported="false" />
         <activity
             android:name=".ProfilePelangganActivity"
-            android:exported="false"  />
+            android:exported="false" />
         <activity
             android:name=".PekerjaDetailJobActivity"
             android:exported="false" />
@@ -53,6 +59,9 @@
             android:exported="false" />
         <activity
             android:name=".PelangganMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PekerjaMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
