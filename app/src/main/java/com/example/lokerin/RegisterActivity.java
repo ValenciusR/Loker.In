@@ -1,6 +1,7 @@
 package com.example.lokerin;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -49,6 +50,10 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn = findViewById(R.id.btn_register_registerPage);
         loginLink = findViewById(R.id.login_link_registerPage);
 
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Please Wait..");
+        progressDialog.setCancelable(false);
+
 
         loginLink.setOnClickListener(view -> {
             Intent loginIntent = new Intent(this, LoginActivity.class);
@@ -57,27 +62,35 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         registerBtn.setOnClickListener(view -> {
+            progressDialog.show();
             String email = emailField.getText().toString();
             String password = passwordField.getText().toString();
             String passwordConf = confPasswordField.getText().toString();
 
             if (!email.contains("@") || !email.endsWith(".com")) {
                 Toast.makeText(this, "Email must contain '@' and ends with '.com'", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             } else if (email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()) {
                 Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             } else if (password.length() < 6) {
                 Toast.makeText(this, "Password length must be more than 5 characters", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             } else if (!password.equals(passwordConf)) {
                 Toast.makeText(this, "Password and Confirm Password does not match", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             } else {
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
                     if (!task.isSuccessful()) {
                         Toast.makeText(this, "Register Failed, email already exits", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     } else {
-                        Toast.makeText(this, "Register Success, go Back to Login", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
                         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
                         userReference.setValue(new User(email,password,"","","","",0,"","","","","",""));
+                        progressDialog.dismiss();
                         Intent loginIntent = new Intent(this, CreateProfile.class);
                         startActivity(loginIntent);
                         finish();
