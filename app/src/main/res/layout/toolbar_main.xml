@@ -27,7 +27,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_profile"/>
+            android:src="@drawable/icon_profile"
+            android:clickable="true"
+            android:focusable="true"/>
 
 
     </RelativeLayout>
