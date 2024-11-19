@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".ProfilePekerjaActivity"
+            android:exported="false" />
+        <activity
             android:name=".PekerjaCategorizedJobActivity"
             android:exported="false" />
         <activity
@@ -50,10 +53,9 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
-            android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".LoginActivity"-->
-<!--            android:exported="true" />-->
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".LoginActivity" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".CreateProfile"
             android:exported="false" />

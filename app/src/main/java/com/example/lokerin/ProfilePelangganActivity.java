@@ -37,6 +37,12 @@ public class ProfilePelangganActivity extends AppCompatActivity {
         AppCompatButton btnEditProfile = findViewById(R.id.acb_editProfile_profilePelangganPage);
         AppCompatButton btnLogOut = findViewById(R.id.acb_logOut_profilePelangganPage);
 
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
 //        Handle back button on click event
         backButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {

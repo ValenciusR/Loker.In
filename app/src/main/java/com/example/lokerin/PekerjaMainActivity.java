@@ -1,6 +1,8 @@
 package com.example.lokerin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,8 +19,20 @@ public class PekerjaMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pekerja_main);
 
         ImageView btnBackToolbar = findViewById(R.id.btn_back_toolbar);
-        ImageView btnProfileToolbar = findViewById(R.id.btn_back_toolbar);
+        ImageView btnProfileToolbar = findViewById(R.id.btn_profile_toolbar);
         TextView tvPageToolbar = findViewById(R.id.tv_page_toolbar);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new PelangganMyJobFragment())
+                .commit();
+        tvPageToolbar.setText("Home");
+
+        btnProfileToolbar.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                startActivity(new Intent(PekerjaMainActivity.this, ProfilePekerjaActivity.class));
+                finish();
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
