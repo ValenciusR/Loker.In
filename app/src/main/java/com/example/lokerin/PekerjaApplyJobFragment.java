@@ -30,9 +30,24 @@ public class PekerjaApplyJobFragment extends Fragment {
             }
         });
 
-        RecyclerView recyclerView2 = view.findViewById(R.id.recyclerView2);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListJobAdapter adapter2 = new ListJobAdapter(getActivity(), getJobDataList());
+        RecyclerView recyclerView2 = view.findViewById(R.id.recyclerViewCategory);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        List<CategoryData> items = new ArrayList<>();
+        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
+        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
+        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
+        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
+        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
+        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
+        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
+        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
+        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
+        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
+        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
+        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
+
+        ListCategoryAdapter adapter2 = new ListCategoryAdapter(getActivity(), items);
         recyclerView2.setAdapter(adapter2);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
