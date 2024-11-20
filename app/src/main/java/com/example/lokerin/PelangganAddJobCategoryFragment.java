@@ -40,7 +40,6 @@ public class PelangganAddJobCategoryFragment extends Fragment {
             selectedProvince = args.getString("selectedProvince", "");
             selectedRegency = args.getString("selectedRegency", "");
             address = args.getString("address", "No Address");
-            //Toast.makeText(getContext(), jobTitle + " " + description + " " + salary + " " + frequentSalary + " " + selectedCategory + " " + selectedProvince + " " + selectedRegency + " "  + address, Toast.LENGTH_SHORT).show();
         }
 
         btnConfirmCategory = view.findViewById(R.id.btn_category_confirm);
@@ -56,7 +55,8 @@ public class PelangganAddJobCategoryFragment extends Fragment {
                 view.findViewById(R.id.card4),
                 view.findViewById(R.id.card5),
                 view.findViewById(R.id.card6),
-                view.findViewById(R.id.card7)
+                view.findViewById(R.id.card7),
+                view.findViewById(R.id.card8)
         };
 
         for (int i = 0; i < cards.length; i++) {
@@ -81,11 +81,11 @@ public class PelangganAddJobCategoryFragment extends Fragment {
         selectedCategory = categoryNames[index];
 
         int[] cardIds = {
-                R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7
+                R.id.card1, R.id.card2, R.id.card3, R.id.card4, R.id.card5, R.id.card6, R.id.card7, R.id.card8
         };
 
         int[] textIds = {
-                R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6, R.id.text7
+                R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6, R.id.text7, R.id.text8
         };
 
         for (int i = 0; i < cardIds.length; i++) {

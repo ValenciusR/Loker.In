@@ -35,17 +35,13 @@ public class PekerjaApplyJobFragment extends Fragment {
 
         List<CategoryData> items = new ArrayList<>();
         items.add(new CategoryData(R.drawable.img_barber, "Barber"));
-        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
+        items.add(new CategoryData(R.drawable.img_builder, "Builder"));
+        items.add(new CategoryData(R.drawable.img_driver, "Driver"));
         items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
-        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
         items.add(new CategoryData(R.drawable.img_maid, "Maid"));
-        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
-        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
-        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
-        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
-        items.add(new CategoryData(R.drawable.img_barber, "Barber"));
-        items.add(new CategoryData(R.drawable.img_maid, "Maid"));
-        items.add(new CategoryData(R.drawable.img_gardener, "Gardener"));
+        items.add(new CategoryData(R.drawable.img_peddler, "Peddler"));
+        items.add(new CategoryData(R.drawable.img_porter, "Porter"));
+        items.add(new CategoryData(R.drawable.img_secretary, "Secretary"));
 
         ListCategoryAdapter adapter2 = new ListCategoryAdapter(getActivity(), items);
         recyclerView2.setAdapter(adapter2);
