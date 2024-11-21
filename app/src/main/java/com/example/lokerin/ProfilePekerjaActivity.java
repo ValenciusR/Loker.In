@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class ProfilePekerjaActivity extends AppCompatActivity {
 
     ImageView ivSettings, backButton;
+    TextView tvPageTitle;
 //    AppCompatButton btnEditPersonalInfo, btnAddJobsToPortofolio, btnLogOut;
 
     @Override
@@ -35,7 +37,10 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.btn_back_toolbar);
         ivSettings = findViewById(R.id.btn_profile_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+
         ivSettings.setImageResource(R.drawable.settings_icon);
+        tvPageTitle.setText("Settings");
 
 
         ivSettings.setOnClickListener(v -> showSettings());
