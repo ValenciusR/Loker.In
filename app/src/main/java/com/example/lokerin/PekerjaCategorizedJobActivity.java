@@ -1,6 +1,8 @@
 package com.example.lokerin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,10 +17,13 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pekerja_categorized_job);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+
+        TextView categoryTextView = findViewById(R.id.tv_page_toolbar);
+        if (category != null) {
+            categoryTextView.setText(category);
+        }
     }
 }

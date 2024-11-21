@@ -287,6 +287,40 @@
                         android:textSize="16sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- EIGHTH CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card8"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image8"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_secretary" />
+                    <TextView
+                        android:id="@+id/text8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="Secretary"
+                        android:textColor="#21458B"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </GridLayout>
 
         <androidx.appcompat.widget.AppCompatButton
