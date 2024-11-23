@@ -14,14 +14,24 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.Date;
+
 public class ProfilePekerjaActivity extends AppCompatActivity {
 
-    ImageView ivSettings, backButton;
-    TextView tvPageTitle;
+    ImageView ivSettings, backButton, ivProfilePicture;
+    TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
+    RecyclerView rvPortofolio;
+    ArrayList<Portofolio> portofolios;
+    LinearLayoutManager linearLayoutManager;
+    ListPortofolioAdapter portofolioAdapter;
+
 //    AppCompatButton btnEditPersonalInfo, btnAddJobsToPortofolio, btnLogOut;
 
     @Override
@@ -37,11 +47,31 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
 
         backButton = findViewById(R.id.btn_back_toolbar);
         ivSettings = findViewById(R.id.btn_profile_toolbar);
+        ivProfilePicture = findViewById(R.id.iv_profilePicture_profilePekerjaPage);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        tvName = findViewById(R.id.tv_name_profilePekerjaPage);
+        tvJob = findViewById(R.id.tv_job_profilePekerjaPage);
+        tvLocation = findViewById(R.id.tv_location_profilePekerjaPage);
+        tvJobDescription = findViewById(R.id.tv_jobDescription_profilePekerjaPage);
+        tvPhone = findViewById(R.id.tv_phone_profilePekerjaPage);
+        tvEmail = findViewById(R.id.tv_email_profilePekerjaPage);
+        rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
 
         ivSettings.setImageResource(R.drawable.settings_icon);
-        tvPageTitle.setText("Settings");
+        tvPageTitle.setText("View Profile");
 
+//        Set Portofolio Recycler View
+        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
+        portofolios = new ArrayList<>();
+        portofolios.add(templatePortofolio);
+        portofolios.add(templatePortofolio);
+        portofolios.add(templatePortofolio);
+        portofolios.add(templatePortofolio);
+
+        linearLayoutManager = new LinearLayoutManager(ProfilePekerjaActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        portofolioAdapter = new ListPortofolioAdapter(portofolios);
+        rvPortofolio.setLayoutManager(linearLayoutManager);
+        rvPortofolio.setAdapter(portofolioAdapter);
 
         ivSettings.setOnClickListener(v -> showSettings());
 
