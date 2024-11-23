@@ -57,5 +57,4 @@
         <item name="font">@font/poppins_medium</item>
         <item name="android:paddingTop">6dp</item>
     </style>
-
 </resources>
