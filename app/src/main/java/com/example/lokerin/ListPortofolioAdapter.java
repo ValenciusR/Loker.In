@@ -22,7 +22,7 @@ public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAd
     @NonNull
     @Override
     public PortofolioHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_portofolio, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_card_portofolio, parent, false);
         return new PortofolioHolder(view);
     }
 

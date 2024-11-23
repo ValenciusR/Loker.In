@@ -27,10 +27,12 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
 
     ImageView ivSettings, backButton, ivProfilePicture;
     TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
-    RecyclerView rvPortofolio;
+    RecyclerView rvPortofolio, rvReview;
     ArrayList<Portofolio> portofolios;
-    LinearLayoutManager linearLayoutManager;
+    ArrayList<Review> reviews;
+    LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     ListPortofolioAdapter portofolioAdapter;
+    ListReviewAdapter reviewAdapter;
 
 //    AppCompatButton btnEditPersonalInfo, btnAddJobsToPortofolio, btnLogOut;
 
@@ -56,6 +58,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         tvPhone = findViewById(R.id.tv_phone_profilePekerjaPage);
         tvEmail = findViewById(R.id.tv_email_profilePekerjaPage);
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
+        rvReview = findViewById(R.id.rv_reviewList_profilePekerjaPage);
 
         ivSettings.setImageResource(R.drawable.settings_icon);
         tvPageTitle.setText("View Profile");
@@ -72,6 +75,19 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         portofolioAdapter = new ListPortofolioAdapter(portofolios);
         rvPortofolio.setLayoutManager(linearLayoutManager);
         rvPortofolio.setAdapter(portofolioAdapter);
+
+//        Set Review Recycler View
+        Review templateReview = new Review("John", "Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas", 5f);
+        reviews = new ArrayList<>();
+        reviews.add(templateReview);
+        reviews.add(templateReview);
+        reviews.add(templateReview);
+        reviews.add(templateReview);
+
+        linearLayoutManager2 = new LinearLayoutManager(ProfilePekerjaActivity.this, LinearLayoutManager.VERTICAL, false);
+        reviewAdapter = new ListReviewAdapter(reviews);
+        rvReview.setLayoutManager(linearLayoutManager2);
+        rvReview.setAdapter(reviewAdapter);
 
         ivSettings.setOnClickListener(v -> showSettings());
 
