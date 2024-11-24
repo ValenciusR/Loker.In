@@ -38,7 +38,7 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
         holder.jobCategory.setText(data.getJobCategory());
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PelangganDetailJobActivity.class);
+            Intent intent = new Intent(context, DetailJobActivity.class);
             intent.putExtra("jobTitle", data.getJobTitle());
             intent.putExtra("jobLocation", data.getJobLocation());
             intent.putExtra("jobDateUpload", data.getJobDateUpload());

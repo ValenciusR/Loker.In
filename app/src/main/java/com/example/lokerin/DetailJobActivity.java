@@ -12,20 +12,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class PelangganDetailJobActivity extends AppCompatActivity {
+public class DetailJobActivity extends AppCompatActivity {
 
     private List<JobData> jobDataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pelanggan_detail_job);
+        setContentView(R.layout.activity_detail_job);
 
         Intent intent = getIntent();
         String jobTitle = intent.getStringExtra("jobTitle");
@@ -44,26 +41,31 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         Button actionButton = findViewById(R.id.btn_action);
         Button deleteButton = findViewById(R.id.btn_delete);
 
-        if ("Active".equals(jobStatus)) {
-            deleteButton.setVisibility(View.GONE);
-            actionButton.setText("Confirm Book");
-            actionButton.setOnClickListener(v -> showConfirmBookConfirmationDialog());
-        } else if ("On Going".equals(jobStatus)) {
-            deleteButton.setVisibility(View.GONE);
-            actionButton.setText("Finish Job");
-            actionButton.setOnClickListener(v -> showFinishJobConfirmationDialog());
-        } else if ("Ended".equals(jobStatus)) {
-            deleteButton.setVisibility(View.GONE);
-            actionButton.setVisibility(View.GONE);
-        }
-
-        //POP UP FUNCTION
-        deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog());
-
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         ListUserAdapter adapter = new ListUserAdapter(applicantsList, jobStatus);
         recyclerView.setAdapter(adapter);
+
+        if ("Active".equals(jobStatus)) {
+            actionButton.setText("Confirm Book");
+            actionButton.setOnClickListener(v -> showConfirmBookConfirmationDialog());
+            deleteButton.setVisibility(View.GONE);
+        } else if ("On Going".equals(jobStatus)) {
+            actionButton.setText("Finish Job");
+            actionButton.setOnClickListener(v -> showFinishJobConfirmationDialog());
+            deleteButton.setVisibility(View.GONE);
+        } else if ("Ended".equals(jobStatus)) {
+            actionButton.setVisibility(View.GONE);
+            deleteButton.setVisibility(View.GONE);
+        } else if ("Applyable".equals(jobStatus)) {
+            actionButton.setText("Apply");
+            actionButton.setOnClickListener(v -> showFinishJobConfirmationDialog());
+            deleteButton.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.GONE);
+        } else{
+            deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog());
+        }
+
     }
 
     private void showDeleteConfirmationDialog() {
