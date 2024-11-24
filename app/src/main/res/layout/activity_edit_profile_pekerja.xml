@@ -1,244 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    tools:context=".ProfilePekerjaActivity"
+    android:gravity="center_horizontal">
 
-    <LinearLayout
+    <include layout="@layout/toolbar_submain"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#FFFFFF">
-
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80sp"
-            android:background="#1977F3"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-            <ImageView
-                android:id="@+id/iv_back_editProfilePekerjaPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/back_button_icon"
-                android:clickable="true"
-                android:layout_marginHorizontal="20sp"/>
-            <TextView
-                android:id="@+id/tv_editProfile_editProfilePekerjaPage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:fontFamily="@font/poppins_bold"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:paddingTop="5sp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="100sp"
+                android:layout_height="100sp"
+                android:id="@+id/iv_profile2_editProfilePekerjaPage"
+                app:shapeAppearanceOverlay="@style/roundedProfileImage"
+                android:src="@drawable/default_no_profile_icon"
+                android:scaleType="centerCrop"
+                android:layout_gravity="center"
+                android:layout_marginTop="20sp"
+                android:clickable="true"/>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:layout_marginEnd="20sp">
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/iv_profile1_editProfilePekerjaPage"
-                    android:layout_width="40sp"
-                    android:layout_height="40sp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/settings_icon"
-                    app:shapeAppearanceOverlay="@style/roundedProfileImage"/>
+                android:layout_weight="0"
+                android:orientation="vertical"
+                android:paddingHorizontal="20sp">
+
+                <!-- Label for Name -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="20sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_name_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"/>
+                    <TextView
+                        android:id="@+id/tv_nameError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Label for Phone -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Phone"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="20sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_phone_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"/>
+                    <TextView
+                        android:id="@+id/tv_phoneError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Label for Location -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="20sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_location_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"/>
+                    <TextView
+                        android:id="@+id/tv_locationError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Label for Email -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="20sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_email_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"/>
+                    <TextView
+                        android:id="@+id/tv_emailError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Label for Job -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="20sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_job_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"/>
+                    <TextView
+                        android:id="@+id/tv_jobError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Label for Job Description -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job Description"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="95sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_jobDescription_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="top|start"
+                        android:textAlignment="gravity"/>
+                    <TextView
+                        android:id="@+id/tv_jobDescriptionError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_saveChanges_editProfilePekerjaPage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Save Changes"
+                    android:textColor="#FFFFFF"
+                    android:paddingHorizontal="8sp"
+                    android:paddingVertical="8sp"
+                    android:backgroundTint="@null"
+                    android:background="@drawable/shape_blue_rounded"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginBottom="20sp"/>
             </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="100sp"
-            android:layout_height="100sp"
-            android:id="@+id/iv_profile2_editProfilePekerjaPage"
-            app:shapeAppearanceOverlay="@style/roundedProfileImage"
-            android:src="@drawable/default_no_profile_icon"
-            android:scaleType="centerCrop"
-            android:layout_gravity="center"
-            android:layout_marginTop="20sp"
-            android:clickable="true"/>
 
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="vertical"
-            android:paddingHorizontal="20sp">
-
-            <!-- Label for Name -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="12sp"
-                android:textColor="#1977F3"
-                android:fontFamily="@font/poppins_bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cursorColor="@color/blue"
-                android:layout_marginBottom="20sp">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/et_name_editProfilePekerjaPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:padding="10sp"
-                    android:background="@drawable/shape_rounded_blue_border"
-                    android:fontFamily="@font/poppins_regular"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Label for Phone -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Phone"
-                android:textSize="12sp"
-                android:textColor="#1977F3"
-                android:fontFamily="@font/poppins_bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cursorColor="@color/blue"
-                android:layout_marginBottom="20sp">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/et_phone_editProfilePekerjaPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:padding="10sp"
-                    android:background="@drawable/shape_rounded_blue_border"
-                    android:fontFamily="@font/poppins_regular"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Label for Location -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="12sp"
-                android:textColor="#1977F3"
-                android:fontFamily="@font/poppins_bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cursorColor="@color/blue"
-                android:layout_marginBottom="20sp">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/et_location_editProfilePekerjaPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:padding="10sp"
-                    android:background="@drawable/shape_rounded_blue_border"
-                    android:fontFamily="@font/poppins_regular"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Label for Email -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Email"
-                android:textSize="12sp"
-                android:textColor="#1977F3"
-                android:fontFamily="@font/poppins_bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cursorColor="@color/blue"
-                android:layout_marginBottom="20sp">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/et_email_editProfilePekerjaPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:padding="10sp"
-                    android:background="@drawable/shape_rounded_blue_border"
-                    android:fontFamily="@font/poppins_regular"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Label for Job -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Job"
-                android:textSize="12sp"
-                android:textColor="#1977F3"
-                android:fontFamily="@font/poppins_bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cursorColor="@color/blue"
-                android:layout_marginBottom="20sp">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/et_job_editProfilePekerjaPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:padding="10sp"
-                    android:background="@drawable/shape_rounded_blue_border"
-                    android:fontFamily="@font/poppins_regular"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Label for Job Description -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Job Description"
-                android:textSize="12sp"
-                android:textColor="#1977F3"
-                android:fontFamily="@font/poppins_bold" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cursorColor="@color/blue"
-                android:layout_marginBottom="20sp">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/et_jobDescription_editProfilePekerjaPage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:lines="5"
-                    android:padding="10sp"
-                    android:background="@drawable/shape_rounded_blue_border"
-                    android:fontFamily="@font/poppins_regular"
-                    android:layout_marginBottom="75sp"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_saveChanges_editProfilePekerjaPage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save Changes"
-                android:textColor="#FFFFFF"
-                android:paddingHorizontal="8sp"
-                android:paddingVertical="8sp"
-                android:backgroundTint="@null"
-                android:background="@drawable/shape_blue_rounded"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_marginBottom="20sp"/>
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

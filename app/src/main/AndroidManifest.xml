@@ -12,9 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".PekerjaEditPortofolioActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".PekerjaEditPortofolioActivity"
+            android:exported="false" />
         <activity
             android:name=".ProfilePekerjaActivity"
             android:exported="false" />
@@ -24,9 +24,9 @@
         <activity
             android:name=".PekerjaRecommendJobActivity"
             android:exported="false" />
-        <activity
-            android:name=".EditProfilePekerjaActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".EditProfilePekerjaActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".EditProfilePelangganActivity"
             android:exported="false" />
@@ -70,7 +70,7 @@
             android:name=".PekerjaMainActivity"
             android:exported="false" />
         <activity
-            android:name=".PekerjaEditPortofolioActivity"
+            android:name=".EditProfilePekerjaActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
