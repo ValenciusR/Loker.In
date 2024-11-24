@@ -74,7 +74,16 @@ public class PekerjaApplyJobFragment extends Fragment {
         dataList.add(new JobData("Applicant On Going", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
         dataList.add(new JobData("Applicant Ended", "Location 2", "Date 2", "Category 2", "Ended", applicants1));
 
-        return dataList;
+        List<JobData> filteredList = new ArrayList<>();
+        for (JobData job : dataList) {
+            if (!job.getJobStatus().equalsIgnoreCase("On Going") && !job.getJobStatus().equalsIgnoreCase("Ended")) {
+                JobData tempJob = job;
+                tempJob.setJobStatus("Applyable");
+                filteredList.add(tempJob);
+            }
+        }
+
+        return filteredList;
     }
 
 }
