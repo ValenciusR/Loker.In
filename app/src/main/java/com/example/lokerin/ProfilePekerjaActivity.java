@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -107,33 +108,34 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
 //        View viewBottomSheet = LayoutInflater.from(ProfilePekerjaActivity.this).inflate(R.layout.bottom_sheet_dialog_settings, null);
 //        bottomSheetDialogSettings.setContentView(viewBottomSheet);
 //        bottomSheetDialogSettings.show();
-        bottomSheetDialogSettings.setContentView(R.layout.bottom_sheet_dialog_settings);
+        View viewBottomSheet = LayoutInflater.from(ProfilePekerjaActivity.this).inflate(R.layout.bottom_sheet_dialog_settings, null);
+        bottomSheetDialogSettings.setContentView(viewBottomSheet);
         bottomSheetDialogSettings.show();
         bottomSheetDialogSettings.getWindow().setDimAmount(0.7f);
 
-        AppCompatButton btnEditPersonalInfo = findViewById(R.id.btn_settings_editPersonalInformation);
-        AppCompatButton btnAddJobsToPortofolio = findViewById(R.id.btn_settings_addJobsToPortofolio);
-        AppCompatButton btnLogOut = findViewById(R.id.btn_settings_logOut);
+        AppCompatButton btnEditPersonalInfo = viewBottomSheet.findViewById(R.id.btn_settings_editPersonalInformation);
+        AppCompatButton btnAddJobsToPortofolio = viewBottomSheet.findViewById(R.id.btn_settings_addJobsToPortofolio);
+        AppCompatButton btnLogOut = viewBottomSheet.findViewById(R.id.btn_settings_logOut);
 
-//        btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfilePekerjaActivity.this, "Edit Personal Info", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-//        btnAddJobsToPortofolio.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        btnAddJobsToPortofolio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfilePekerjaActivity.this, "Add Jobs to Portofolio", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-//        btnLogOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProfilePekerjaActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
