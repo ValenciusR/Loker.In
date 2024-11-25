@@ -120,21 +120,25 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfilePekerjaActivity.this, "Edit Personal Info", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ProfilePekerjaActivity.this, EditProfilePekerjaActivity.class));
+                finish();
             }
         });
 
         btnAddJobsToPortofolio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfilePekerjaActivity.this, "Add Jobs to Portofolio", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(ProfilePekerjaActivity.this, PekerjaEditPortofolioActivity.class));
+                finish();
             }
         });
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ProfilePekerjaActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfilePekerjaActivity.this, LoginActivity.class));
+                finish();
             }
         });
     }
