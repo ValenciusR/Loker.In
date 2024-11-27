@@ -9,7 +9,7 @@
     <item
         android:id="@+id/bottom_search"
         android:icon="@drawable/icon_add_job"
-        android:title="Search"/>
+        android:title="New Job"/>
 
     <item
         android:id="@+id/bottom_chat"

@@ -35,6 +35,11 @@
     <style name="PoppinsThin" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/poppins_thin</item>
     </style>
+    
+    <style name="roundedProfileImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
     <!-- NAVBAR STYLE -->
     <style name="RemoveRippleColor" parent="Widget.MaterialComponents.BottomNavigationView">
@@ -52,5 +57,4 @@
         <item name="font">@font/poppins_medium</item>
         <item name="android:paddingTop">6dp</item>
     </style>
-
 </resources>

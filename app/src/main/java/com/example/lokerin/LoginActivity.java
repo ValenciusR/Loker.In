@@ -62,7 +62,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(this, "Login Failed, Email doesn't exist", Toast.LENGTH_SHORT).show();
                     Log.e("Signup Error", "onCancelled", task.getException());
                 }else{
-                    startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+//                    startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
                     finish();
                 }
             });
