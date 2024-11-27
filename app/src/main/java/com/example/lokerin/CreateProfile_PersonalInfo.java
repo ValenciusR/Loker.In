@@ -3,8 +3,13 @@ package com.example.lokerin;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,12 +23,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class CreateProfile_PersonalInfo extends AppCompatActivity {
 
-    EditText nameET, phoneET, locationET, ageET, genderET;
+    EditText nameET, phoneET, locationET, ageET;
     Button nextBtn;
 
     FirebaseApp firebaseApp;
@@ -31,6 +38,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase ;
     DatabaseReference userReference;
 
+    String[] item = {"Male", "Female"};
+
+    AutoCompleteTextView genderET;
+
+    ArrayAdapter<String> adapterItems;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -43,12 +55,16 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         phoneET = findViewById(R.id.input_phone_personalInfoPage);
         locationET = findViewById(R.id.input_location_personalInfoPage);
         ageET = findViewById(R.id.input_age_personalInfoPage);
-        genderET = findViewById(R.id.input_gender_personalInfoPage);
         nextBtn = findViewById(R.id.btn_next_personalInfoPage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+        genderET = findViewById(R.id.input_gender_personalInfoPage);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
+
+        genderET.setAdapter(adapterItems);
 
         nextBtn.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());

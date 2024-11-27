@@ -29,7 +29,8 @@
             android:exported="false" />
         <activity
             android:name=".CreateProfile_PersonalInfo"
-            android:exported="false" />
+            android:exported="false">
+        </activity>
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />

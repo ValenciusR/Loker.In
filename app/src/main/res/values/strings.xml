@@ -9,6 +9,11 @@
         <item>East Java</item>
     </string-array>
 
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
     <!-- Regency West Java -->
     <string-array name="regency_west_java">
         <item>Select Regency</item>
