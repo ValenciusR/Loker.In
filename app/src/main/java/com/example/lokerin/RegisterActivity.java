@@ -11,27 +11,22 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.Console;
-
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText emailField, passwordField, confPasswordField;
-    Button registerBtn;
-    TextView loginLink;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userReference;
 
-    FirebaseApp firebaseApp;
-    FirebaseAuth mAuth ;
-    FirebaseDatabase firebaseDatabase ;
-    DatabaseReference userReference;
+    private EditText etEmail, etPassword, etConfPassword;
+    private Button btnRegister;
+    private TextView loginLink;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,16 +39,15 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        emailField = findViewById(R.id.input_email_registerPage);
-        passwordField = findViewById(R.id.input_password_registerPage);
-        confPasswordField = findViewById(R.id.input_confirmPassword_registerPage);
-        registerBtn = findViewById(R.id.btn_register_registerPage);
+        etEmail = findViewById(R.id.input_email_registerPage);
+        etPassword = findViewById(R.id.input_password_registerPage);
+        etConfPassword = findViewById(R.id.input_confirmPassword_registerPage);
+        btnRegister = findViewById(R.id.btn_register_registerPage);
         loginLink = findViewById(R.id.login_link_registerPage);
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Please Wait..");
         progressDialog.setCancelable(false);
-
 
         loginLink.setOnClickListener(view -> {
             Intent loginIntent = new Intent(this, LoginActivity.class);
@@ -61,11 +55,11 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         });
 
-        registerBtn.setOnClickListener(view -> {
+        btnRegister.setOnClickListener(view -> {
             progressDialog.show();
-            String email = emailField.getText().toString();
-            String password = passwordField.getText().toString();
-            String passwordConf = confPasswordField.getText().toString();
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String passwordConf = etConfPassword.getText().toString();
 
             if (!email.contains("@") || !email.endsWith(".com")) {
                 Toast.makeText(this, "Email must contain '@' and ends with '.com'", Toast.LENGTH_SHORT).show();
@@ -94,11 +88,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent loginIntent = new Intent(this, CreateProfile.class);
                         startActivity(loginIntent);
                         finish();
-
                     }
                 });
             }
-
         });
     }
 }

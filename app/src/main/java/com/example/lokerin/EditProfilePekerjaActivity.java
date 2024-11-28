@@ -2,7 +2,6 @@ package com.example.lokerin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,12 +16,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class EditProfilePekerjaActivity extends AppCompatActivity {
-    private ImageView backButton, ivProfile, ivProfileNavbar;
+
+    private ImageView btnBack, ivProfileNavbar;
     private EditText etName, etPhone, etLocation, etEmail, etJob, etJobDescription;
-    private AppCompatButton acpSaveButton;
-    private TextView tvPageTitle;
+    private AppCompatButton btnSaveChanges;
     private Boolean isValid;
-    private TextView tvNameError, tvPhoneError, tvLocationError, tvEmailError, tvJobError, tvJobDescriptionError;
+    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvEmailError, tvJobError, tvJobDescriptionError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +34,14 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
             return insets;
         });
 
-        backButton = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startProfilePage();
-            }
-        });
-        tvPageTitle.setText("Edit Profile");
-        ivProfileNavbar.setImageResource(R.drawable.settings_icon);
-
-        ivProfile = findViewById(R.id.iv_profile2_editProfilePekerjaPage);
+        ivProfileNavbar = findViewById(R.id.iv_profile2_editProfilePekerjaPage);
         etName = findViewById(R.id.et_name_editProfilePekerjaPage);
         etPhone = findViewById(R.id.et_phone_editProfilePekerjaPage);
         etLocation = findViewById(R.id.et_location_editProfilePekerjaPage);
         etEmail = findViewById(R.id.et_email_editProfilePekerjaPage);
         etJob = findViewById(R.id.et_job_editProfilePekerjaPage);
         etJobDescription = findViewById(R.id.et_jobDescription_editProfilePekerjaPage);
-        acpSaveButton = findViewById(R.id.btn_saveChanges_editProfilePekerjaPage);
+        btnSaveChanges = findViewById(R.id.btn_saveChanges_editProfilePekerjaPage);
 
         tvNameError = findViewById(R.id.tv_nameError_editProfilePekerjaPage);
         tvPhoneError = findViewById(R.id.tv_phoneError_editProfilePekerjaPage);
@@ -64,7 +50,19 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
         tvJobError = findViewById(R.id.tv_jobError_editProfilePekerjaPage);
         tvJobDescriptionError = findViewById(R.id.tv_jobDescriptionError_editProfilePekerjaPage);
 
-        acpSaveButton.setOnClickListener(new View.OnClickListener() {
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startProfilePage();
+            }
+        });
+        tvPageTitle.setText("Edit Profile");
+        ivProfileNavbar.setImageResource(R.drawable.settings_icon);
+
+        btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isValid = true;
@@ -141,10 +139,10 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                 }
 
                 if(isValid) {
-//                    Implement logic here
-//                    startProfilePage();
+                    Toast.makeText(EditProfilePekerjaActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+                    //Logic update profile
+                    startProfilePage();
                 }
-
             }
         });
     }

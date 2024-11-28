@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,55 +18,69 @@ import java.util.List;
 
 public class DetailJobActivity extends AppCompatActivity {
 
+    private ImageView btnBack,ivProfileNavbar;
     private List<JobData> jobDataList;
-
+    private String jobTitle, jobLocation, jobStatus;
+    private User[] jobApplicants;
+    private List<User> applicantsList;
+    private TextView tvPageTitle, tvTitle, tvLocation;
+    private Button btnAction, btnDelete;
+    private RecyclerView rvApplicants;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_job);
 
         Intent intent = getIntent();
-        String jobTitle = intent.getStringExtra("jobTitle");
-        String jobLocation = intent.getStringExtra("jobLocation");
-        String jobStatus = intent.getStringExtra("jobStatus");
-        User[] jobApplicants = (User[]) intent.getSerializableExtra("jobApplicants");
-        List<User> applicantsList = Arrays.asList(jobApplicants);
+        jobTitle = intent.getStringExtra("jobTitle");
+        jobLocation = intent.getStringExtra("jobLocation");
+        jobStatus = intent.getStringExtra("jobStatus");
+        jobApplicants = (User[]) intent.getSerializableExtra("jobApplicants");
+        applicantsList = Arrays.asList(jobApplicants);
+        tvTitle = findViewById(R.id.label1);
+        tvLocation = findViewById(R.id.label2);
 
-        //TEXT VIEW
-        TextView titleView = findViewById(R.id.label1);
-        titleView.setText(jobTitle);
-        TextView locationView = findViewById(R.id.label2);
-        locationView.setText(jobLocation);
+        btnAction = findViewById(R.id.btn_action);
+        btnDelete = findViewById(R.id.btn_delete);
 
-        //BUTTON
-        Button actionButton = findViewById(R.id.btn_action);
-        Button deleteButton = findViewById(R.id.btn_delete);
+        tvTitle.setText(jobTitle);
+        tvLocation.setText(jobLocation);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
+        tvPageTitle.setText("Detail Pekerjaan");
+
+        rvApplicants = findViewById(R.id.recyclerView);
+        rvApplicants.setLayoutManager(new LinearLayoutManager(this));
         ListUserAdapter adapter = new ListUserAdapter(applicantsList, jobStatus);
-        recyclerView.setAdapter(adapter);
+        rvApplicants.setAdapter(adapter);
 
         if ("Active".equals(jobStatus)) {
-            actionButton.setText("Confirm Book");
-            actionButton.setOnClickListener(v -> showConfirmBookConfirmationDialog());
-            deleteButton.setVisibility(View.GONE);
+            btnAction.setText("Confirm Book");
+            btnAction.setOnClickListener(v -> showConfirmBookConfirmationDialog());
+            btnDelete.setVisibility(View.GONE);
         } else if ("On Going".equals(jobStatus)) {
-            actionButton.setText("Finish Job");
-            actionButton.setOnClickListener(v -> showFinishJobConfirmationDialog());
-            deleteButton.setVisibility(View.GONE);
+            btnAction.setText("Finish Job");
+            btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
+            btnDelete.setVisibility(View.GONE);
         } else if ("Ended".equals(jobStatus)) {
-            actionButton.setVisibility(View.GONE);
-            deleteButton.setVisibility(View.GONE);
+            btnAction.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
         } else if ("Applyable".equals(jobStatus)) {
-            actionButton.setText("Apply");
-            actionButton.setOnClickListener(v -> showFinishJobConfirmationDialog());
-            deleteButton.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.GONE);
+            btnAction.setText("Apply");
+            btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
+            btnDelete.setVisibility(View.GONE);
+            rvApplicants.setVisibility(View.GONE);
         } else{
-            deleteButton.setOnClickListener(v -> showDeleteConfirmationDialog());
+            btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
         }
-
     }
 
     private void showDeleteConfirmationDialog() {
@@ -132,6 +147,10 @@ public class DetailJobActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void backPage() {
+        finish();
     }
 
 }

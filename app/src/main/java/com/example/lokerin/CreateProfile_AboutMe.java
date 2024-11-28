@@ -11,9 +11,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,16 +25,15 @@ import java.util.Map;
 
 public class CreateProfile_AboutMe extends AppCompatActivity {
 
-    EditText aboutMeET;
-    Button nextBtn;
-    TextView skipText;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth ;
+    private FirebaseDatabase firebaseDatabase ;
+    private DatabaseReference userReference;
 
-    FirebaseApp firebaseApp;
-    FirebaseAuth mAuth ;
-    FirebaseDatabase firebaseDatabase ;
-    DatabaseReference userReference;
-
-    String type;
+    private EditText etAboutMe;
+    private Button btnNext;
+    private TextView skipText;
+    private String type;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,8 +42,8 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_profile_about_me);
 
-        aboutMeET = findViewById(R.id.input_aboutMe_aboutMePage);
-        nextBtn = findViewById(R.id.btn_next_aboutMePage);
+        etAboutMe = findViewById(R.id.input_aboutMe_aboutMePage);
+        btnNext = findViewById(R.id.btn_next_aboutMePage);
         skipText = findViewById(R.id.text_skip_aboutMePage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
@@ -68,10 +64,10 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
             }
         });
 
-        nextBtn.setOnClickListener(view -> {
+        btnNext.setOnClickListener(view -> {
 
             Map<String, Object> updates = new HashMap<>();
-            updates.put("aboutMe", aboutMeET.getText().toString());
+            updates.put("aboutMe", etAboutMe.getText().toString());
             userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                 if (task2.isSuccessful()) {
                     if(type.equals("pelanggan")){

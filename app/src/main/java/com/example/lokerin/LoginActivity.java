@@ -14,16 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button loginBtn;
-    FirebaseAuth mAuth;
-    EditText emailField, passwordField;
-    TextView registerLink, forgotPassLink;
-    FirebaseApp firebaseApp;
+    private Button btnLogin;
+    private FirebaseAuth mAuth;
+    private EditText etEmail, etPassword;
+    private TextView registerLink, forgotPassLink;
+    private FirebaseApp firebaseApp;
 
 
     @SuppressLint("MissingInflatedId")
@@ -33,9 +31,9 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        emailField = findViewById(R.id.input_email_loginPage);
-        passwordField = findViewById(R.id.input_password_loginPage);
-        loginBtn = findViewById(R.id.btn_login_loginPage);
+        etEmail = findViewById(R.id.input_email_loginPage);
+        etPassword = findViewById(R.id.input_password_loginPage);
+        btnLogin = findViewById(R.id.btn_login_loginPage);
         registerLink = findViewById(R.id.register_link_loginPage);
         forgotPassLink = findViewById(R.id.forgotPassword_link_loginPage);
 
@@ -54,9 +52,9 @@ public class LoginActivity extends AppCompatActivity {
 //            finish();
         });
 
-        loginBtn.setOnClickListener(view -> {
-            String email = emailField.getText().toString();
-            String password = passwordField.getText().toString();
+        btnLogin.setOnClickListener(view -> {
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                 if(!task.isSuccessful()){
                     Toast.makeText(this, "Login Failed, Email doesn't exist", Toast.LENGTH_SHORT).show();

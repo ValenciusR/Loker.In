@@ -8,9 +8,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,12 +19,12 @@ import java.util.Map;
 
 public class CreateProfile extends AppCompatActivity {
 
-    Button pekerjaBtn, pelangganBtn;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth ;
+    private FirebaseDatabase firebaseDatabase ;
+    private DatabaseReference userReference;
 
-    FirebaseApp firebaseApp;
-    FirebaseAuth mAuth ;
-    FirebaseDatabase firebaseDatabase ;
-    DatabaseReference userReference;
+    private Button btnPekerja, btnPelanggan;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -36,14 +33,14 @@ public class CreateProfile extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_profile);
 
-        pekerjaBtn = findViewById(R.id.btn_pekerja_createProfilePage);
-        pelangganBtn = findViewById(R.id.btn_pelanggan_createProfilePage);
+        btnPekerja = findViewById(R.id.btn_pekerja_createProfilePage);
+        btnPelanggan = findViewById(R.id.btn_pelanggan_createProfilePage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        pekerjaBtn.setOnClickListener(view -> {
+        btnPekerja.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
             updates.put("type", "pekerja");
@@ -59,7 +56,7 @@ public class CreateProfile extends AppCompatActivity {
             });
         });
 
-        pelangganBtn.setOnClickListener(view -> {
+        btnPelanggan.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
             updates.put("type", "pelanggan");

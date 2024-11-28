@@ -20,14 +20,14 @@ import java.util.Map;
 
 public class CreateProfile_WorkExperience extends AppCompatActivity {
 
-    EditText jobET, jobDescET;
-    Button nextBtn;
-    TextView skipText;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth ;
+    private FirebaseDatabase firebaseDatabase ;
+    private DatabaseReference userReference;
 
-    FirebaseApp firebaseApp;
-    FirebaseAuth mAuth ;
-    FirebaseDatabase firebaseDatabase ;
-    DatabaseReference userReference;
+    private EditText etJob, etJobDesc;
+    private Button btnNext;
+    private TextView skipText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,20 +35,20 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_profile_work_experience);
 
-        jobET = findViewById(R.id.input_job_workExperiencePage);
-        jobDescET = findViewById(R.id.input_jobDesc_workExperiencePage);
-        nextBtn = findViewById(R.id.btn_next_workExperiencePage);
+        etJob = findViewById(R.id.input_job_workExperiencePage);
+        etJobDesc = findViewById(R.id.input_jobDesc_workExperiencePage);
+        btnNext = findViewById(R.id.btn_next_workExperiencePage);
         skipText = findViewById(R.id.text_skip_workExperiencePage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        nextBtn.setOnClickListener(view -> {
+        btnNext.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
-            updates.put("job", jobET.getText().toString());
-            updates.put("jobDesc", jobDescET.getText().toString());
+            updates.put("job", etJob.getText().toString());
+            updates.put("jobDesc", etJobDesc.getText().toString());
             userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                 if (task2.isSuccessful()) {
                     Intent loginIntent = new Intent(this, PelangganMainActivity.class);

@@ -9,9 +9,6 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,14 +20,13 @@ import java.util.Map;
 
 public class CreateProfile_PersonalInfo extends AppCompatActivity {
 
-    EditText nameET, phoneET, locationET, ageET, genderET;
-    Button nextBtn;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth ;
+    private FirebaseDatabase firebaseDatabase ;
+    private DatabaseReference userReference;
 
-    FirebaseApp firebaseApp;
-    FirebaseAuth mAuth ;
-    FirebaseDatabase firebaseDatabase ;
-    DatabaseReference userReference;
-
+    private EditText etName, etPhone, etLocation, etAge, etGender;
+    private Button btnNext;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -39,25 +35,25 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_profile_personal_info);
 
-        nameET = findViewById(R.id.input_name_personalInfoPage);
-        phoneET = findViewById(R.id.input_phone_personalInfoPage);
-        locationET = findViewById(R.id.input_location_personalInfoPage);
-        ageET = findViewById(R.id.input_age_personalInfoPage);
-        genderET = findViewById(R.id.input_gender_personalInfoPage);
-        nextBtn = findViewById(R.id.btn_next_personalInfoPage);
+        etName = findViewById(R.id.input_name_personalInfoPage);
+        etPhone = findViewById(R.id.input_phone_personalInfoPage);
+        etLocation = findViewById(R.id.input_location_personalInfoPage);
+        etAge = findViewById(R.id.input_age_personalInfoPage);
+        etGender = findViewById(R.id.input_gender_personalInfoPage);
+        btnNext = findViewById(R.id.btn_next_personalInfoPage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        nextBtn.setOnClickListener(view -> {
+        btnNext.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
-            updates.put("name", nameET.getText().toString());
-            updates.put("phoneNumber", phoneET.getText().toString());
-            updates.put("location", locationET.getText().toString());
-            updates.put("age", Integer.parseInt(ageET.getText().toString()));
-            updates.put("gender", genderET.getText().toString());
+            updates.put("name", etName.getText().toString());
+            updates.put("phoneNumber", etPhone.getText().toString());
+            updates.put("location", etLocation.getText().toString());
+            updates.put("age", Integer.parseInt(etAge.getText().toString()));
+            updates.put("gender", etGender.getText().toString());
             userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                 if (task2.isSuccessful()) {
                     Intent loginIntent = new Intent(this, CreateProfile_AboutMe.class);
