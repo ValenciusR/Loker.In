@@ -135,9 +135,6 @@
         <item>Female</item>
     </string-array>
 
-    <!-- Regency West Java -->
-    <string-array name="regency_west_java">
-        <item>Select Regency</item>
     <!-- Regency Jawa Barat -->
     <string-array name="regency_jawa_barat">
         <item>Choose Regency</item>
