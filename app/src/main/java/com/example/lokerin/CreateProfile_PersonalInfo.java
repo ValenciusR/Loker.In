@@ -3,8 +3,13 @@ package com.example.lokerin;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +19,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +34,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
 
     private EditText etName, etPhone, etLocation, etAge, etGender;
     private Button btnNext;
+
+    private AutoCompleteTextView etGender;
+    private ArrayAdapter<String> adapterItems;
+
+    private String[] item = {"Male", "Female"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,6 +57,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+        etGender = findViewById(R.id.input_gender_personalInfoPage);
+        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
+
+        etGender.setAdapter(adapterItems);
 
         btnNext.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
