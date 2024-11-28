@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,6 +17,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class PekerjaDetailJobActivity extends AppCompatActivity {
 
+    private ImageView btnBack;
+    private TextView tvPageTitle, tvTitle, tvLocation, tvJobDescription, tvJobSalary, tvEndDate;
+    private String jobTitle, jobLocation, jobStatus, jobDescription, jobSalary, jobEndDate;
+    private Button btnAction, btnChat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,55 +29,73 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pekerja_detail_job);
 
         Intent intent = getIntent();
-        String jobTitle = intent.getStringExtra("jobTitle");
-        String jobLocation = intent.getStringExtra("jobLocation");
-        String jobStatus = intent.getStringExtra("jobStatus");
-        //String jobDescription = intent.getStringExtra("jobDescription");
-        //String jobSalary = intent.getStringExtra("salary");
-        //String jobEndDate = intent.getStringExtra("jobEndDate");
+        jobTitle = intent.getStringExtra("jobTitle");
+        jobLocation = intent.getStringExtra("jobLocation");
+        jobStatus = intent.getStringExtra("jobStatus");
+        jobDescription = intent.getStringExtra("jobDescription");
+        jobSalary = intent.getStringExtra("salary");
+        jobEndDate = intent.getStringExtra("jobEndDate");
 
         // Text View
-        TextView titleView = findViewById(R.id.label1);
-        titleView.setText(jobTitle);
-        TextView locationView = findViewById(R.id.label2);
-        locationView.setText(jobLocation);
-        TextView jobDescriptionView = findViewById(R.id.tv_jobDescription_pekerjaDetailJobPage);
-        // jobDescriptionView.setText(jobDescription);
-        TextView jobSalaryView = findViewById(R.id.txt_salary);
-        // jobSalaryView.setText(jobSalary);
-        TextView pageTitle = findViewById(R.id.tv_page_toolbar);
-        TextView endDateView = findViewById(R.id.label3);
-        //
+        tvTitle = findViewById(R.id.label1);
+        tvLocation = findViewById(R.id.label2);
+        tvJobDescription = findViewById(R.id.tv_jobDescription_pekerjaDetailJobPage);
+        tvJobSalary = findViewById(R.id.txt_salary);
+        tvEndDate = findViewById(R.id.label3);
+
+        tvTitle.setText(jobTitle);
+        tvLocation.setText(jobLocation);
+        tvJobDescription.setText(jobDescription);
+        tvJobSalary.setText(jobSalary);
+        tvEndDate.setText(jobEndDate);
 
         // Button
-        Button chatButton = findViewById(R.id.bt_chat_pekerjaDetailJobPage);
-        Button actionButton = findViewById(R.id.bt_action_pekerjaDetailJobPage);
+        btnChat = findViewById(R.id.bt_chat_pekerjaDetailJobPage);
+        btnAction = findViewById(R.id.bt_action_pekerjaDetailJobPage);
+
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
+        tvPageTitle.setText("Detail Pekerjaan");
 
         if ("Active".equals(jobStatus) /* && belum apply */) {
-            actionButton.setText("Apply Job");
-            actionButton.setOnClickListener(v -> showApplyJobConfirmationDialog());
-            pageTitle.setText("Apply Job");
+            btnAction.setText("Apply Job");
+            btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
+            tvPageTitle.setText("Apply Job");
         } else if ("On Going".equals(jobStatus) /* && belum di accept */) {
-            actionButton.setText("Cancel Job");
-            actionButton.setOnClickListener(v -> showCancelJobConfirmationDialog());
-            pageTitle.setText("My Job");
+            btnAction.setText("Cancel Job");
+            btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
+            tvPageTitle.setText("My Job");
         } else if ("On Going1".equals(jobStatus)  /* && sudah di accept */) {
-            actionButton.setEnabled(false);
-            pageTitle.setText("My Job");
+            btnAction.setEnabled(false);
+            tvPageTitle.setText("My Job");
         } else if ("Ended".equals(jobStatus)) {
-            chatButton.setVisibility(View.GONE);
-            actionButton.setVisibility(View.GONE);
-            pageTitle.setText("My Job");
+            btnChat.setVisibility(View.GONE);
+            btnAction.setVisibility(View.GONE);
+            tvPageTitle.setText("My Job");
         }
 
         // on click chat button -> go to chat with pelanggan
-        //chatButton.setOnClickListener(v -> startChatIntent());
+        //btnChat.setOnClickListener(v -> startChatIntent());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
+
     }
 
     private void showApplyJobConfirmationDialog() {
@@ -116,5 +140,10 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void backPage() {
+        startActivity(new Intent(PekerjaDetailJobActivity.this, PekerjaMainActivity.class));
+        finish();
     }
 }

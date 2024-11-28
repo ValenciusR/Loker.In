@@ -2,18 +2,24 @@ package com.example.lokerin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PekerjaCategorizedJobActivity extends AppCompatActivity {
+
+    private ImageView btnBack, ivProfileNavbar;
+    private String category;
+    private TextView tvPageTitle;
+    private RecyclerView rvJobs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +28,24 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pekerja_categorized_job);
 
         Intent intent = getIntent();
-        String category = intent.getStringExtra("category");
+        category = intent.getStringExtra("category");
 
-        TextView categoryTextView = findViewById(R.id.tv_page_toolbar);
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
         if (category != null) {
-            categoryTextView.setText(category);
+            tvPageTitle.setText(category);
         }
+
+        rvJobs = findViewById(R.id.recyclerView);
+        rvJobs.setLayoutManager(new LinearLayoutManager(this));
+        ListJobAdapter adapter = new ListJobAdapter(this, getJobDataList(category));
+        rvJobs.setAdapter(adapter);
     }
 
     private List<JobData> getJobDataList(String category) {
@@ -55,6 +73,11 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
         }
 
         return filteredList;
+    }
+
+    private void backPage() {
+        startActivity(new Intent(PekerjaCategorizedJobActivity.this, PekerjaMainActivity.class));
+        finish();
     }
 
 }

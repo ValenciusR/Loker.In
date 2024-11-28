@@ -17,21 +17,24 @@ import java.util.List;
 
 public class PekerjaApplyJobFragment extends Fragment {
 
+    private TextView tvViewAll;
+    private RecyclerView rvCategorizedJobs, rvRecommendedJobs;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pekerja_applyjob, container, false);
 
-        TextView viewAllTextView = view.findViewById(R.id.viewAllTextView);
-        viewAllTextView.setOnClickListener(new View.OnClickListener() {
+        tvViewAll = view.findViewById(R.id.viewAllTextView);
+        tvViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onViewAllClick(view);
             }
         });
 
-        RecyclerView recyclerView2 = view.findViewById(R.id.recyclerViewCategory);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        rvCategorizedJobs = view.findViewById(R.id.recyclerViewCategory);
+        rvCategorizedJobs.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
         List<CategoryData> items = new ArrayList<>();
         items.add(new CategoryData(R.drawable.img_barber, "Barber"));
@@ -44,12 +47,12 @@ public class PekerjaApplyJobFragment extends Fragment {
         items.add(new CategoryData(R.drawable.img_secretary, "Secretary"));
 
         ListCategoryAdapter adapter2 = new ListCategoryAdapter(getActivity(), items);
-        recyclerView2.setAdapter(adapter2);
+        rvCategorizedJobs.setAdapter(adapter2);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvRecommendedJobs = view.findViewById(R.id.recyclerView);
+        rvRecommendedJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
-        recyclerView.setAdapter(adapter);
+        rvRecommendedJobs.setAdapter(adapter);
 
         return view;
     }

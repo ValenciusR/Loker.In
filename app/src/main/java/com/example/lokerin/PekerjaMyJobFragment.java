@@ -15,15 +15,17 @@ import java.util.List;
 
 public class PekerjaMyJobFragment extends Fragment {
 
+    private RecyclerView rvJobs;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pekerja_myjob, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvJobs = view.findViewById(R.id.recyclerView);
+        rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
-        recyclerView.setAdapter(adapter);
+        rvJobs.setAdapter(adapter);
 
         return view;
     }

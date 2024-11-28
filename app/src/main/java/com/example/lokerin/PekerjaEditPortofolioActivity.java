@@ -20,13 +20,13 @@ import java.util.Date;
 
 public class PekerjaEditPortofolioActivity extends AppCompatActivity {
 
-    ImageView ivBackButton;
-    TextView tvPageTitle;
-    EditText etSearchBar;
-    RecyclerView rvPortofolioJob;
-    ArrayList<PortofolioJob> portofolios;
-    LinearLayoutManager linearLayoutManager;
-    ListEditPortofolioAdapter editPortofolioAdapter;
+    private ImageView btnBack;
+    private TextView tvPageTitle;
+    private EditText etSearchBar;
+    private RecyclerView rvPortofolioJob;
+    private ArrayList<PortofolioJob> portofolios;
+    private LinearLayoutManager linearLayoutManager;
+    private ListEditPortofolioAdapter editPortofolioAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,20 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
             return insets;
         });
 
-        ivBackButton = findViewById(R.id.btn_back_toolbar);
+        btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         etSearchBar = findViewById(R.id.et_searchBar_editPortofolioPage);
         rvPortofolioJob = findViewById(R.id.rv_portofolioList_editPortofolioPage);
 
-        tvPageTitle.setText("Edit Portofolio");
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
+        tvPageTitle.setText("Edit Portofilio");
 
 //        Set Edit Portofolio Recycler View
         PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false);
@@ -59,12 +67,11 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
         editPortofolioAdapter = new ListEditPortofolioAdapter(portofolios);
         rvPortofolioJob.setLayoutManager(linearLayoutManager);
         rvPortofolioJob.setAdapter(editPortofolioAdapter);
-
-        ivBackButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                startActivity(new Intent(PekerjaEditPortofolioActivity.this, ProfilePekerjaActivity.class));
-                finish();
-            }
-        });
     }
+
+    private void backPage() {
+        startActivity(new Intent(PekerjaEditPortofolioActivity.this, PekerjaMainActivity.class));
+        finish();
+    }
+
 }

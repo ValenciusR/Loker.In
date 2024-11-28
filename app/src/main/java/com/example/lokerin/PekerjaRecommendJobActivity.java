@@ -1,13 +1,14 @@
 package com.example.lokerin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,20 +17,29 @@ import java.util.List;
 
 public class PekerjaRecommendJobActivity extends AppCompatActivity {
 
+    private ImageView btnBack;
+    private TextView tvPageTitle;
+    private RecyclerView rvJobs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pekerja_recommend_job);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
+        tvPageTitle.setText("Rekomendasi Pekerjaan");
+
+        rvJobs = findViewById(R.id.recyclerView);
+        rvJobs.setLayoutManager(new LinearLayoutManager(this));
         ListJobAdapter adapter = new ListJobAdapter(this, getJobDataList());
-        recyclerView.setAdapter(adapter);
-
-        TextView titlePageTextView = findViewById(R.id.tv_page_toolbar);
-        titlePageTextView.setText("Recommended Jobs");
-
+        rvJobs.setAdapter(adapter);
     }
 
     private List<JobData> getJobDataList() {
@@ -57,5 +67,10 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         }
 
         return filteredList;
+    }
+
+    private void backPage() {
+        startActivity(new Intent(PekerjaRecommendJobActivity.this, PekerjaMainActivity.class));
+        finish();
     }
 }

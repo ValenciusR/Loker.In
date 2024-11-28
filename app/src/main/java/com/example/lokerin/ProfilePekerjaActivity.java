@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,23 +17,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ProfilePekerjaActivity extends AppCompatActivity {
 
-    ImageView ivSettings, backButton, ivProfilePicture;
-    TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
-    RecyclerView rvPortofolio, rvReview;
-    ArrayList<Portofolio> portofolios;
-    ArrayList<Review> reviews;
-    LinearLayoutManager linearLayoutManager, linearLayoutManager2;
-    ListPortofolioAdapter portofolioAdapter;
-    ListReviewAdapter reviewAdapter;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
-//    AppCompatButton btnEditPersonalInfo, btnAddJobsToPortofolio, btnLogOut;
+    private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
+    private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
+    private RecyclerView rvPortofolio, rvReview;
+    private ArrayList<Portofolio> portofolios;
+    private ArrayList<Review> reviews;
+    private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
+    private ListPortofolioAdapter portofolioAdapter;
+    private ListReviewAdapter reviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +52,8 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
             return insets;
         });
 
-        backButton = findViewById(R.id.btn_back_toolbar);
-        ivSettings = findViewById(R.id.btn_profile_toolbar);
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         ivProfilePicture = findViewById(R.id.iv_profilePicture_profilePekerjaPage);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         tvName = findViewById(R.id.tv_name_profilePekerjaPage);
@@ -61,8 +65,16 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
         rvReview = findViewById(R.id.rv_reviewList_profilePekerjaPage);
 
-        ivSettings.setImageResource(R.drawable.settings_icon);
-        tvPageTitle.setText("View Profile");
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backPage();
+            }
+        });
+        tvPageTitle.setText("Profil");
+        ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
 //        Set Portofolio Recycler View
         Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
@@ -90,24 +102,19 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         rvReview.setLayoutManager(linearLayoutManager2);
         rvReview.setAdapter(reviewAdapter);
 
-        ivSettings.setOnClickListener(v -> showSettings());
+        ivProfileNavbar.setOnClickListener(v -> showSettings());
 
-//        Handle back button on click event
-        backButton.setOnClickListener(new View.OnClickListener(){
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfilePekerjaActivity.this, PekerjaMainActivity.class));
-                finish();
+                backPage();
             }
         });
-
-
     }
 
     private void showSettings() {
         BottomSheetDialog bottomSheetDialogSettings = new BottomSheetDialog(ProfilePekerjaActivity.this);
-//        View viewBottomSheet = LayoutInflater.from(ProfilePekerjaActivity.this).inflate(R.layout.bottom_sheet_dialog_settings, null);
-//        bottomSheetDialogSettings.setContentView(viewBottomSheet);
-//        bottomSheetDialogSettings.show();
+
         View viewBottomSheet = LayoutInflater.from(ProfilePekerjaActivity.this).inflate(R.layout.bottom_sheet_dialog_settings, null);
         bottomSheetDialogSettings.setContentView(viewBottomSheet);
         bottomSheetDialogSettings.show();
@@ -141,5 +148,10 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void backPage() {
+        startActivity(new Intent(ProfilePekerjaActivity.this, PekerjaMainActivity.class));
+        finish();
     }
 }
