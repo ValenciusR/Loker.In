@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20sp"
+    android:backgroundTint="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    android:layout_marginTop="20sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20sp">
+
+        <!-- LEFT SECTION -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_jobTitle_rvEditPortofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job Title"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_location_rvEditPortofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textColor="#99202124"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- RIGHT SECTION -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginRight="20sp">
+            <TextView
+                android:id="@+id/tv_date_rvEditPortofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dd/mm/yy"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_medium"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tv_category_rvEditPortofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:textColor="#99202124"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/cb_check_rvEditPortofolio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:checked="true"
+            android:button="@drawable/selector_checkbox"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

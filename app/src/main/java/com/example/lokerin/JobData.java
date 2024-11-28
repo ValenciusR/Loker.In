@@ -38,7 +38,31 @@ public class JobData {
     public String getJobStatus() {
         return jobStatus;
     }
-    
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
+
+    public void setJobDateUpload(String jobDateUpload) {
+        this.jobDateUpload = jobDateUpload;
+    }
+
+    public void setJobCategory(String jobCategory) {
+        this.jobCategory = jobCategory;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
+    }
+
+    public void setApplicants(List<User> applicants) {
+        this.applicants = applicants;
+    }
+
     public List<User> getApplicants() {
         return applicants;
     }
