@@ -59,7 +59,7 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                 startProfilePage();
             }
         });
-        tvPageTitle.setText("Edit Profile");
+        tvPageTitle.setText("Edit Profil");
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
         btnSaveChanges.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +121,7 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
 //                Check if job is empty
                 if (etJob.getText().toString().trim().length() < 1) {
                     etJob.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvJobError.setText("Pekerjaan harus diisi!");
+                    tvJobError.setText("Profesi harus diisi!");
                     isValid = false;
                 } else {
                     etJob.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -131,7 +131,7 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
 //                Check if job description is empty
                 if (etJobDescription.getText().toString().trim().length() < 20) {
                     etJobDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvJobDescriptionError.setText("Desckripsi Pekerjaan minimal berisi 20 huruf!");
+                    tvJobDescriptionError.setText("Desckripsi Profesi minimal berisi 20 huruf!");
                     isValid = false;
                 } else {
                     etJobDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);

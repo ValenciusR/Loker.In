@@ -67,15 +67,18 @@
             android:exported="true" />
 
 
-        <activity
-            android:name=".PekerjaMainActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".PekerjaMainActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".EditProfilePekerjaActivity"
             android:exported="true"/>
-
         <activity
             android:name=".PelangganRatingReviewActivity"
+            android:exported="true"/>
+
+        <activity
+            android:name=".PekerjaMainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="210dp"
+    android:layout_width="230dp"
     android:layout_height="110dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
-                android:text="CANCEL"
+                android:text="Keluar"
                 android:textColor="#1977F3"
                 android:fontFamily="@font/poppins_bold"
                 android:background="@drawable/shape_rounded"/>
@@ -49,7 +49,7 @@
                 android:layout_marginStart="8dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
-                android:text="CONFIRM"
+                android:text="Konfirmasi"
                 android:textColor="#FFFFFF"
                 android:fontFamily="@font/poppins_bold"
                 android:background="@drawable/shape_blue_rounded"/>

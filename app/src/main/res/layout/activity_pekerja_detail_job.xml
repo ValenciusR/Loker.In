@@ -164,7 +164,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Job Description"
+                android:text="Deskripsi Pekerjaan"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:fontFamily="@font/poppins_bold"
@@ -208,7 +208,7 @@ Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc 
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:textColor="#FFFFFF"
-                    android:text="Apply Job"
+                    android:text="Daftar Pekerjaan"
                     android:backgroundTint="@null"
                     android:background="@drawable/shape_blue_rounded"/>
 

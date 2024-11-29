@@ -81,7 +81,7 @@ public class PekerjaApplyJobFragment extends Fragment {
         for (JobData job : dataList) {
             if (!job.getJobStatus().equalsIgnoreCase("On Going") && !job.getJobStatus().equalsIgnoreCase("Ended")) {
                 JobData tempJob = job;
-                tempJob.setJobStatus("Applyable");
+                tempJob.setJobStatus("Active");
                 filteredList.add(tempJob);
             }
         }

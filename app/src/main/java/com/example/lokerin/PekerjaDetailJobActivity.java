@@ -61,23 +61,24 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Detail Pekerjaan");
+        tvPageTitle.setText("Detil Pekerjaan");
+        tvPageTitle.setText(jobStatus);
 
         if ("Active".equals(jobStatus) /* && belum apply */) {
-            btnAction.setText("Apply Job");
+            btnAction.setText("Daftar Pekerjaan");
             btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
-            tvPageTitle.setText("Apply Job");
+            tvPageTitle.setText("Daftar Pekerjaan");
         } else if ("On Going".equals(jobStatus) /* && belum di accept */) {
-            btnAction.setText("Cancel Job");
+            btnAction.setText("Batalkan Pekerjaan");
             btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
-            tvPageTitle.setText("My Job");
-        } else if ("On Going1".equals(jobStatus)  /* && sudah di accept */) {
+            tvPageTitle.setText("Pekerjaan Saya");
+        } else if ("On Going2".equals(jobStatus)  /* && sudah di accept */) {
             btnAction.setEnabled(false);
-            tvPageTitle.setText("My Job");
+            tvPageTitle.setText("Pekerjaan Saya");
         } else if ("Ended".equals(jobStatus)) {
             btnChat.setVisibility(View.GONE);
             btnAction.setVisibility(View.GONE);
-            tvPageTitle.setText("My Job");
+            tvPageTitle.setText("Pekerjaan Saya");
         }
 
         // on click chat button -> go to chat with pelanggan
@@ -105,7 +106,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Apply Job?");
+        title.setText("Daftar Pekerjaan?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
@@ -127,7 +128,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Cancel Job?");
+        title.setText("Batalkan Pekerjaan?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);

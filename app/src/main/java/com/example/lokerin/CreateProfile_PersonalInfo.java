@@ -32,7 +32,7 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase ;
     private DatabaseReference userReference;
 
-    private EditText etName, etPhone, etLocation, etAge, etGender;
+    private EditText etName, etPhone, etLocation, etAge;
     private Button btnNext;
 
     private AutoCompleteTextView etGender;

@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"
+                    android:text="Nama"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -76,7 +76,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phone"
+                    android:text="Nomor Telepon"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -108,7 +108,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Location"
+                    android:text="Lokasi"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -172,7 +172,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Job"
+                    android:text="Profesi"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -204,7 +204,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Job Description"
+                    android:text="Deskripsi Profesi"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -240,7 +240,7 @@
                     android:id="@+id/btn_saveChanges_editProfilePekerjaPage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Save Changes"
+                    android:text="Simpan Perubahan"
                     android:textColor="#FFFFFF"
                     android:paddingHorizontal="8sp"
                     android:paddingVertical="8sp"

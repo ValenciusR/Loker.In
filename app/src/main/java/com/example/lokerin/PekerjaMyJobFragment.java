@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class PekerjaMyJobFragment extends Fragment {
 
     private RecyclerView rvJobs;
-
+    private TextView tvPageTitle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -26,7 +27,6 @@ public class PekerjaMyJobFragment extends Fragment {
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
         rvJobs.setAdapter(adapter);
-
         return view;
     }
 
@@ -49,7 +49,7 @@ public class PekerjaMyJobFragment extends Fragment {
         for (JobData job : dataList) {
             if (!job.getJobStatus().equalsIgnoreCase("On Going") && !job.getJobStatus().equalsIgnoreCase("Ended")) {
                 JobData tempJob = job;
-                tempJob.setJobStatus("Applyable");
+                tempJob.setJobStatus("On Going");
                 filteredList.add(tempJob);
             }
         }

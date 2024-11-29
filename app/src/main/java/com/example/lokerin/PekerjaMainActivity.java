@@ -22,12 +22,12 @@ public class PekerjaMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pekerja_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new PelangganMyJobFragment())
+                .replace(R.id.fragment_container, new PekerjaApplyJobFragment())
                 .commit();
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-        tvPageTitle.setText("BERANDA");
+        tvPageTitle.setText("Daftar Pekerjaan");
         ivProfileNavbar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaMainActivity.this, ProfilePekerjaActivity.class));
@@ -42,12 +42,15 @@ public class PekerjaMainActivity extends AppCompatActivity {
             if (id == R.id.bottom_home) {
                 selectedFragment = new PekerjaMyJobFragment();
                 tvPageTitle.setText("Home");
+                tvPageTitle.setText("Pekerjaan Saya");
             } else if (id == R.id.bottom_search) {
                 selectedFragment = new PekerjaApplyJobFragment();
-                tvPageTitle.setText("Search");
+                tvPageTitle.setText("Cari");
+                tvPageTitle.setText("Daftar Pekerjaan");
             } else if (id == R.id.bottom_chat) {
                 selectedFragment = new PekerjaChatFragment();
                 tvPageTitle.setText("Chat");
+                tvPageTitle.setText("Pesan");
             }
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction()

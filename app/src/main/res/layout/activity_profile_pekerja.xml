@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Personal Information"
+                        android:text="Informasi Personal"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
@@ -130,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="11sp"
                             android:fontFamily="@font/poppins_bold"
-                            android:text="Contacts"
+                            android:text="Kontak"
                             android:textColor="@color/black"
                             android:textSize="20sp" />
 
@@ -230,7 +230,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ratings &amp; Reviews"
+                        android:text="Penilaian &amp; Ulasan"
                         android:textColor="@color/black"
                         android:fontFamily="@font/poppins_bold"
                         android:textSize="20sp"/>

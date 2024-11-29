@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Job Categories"
+            android:text="Kategori"
             android:textColor="@color/black"
             android:textSize="16dp"
             android:padding="16dp"/>
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Recommended Jobs"
+                android:text="Rekomendasi Pekerjaan"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:layout_weight="1"/>
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="View All"
+                android:text="Lihat Semua"
                 android:textColor="@color/black"
                 android:textSize="8dp"
                 android:onClick="onViewAllClick"/>

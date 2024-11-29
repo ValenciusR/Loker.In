@@ -73,7 +73,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Profil");
+        tvPageTitle.setText("Lihat Profil");
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
 //        Set Portofolio Recycler View
