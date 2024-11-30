@@ -155,7 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/rating_bar"
         android:layout_centerHorizontal="true"
-        android:text="I recommend this worker to my friends"
+        android:text="Saya merekomendasikan pekerja ini"
         android:textColor="@color/blue"
         />
 
@@ -173,7 +173,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/checkbox_recommend"
             android:fontFamily="@font/poppins_bold"
-            android:text="Write Your Review"
+            android:text="Tulis Ulasanmu"
             android:textColor="#1977F3"
             android:textSize="12sp" />
         <EditText
@@ -197,7 +197,7 @@
             android:layout_marginTop="8dp"
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
-            android:text="PUBLISH"
+            android:text="UNGGAH"
             android:textColor="#FFFFFF"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>

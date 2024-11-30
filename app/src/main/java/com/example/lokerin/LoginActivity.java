@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                 if(!task.isSuccessful()){
-                    Toast.makeText(this, "Login Failed, Email doesn't exist", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Login gagal, Email tidak terdaftar!", Toast.LENGTH_SHORT).show();
                     Log.e("Signup Error", "onCancelled", task.getException());
                 }else{
 //                    startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));

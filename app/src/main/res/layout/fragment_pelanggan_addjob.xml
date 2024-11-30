@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_extrabold"
-            android:text="JOB INFORMATION"
+            android:text="INFORMASI PEKERJAAN"
             android:textColor="@color/darkBlue"
             android:textSize="20dp" />
 
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="JOB TITLE"
+            android:text="JUDUL PEKERJAAN"
             android:textColor="#1977F3"
             android:textSize="12sp" />
 
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="CATEGORY"
+            android:text="KATEGORI"
             android:textColor="#1977F3"
             android:textSize="12sp" />
 
@@ -70,7 +70,7 @@
             android:drawableEnd="@drawable/icon_arrow_forward"
             android:drawablePadding="8dp"
             android:gravity="center_vertical|start"
-            android:text="Choose Category"
+            android:text="Pilih Kategori"
             android:textAllCaps="false" />
 
         <!-- DESCRIPTION -->
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="DESCRIPTION"
+            android:text="DESKRIPSI"
             android:textColor="#1977F3"
             android:textSize="12sp" />
 
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="SALARY"
+            android:text="GAJI"
             android:textColor="#1977F3"
             android:textSize="12sp" />
 
@@ -132,7 +132,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/selector_item_salary_bg"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Daily"
+                android:text="HARIAN"
                 android:textColor="@drawable/selector_salary_item_salary_txt"
                 android:textSize="12sp" />
 
@@ -145,7 +145,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/selector_item_salary_bg"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Weekly"
+                android:text="MINGGUAN"
                 android:textColor="@drawable/selector_salary_item_salary_txt"
                 android:textSize="12sp" />
 
@@ -157,7 +157,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/selector_item_salary_bg"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Monthly"
+                android:text="BULANAN"
                 android:textColor="@drawable/selector_salary_item_salary_txt"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -168,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="UPLOAD IMAGE"
+            android:text="UNGGAH GAMBAR"
             android:textColor="#1977F3"
             android:textSize="12sp"
             android:layout_marginTop="10dp" />
@@ -195,7 +195,7 @@
                 android:layout_below="@id/iv_upload_image_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="8dp"
-                android:text="Tap to upload image"
+                android:text="Tekan untuk mengunggah"
                 android:textColor="@color/blue"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="12sp" />
@@ -215,7 +215,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_extrabold"
             android:layout_marginTop="20dp"
-            android:text="ADDRESS DETAIL"
+            android:text="DETAIL ALAMAT"
             android:textColor="@color/darkBlue"
             android:textSize="20dp" />
         <View
@@ -230,7 +230,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="PROVINCE"
+            android:text="PROVINSI"
             android:textColor="#1977F3"
             android:textSize="12sp" />
         <Spinner
@@ -252,7 +252,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="REGENCY"
+            android:text="KABUPATEN"
             android:textColor="#1977F3"
             android:textSize="12sp" />
         <Spinner
@@ -273,7 +273,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="ADDRESS"
+            android:text="ALAMAT"
             android:textColor="#1977F3"
             android:textSize="12sp" />
         <EditText
@@ -297,7 +297,7 @@
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
             android:layout_marginBottom="120dp"
-            android:text="Upload Job"
+            android:text="UNGGAH PEKERJAAN"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 </ScrollView>

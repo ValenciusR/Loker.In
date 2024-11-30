@@ -92,7 +92,7 @@ public class PelangganAddJobFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("requestKey", this, (requestKey, result) -> {
             String selectedCategory = result.getString("selectedCategory", "");
             if (!selectedCategory.isEmpty()) {
-                Toast.makeText(getContext(), "Selected category: " + selectedCategory, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Kategori dipilih: " + selectedCategory, Toast.LENGTH_SHORT).show();
                 btnCategory.setText(selectedCategory);
             }
         });
@@ -136,7 +136,7 @@ public class PelangganAddJobFragment extends Fragment {
 
             if (etJobTitle.getText().toString().trim().length() < 8) {
                 etJobTitle.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(getContext(), "Job title must be at least 8 characters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Judul pekerjaan minimal berisi 8 huruf!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 etJobTitle.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -144,7 +144,7 @@ public class PelangganAddJobFragment extends Fragment {
 
             if (isValid && !isCategorySelected) {
                 btnCategory.setBackgroundResource(R.drawable.shape_red_rounded);
-                Toast.makeText(getContext(), "Please select a category", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pilih salah satu kategori!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
@@ -152,7 +152,7 @@ public class PelangganAddJobFragment extends Fragment {
 
             if (isValid && etDescription.getText().toString().trim().length() < 20) {
                 etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(getContext(), "Description must be at least 20 characters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Deskripsi minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -163,14 +163,14 @@ public class PelangganAddJobFragment extends Fragment {
                     double salaryValue = Double.parseDouble(etSalary.getText().toString().trim());
                     if (salaryValue <= 0) {
                         etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                        Toast.makeText(getContext(), "Salary must be a positive number", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Gaji harus bilangan positif!", Toast.LENGTH_SHORT).show();
                         isValid = false;
                     } else {
                         etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                     }
                 } catch (NumberFormatException e) {
                     etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    Toast.makeText(getContext(), "Salary must be a valid number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Gaji harus berupa angka valid!", Toast.LENGTH_SHORT).show();
                     isValid = false;
                 }
             }
@@ -179,13 +179,13 @@ public class PelangganAddJobFragment extends Fragment {
                 btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
                 btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
                 btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
-                Toast.makeText(getContext(), "Please select a salary frequency", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pilih salah satu frekuensi gaji!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             }
 
             if (isValid && spinnerProvince.getSelectedItemPosition() == 0) {
                 spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(getContext(), "Please select a province", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pilih salah satu provinsi!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -193,7 +193,7 @@ public class PelangganAddJobFragment extends Fragment {
 
             if (isValid && spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
                 spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(getContext(), "Please select a regency", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Pilih salah satu kabupaten!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -201,14 +201,14 @@ public class PelangganAddJobFragment extends Fragment {
 
             if (isValid && etAddress.getText().toString().trim().length() < 20) {
                 etAddress.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(getContext(), "Address must be at least 20 characters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Alamat minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
                 isValid = false;
             } else {
                 etAddress.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
             if (isValid) {
-                Toast.makeText(getContext(), "Job uploaded successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Profil berhasil di tambahkan!", Toast.LENGTH_SHORT).show();
             }
         });
 

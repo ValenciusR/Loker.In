@@ -48,13 +48,13 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
                 startProfilePage();
             }
         });
-        tvPageTitle.setText("Edit Profile");
+        tvPageTitle.setText("Edit Profil");
 
         btnSaveChanges.setOnClickListener(v -> {
             isValid = true;
 
             if (etName.getText().toString().trim().isEmpty()) {
-                tvNameError.setText("Name is required!");
+                tvNameError.setText("Nama harus diisi!");
                 tvNameError.setVisibility(View.VISIBLE);
                 etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 isValid = false;
@@ -65,7 +65,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
 
             String phone = etPhone.getText().toString().trim();
             if (phone.isEmpty() || phone.length() < 10 || !phone.matches("\\d+")) {
-                tvPhoneError.setText("Invalid phone number!");
+                tvPhoneError.setText("Nomor telepon tidak valid!");
                 tvPhoneError.setVisibility(View.VISIBLE);
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 isValid = false;
@@ -75,7 +75,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
             }
 
             if (etLocation.getText().toString().trim().isEmpty()) {
-                tvLocationError.setText("Location is required!");
+                tvLocationError.setText("Lokasi harus diisi!");
                 tvLocationError.setVisibility(View.VISIBLE);
                 etLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 isValid = false;
@@ -86,7 +86,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
 
             String email = etEmail.getText().toString().trim();
             if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                tvEmailError.setText("Invalid email address!");
+                tvEmailError.setText("Email tidak valid!");
                 tvEmailError.setVisibility(View.VISIBLE);
                 etEmail.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 isValid = false;
@@ -96,7 +96,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
             }
 
             if (isValid) {
-                Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Profil berhasil di ubah!", Toast.LENGTH_SHORT).show();
                 //Logic update profile
                 startProfilePage();
             }

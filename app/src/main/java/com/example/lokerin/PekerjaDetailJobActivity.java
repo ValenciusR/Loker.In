@@ -61,24 +61,24 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Detil Pekerjaan");
+        tvPageTitle.setText("Detail Pekerjaan");
         tvPageTitle.setText(jobStatus);
 
         if ("Active".equals(jobStatus) /* && belum apply */) {
             btnAction.setText("Daftar Pekerjaan");
             btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
-            tvPageTitle.setText("Daftar Pekerjaan");
+            //tvPageTitle.setText("Daftar Pekerjaan");
         } else if ("On Going".equals(jobStatus) /* && belum di accept */) {
             btnAction.setText("Batalkan Pekerjaan");
             btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
-            tvPageTitle.setText("Pekerjaan Saya");
+            //tvPageTitle.setText("Pekerjaan Saya");
         } else if ("On Going2".equals(jobStatus)  /* && sudah di accept */) {
             btnAction.setEnabled(false);
-            tvPageTitle.setText("Pekerjaan Saya");
+            //tvPageTitle.setText("Pekerjaan Saya");
         } else if ("Ended".equals(jobStatus)) {
             btnChat.setVisibility(View.GONE);
             btnAction.setVisibility(View.GONE);
-            tvPageTitle.setText("Pekerjaan Saya");
+            //tvPageTitle.setText("Pekerjaan Saya");
         }
 
         // on click chat button -> go to chat with pelanggan

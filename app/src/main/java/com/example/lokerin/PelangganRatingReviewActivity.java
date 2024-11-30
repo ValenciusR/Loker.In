@@ -56,7 +56,7 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         btnPublish.setOnClickListener(v -> {
             boolean isValid = validateInput();
             if (isValid) {
-                Toast.makeText(this, "Review published successfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Ulasan berhasil diunggah!", Toast.LENGTH_SHORT).show();
                 // Logic publish data
             }
         });
@@ -68,14 +68,14 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         String review = etReviewRate.getText().toString().trim();
         if (review.length() < 20) {
             etReviewRate.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(this, "Review must be at least 20 characters!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ulasan minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
             isValid = false;
         } else {
             etReviewRate.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
         if (rbRating.getRating() == 0) {
-            Toast.makeText(this, "Please provide a rating!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Pilih skala rating (1 - 5)!", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
 

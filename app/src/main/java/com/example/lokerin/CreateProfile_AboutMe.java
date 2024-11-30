@@ -60,7 +60,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(CreateProfile_AboutMe.this, "Failed to Load Data", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateProfile_AboutMe.this, "Gagal mengambil data", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,7 +81,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
                     }
                 } else {
                     // Handle the error here
-                    Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Gagal menyimpan data user", Toast.LENGTH_SHORT).show();
                 }
             });
         });

@@ -38,7 +38,7 @@
             android:name=".PelangganAddJobCategoryFragment"
             android:exported="false" />
         <activity
-            android:name=".DetailJobActivity"
+            android:name=".PelangganDetailJobActivity"
             android:exported="false" />
         <activity
             android:name=".CreateProfile_WorkExperience"

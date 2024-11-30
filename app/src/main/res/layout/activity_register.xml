@@ -28,14 +28,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="Selamat Datang"
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/poppins_bold"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Register your account here"
+            android:text="Daftarkan akunmu disini"
             android:textSize="12sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/poppins_regular" />
@@ -57,7 +57,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email Address"
+            android:text="Email"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
@@ -84,7 +84,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="Sandi"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
@@ -115,7 +115,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm Password"
+            android:text="Konfirmasi Sandi"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
@@ -146,7 +146,7 @@
             android:id="@+id/btn_register_registerPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="DAFTAR"
             android:textColor="#FFFFFF"
             android:layout_marginTop="10sp"
             android:paddingHorizontal="8dp"
@@ -158,7 +158,7 @@
             android:id="@+id/login_link_registerPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign In"
+            android:text="Sudah memiliki akun? Klik disini!"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:fontFamily="@font/poppins_regular"

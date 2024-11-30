@@ -27,14 +27,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome"
+            android:text="Selamat Datang"
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/poppins_bold"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign In to continue"
+            android:text="Masuk untuk melanjutkan"
             android:textSize="12sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/poppins_regular"
@@ -59,7 +59,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email Address"
+            android:text="Email"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
@@ -87,7 +87,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Password"
+            android:text="Sandi"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
@@ -138,7 +138,7 @@
                 android:id="@+id/register_link_loginPage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign Up"
+                android:text="Mendaftar"
                 android:textSize="12sp"
                 android:textColor="#1977F3"
                 android:fontFamily="@font/poppins_regular"
@@ -149,7 +149,7 @@
                 android:id="@+id/forgotPassword_link_loginPage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Forgot Password"
+                android:text="Lupa kata sandi"
                 android:textSize="12sp"
                 android:textColor="#1977F3"
                 android:fontFamily="@font/poppins_regular"

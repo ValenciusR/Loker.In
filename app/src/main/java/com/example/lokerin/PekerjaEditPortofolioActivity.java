@@ -52,7 +52,7 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Edit Portofilio");
+        tvPageTitle.setText("Ubah Portofolio");
 
 //        Set Edit Portofolio Recycler View
         PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false);
