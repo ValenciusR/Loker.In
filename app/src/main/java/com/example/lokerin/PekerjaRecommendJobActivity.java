@@ -2,7 +2,10 @@ package com.example.lokerin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     private ImageView btnBack;
     private TextView tvPageTitle;
     private RecyclerView rvJobs;
+    private EditText etSearchBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,21 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
         ListJobAdapter adapter = new ListJobAdapter(this, getJobDataList());
         rvJobs.setAdapter(adapter);
+
+        etSearchBar = findViewById(R.id.search_bar);
+        etSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
     }
 
     private List<JobData> getJobDataList() {

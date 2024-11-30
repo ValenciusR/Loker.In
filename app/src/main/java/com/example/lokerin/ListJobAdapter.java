@@ -6,20 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardViewHolder> {
+public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardViewHolder> implements Filterable {
 
     private List<JobData> jobDataList;
+    private List<JobData> filteredList;
     private Context context;
 
     public ListJobAdapter(Context context, List<JobData> jobDataList) {
         this.context = context;
         this.jobDataList = jobDataList;
+        this.filteredList = new ArrayList<>(jobDataList);
     }
 
     @NonNull
@@ -31,14 +36,13 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        JobData data = jobDataList.get(position);
+        JobData data = filteredList.get(position); // Use filteredList
         holder.jobTitle.setText(data.getJobTitle());
         holder.jobLocation.setText(data.getJobLocation());
         holder.jobDateUpload.setText(data.getJobDateUpload());
         holder.jobCategory.setText(data.getJobCategory());
 
         holder.itemView.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, DetailJobActivity.class);
             Intent intent = new Intent(context, PekerjaDetailJobActivity.class);
             intent.putExtra("jobTitle", data.getJobTitle());
             intent.putExtra("jobLocation", data.getJobLocation());
@@ -52,7 +56,38 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
 
     @Override
     public int getItemCount() {
-        return jobDataList.size();
+        return filteredList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String query = constraint.toString().toLowerCase().trim();
+                List<JobData> filtered = new ArrayList<>();
+
+                if (query.isEmpty()) {
+                    filtered.addAll(jobDataList);
+                } else {
+                    for (JobData job : jobDataList) {
+                        if (job.getJobTitle().toLowerCase().contains(query)) {
+                            filtered.add(job);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filtered;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                filteredList.clear();
+                filteredList.addAll((List<JobData>) results.values);
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {

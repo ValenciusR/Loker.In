@@ -65,18 +65,12 @@
         <activity
             android:name=".PelangganMainActivity"
             android:exported="true" />
-
-
-<!--        <activity-->
-<!--            android:name=".PekerjaMainActivity"-->
-<!--            android:exported="false" />-->
         <activity
             android:name=".EditProfilePekerjaActivity"
             android:exported="true"/>
         <activity
             android:name=".PelangganRatingReviewActivity"
             android:exported="true"/>
-
         <activity
             android:name=".PekerjaMainActivity"
             android:exported="true" >
@@ -86,7 +80,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

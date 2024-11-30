@@ -5,9 +5,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +18,7 @@ import java.util.List;
 public class PelangganMyJobFragment extends Fragment {
 
     private RecyclerView rvJobs;
-
+    private EditText etSearchBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -25,6 +28,20 @@ public class PelangganMyJobFragment extends Fragment {
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
         rvJobs.setAdapter(adapter);
+
+        etSearchBar = view.findViewById(R.id.search_bar);
+        etSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         return view;
     }
