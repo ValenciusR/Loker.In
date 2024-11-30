@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Arrays;
 import java.util.List;
 
-public class DetailJobActivity extends AppCompatActivity {
+public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private ImageView btnBack,ivProfileNavbar;
     private List<JobData> jobDataList;
@@ -29,7 +29,7 @@ public class DetailJobActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_job);
+        setContentView(R.layout.activity_pelanggan_detail_job);
 
         Intent intent = getIntent();
         jobTitle = intent.getStringExtra("jobTitle");
@@ -63,18 +63,18 @@ public class DetailJobActivity extends AppCompatActivity {
         rvApplicants.setAdapter(adapter);
 
         if ("Active".equals(jobStatus)) {
-            btnAction.setText("Confirm Book");
+            btnAction.setText("Mulai Pekerjaan");
             btnAction.setOnClickListener(v -> showConfirmBookConfirmationDialog());
             btnDelete.setVisibility(View.GONE);
         } else if ("On Going".equals(jobStatus)) {
-            btnAction.setText("Finish Job");
+            btnAction.setText("Akhiri Pekerjaan");
             btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
             btnDelete.setVisibility(View.GONE);
         } else if ("Ended".equals(jobStatus)) {
             btnAction.setVisibility(View.GONE);
             btnDelete.setVisibility(View.GONE);
-        } else if ("Applyable".equals(jobStatus)) {
-            btnAction.setText("Apply");
+        } else if ("Applyable".equals(jobStatus)) { //buat pekerja seharusnya
+            btnAction.setText("Daftar");
             btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
             btnDelete.setVisibility(View.GONE);
             rvApplicants.setVisibility(View.GONE);
@@ -90,7 +90,7 @@ public class DetailJobActivity extends AppCompatActivity {
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Delete Job?");
+        title.setText("Hapus Pekerjaan?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
@@ -112,7 +112,7 @@ public class DetailJobActivity extends AppCompatActivity {
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Confirm Book?");
+        title.setText("Konfirmasi Pekerjaan?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
@@ -134,7 +134,7 @@ public class DetailJobActivity extends AppCompatActivity {
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Finish Job?");
+        title.setText("Selesaikan Pekerjaan?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);

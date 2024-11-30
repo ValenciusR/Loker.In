@@ -62,26 +62,26 @@ public class RegisterActivity extends AppCompatActivity {
             String passwordConf = etConfPassword.getText().toString();
 
             if (!email.contains("@") || !email.endsWith(".com")) {
-                Toast.makeText(this, "Email must contain '@' and ends with '.com'", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Email harus mengandung '@' dan diakhiri '.com'", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else if (email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()) {
-                Toast.makeText(this, "All fields must be filled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Semua form harus diisi", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else if (password.length() < 6) {
-                Toast.makeText(this, "Password length must be more than 5 characters", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Kata sandi minimal berisi 6 huruf", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else if (!password.equals(passwordConf)) {
-                Toast.makeText(this, "Password and Confirm Password does not match", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Kata sandi tidak sesuai", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else {
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, task -> {
                     if (!task.isSuccessful()) {
-                        Toast.makeText(this, "Register Failed, email already exits", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Pendaftaran gagal, email sudah digunakan", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     } else {
 
-                        Toast.makeText(this, "Register Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Pendaftaran Berhasil", Toast.LENGTH_SHORT).show();
                         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
                         userReference.setValue(new User(email,password,"","","","",0,"","","","","",""));
                         progressDialog.dismiss();

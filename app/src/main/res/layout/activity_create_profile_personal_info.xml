@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/poppins_bold"
-        android:text="About You"
+        android:text="Tentang Kamu"
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
 
@@ -26,7 +26,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="Let's Create your biography"
+        android:text="Ayo kita buat biografi!"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Name"
+        android:text="Nama"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Phone Number"
+        android:text="Nomor Telefon"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Location"
+        android:text="Lokasi"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/poppins_regular"
-                android:text="Age"
+                android:text="Umur"
                 android:textColor="#FFFFFF"
                 android:textSize="14sp" />
 
@@ -224,7 +224,7 @@
             android:fontFamily="@font/poppins_bold"
             android:paddingHorizontal="8dp"
             android:paddingVertical="8dp"
-            android:text="Next"
+            android:text="Lanjut"
             android:textColor="#1977F3" />
     </LinearLayout>
 

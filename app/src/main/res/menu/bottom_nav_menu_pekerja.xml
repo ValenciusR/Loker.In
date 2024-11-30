@@ -4,16 +4,16 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/icon_my_job"
-        android:title="Home"/>
+        android:title="Beranda"/>
 
     <item
         android:id="@+id/bottom_search"
         android:icon="@drawable/icon_search_white"
-        android:title="Apply Job"/>
+        android:title="Daftar"/>
 
     <item
         android:id="@+id/bottom_chat"
         android:icon="@drawable/icon_chat"
-        android:title="Chat"/>
+        android:title="Pesan"/>
 
 </menu>

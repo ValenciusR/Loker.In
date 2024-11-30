@@ -16,7 +16,7 @@
             android:id="@+id/category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="KATEGORI"
             android:textColor="#21458B"
             android:textSize="32sp"
             android:layout_marginTop="16sp"
@@ -27,7 +27,7 @@
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please choose the most suitable category with your personal requirement!"
+            android:text="Pilih kategori pekerjaan yang paling cocok dengan pekerjaan yang anda butuhkan!"
             android:textColor="#21458B"
             android:textSize="16sp"
             android:layout_marginStart="20sp"
@@ -333,7 +333,7 @@
             android:background="@drawable/shape_blue_rounded"
             android:backgroundTint="@null"
             android:fontFamily="@font/poppins_medium"
-            android:text="CONFIRM"
+            android:text="KONFIRMASI"
             android:textColor="#FFFFFF"
             android:layout_gravity="center_horizontal"/>
 

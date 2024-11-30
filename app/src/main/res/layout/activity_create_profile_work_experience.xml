@@ -12,7 +12,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Work Experience"
+        android:text="Tambahkan Pengalaman Kerja"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:fontFamily="@font/poppins_bold"/>
@@ -20,7 +20,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Share Your Job Experiences!"
+        android:text="Tunjukkan pengalamanmu!"
         android:textSize="16sp"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="16dp"
@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Job Title"
+        android:text="Judul Pekerjaan"
         android:textSize="14sp"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="4dp"
@@ -49,7 +49,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="Deskripsi"
         android:textSize="14sp"
         android:textColor="#FFFFFF"
         android:layout_marginBottom="4dp"
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Skip"
+                android:text="Lewati"
                 android:textSize="14sp"
                 android:textColor="#FFFFFF"
                 android:layout_marginBottom="4dp"
@@ -96,7 +96,7 @@
             android:id="@+id/btn_next_workExperiencePage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next"
+            android:text="Lanjut"
             android:textColor="#1977F3"
             android:layout_alignParentEnd="true"
 

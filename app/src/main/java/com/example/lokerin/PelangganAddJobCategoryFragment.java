@@ -104,7 +104,7 @@ public class PelangganAddJobCategoryFragment extends Fragment {
 
     private void confirmCategorySelection() {
         if (selectedCardIndex == -1) {
-            Toast.makeText(getContext(), "Please select a category first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Pilih satu kategori pekerjaan!", Toast.LENGTH_SHORT).show();
         } else {
             Bundle result = new Bundle();
             result.putString("selectedCategory", selectedCategory);

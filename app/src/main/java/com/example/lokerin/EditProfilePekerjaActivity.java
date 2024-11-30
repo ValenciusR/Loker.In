@@ -79,12 +79,12 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
 //                check phone length
                 if (etPhone.getText().toString().trim().length() < 10) {
                     etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvPhoneError.setText("Nomor Telepon minimal memiliki 10 angka!");
+                    tvPhoneError.setText("Nomor telepon minimal memiliki 10 angka!");
                     isValid = false;
                 }
                 else if (!etPhone.getText().toString().matches("\\d+(?:\\.\\d+)?")) {
                     etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvPhoneError.setText("Nomor Telepon hanya boleh memiliki angka!");
+                    tvPhoneError.setText("Nomor telepon hanya boleh memiliki angka!");
                     isValid = false;
                 }
                 else {
@@ -131,7 +131,7 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
 //                Check if job description is empty
                 if (etJobDescription.getText().toString().trim().length() < 20) {
                     etJobDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvJobDescriptionError.setText("Desckripsi Profesi minimal berisi 20 huruf!");
+                    tvJobDescriptionError.setText("Deskripsi profesi minimal berisi 20 huruf!");
                     isValid = false;
                 } else {
                     etJobDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -139,7 +139,7 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                 }
 
                 if(isValid) {
-                    Toast.makeText(EditProfilePekerjaActivity.this, "Profile updated successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditProfilePekerjaActivity.this, "Profil berhasil di ubah!", Toast.LENGTH_SHORT).show();
                     //Logic update profile
                     startProfilePage();
                 }

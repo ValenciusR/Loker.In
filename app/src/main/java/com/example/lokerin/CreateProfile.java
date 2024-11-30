@@ -51,7 +51,7 @@ public class CreateProfile extends AppCompatActivity {
                     finish();
                 } else {
                     // Handle the error here
-                    Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Gagal menyimpan data user", Toast.LENGTH_SHORT).show();
                 }
             });
         });
@@ -67,7 +67,7 @@ public class CreateProfile extends AppCompatActivity {
                     finish();
                 } else {
                     // Handle the error here
-                    Toast.makeText(this, "Failed to save user data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Gagal menyimpan data user", Toast.LENGTH_SHORT).show();
                 }
             });
         });

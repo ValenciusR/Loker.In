@@ -42,13 +42,13 @@ public class PelangganMainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.bottom_home) {
                 selectedFragment = new PelangganMyJobFragment();
-                tvPageTitle.setText("Home");
+                tvPageTitle.setText("BERANDA");
             } else if (id == R.id.bottom_search) {
                 selectedFragment = new PelangganAddJobFragment();
-                tvPageTitle.setText("Search");
+                tvPageTitle.setText("TAMBAHKAN PEKERJAAN");
             } else if (id == R.id.bottom_chat) {
                 selectedFragment = new PelangganChatFragment();
-                tvPageTitle.setText("Chat");
+                tvPageTitle.setText("PESAN");
             }
             if (selectedFragment != null) {
                 getSupportFragmentManager().beginTransaction()

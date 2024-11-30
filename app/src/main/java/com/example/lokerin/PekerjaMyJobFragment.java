@@ -17,7 +17,7 @@ import java.util.List;
 public class PekerjaMyJobFragment extends Fragment {
 
     private RecyclerView rvJobs;
-    private TextView tvPageTitle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class PekerjaMyJobFragment extends Fragment {
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
         rvJobs.setAdapter(adapter);
+
         return view;
     }
 
