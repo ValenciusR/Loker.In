@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,6 +23,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail, etPassword;
     private TextView registerLink, forgotPassLink;
     private FirebaseApp firebaseApp;
+
+    FirebaseUser firebaseUser;
 
 
     @SuppressLint("MissingInflatedId")
@@ -39,6 +42,16 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        //check if user is null
+        if(firebaseUser != null){
+            Intent intent = new Intent(LoginActivity.this, PekerjaMainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         registerLink.setOnClickListener(view -> {
             Intent registerIntent = new Intent(this, RegisterActivity.class);
