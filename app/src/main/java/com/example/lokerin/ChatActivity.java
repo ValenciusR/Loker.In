@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -41,6 +45,11 @@ public class ChatActivity extends AppCompatActivity {
 
     ImageButton btnSend;
     EditText etMessage;
+
+    MessageAdapter messageAdapter;
+    List<Chat> mChat;
+
+    RecyclerView rvChat;
 
 
     @Override
@@ -59,6 +68,12 @@ public class ChatActivity extends AppCompatActivity {
             finish();
         });
 
+        rvChat = findViewById(R.id.rv_chatting);
+        rvChat.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        rvChat.setLayoutManager(linearLayoutManager);
+
         intent = getIntent();
         String userid = intent.getStringExtra("userid");
 
@@ -68,19 +83,40 @@ public class ChatActivity extends AppCompatActivity {
         chatsReference = firebaseDatabase.getReference().child("chats");
 
 
-        Log.d("userID", userid);
-
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = snapshot.child("name").getValue().toString();
                 tvUsername.setText(name);
+
+                mChat = new ArrayList<>();
+                chatsReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        mChat.clear();
+                        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                            Chat chat = snapshot.getValue(Chat.class);
+                            if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(fuser.getUid())){
+                                mChat.add(chat);
+                            }
+                            messageAdapter = new MessageAdapter(ChatActivity.this,mChat,"blank");
+                            rvChat.setAdapter(messageAdapter);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
         });
 
         btnSend.setOnClickListener(view -> {
@@ -92,6 +128,7 @@ public class ChatActivity extends AppCompatActivity {
                 hashMap.put("message",msg);
 
                 chatsReference.push().setValue(hashMap);
+                etMessage.setText("");
             }else{
                 Toast.makeText(this, "Can't send empty message", Toast.LENGTH_SHORT).show();
             }
