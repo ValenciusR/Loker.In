@@ -55,10 +55,7 @@ public class PekerjaChatFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
-                Integer count = 0;
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    count +=1;
-
                     User user = new User(snapshot.child("id").getValue().toString(), snapshot.child("email").getValue().toString(),snapshot.child("name").getValue().toString());
 
                    assert user != null;

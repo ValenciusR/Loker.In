@@ -1,6 +1,7 @@
 package com.example.lokerin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,7 @@ public class ListUserChatAdapter extends RecyclerView.Adapter<ListUserChatAdapte
     @NonNull
     @Override
     public ListUserChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item,parent,false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item,parent,false);
         return new ListUserChatViewHolder(view);
     }
 
@@ -36,6 +37,12 @@ public class ListUserChatAdapter extends RecyclerView.Adapter<ListUserChatAdapte
         User user = mUsers.get(position);
         holder.username.setText(user.getName());
         holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(mContext, ChatActivity.class);
+            intent.putExtra("userid",user.getId());
+            mContext.startActivity(intent);
+        });
     }
 
     @Override
