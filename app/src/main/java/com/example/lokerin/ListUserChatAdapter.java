@@ -1,0 +1,59 @@
+package com.example.lokerin;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
+
+import java.util.List;
+
+public class ListUserChatAdapter extends RecyclerView.Adapter<ListUserChatAdapter.ListUserChatViewHolder> {
+
+    private Context mContext;
+    private List<User> mUsers;
+
+    public ListUserChatAdapter(Context mContext, List<User> mUsers){
+        this.mContext = mContext;
+        this.mUsers = mUsers;
+    }
+
+    @NonNull
+    @Override
+    public ListUserChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item,parent,false);
+        return new ListUserChatViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ListUserChatViewHolder holder, int position) {
+        User user = mUsers.get(position);
+        holder.username.setText(user.getName());
+        holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mUsers.size();
+    }
+
+    public class ListUserChatViewHolder extends RecyclerView.ViewHolder{
+        public TextView username;
+        public ImageView profile_image;
+
+        public ListUserChatViewHolder(View itemView){
+            super(itemView);
+
+            username = itemView.findViewById(R.id.tv_username);
+            profile_image = itemView.findViewById(R.id.iv_profile_icon);
+
+        }
+    }
+
+}

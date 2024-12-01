@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/blue">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+        <ImageView
+            android:id="@+id/btn_back_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/icon_arrow_back"/>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_toEndOf="@+id/btn_back_toolbar"
+            android:id="@+id/iv_profile_icon"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:elevation="12dp"
+            app:cardCornerRadius="30dp"
+            android:layout_centerVertical="true"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
+            android:layout_marginHorizontal="10dp"
+            >
+            <ImageView
+                android:layout_height="40dp"
+                android:layout_width="match_parent"
+                android:id="@+id/imageView1"
+                android:src="@drawable/lokerinlogo"
+                >
+            </ImageView>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/tv_page_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/iv_profile_icon"
+            android:layout_centerVertical="true"
+            android:textSize="24dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Name"/>
+
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

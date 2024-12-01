@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         Toast.makeText(this, "Pendaftaran Berhasil", Toast.LENGTH_SHORT).show();
                         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
-                        userReference.setValue(new User(email,password,"","","","",0,"","","","","",""));
+                        userReference.setValue(new User(mAuth.getCurrentUser().getUid(),email,password,"","","","",0,"","","","","",""));
                         progressDialog.dismiss();
                         Intent loginIntent = new Intent(this, CreateProfile.class);
                         startActivity(loginIntent);

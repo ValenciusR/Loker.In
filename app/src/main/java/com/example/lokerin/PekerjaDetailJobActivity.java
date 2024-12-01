@@ -50,7 +50,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         tvEndDate.setText(jobEndDate);
 
         // Button
-        btnChat = findViewById(R.id.bt_chat_pekerjaDetailJobPage);
+        btnChat = findViewById(R.id.btn_chat_pekerjaDetailJobPage);
         btnAction = findViewById(R.id.bt_action_pekerjaDetailJobPage);
 
         btnBack = findViewById(R.id.btn_back_toolbar);
@@ -94,6 +94,15 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 backPage();
+            }
+        });
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PekerjaDetailJobActivity.this, ChatActivity.class);
+                intent.putExtra("userid", "Ming ming");
+                startActivity(intent);
             }
         });
 
