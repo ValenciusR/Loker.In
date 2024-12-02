@@ -16,9 +16,8 @@
             android:name=".PekerjaEditPortofolioActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfilePekerjaActivity"
+            android:name=".PekerjaProfileActivity"
             android:exported="true" />
-
         <activity
             android:name=".PekerjaCategorizedJobActivity"
             android:exported="false" />
@@ -29,7 +28,7 @@
             android:name=".EditProfilePelangganActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfilePelangganActivity"
+            android:name=".PelangganProfileActivity"
             android:exported="false" />
         <activity
             android:name=".PekerjaDetailJobActivity"
@@ -51,8 +50,7 @@
             android:exported="false" />
         <activity
             android:name=".CreateProfile_PersonalInfo"
-            android:exported="false">
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
@@ -73,6 +71,9 @@
             android:exported="true"/>
         <activity
             android:name=".PekerjaMainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".AdminMainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

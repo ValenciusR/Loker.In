@@ -148,7 +148,7 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
     }
 
     private void startProfilePage() {
-        startActivity(new Intent(EditProfilePekerjaActivity.this, ProfilePekerjaActivity.class));
+        startActivity(new Intent(EditProfilePekerjaActivity.this, PekerjaProfileActivity.class));
         finish();
     }
 }
