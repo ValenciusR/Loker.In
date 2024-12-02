@@ -56,10 +56,10 @@ public class PekerjaChatFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = new User(snapshot.child("id").getValue().toString(), snapshot.child("email").getValue().toString(),snapshot.child("name").getValue().toString());
-
+                    User user = snapshot.getValue(User.class);
                    assert user != null;
                    assert firebaseUser != null;
+
                     if(!user.getId().equals(firebaseUser.getUid())){
                         mUsers.add(user);
                     }
