@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -86,8 +87,13 @@ public class ChatActivity extends AppCompatActivity {
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String name = snapshot.child("name").getValue().toString();
-                tvUsername.setText(name);
+                User user = snapshot.getValue(User.class);
+                tvUsername.setText(user.getName());
+                if(user.getImageUrl().equals("default")){
+                    ivProfileImage.setImageResource(R.mipmap.ic_launcher);
+                } else{
+                    Glide.with(ChatActivity.this).load(user.getImageUrl()).into(ivProfileImage);
+                }
 
                 mChat = new ArrayList<>();
                 chatsReference.addValueEventListener(new ValueEventListener() {
@@ -99,7 +105,7 @@ public class ChatActivity extends AppCompatActivity {
                             if(chat.getReceiver().equals(fuser.getUid()) && chat.getSender().equals(userid) || chat.getReceiver().equals(userid) && chat.getSender().equals(fuser.getUid())){
                                 mChat.add(chat);
                             }
-                            messageAdapter = new MessageAdapter(ChatActivity.this,mChat,"blank");
+                            messageAdapter = new MessageAdapter(ChatActivity.this,mChat,user.getImageUrl());
                             rvChat.setAdapter(messageAdapter);
                         }
                     }
@@ -128,10 +134,10 @@ public class ChatActivity extends AppCompatActivity {
                 hashMap.put("message",msg);
 
                 chatsReference.push().setValue(hashMap);
-                etMessage.setText("");
             }else{
                 Toast.makeText(this, "Can't send empty message", Toast.LENGTH_SHORT).show();
             }
+            etMessage.setText("");
         });
 
     }

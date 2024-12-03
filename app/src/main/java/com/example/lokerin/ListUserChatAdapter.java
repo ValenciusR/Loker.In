@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -36,7 +38,12 @@ public class ListUserChatAdapter extends RecyclerView.Adapter<ListUserChatAdapte
     public void onBindViewHolder(@NonNull ListUserChatViewHolder holder, int position) {
         User user = mUsers.get(position);
         holder.username.setText(user.getName());
-        holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+        if(user.getImageUrl().equals("default")){
+            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+        } else{
+            Glide.with(mContext).load(user.getImageUrl()).into(holder.profile_image);
+        }
+
 
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(mContext, ChatActivity.class);
