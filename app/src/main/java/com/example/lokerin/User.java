@@ -16,8 +16,15 @@ public class User implements Serializable {
     private String skillDesc;
     private String job;
     private String jobDesc;
+    private String id;
+    private String imageUrl;
 
-    public User(String email, String password, String type, String name, String phoneNumber, String location, int age, String gender, String aboutMe, String skill, String skillDesc, String job, String jobDesc) {
+    public User(){
+
+    }
+
+    public User(String id,String email, String password, String type, String name, String phoneNumber, String location, int age, String gender, String aboutMe, String skill, String skillDesc, String job, String jobDesc, String imageUrl) {
+        this.id = id;
         this.email = email;
         this.password = password;
         this.type = type;
@@ -31,11 +38,27 @@ public class User implements Serializable {
         this.skillDesc = skillDesc;
         this.job = job;
         this.jobDesc = jobDesc;
+        this.imageUrl = imageUrl;
+    }
+
+    public User(String id,String email, String name){
+        this.id = id;
+        this.email = email;
+        this.name = name;
     }
 
     public User(String email, String name){
         this.email = email;
         this.name = name;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {
@@ -140,6 +163,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
 

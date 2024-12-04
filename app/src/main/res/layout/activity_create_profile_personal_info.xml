@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -155,7 +156,7 @@
                 android:padding="1dp"
                 android:layout_margin="0dp"
                 >
-                
+
                 <AutoCompleteTextView
                     android:id="@+id/input_gender_personalInfoPage"
                     android:layout_width="match_parent"
@@ -170,42 +171,8 @@
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
-            <!--            <EditText-->
-            <!--                android:id="@+id/input_gender_personalInfoPage"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textColor="@color/black"-->
-            <!--                android:inputType="textPersonName"-->
-            <!--                android:padding="10dp"-->
-            <!--                android:background="@drawable/shape_rounded"-->
-            <!--                android:fontFamily="@font/poppins_regular"/>-->
-
-
         </LinearLayout>
     </LinearLayout>
-
-
-    <!--    &lt;!&ndash; Label for About Me &ndash;&gt;-->
-    <!--    <TextView-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="About me"-->
-    <!--        android:textSize="14sp"-->
-    <!--        android:textColor="#FFFFFF"-->
-    <!--        android:layout_below="@id/input_age"-->
-    <!--        android:layout_marginBottom="4dp" />-->
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/input_about_me"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="103dp"-->
-    <!--        android:layout_below="@id/input_age"-->
-    <!--        android:layout_marginBottom="8dp"-->
-    <!--        android:background="@drawable/shape_rounded"-->
-    <!--        android:inputType="textMultiLine" />-->
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -10,12 +10,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
 
         etEmail = findViewById(R.id.input_email_registerPage);
         etPassword = findViewById(R.id.input_password_registerPage);
@@ -82,8 +85,11 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
 
                         Toast.makeText(this, "Pendaftaran Berhasil", Toast.LENGTH_SHORT).show();
+                        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
                         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
-                        userReference.setValue(new User(email,password,"","","","",0,"","","","","",""));
+
+                        HashMap<String, Object> hashMap = getObjectHashMap(email, password);
+                        userReference.setValue(hashMap);
                         progressDialog.dismiss();
                         Intent loginIntent = new Intent(this, CreateProfile.class);
                         startActivity(loginIntent);
@@ -92,5 +98,25 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private @NonNull HashMap<String, Object> getObjectHashMap(String email, String password) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("id", mAuth.getCurrentUser().getUid());
+        hashMap.put("email", email);
+        hashMap.put("password", password);
+        hashMap.put("type", "");
+        hashMap.put("name", "");
+        hashMap.put("phoneNumber","");
+        hashMap.put("location","");
+        hashMap.put("age", 0);
+        hashMap.put("gender", "");
+        hashMap.put("aboutMe","");
+        hashMap.put("skill","");
+        hashMap.put("skillDesc", "");
+        hashMap.put("job", "");
+        hashMap.put("jobDesc","");
+        hashMap.put("imageUrl","default");
+        return hashMap;
     }
 }

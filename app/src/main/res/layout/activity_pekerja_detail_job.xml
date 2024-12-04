@@ -191,7 +191,7 @@ Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc 
 
                 <!-- Left Button (1/5th of the screen width) -->
                 <Button
-                    android:id="@+id/bt_chat_pekerjaDetailJobPage"
+                    android:id="@+id/btn_chat_pekerjaDetailJobPage"
                     android:layout_width="50sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
