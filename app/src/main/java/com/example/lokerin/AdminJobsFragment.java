@@ -1,10 +1,6 @@
 package com.example.lokerin;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,17 +8,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class PelangganMyJobFragment extends Fragment {
+public class AdminJobsFragment extends Fragment {
 
     private RecyclerView rvJobs;
     private EditText etSearchBar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_pelanggan_myjob, container, false);
+        View view = inflater.inflate(R.layout.fragment_admin_jobs, container, false);
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));

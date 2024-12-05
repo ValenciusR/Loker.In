@@ -15,11 +15,10 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class ProfilePelangganActivity extends AppCompatActivity {
+public class PelangganProfileActivity extends AppCompatActivity {
 
     private FirebaseApp firebaseApp;
     private FirebaseAuth mAuth;
@@ -34,7 +33,7 @@ public class ProfilePelangganActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_profile_pelanggan);
+        setContentView(R.layout.activity_pelanggan_profile);
 
         tvName = findViewById(R.id.tv_name_profilePelangganPage);
         tvPhone = findViewById(R.id.tv_phone_profilePelangganPage);
@@ -62,7 +61,7 @@ public class ProfilePelangganActivity extends AppCompatActivity {
 
         btnEditProfile.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                startActivity(new Intent(ProfilePelangganActivity.this, EditProfilePelangganActivity.class));
+                startActivity(new Intent(PelangganProfileActivity.this, EditProfilePelangganActivity.class));
                 finish();
             }
         });
@@ -70,7 +69,7 @@ public class ProfilePelangganActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfilePelangganActivity.this, LoginActivity.class));
+                startActivity(new Intent(PelangganProfileActivity.this, LoginActivity.class));
                 finish();
             }
         });
@@ -95,7 +94,7 @@ public class ProfilePelangganActivity extends AppCompatActivity {
     }
 
     private void backPage() {
-        startActivity(new Intent(ProfilePelangganActivity.this, PelangganMainActivity.class));
+        startActivity(new Intent(PelangganProfileActivity.this, PelangganMainActivity.class));
         finish();
     }
 }

@@ -104,7 +104,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
     }
 
     private void startProfilePage() {
-        startActivity(new Intent(EditProfilePelangganActivity.this, ProfilePelangganActivity.class));
+        startActivity(new Intent(EditProfilePelangganActivity.this, PelangganProfileActivity.class));
         finish();
     }
 }

@@ -25,7 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ProfilePekerjaActivity extends AppCompatActivity {
+public class PekerjaProfileActivity extends AppCompatActivity {
 
     private FirebaseApp firebaseApp;
     private FirebaseAuth mAuth;
@@ -45,7 +45,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_profile_pekerja);
+        setContentView(R.layout.activity_pekerja_profile);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -84,7 +84,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         portofolios.add(templatePortofolio);
         portofolios.add(templatePortofolio);
 
-        linearLayoutManager = new LinearLayoutManager(ProfilePekerjaActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
         portofolioAdapter = new ListPortofolioAdapter(portofolios);
         rvPortofolio.setLayoutManager(linearLayoutManager);
         rvPortofolio.setAdapter(portofolioAdapter);
@@ -97,7 +97,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         reviews.add(templateReview);
         reviews.add(templateReview);
 
-        linearLayoutManager2 = new LinearLayoutManager(ProfilePekerjaActivity.this, LinearLayoutManager.VERTICAL, false);
+        linearLayoutManager2 = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.VERTICAL, false);
         reviewAdapter = new ListReviewAdapter(reviews);
         rvReview.setLayoutManager(linearLayoutManager2);
         rvReview.setAdapter(reviewAdapter);
@@ -113,9 +113,9 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
     }
 
     private void showSettings() {
-        BottomSheetDialog bottomSheetDialogSettings = new BottomSheetDialog(ProfilePekerjaActivity.this);
+        BottomSheetDialog bottomSheetDialogSettings = new BottomSheetDialog(PekerjaProfileActivity.this);
 
-        View viewBottomSheet = LayoutInflater.from(ProfilePekerjaActivity.this).inflate(R.layout.bottom_sheet_dialog_settings, null);
+        View viewBottomSheet = LayoutInflater.from(PekerjaProfileActivity.this).inflate(R.layout.bottom_sheet_dialog_settings, null);
         bottomSheetDialogSettings.setContentView(viewBottomSheet);
         bottomSheetDialogSettings.show();
         bottomSheetDialogSettings.getWindow().setDimAmount(0.7f);
@@ -127,7 +127,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfilePekerjaActivity.this, EditProfilePekerjaActivity.class));
+                startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
                 finish();
             }
         });
@@ -135,7 +135,7 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
         btnAddJobsToPortofolio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfilePekerjaActivity.this, PekerjaEditPortofolioActivity.class));
+                startActivity(new Intent(PekerjaProfileActivity.this, PekerjaEditPortofolioActivity.class));
                 finish();
             }
         });
@@ -144,14 +144,14 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(ProfilePekerjaActivity.this, LoginActivity.class));
+                startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
                 finish();
             }
         });
     }
 
     private void backPage() {
-        startActivity(new Intent(ProfilePekerjaActivity.this, PekerjaMainActivity.class));
+        startActivity(new Intent(PekerjaProfileActivity.this, PekerjaMainActivity.class));
         finish();
     }
 }
