@@ -121,6 +121,8 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         bottomSheetDialogSettings.getWindow().setDimAmount(0.7f);
 
         AppCompatButton btnEditPersonalInfo = viewBottomSheet.findViewById(R.id.btn_settings_editPersonalInformation);
+        AppCompatButton btnEditKeterampilan = viewBottomSheet.findViewById(R.id.btn_settings_editKeterampilan);
+        AppCompatButton btnTambahPekerjaanSebelumnya = viewBottomSheet.findViewById(R.id.btn_settings_tambahPekerjaanSebelumnya);
         AppCompatButton btnAddJobsToPortofolio = viewBottomSheet.findViewById(R.id.btn_settings_addJobsToPortofolio);
         AppCompatButton btnLogOut = viewBottomSheet.findViewById(R.id.btn_settings_logOut);
 
@@ -129,6 +131,22 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
                 finish();
+            }
+        });
+
+        btnEditKeterampilan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
+//                finish();
+            }
+        });
+
+        btnTambahPekerjaanSebelumnya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
+//                finish();
             }
         });
 

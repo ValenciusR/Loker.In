@@ -17,10 +17,10 @@
             android:exported="false" />
         <activity
             android:name=".PekerjaEditPortofolioActivity"
-            android:exported="false" />
-        <activity
-            android:name=".PekerjaProfileActivity"
             android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".PekerjaProfileActivity"-->
+<!--            android:exported="true" />-->
         <activity
             android:name=".PekerjaCategorizedJobActivity"
             android:exported="false" />
@@ -60,7 +60,7 @@
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:exported="true"/>
         <activity
             android:name=".CreateProfile"
             android:exported="false" />
@@ -81,6 +81,9 @@
             android:exported="true"/>
         <activity
             android:name=".AdminMainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".PekerjaProfileActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -88,23 +91,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".CreateProfile"
-            android:exported="false" />
-        <activity
-            android:name=".PelangganMainActivity"
-            android:exported="true" /> <!-- <activity -->
-        <!-- android:name=".PekerjaMainActivity" -->
-        <!-- android:exported="false" /> -->
-        <activity
-            android:name=".EditProfilePekerjaActivity"
-            android:exported="true" />
-        <activity
-            android:name=".PelangganRatingReviewActivity"
-            android:exported="true" />
-        <activity
-            android:name=".PekerjaMainActivity"
-            android:exported="true"></activity>
+<!--        <activity-->
+<!--            android:name=".CreateProfile"-->
+<!--            android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".PelangganMainActivity"-->
+<!--            android:exported="true" />-->
+<!--         <activity-->
+<!--         android:name=".PekerjaMainActivity"-->
+<!--         android:exported="false" />-->
+<!--        <activity-->
+<!--            android:name=".EditProfilePekerjaActivity"-->
+<!--            android:exported="true" />-->
+<!--        <activity-->
+<!--            android:name=".PelangganRatingReviewActivity"-->
+<!--            android:exported="true" />-->
+<!--        <activity-->
+<!--            android:name=".PekerjaMainActivity"-->
+<!--            android:exported="true"></activity>-->
     </application>
 
 </manifest>
