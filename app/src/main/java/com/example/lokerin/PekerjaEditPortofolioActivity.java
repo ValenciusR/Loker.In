@@ -55,7 +55,7 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
         tvPageTitle.setText("Ubah Portofolio");
 
 //        Set Edit Portofolio Recycler View
-        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false);
+        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, false);
         portofolios = new ArrayList<>();
         portofolios.add(templatePortofolioJob);
         portofolios.add(templatePortofolioJob);

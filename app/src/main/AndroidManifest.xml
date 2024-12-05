@@ -13,14 +13,16 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".PekerjaAddWorkExperienceActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
             android:name=".PekerjaEditPortofolioActivity"
-            android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".PekerjaProfileActivity"-->
-<!--            android:exported="true" />-->
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".PekerjaProfileActivity" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".PekerjaCategorizedJobActivity"
             android:exported="false" />
@@ -53,35 +55,35 @@
             android:exported="false" />
         <activity
             android:name=".CreateProfile_PersonalInfo"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true"/>
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".CreateProfile"
             android:exported="false" />
         <activity
             android:name=".PelangganMainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".EditProfilePekerjaActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".PelangganRatingReviewActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".PekerjaMainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".DetailProfileActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".AdminMainActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".PekerjaProfileActivity"
             android:exported="true">
@@ -91,24 +93,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".CreateProfile"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".PelangganMainActivity"-->
-<!--            android:exported="true" />-->
-<!--         <activity-->
-<!--         android:name=".PekerjaMainActivity"-->
-<!--         android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".EditProfilePekerjaActivity"-->
-<!--            android:exported="true" />-->
-<!--        <activity-->
-<!--            android:name=".PelangganRatingReviewActivity"-->
-<!--            android:exported="true" />-->
-<!--        <activity-->
-<!--            android:name=".PekerjaMainActivity"-->
-<!--            android:exported="true"></activity>-->
     </application>
 
 </manifest>

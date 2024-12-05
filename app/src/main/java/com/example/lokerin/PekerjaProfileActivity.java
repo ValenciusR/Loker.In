@@ -145,8 +145,8 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         btnTambahPekerjaanSebelumnya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
-//                finish();
+                startActivity(new Intent(PekerjaProfileActivity.this, PekerjaAddWorkExperienceActivity.class));
+                finish();
             }
         });
 
