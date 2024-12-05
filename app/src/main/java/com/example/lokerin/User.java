@@ -16,6 +16,10 @@ public class User implements Serializable {
     private String skillDesc;
     private String job;
     private String jobDesc;
+    private String id;
+
+    public User() {
+    }
 
     public User(String email, String password, String type, String name, String phoneNumber, String location, int age, String gender, String aboutMe, String skill, String skillDesc, String job, String jobDesc) {
         this.email = email;
@@ -36,6 +40,14 @@ public class User implements Serializable {
     public User(String email, String name){
         this.email = email;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getType() {

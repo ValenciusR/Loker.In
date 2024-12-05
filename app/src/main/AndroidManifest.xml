@@ -53,8 +53,8 @@
             android:exported="false"/>
         <activity
             android:name=".RegisterActivity"
-            android:exported="true" />
-         <activity
+            android:exported="true"/>
+        <activity
          android:name=".LoginActivity"
          android:exported="true" />
         <activity
@@ -62,7 +62,7 @@
             android:exported="false" />
         <activity
             android:name=".PelangganMainActivity"
-            android:exported="true" />
+            android:exported="true"/>
         <activity
             android:name=".EditProfilePekerjaActivity"
             android:exported="true"/>
@@ -71,10 +71,13 @@
             android:exported="true"/>
         <activity
             android:name=".PekerjaMainActivity"
-            android:exported="true" />
+            android:exported="true"/>
+        <activity
+            android:name=".DetailProfileActivity"
+            android:exported="true"/>
         <activity
             android:name=".AdminMainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

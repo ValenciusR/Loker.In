@@ -26,7 +26,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile_pelanggan);
+        setContentView(R.layout.activity_pelanggan_edit_profile);
 
         ivProfileNavbar = findViewById(R.id.iv_profile);
         etName = findViewById(R.id.et_name);

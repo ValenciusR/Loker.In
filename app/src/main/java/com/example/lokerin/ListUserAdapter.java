@@ -1,5 +1,6 @@
 package com.example.lokerin;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +37,22 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.UserVi
         if("Ended".equals(status)){
             holder.viewDetailButton.setText("RATE REVIEW");
         }
+
+        holder.viewDetailButton.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), DetailProfileActivity.class);
+            intent.putExtra("USER_ID", user.getId());
+            v.getContext().startActivity(intent);
+        });
     }
 
     @Override
     public int getItemCount() {
         return userList.size();
+    }
+
+    public void updateList(List<User> updatedList) {
+        this.userList = updatedList;
+        notifyDataSetChanged();
     }
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
