@@ -13,6 +13,12 @@
         android:theme="@style/Theme.Lokerin"
         tools:targetApi="31">
         <activity
+            android:name=".PekerjaModifyWorkExperienceCategoryActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".PekerjaModifyWorkExperienceActivity" -->
+        <!-- android:exported="false" /> -->
+        <activity
             android:name=".PekerjaAddWorkExperienceActivity"
             android:exported="false" />
         <activity
@@ -20,9 +26,10 @@
             android:exported="false" />
         <activity
             android:name=".PekerjaEditPortofolioActivity"
-            android:exported="true" /> <!-- <activity -->
-        <!-- android:name=".PekerjaProfileActivity" -->
-        <!-- android:exported="true" /> -->
+            android:exported="true" />
+        <activity
+            android:name=".PekerjaProfileActivity"
+            android:exported="true" />
         <activity
             android:name=".PekerjaCategorizedJobActivity"
             android:exported="false" />
@@ -85,7 +92,7 @@
             android:name=".AdminMainActivity"
             android:exported="true" />
         <activity
-            android:name=".PekerjaProfileActivity"
+            android:name=".PekerjaModifyWorkExperienceActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

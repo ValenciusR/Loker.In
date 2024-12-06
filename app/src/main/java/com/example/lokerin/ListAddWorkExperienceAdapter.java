@@ -41,9 +41,9 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         holder.tvLocation.setText(data.get(position).getLocation());
         holder.tvCategory.setText(data.get(position).getCategory());
         holder.ivEdit.setOnClickListener(v -> {
-//            Intent intent = new Intent(context, PekerjaAddWorkExperienceActivity.class);
+            Intent intent = new Intent(context, PekerjaModifyWorkExperienceActivity.class);
 //            Get Edit Work Experience data codes here
-//            context.startActivity(intent);
+            context.startActivity(intent);
         });
 
         holder.ivDelete.setOnClickListener(v -> {
