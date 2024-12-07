@@ -15,9 +15,9 @@
         <activity
             android:name=".PekerjaModifyWorkExperienceCategoryActivity"
             android:exported="false" />
-        <!-- <activity -->
-        <!-- android:name=".PekerjaModifyWorkExperienceActivity" -->
-        <!-- android:exported="false" /> -->
+         <activity
+         android:name=".PekerjaModifyWorkExperienceActivity"
+         android:exported="false" />
         <activity
             android:name=".PekerjaAddWorkExperienceActivity"
             android:exported="false" />
@@ -27,9 +27,9 @@
         <activity
             android:name=".PekerjaEditPortofolioActivity"
             android:exported="true" />
-        <activity
-            android:name=".PekerjaProfileActivity"
-            android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".PekerjaProfileActivity"-->
+<!--            android:exported="true" />-->
         <activity
             android:name=".PekerjaCategorizedJobActivity"
             android:exported="false" />
@@ -92,7 +92,7 @@
             android:name=".AdminMainActivity"
             android:exported="true" />
         <activity
-            android:name=".PekerjaModifyWorkExperienceActivity"
+            android:name=".PekerjaProfileActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

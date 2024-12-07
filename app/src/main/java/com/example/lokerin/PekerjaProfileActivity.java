@@ -1,9 +1,11 @@
 package com.example.lokerin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +26,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class PekerjaProfileActivity extends AppCompatActivity {
 
@@ -32,6 +37,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
+    private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
     private RecyclerView rvPortofolio, rvReview;
@@ -64,6 +70,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         tvEmail = findViewById(R.id.tv_email_profilePekerjaPage);
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
         rvReview = findViewById(R.id.rv_reviewList_profilePekerjaPage);
+        flKeterampilan = findViewById(R.id.fl_keterampilan_profilePekerjaPage);
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
@@ -110,6 +117,35 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 backPage();
             }
         });
+
+//        Set Keterampilan
+        List<String> skills = Arrays.asList("Plumbing", "Berkebun", "Service AC", "Maintenance Listrik", "Pengrajin Kayu", "Pandai Besi");
+        for (String skill : skills) {
+            TextView tvSkill = new TextView(this);
+
+            // Set skill name
+            tvSkill.setText(skill);
+
+            // Set styling
+            tvSkill.setTextColor(getResources().getColor(R.color.blue));
+            tvSkill.setBackgroundResource(R.drawable.shape_rounded_blue_border); // Custom drawable
+            tvSkill.setPadding(50, 25, 50, 25);
+            tvSkill.setTextSize(16);
+            tvSkill.setLayoutParams(new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            ));
+            // Create LayoutParams with margins
+            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(0, 0, 25, 25);
+            tvSkill.setLayoutParams(layoutParams);
+
+            // Add TextView to FlexboxLayout
+            flKeterampilan.addView(tvSkill);
+        }
     }
 
     private void showSettings() {
