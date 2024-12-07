@@ -47,11 +47,11 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         });
 
         holder.ivDelete.setOnClickListener(v -> {
-            shotDeleteWorkExperienceConfirmationDialog();
+            showDeleteWorkExperienceConfirmationDialog();
         });
     }
 
-    private void shotDeleteWorkExperienceConfirmationDialog() {
+    private void showDeleteWorkExperienceConfirmationDialog() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.confirmation_popup);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));

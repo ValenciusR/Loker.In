@@ -173,7 +173,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         btnEditKeterampilan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
+                startActivity(new Intent(PekerjaProfileActivity.this, PekerjaAddKeterampilanActivity.class));
                 finish();
             }
         });
