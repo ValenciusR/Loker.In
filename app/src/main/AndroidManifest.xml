@@ -63,12 +63,12 @@
         <activity
             android:name=".CreateProfile_Skills"
             android:exported="false" />
-        <activity
-            android:name=".CreateProfile_AboutMe"
+<!--        <activity-->
+<!--            android:name=".CreateProfile_AboutMe"-->
+<!--            android:exported="false" />-->
+         <activity
+            android:name=".CreateProfile_PersonalInfo"
             android:exported="false" />
-<!--         <activity -->
-<!--            android:name=".CreateProfile_PersonalInfo" -->
-<!--            android:exported="false" /> -->
         <activity
             android:name=".RegisterActivity"
             android:exported="true" />
@@ -98,7 +98,7 @@
             android:name=".AdminMainActivity"
             android:exported="true" />
         <activity
-            android:name=".CreateProfile_PersonalInfo"
+            android:name=".CreateProfile_AboutMe"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
