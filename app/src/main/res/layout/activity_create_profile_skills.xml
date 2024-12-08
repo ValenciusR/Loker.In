@@ -1,78 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_vertical"
-    android:background="#1977F3"
-    android:padding="16dp">
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kemampuan Kamu"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/poppins_bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ceritakan tentang kemampuan dan keahlian kamu!"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/poppins_regular"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Skill"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/poppins_regular" />
-
-    <EditText
-        android:textColor="@color/black"
-        android:id="@+id/input_skill_skillsPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:layout_marginBottom="8dp"
-        android:padding="10dp"
-        android:background="@drawable/shape_rounded"
-        android:fontFamily="@font/poppins_regular"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deskripsi"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/poppins_regular" />
-
-    <EditText
-        android:textColor="@color/black"
-        android:id="@+id/input_skillDesc_skillsPage"
-        android:gravity="top|left"
-        android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:inputType="textImeMultiLine|textMultiLine"
-        android:layout_marginBottom="8dp"
-        android:padding="10dp"
-        android:background="@drawable/shape_rounded"
-        android:height="40dp"
-        android:fontFamily="@font/poppins_regular"/>
+    android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/layout_back_skillsPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="end"
+        android:paddingHorizontal="20sp"
+        android:paddingBottom="20sp"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:background="#1977F3">
+
+        <ImageView
+            android:id="@+id/iv_back_skillsPage"
+            android:layout_marginTop="40sp"
+            android:layout_width="20sp"
+            android:layout_height="40sp"
+            android:background="@drawable/back_button_icon"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_add_keterampilan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_navbar_skillsPage"
+        android:layout_below="@id/layout_back_skillsPage"/>
+    <LinearLayout
+        android:id="@+id/layout_navbar_skillsPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20sp"
+        android:orientation="horizontal"
+        android:background="#1977F3"
+        android:layout_alignParentBottom="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -80,7 +42,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/text_skip_skillsPage"
+                android:id="@+id/tv_skip_skillsPage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
@@ -92,7 +54,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_next_skillsPage"
+            android:id="@+id/acb_next_skillsPage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lanjut"
@@ -104,4 +66,5 @@
             android:fontFamily="@font/poppins_bold"/>
     </LinearLayout>
 
-</LinearLayout>
+
+</RelativeLayout>
