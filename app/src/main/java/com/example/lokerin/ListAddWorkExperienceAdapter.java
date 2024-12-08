@@ -47,11 +47,11 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         });
 
         holder.ivDelete.setOnClickListener(v -> {
-            showDeleteWorkExperienceConfirmationDialog();
+            showDeleteWorkExperienceConfirmationDialog(position);
         });
     }
 
-    private void showDeleteWorkExperienceConfirmationDialog() {
+    private void showDeleteWorkExperienceConfirmationDialog(int position) {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.confirmation_popup);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -66,11 +66,18 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
+            removeSkill(position);
 //            Delete Work Experience from DB & user
             dialog.dismiss();
         });
 
         dialog.show();
+    }
+
+    private void removeSkill(int position) {
+        data.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, data.size());
     }
 
     @Override
