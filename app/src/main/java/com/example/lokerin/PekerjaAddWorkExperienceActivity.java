@@ -74,7 +74,9 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
         acpTambahPekerjaan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PekerjaAddWorkExperienceActivity.this, PekerjaModifyWorkExperienceActivity.class));
+                Intent intent = new Intent(PekerjaAddWorkExperienceActivity.this, PekerjaModifyWorkExperienceActivity.class);
+                intent.putExtra("activityOrigin", "ViewProfile");
+                startActivity(intent);
                 finish();
             }
         });

@@ -57,10 +57,16 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
 
+        Intent intent = getIntent();
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaAddWorkExperienceActivity.class));
+                if(intent.getStringExtra("activityOrigin").toString().equals("CreateProfile")) {
+                    startActivity(new Intent(PekerjaModifyWorkExperienceActivity.this, CreateProfile_WorkExperience.class));
+                }
+                else {
+                    startActivity(new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaAddWorkExperienceActivity.class));
+                }
                 finish();
             }
         });
