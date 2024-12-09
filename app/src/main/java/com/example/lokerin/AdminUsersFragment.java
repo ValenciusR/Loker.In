@@ -29,7 +29,7 @@ public class AdminUsersFragment extends Fragment {
     private RecyclerView rvUsers;
     private EditText etSearchBar;
 
-    private List<User> jobApplicants = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
     private ListUserAdapter adapter;
 
     private FirebaseAuth mAuth;
@@ -47,7 +47,7 @@ public class AdminUsersFragment extends Fragment {
 
         rvUsers = view.findViewById(R.id.recyclerView);
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListUserAdapter(jobApplicants, "ADMIN");
+        adapter = new ListUserAdapter(userList, "");
         rvUsers.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);
@@ -71,7 +71,7 @@ public class AdminUsersFragment extends Fragment {
 
     private void filterUsers(String query) {
         List<User> filteredList = new ArrayList<>();
-        for (User user : jobApplicants) {
+        for (User user : userList) {
             if (user.getName() != null && user.getName().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(user);
             }
@@ -83,12 +83,12 @@ public class AdminUsersFragment extends Fragment {
         usersRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                jobApplicants.clear();
+                userList.clear();
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     User user = userSnapshot.getValue(User.class);
                     if (user != null) {
                         user.setId(userSnapshot.getKey());
-                        jobApplicants.add(user);
+                        userList.add(user);
                     }
                 }
                 adapter.notifyDataSetChanged();
