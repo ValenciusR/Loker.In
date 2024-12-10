@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
@@ -16,21 +17,26 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
 
 public class ProfilePekerjaActivity extends AppCompatActivity {
 
-    private FirebaseApp firebaseApp;
-    private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference userReference;
+    FirebaseUser fuser;
+    private User user;
 
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
@@ -73,6 +79,31 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
                 backPage();
             }
         });
+
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        userReference = firebaseDatabase.getReference().child("users").child(fuser.getUid());
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user = snapshot.getValue(User.class);
+                tvName.setText(user.getName());
+
+                if(user.getImageUrl().equals("default")){
+                    ivProfilePicture.setImageResource(R.drawable.settings_icon);
+                } else{
+                    Glide.with(ProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         tvPageTitle.setText("Profil");
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 

@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -34,6 +38,8 @@ public class PekerjaChatFragment extends Fragment {
 
     private ListUserChatAdapter userAdapter;
     private List<User> mUsers;
+
+    EditText searchUsers;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,20 +60,20 @@ public class PekerjaChatFragment extends Fragment {
         usersReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-                   assert user != null;
-                   assert firebaseUser != null;
+                if(searchUsers.getText().toString().equals("")){
+                    mUsers.clear();
+                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                        User user = snapshot.getValue(User.class);
+                        assert user != null;
+                        assert firebaseUser != null;
 
-                    if(!user.getId().equals(firebaseUser.getUid())){
-                        mUsers.add(user);
+                        if(!user.getId().equals(firebaseUser.getUid())){
+                            mUsers.add(user);
+                        }
                     }
+                    userAdapter = new ListUserChatAdapter(getActivity(), mUsers);
+                    recyclerView.setAdapter(userAdapter);
                 }
-
-                userAdapter = new ListUserChatAdapter(getActivity(), mUsers);
-                recyclerView.setAdapter(userAdapter);
-
             }
 
             @Override
@@ -75,6 +81,53 @@ public class PekerjaChatFragment extends Fragment {
             }
         });
 
+        searchUsers = view.findViewById(R.id.et_searchBar_pekerjaChatFragment);
+        searchUsers.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                searchUsers(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         return view;
+    }
+
+    private void searchUsers(String string) {
+        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+        Query query = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("users").orderByChild("name").startAt(string).endAt(string+"\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    User user = snapshot.getValue(User.class);
+
+                    assert user != null;
+                    assert fuser != null;
+                    if(!user.getId().equals(fuser.getUid())){
+                        mUsers.add(user);
+                    }
+                }
+
+                userAdapter = new ListUserChatAdapter(getContext(), mUsers);
+                recyclerView.setAdapter(userAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 }
