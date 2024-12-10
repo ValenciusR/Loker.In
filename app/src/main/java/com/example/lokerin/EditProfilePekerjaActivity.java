@@ -9,19 +9,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class EditProfilePekerjaActivity extends AppCompatActivity {
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     private ImageView btnBack, ivProfileNavbar;
-    private EditText etName, etPhone, etLocation, etEmail, etJob, etJobDescription;
+    private EditText etName, etPhone, etLocation, etJob, etJobDescription;
     private AppCompatButton btnSaveChanges;
     private Boolean isValid;
-    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvEmailError, tvJobError, tvJobDescriptionError;
+    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvJobError, tvJobDescriptionError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +54,6 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_name_editProfilePekerjaPage);
         etPhone = findViewById(R.id.et_phone_editProfilePekerjaPage);
         etLocation = findViewById(R.id.et_location_editProfilePekerjaPage);
-        etEmail = findViewById(R.id.et_email_editProfilePekerjaPage);
         etJob = findViewById(R.id.et_job_editProfilePekerjaPage);
         etJobDescription = findViewById(R.id.et_jobDescription_editProfilePekerjaPage);
         btnSaveChanges = findViewById(R.id.btn_saveChanges_editProfilePekerjaPage);
@@ -46,7 +61,6 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
         tvNameError = findViewById(R.id.tv_nameError_editProfilePekerjaPage);
         tvPhoneError = findViewById(R.id.tv_phoneError_editProfilePekerjaPage);
         tvLocationError = findViewById(R.id.tv_locationError_editProfilePekerjaPage);
-        tvEmailError = findViewById(R.id.tv_emailError_editProfilePekerjaPage);
         tvJobError = findViewById(R.id.tv_jobError_editProfilePekerjaPage);
         tvJobDescriptionError = findViewById(R.id.tv_jobDescriptionError_editProfilePekerjaPage);
 
@@ -61,6 +75,26 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
         });
         tvPageTitle.setText("Edit Profil");
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        databaseReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                etName.setText(user.getName());
+                etJob.setText(user.getJob());
+                etJobDescription.setText(user.getJobDesc());
+                etLocation.setText(user.getLocation());
+                etPhone.setText(user.getPhoneNumber());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,22 +136,6 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                     tvLocationError.setText("");
                 }
 
-//                check if email is empty
-                if (etEmail.getText().toString().trim().length() < 1) {
-                    etEmail.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvEmailError.setText("Email harus diisi!");
-                    isValid = false;
-                    Toast.makeText(v.getContext(), "Test", Toast.LENGTH_SHORT).show();
-                } else if (!etEmail.getText().toString().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-                    etEmail.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvEmailError.setText("Email tidak valid!");
-                    isValid = false;
-                }
-                else {
-                    etEmail.setBackgroundResource(R.drawable.shape_rounded_blue_border);
-                    tvEmailError.setText("");
-                }
-
 //                Check if job is empty
                 if (etJob.getText().toString().trim().length() < 1) {
                     etJob.setBackgroundResource(R.drawable.shape_rounded_red_border);
@@ -139,9 +157,21 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                 }
 
                 if(isValid) {
-                    Toast.makeText(EditProfilePekerjaActivity.this, "Profil berhasil di ubah!", Toast.LENGTH_SHORT).show();
-                    //Logic update profile
-                    startProfilePage();
+                    DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put("name", etName.getText().toString());
+                    updates.put("phoneNumber", etPhone.getText().toString());
+                    updates.put("location", etLocation.getText().toString());
+                    updates.put("job", etJob.getText().toString());
+                    updates.put("jobDesc", etJobDescription.getText().toString());
+                    userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
+                        if (task2.isSuccessful()) {
+                            Toast.makeText(EditProfilePekerjaActivity.this, "Profil berhasil di ubah!", Toast.LENGTH_SHORT).show();
+                            startProfilePage();
+                        }
+                    });
+
+
                 }
             }
         });
