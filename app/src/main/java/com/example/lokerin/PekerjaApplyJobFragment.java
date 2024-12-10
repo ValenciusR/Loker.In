@@ -51,7 +51,7 @@ public class PekerjaApplyJobFragment extends Fragment {
 
         rvRecommendedJobs = view.findViewById(R.id.recyclerView);
         rvRecommendedJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
+        ListJobPekerjaAdapter adapter = new ListJobPekerjaAdapter(getActivity(), getJobDataList());
         rvRecommendedJobs.setAdapter(adapter);
 
         return view;

@@ -8,22 +8,31 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class PelangganDetailJobActivity extends AppCompatActivity {
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     private ImageView btnBack,ivProfileNavbar;
     private List<JobData> jobDataList;
-    private String jobTitle, jobLocation, jobStatus;
-    private User[] jobApplicants;
-    private List<User> applicantsList;
-    private TextView tvPageTitle, tvTitle, tvLocation;
+    private String jobId, jobStatus;
+    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary;
     private Button btnAction, btnDelete;
     private RecyclerView rvApplicants;
     @Override
@@ -32,19 +41,26 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pelanggan_detail_job);
 
         Intent intent = getIntent();
-        jobTitle = intent.getStringExtra("jobTitle");
-        jobLocation = intent.getStringExtra("jobLocation");
-        jobStatus = intent.getStringExtra("jobStatus");
-        jobApplicants = (User[]) intent.getSerializableExtra("jobApplicants");
-        applicantsList = Arrays.asList(jobApplicants);
-        tvTitle = findViewById(R.id.label1);
-        tvLocation = findViewById(R.id.label2);
+        jobId = intent.getStringExtra("jobId");
+
+        if (jobId == null) {
+            Toast.makeText(this, "ID pekerjaan tidak ditemukan!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        databaseReference = firebaseDatabase.getReference().child("jobs").child(jobId);
+        jobStatus = databaseReference.child("jobStatus").toString();
+
+        tvTitle = findViewById(R.id.tv_title);
+        tvCategory = findViewById(R.id.tv_category);
+        tvProvince = findViewById(R.id.tv_province);
+        tvRegency = findViewById(R.id.tv_regency);
+        tvDate = findViewById(R.id.tv_date);
+        tvSalary = findViewById(R.id.tv_salary);
 
         btnAction = findViewById(R.id.btn_action);
         btnDelete = findViewById(R.id.btn_delete);
-
-        tvTitle.setText(jobTitle);
-        tvLocation.setText(jobLocation);
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
@@ -56,6 +72,9 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Detail Pekerjaan");
+
+        //Dummy
+        ArrayList<User> applicantsList = new ArrayList<User>();
 
         rvApplicants = findViewById(R.id.recyclerView);
         rvApplicants.setLayoutManager(new LinearLayoutManager(this));
@@ -73,7 +92,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         } else if ("Ended".equals(jobStatus)) {
             btnAction.setVisibility(View.GONE);
             btnDelete.setVisibility(View.GONE);
-        } else if ("Applyable".equals(jobStatus)) { //buat pekerja seharusnya
+        } else if ("Applyable".equals(jobStatus)) {
             btnAction.setText("Daftar");
             btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
             btnDelete.setVisibility(View.GONE);
@@ -81,6 +100,9 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         } else{
             btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
         }
+
+        getJobData();
+
     }
 
     private void showDeleteConfirmationDialog() {
@@ -147,6 +169,45 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void getJobData() {
+        if (jobId == null) {
+            return;
+        }
+
+        databaseReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
+                    updateJobShown(task);
+                } else {
+                    Toast.makeText(PelangganDetailJobActivity.this, "Data pekerjaan tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(PelangganDetailJobActivity.this, "Error mengambil data pekerjaan.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateJobShown(Task<DataSnapshot> task) {
+        String title = task.getResult().child("jobTitle").getValue(String.class);
+        tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
+
+        String category = task.getResult().child("jobCategory").getValue(String.class);
+        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
+
+        String province = task.getResult().child("jobProvince").getValue(String.class);
+        tvProvince.setText(province != null && !province.isEmpty() ? province : "N/A");
+
+        String regency = task.getResult().child("jobRegency").getValue(String.class);
+        tvRegency.setText(regency != null && !regency.isEmpty() ? regency : "N/A");
+
+        String date = task.getResult().child("jobDate").getValue(String.class);
+        tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
+
+        Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
+        String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
+        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
     }
 
     private void backPage() {

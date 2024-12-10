@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class PekerjaMyJobFragment extends Fragment {
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
+        ListJobPekerjaAdapter adapter = new ListJobPekerjaAdapter(getActivity(), getJobDataList());
         rvJobs.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);

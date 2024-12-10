@@ -24,7 +24,7 @@ public class DetailProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    private TextView tvPageTitle, tvName, tvPhone, tvLocation, tvEmail, tvAge, tvGender, tvJob, tvJobDesc;
+    private TextView tvPageTitle, tvName, tvPhone, tvLocation, tvEmail, tvAge, tvGender, tvJob, tvJobDesc, tvType;
     private AppCompatButton btnDeleteUser;
     private ImageView btnBack, ivProfileNavbar;
 
@@ -36,26 +36,6 @@ public class DetailProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_profile);
 
         userId = getIntent().getStringExtra("USER_ID");
-
-        tvName = findViewById(R.id.tv_name);
-        tvPhone = findViewById(R.id.tv_phone);
-        tvLocation = findViewById(R.id.tv_location);
-        tvEmail = findViewById(R.id.tv_email);
-        tvAge = findViewById(R.id.tv_age);
-        tvGender = findViewById(R.id.tv_gender);
-        tvJob = findViewById(R.id.tv_job);
-        tvJobDesc = findViewById(R.id.tv_job_desc);
-
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-        btnBack.setOnClickListener(v -> backPage());
-        tvPageTitle.setText(userId);
-        ivProfileNavbar.setVisibility(View.GONE);
-
-        btnDeleteUser = findViewById(R.id.btn_delete);
-        btnDeleteUser.setOnClickListener(v -> deleteUserData());
-
         if (userId == null) {
             Toast.makeText(this, "User ID tidak ditemukan!", Toast.LENGTH_SHORT).show();
             finish();
@@ -65,6 +45,26 @@ public class DetailProfileActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference().child("users").child(userId);
+
+        tvName = findViewById(R.id.tv_name);
+        tvPhone = findViewById(R.id.tv_phone);
+        tvLocation = findViewById(R.id.tv_location);
+        tvEmail = findViewById(R.id.tv_email);
+        tvAge = findViewById(R.id.tv_age);
+        tvGender = findViewById(R.id.tv_gender);
+        tvJob = findViewById(R.id.tv_job);
+        tvJobDesc = findViewById(R.id.tv_job_desc);
+        tvType = findViewById(R.id.tv_type);
+
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
+        btnBack.setOnClickListener(v -> backPage());
+        tvPageTitle.setText("Detail Pengguna");
+        ivProfileNavbar.setVisibility(View.GONE);
+
+        btnDeleteUser = findViewById(R.id.btn_delete);
+        btnDeleteUser.setOnClickListener(v -> deleteUserData());
 
         getUserData();
     }
@@ -79,11 +79,9 @@ public class DetailProfileActivity extends AppCompatActivity {
                 if (task.getResult().exists()) {
                     updateUserProfile(task);
                 } else {
-                    Log.d("DetailProfile", "Data does not exist in Firebase.");
                     Toast.makeText(DetailProfileActivity.this, "Data pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Log.d("DetailProfile", "Error fetching data: " + task.getException());
                 Toast.makeText(DetailProfileActivity.this, "Error mengambil data pengguna.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -113,6 +111,9 @@ public class DetailProfileActivity extends AppCompatActivity {
 
         String jobDesc = task.getResult().child("jobDesc").getValue(String.class);
         tvJobDesc.setText(jobDesc != null && !jobDesc.isEmpty() ? jobDesc : "N/A");
+
+        String type = task.getResult().child("type").getValue(String.class);
+        tvType.setText(type != null && !type.isEmpty() ? type : "N/A");
     }
 
     private void deleteUserData() {

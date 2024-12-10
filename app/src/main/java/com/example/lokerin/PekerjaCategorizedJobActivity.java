@@ -48,7 +48,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
-        ListJobAdapter adapter = new ListJobAdapter(this, getJobDataList(category));
+        ListJobPekerjaAdapter adapter = new ListJobPekerjaAdapter(this, getJobDataList(category));
         rvJobs.setAdapter(adapter);
 
         etSearchBar = findViewById(R.id.search_bar);

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -42,7 +41,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
-        ListJobAdapter adapter = new ListJobAdapter(this, getJobDataList());
+        ListJobPekerjaAdapter adapter = new ListJobPekerjaAdapter(this, getJobDataList());
         rvJobs.setAdapter(adapter);
 
         etSearchBar = findViewById(R.id.search_bar);

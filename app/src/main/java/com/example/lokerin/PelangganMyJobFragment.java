@@ -26,7 +26,7 @@ public class PelangganMyJobFragment extends Fragment {
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
+        ListJobPekerjaAdapter adapter = new ListJobPekerjaAdapter(getActivity(), getJobDataList());
         rvJobs.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);

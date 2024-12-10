@@ -26,15 +26,15 @@ import java.util.List;
 
 public class AdminUsersFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference usersRef;
+
     private RecyclerView rvUsers;
     private EditText etSearchBar;
 
     private List<User> userList = new ArrayList<>();
     private ListUserAdapter adapter;
-
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference usersRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

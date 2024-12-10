@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardViewHolder> implements Filterable {
+public class ListJobPekerjaAdapter extends RecyclerView.Adapter<ListJobPekerjaAdapter.CardViewHolder> implements Filterable {
 
     private List<JobData> jobDataList;
     private List<JobData> filteredList;
     private Context context;
 
-    public ListJobAdapter(Context context, List<JobData> jobDataList) {
+    public ListJobPekerjaAdapter(Context context, List<JobData> jobDataList) {
         this.context = context;
         this.jobDataList = jobDataList;
         this.filteredList = new ArrayList<>(jobDataList);
@@ -36,20 +36,15 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        JobData data = filteredList.get(position); // Use filteredList
-        holder.jobTitle.setText(data.getJobTitle());
-        holder.jobLocation.setText(data.getJobLocation());
-        holder.jobDateUpload.setText(data.getJobDateUpload());
-        holder.jobCategory.setText(data.getJobCategory());
+        JobData data = filteredList.get(position);
+        holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "Unknown Title");
+        holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "Unknown Province");
+        holder.jobDateUpload.setText(data.getJobDateUpload() != null ? data.getJobDateUpload() : "Unknown Date");
+        holder.jobCategory.setText(data.getJobCategory() != null ? data.getJobCategory() : "Unknown Category");
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PekerjaDetailJobActivity.class);
-            intent.putExtra("jobTitle", data.getJobTitle());
-            intent.putExtra("jobLocation", data.getJobLocation());
-            intent.putExtra("jobDateUpload", data.getJobDateUpload());
-            intent.putExtra("jobCategory", data.getJobCategory());
-            intent.putExtra("jobStatus", data.getJobStatus());
-            intent.putExtra("jobApplicants", data.getApplicants().toArray(new User[0]));
+            Intent intent = new Intent(context.getApplicationContext(), PekerjaDetailJobActivity.class);
+            intent.putExtra("jobId", data.getJobId());
             context.startActivity(intent);
         });
     }
@@ -57,6 +52,12 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
     @Override
     public int getItemCount() {
         return filteredList.size();
+    }
+
+    public void updateList(List<JobData> updatedList) {
+        this.jobDataList = updatedList;
+        this.filteredList = new ArrayList<>(updatedList);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -71,7 +72,7 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
                     filtered.addAll(jobDataList);
                 } else {
                     for (JobData job : jobDataList) {
-                        if (job.getJobTitle().toLowerCase().contains(query)) {
+                        if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query)) {
                             filtered.add(job);
                         }
                     }
@@ -84,7 +85,9 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 filteredList.clear();
-                filteredList.addAll((List<JobData>) results.values);
+                if (results.values instanceof List) {
+                    filteredList.addAll((List<JobData>) results.values);
+                }
                 notifyDataSetChanged();
             }
         };
