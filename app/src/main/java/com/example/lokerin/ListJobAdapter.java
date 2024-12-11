@@ -12,6 +12,13 @@ import android.widget.Filterable;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +27,7 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
     private List<JobData> jobDataList;
     private List<JobData> filteredList;
     private Context context;
+    private FirebaseDatabase firebaseDatabase;
 
     public ListJobAdapter(Context context, List<JobData> jobDataList) {
         this.context = context;
@@ -43,14 +51,48 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
         holder.jobCategory.setText(data.getJobCategory());
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PekerjaDetailJobActivity.class);
-            intent.putExtra("jobTitle", data.getJobTitle());
-            intent.putExtra("jobLocation", data.getJobLocation());
-            intent.putExtra("jobDateUpload", data.getJobDateUpload());
-            intent.putExtra("jobCategory", data.getJobCategory());
-            intent.putExtra("jobStatus", data.getJobStatus());
-            intent.putExtra("jobApplicants", data.getApplicants().toArray(new User[0]));
-            context.startActivity(intent);
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+            DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String userType = dataSnapshot.child("type").getValue().toString();
+                    if(userType.equals("pelanggan")) {
+                        Intent intent = new Intent(context, PelangganDetailJobActivity.class);
+                        intent.putExtra("jobTitle", data.getJobTitle());
+                        intent.putExtra("jobLocation", data.getJobLocation());
+                        intent.putExtra("jobDateUpload", data.getJobDateUpload());
+                        intent.putExtra("jobCategory", data.getJobCategory());
+                        intent.putExtra("jobStatus", data.getJobStatus());
+                        intent.putExtra("jobApplicants", data.getApplicants().toArray(new User[0]));
+                        context.startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(context, PekerjaDetailJobActivity.class);
+                        intent.putExtra("jobTitle", data.getJobTitle());
+                        intent.putExtra("jobLocation", data.getJobLocation());
+                        intent.putExtra("jobDateUpload", data.getJobDateUpload());
+                        intent.putExtra("jobCategory", data.getJobCategory());
+                        intent.putExtra("jobStatus", data.getJobStatus());
+                        intent.putExtra("jobApplicants", data.getApplicants().toArray(new User[0]));
+                        context.startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+//            Intent intent = new Intent(context, PekerjaDetailJobActivity.class);
+//            intent.putExtra("jobTitle", data.getJobTitle());
+//            intent.putExtra("jobLocation", data.getJobLocation());
+//            intent.putExtra("jobDateUpload", data.getJobDateUpload());
+//            intent.putExtra("jobCategory", data.getJobCategory());
+//            intent.putExtra("jobStatus", data.getJobStatus());
+//            intent.putExtra("jobApplicants", data.getApplicants().toArray(new User[0]));
+//            context.startActivity(intent);
         });
     }
 
