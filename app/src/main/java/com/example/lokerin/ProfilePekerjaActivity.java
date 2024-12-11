@@ -91,7 +91,12 @@ public class ProfilePekerjaActivity extends AppCompatActivity {
                 tvLocation.setText(user.getLocation());
                 tvPhone.setText(user.getPhoneNumber());
                 tvEmail.setText(user.getEmail());
-                Glide.with(ProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                if(user.getImageUrl().equals("default")){
+                    ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
+                } else{
+                    Glide.with(ProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                }
+
             }
 
             @Override
