@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +16,19 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class PekerjaDetailJobActivity extends AppCompatActivity {
 
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
     private ImageView btnBack;
-    private TextView tvPageTitle, tvTitle, tvLocation, tvJobDescription, tvJobSalary, tvEndDate;
-    private String jobTitle, jobLocation, jobStatus, jobDescription, jobSalary, jobEndDate;
+    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary, tvDescription;
+    private String jobId, jobStatus;
     private Button btnAction, btnChat;
 
     @Override
@@ -29,27 +38,24 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pekerja_detail_job);
 
         Intent intent = getIntent();
-        jobTitle = intent.getStringExtra("jobTitle");
-        jobLocation = intent.getStringExtra("jobLocation");
-        jobStatus = intent.getStringExtra("jobStatus");
-        jobDescription = intent.getStringExtra("jobDescription");
-        jobSalary = intent.getStringExtra("salary");
-        jobEndDate = intent.getStringExtra("jobEndDate");
+        jobId = intent.getStringExtra("jobId");
+        if (jobId == null) {
+            Toast.makeText(this, "ID pekerjaan tidak ditemukan!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        databaseReference = firebaseDatabase.getReference().child("jobs").child(jobId);
+        jobStatus = databaseReference.child("jobStatus").toString();
 
-        // Text View
-        tvTitle = findViewById(R.id.label1);
-        tvLocation = findViewById(R.id.label2);
-        tvJobDescription = findViewById(R.id.tv_jobDescription_pekerjaDetailJobPage);
-        tvJobSalary = findViewById(R.id.txt_salary);
-        tvEndDate = findViewById(R.id.label3);
+        tvTitle = findViewById(R.id.tv_title_pekerja);
+        tvCategory = findViewById(R.id.tv_category_pekerja);
+        tvProvince = findViewById(R.id.tv_province_pekerja);
+        tvRegency = findViewById(R.id.tv_regency_pekerja);
+        tvDate = findViewById(R.id.tv_date_pekerja);
+        tvSalary = findViewById(R.id.tv_salary_pekerja);
+        tvDescription = findViewById(R.id.tv_description_pekerja);
 
-        tvTitle.setText(jobTitle);
-        tvLocation.setText(jobLocation);
-        tvJobDescription.setText(jobDescription);
-        tvJobSalary.setText(jobSalary);
-        tvEndDate.setText(jobEndDate);
-
-        // Button
         btnChat = findViewById(R.id.btn_chat_pekerjaDetailJobPage);
         btnAction = findViewById(R.id.bt_action_pekerjaDetailJobPage);
 
@@ -62,39 +68,24 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Detail Pekerjaan");
-        tvPageTitle.setText(jobStatus);
 
         if ("Active".equals(jobStatus) /* && belum apply */) {
             btnAction.setText("Daftar Pekerjaan");
             btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
-            //tvPageTitle.setText("Daftar Pekerjaan");
         } else if ("On Going".equals(jobStatus) /* && belum di accept */) {
             btnAction.setText("Batalkan Pekerjaan");
             btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
-            //tvPageTitle.setText("Pekerjaan Saya");
         } else if ("On Going2".equals(jobStatus)  /* && sudah di accept */) {
             btnAction.setEnabled(false);
-            //tvPageTitle.setText("Pekerjaan Saya");
         } else if ("Ended".equals(jobStatus)) {
             btnChat.setVisibility(View.GONE);
             btnAction.setVisibility(View.GONE);
-            //tvPageTitle.setText("Pekerjaan Saya");
         }
-
-        // on click chat button -> go to chat with pelanggan
-        //btnChat.setOnClickListener(v -> startChatIntent());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backPage();
-            }
         });
 
         btnChat.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +96,8 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        getJobData();
 
     }
 
@@ -152,8 +145,49 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void getJobData() {
+        if (jobId == null) {
+            return;
+        }
+
+        databaseReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
+                    updateJobShown(task);
+                } else {
+                    Toast.makeText(PekerjaDetailJobActivity.this, "Data pekerjaan tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(PekerjaDetailJobActivity.this, "Error mengambil data pekerjaan.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateJobShown(Task<DataSnapshot> task) {
+        String title = task.getResult().child("jobTitle").getValue(String.class);
+        tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
+
+        String category = task.getResult().child("jobCategory").getValue(String.class);
+        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
+
+        String province = task.getResult().child("jobProvince").getValue(String.class);
+        tvProvince.setText(province != null && !province.isEmpty() ? province : "N/A");
+
+        String regency = task.getResult().child("jobRegency").getValue(String.class);
+        tvRegency.setText(regency != null && !regency.isEmpty() ? regency : "N/A");
+
+        String date = task.getResult().child("jobDateUpload").getValue(String.class);
+        tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
+
+        Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
+        String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
+        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
+
+        String description = task.getResult().child("jobDescription").getValue(String.class);
+        tvDescription.setText(description != null && !description.isEmpty() ? description : "N/A");
+    }
+
     private void backPage() {
-        startActivity(new Intent(PekerjaDetailJobActivity.this, PekerjaMainActivity.class));
         finish();
     }
 }

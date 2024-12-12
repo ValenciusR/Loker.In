@@ -30,11 +30,11 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private ImageView btnBack,ivProfileNavbar;
-    private List<JobData> jobDataList;
     private String jobId, jobStatus;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary;
     private Button btnAction, btnDelete;
     private RecyclerView rvApplicants;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +73,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         });
         tvPageTitle.setText("Detail Pekerjaan");
 
-        //Dummy
         ArrayList<User> applicantsList = new ArrayList<User>();
-
         rvApplicants = findViewById(R.id.recyclerView);
         rvApplicants.setLayoutManager(new LinearLayoutManager(this));
         ListUserAdapter adapter = new ListUserAdapter(applicantsList, jobStatus);
@@ -202,7 +200,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         String regency = task.getResult().child("jobRegency").getValue(String.class);
         tvRegency.setText(regency != null && !regency.isEmpty() ? regency : "N/A");
 
-        String date = task.getResult().child("jobDate").getValue(String.class);
+        String date = task.getResult().child("jobDateUpload").getValue(String.class);
         tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);

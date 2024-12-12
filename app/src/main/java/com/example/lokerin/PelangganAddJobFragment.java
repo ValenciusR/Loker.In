@@ -34,7 +34,6 @@ import java.util.Locale;
 
 public class PelangganAddJobFragment extends Fragment {
 
-    private FirebaseApp firebaseApp;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private FirebaseDatabase firebaseDatabase;
@@ -65,7 +64,6 @@ public class PelangganAddJobFragment extends Fragment {
         jobsReference = firebaseDatabase.getReference().child("jobs");
 
         mAuth = FirebaseAuth.getInstance();
-
         currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             currentUserId = currentUser.getUid();

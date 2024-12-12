@@ -15,16 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListJobPekerjaAdapter extends RecyclerView.Adapter<ListJobPekerjaAdapter.CardViewHolder> implements Filterable {
+public class ListJobPekerjaAdapter extends RecyclerView.Adapter<ListJobPekerjaAdapter.CardViewHolder> {
 
     private List<JobData> jobDataList;
-    private List<JobData> filteredList;
     private Context context;
 
     public ListJobPekerjaAdapter(Context context, List<JobData> jobDataList) {
         this.context = context;
         this.jobDataList = jobDataList;
-        this.filteredList = new ArrayList<>(jobDataList);
     }
 
     @NonNull
@@ -36,11 +34,11 @@ public class ListJobPekerjaAdapter extends RecyclerView.Adapter<ListJobPekerjaAd
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        JobData data = filteredList.get(position);
-        holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "Unknown Title");
-        holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "Unknown Province");
-        holder.jobDateUpload.setText(data.getJobDateUpload() != null ? data.getJobDateUpload() : "Unknown Date");
-        holder.jobCategory.setText(data.getJobCategory() != null ? data.getJobCategory() : "Unknown Category");
+        JobData data = jobDataList.get(position);
+        holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "-");
+        holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "-");
+        holder.jobDateUpload.setText(data.getJobDateUpload() != null ? data.getJobDateUpload() : "-");
+        holder.jobCategory.setText(data.getJobCategory() != null ? data.getJobCategory() : "-");
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context.getApplicationContext(), PekerjaDetailJobActivity.class);
@@ -51,46 +49,12 @@ public class ListJobPekerjaAdapter extends RecyclerView.Adapter<ListJobPekerjaAd
 
     @Override
     public int getItemCount() {
-        return filteredList.size();
+        return jobDataList.size();
     }
 
     public void updateList(List<JobData> updatedList) {
         this.jobDataList = updatedList;
-        this.filteredList = new ArrayList<>(updatedList);
         notifyDataSetChanged();
-    }
-
-    @Override
-    public Filter getFilter() {
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                String query = constraint.toString().toLowerCase().trim();
-                List<JobData> filtered = new ArrayList<>();
-
-                if (query.isEmpty()) {
-                    filtered.addAll(jobDataList);
-                } else {
-                    for (JobData job : jobDataList) {
-                        if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query)) {
-                            filtered.add(job);
-                        }
-                    }
-                }
-                FilterResults results = new FilterResults();
-                results.values = filtered;
-                return results;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-                filteredList.clear();
-                if (results.values instanceof List) {
-                    filteredList.addAll((List<JobData>) results.values);
-                }
-                notifyDataSetChanged();
-            }
-        };
     }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
