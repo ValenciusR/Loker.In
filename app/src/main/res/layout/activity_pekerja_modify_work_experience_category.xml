@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/modifyWorkExperienceCategory"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PekerjaModifyWorkExperienceCategoryActivity"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_submain"/>
+
+    <android.widget.ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".PekerjaModifyWorkExperienceCategoryActivity">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KATEGORI"
+                android:textColor="#21458B"
+                android:textSize="32sp"
+                android:layout_marginTop="16sp"
+                android:layout_marginStart="20sp"
+                android:fontFamily="@font/poppins_extrabold" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih kategori pekerjaan sebelumnya!"
+                android:textColor="#21458B"
+                android:textSize="16sp"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:fontFamily="@font/poppins_medium" />
+
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:columnCount="3"
+                android:orientation="horizontal">
+
+                <!-- FIRST CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category1_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <ImageView
+                            android:id="@+id/iv_image1_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_barber"/>
+                        <TextView
+                            android:id="@+id/tv_text1_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Barber"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- SECOND CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category2_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/iv_image2_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_builder" />
+
+                        <TextView
+                            android:id="@+id/tv_text2_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Builder"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- THIRD CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category3_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <ImageView
+                            android:id="@+id/iv_image3_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_driver" />
+
+                        <TextView
+                            android:id="@+id/tv_text3_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Driver"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- FOURTH CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category4_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <ImageView
+                            android:id="@+id/iv_image4_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_gardener" />
+                        <TextView
+                            android:id="@+id/tv_text4_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Gardener"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- FIFTH CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category5_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <ImageView
+                            android:id="@+id/iv_image5_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_maid" />
+
+                        <TextView
+                            android:id="@+id/tv_text5_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Maid"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- SIXTH CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category6_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <ImageView
+                            android:id="@+id/iv_image6_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_peddler" />
+
+                        <TextView
+                            android:id="@+id/tv_text6_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Peddler"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- SEVENTH CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category7_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <ImageView
+                            android:id="@+id/iv_image7_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_porter" />
+                        <TextView
+                            android:id="@+id/tv_text7_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Porter"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- EIGHTH CATEGORY -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_category8_modifyWorkExperienceCategoryPage"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="4dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <ImageView
+                            android:id="@+id/iv_image8_modifyWorkExperienceCategoryPage"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:contentDescription="Image"
+                            android:src="@drawable/img_secretary" />
+                        <TextView
+                            android:id="@+id/tv_text8_modifyWorkExperienceCategoryPage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/poppins_medium"
+                            android:gravity="center"
+                            android:text="Secretary"
+                            android:textColor="#21458B"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </GridLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_confirm_modifyWorkExperienceCategoryPage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="120dp"
+                android:layout_marginHorizontal="22dp"
+                android:background="@drawable/shape_blue_rounded"
+                android:backgroundTint="@null"
+                android:fontFamily="@font/poppins_medium"
+                android:text="KONFIRMASI"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+    </android.widget.ScrollView>
+
+
+</LinearLayout>

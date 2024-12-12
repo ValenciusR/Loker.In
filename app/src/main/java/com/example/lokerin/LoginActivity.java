@@ -10,11 +10,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -25,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseApp firebaseApp;
 
     FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference usersReference;
 
 
     @SuppressLint("MissingInflatedId")
@@ -73,9 +81,28 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(this, "Login gagal, Email tidak terdaftar!", Toast.LENGTH_SHORT).show();
                     Log.e("Signup Error", "onCancelled", task.getException());
                 }else{
-//                    startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
-                    startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
-                    finish();
+                    firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+                    DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+                    userReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String userType = dataSnapshot.child("type").getValue().toString();
+                            if(userType.equals("pelanggan")) {
+                                startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                                finish();
+                            }
+                            else {
+                                startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             });
 

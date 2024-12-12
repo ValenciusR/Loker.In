@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    app:cardCornerRadius="10dp"
+    android:backgroundTint="#21458B"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20sp">
+
+        <TextView
+            android:id="@+id/tv_title_addSkillPopUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Keterampilan"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_gravity="center"/>
+
+<!--        <com.google.android.material.textfield.TextInputLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Search or select"-->
+<!--            android:background="@drawable/shape_rounded_blue_border"-->
+<!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">-->
+
+<!--            <AutoCompleteTextView-->
+<!--                android:id="@+id/actv_search_addSkillPopup"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="text"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:textColor="@color/black"/>-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+        <AutoCompleteTextView
+            android:id="@+id/actv_search_addSkillPopup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Tekan untuk memilih"
+            android:padding="12dp"
+            android:background="@drawable/shape_rounded_blue_border"
+            android:inputType="none"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="8dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acb_cancel_addSkillPopUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="Keluar"
+                android:textColor="#1977F3"
+                android:fontFamily="@font/poppins_bold"
+                android:background="@drawable/shape_rounded"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acb_confirm_addSkillPopUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:text="Konfirmasi"
+                android:textColor="#FFFFFF"
+                android:fontFamily="@font/poppins_bold"
+                android:background="@drawable/shape_blue_rounded"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

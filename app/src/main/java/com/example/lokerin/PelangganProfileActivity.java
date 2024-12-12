@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
@@ -15,8 +16,11 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PelangganProfileActivity extends AppCompatActivity {
 
@@ -39,6 +43,7 @@ public class PelangganProfileActivity extends AppCompatActivity {
         tvPhone = findViewById(R.id.tv_phone_profilePelangganPage);
         tvLocation = findViewById(R.id.tv_location_profilePelangganPage);
         tvEmail = findViewById(R.id.tv_email_profilePelangganPage);
+        getUserData();
 
         btnEditProfile = findViewById(R.id.acb_editProfile_profilePelangganPage);
         btnLogOut = findViewById(R.id.acb_logOut_profilePelangganPage);
@@ -90,7 +95,28 @@ public class PelangganProfileActivity extends AppCompatActivity {
     }
 
     private void getUserData() {
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mAuth = FirebaseAuth.getInstance();
+        DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String userName = dataSnapshot.child("name").getValue().toString();
+                String userPhone = dataSnapshot.child("phoneNumber").getValue().toString();
+                String userLocation = dataSnapshot.child("location").getValue().toString();
+                String userEmail = dataSnapshot.child("email").getValue().toString();
 
+                tvName.setText(userName);
+                tvPhone.setText(userPhone);
+                tvLocation.setText(userLocation);
+                tvEmail.setText(userEmail);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void backPage() {

@@ -4,39 +4,33 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
+import java.sql.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
+import java.util.List;
 
-public class CreateProfile_Skills extends AppCompatActivity {
+public class PekerjaAddKeterampilanActivity extends AppCompatActivity {
 
-    private FirebaseApp firebaseApp;
-    private FirebaseAuth mAuth ;
-    private FirebaseDatabase firebaseDatabase ;
-    private DatabaseReference userReference;
-
-    private ImageView btnBack;
-    private AppCompatButton btnNext;
-    private TextView tvSkip;
+//    Navbar
+    private ImageView btnBack, ivProfilePicture;
+    private TextView tvPageTitle;
 
     private EditText etSearch;
     private RecyclerView rvKeterampilanList;
@@ -45,35 +39,30 @@ public class CreateProfile_Skills extends AppCompatActivity {
     private ArrayList<Skill> skills, dbSkills;
     private LinearLayoutManager linearLayoutManager;
     private ListSkillAdapter listSkillAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_create_profile_skills);
-
-        btnBack = findViewById(R.id.iv_back_skillsPage);
-        btnNext = findViewById(R.id.acb_next_skillsPage);
-        tvSkip = findViewById(R.id.tv_skip_skillsPage);
-
-        firebaseApp = FirebaseApp.initializeApp(this);
-        mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
-        btnBack.setOnClickListener(view -> {
-            startActivity(new Intent(this, CreateProfile_PersonalInfo.class));
-            finish();
+        setContentView(R.layout.activity_pekerja_add_keterampilan);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
         });
 
-        btnNext.setOnClickListener(view -> {
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(PekerjaAddKeterampilanActivity.this, PekerjaProfileActivity.class));
+                finish();
+            }
         });
-
-        tvSkip.setOnClickListener(view -> {
-            Intent loginIntent = new Intent(this, CreateProfile_WorkExperience.class);
-            startActivity(loginIntent);
-            finish();
-        });
+        tvPageTitle.setText("Edit Keterampilan");
+        ivProfilePicture.setImageResource(R.drawable.settings_icon);
 
         etSearch = findViewById(R.id.et_searchBar_addKeterampilanPage);
         rvKeterampilanList = findViewById(R.id.rv_keterampilanList_addKeterampilanPage);
@@ -83,8 +72,8 @@ public class CreateProfile_Skills extends AppCompatActivity {
         skills = new ArrayList<>();
         skills.add(templatePortofolioJob);
 
-        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        listSkillAdapter = new ListSkillAdapter(this, skills);
+        linearLayoutManager = new LinearLayoutManager(PekerjaAddKeterampilanActivity.this, LinearLayoutManager.VERTICAL, false);
+        listSkillAdapter = new ListSkillAdapter(PekerjaAddKeterampilanActivity.this, skills);
         rvKeterampilanList.setLayoutManager(linearLayoutManager);
         rvKeterampilanList.setAdapter(listSkillAdapter);
 
@@ -137,7 +126,7 @@ public class CreateProfile_Skills extends AppCompatActivity {
             String result = searchSkill.getText().toString();
             if(skillItems.contains(result)) {
                 this.skills.add(new Skill(searchSkill.getText().toString()));
-                this.listSkillAdapter = new ListSkillAdapter(this, this.skills);
+                this.listSkillAdapter = new ListSkillAdapter(PekerjaAddKeterampilanActivity.this, this.skills);
                 this.rvKeterampilanList.setAdapter(listSkillAdapter);
                 dialog.dismiss();
             }

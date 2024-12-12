@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
     private Button btnNext;
     private TextView skipText;
     private String type;
+    private ImageView btnBack;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,6 +47,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
         etAboutMe = findViewById(R.id.input_aboutMe_aboutMePage);
         btnNext = findViewById(R.id.btn_next_aboutMePage);
         skipText = findViewById(R.id.text_skip_aboutMePage);
+        btnBack = findViewById(R.id.iv_back_aboutMePage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
@@ -62,6 +65,11 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(CreateProfile_AboutMe.this, "Gagal mengambil data", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        btnBack.setOnClickListener(v -> {
+            startActivity(new Intent(this, CreateProfile_PersonalInfo.class));
+            finish();
         });
 
         btnNext.setOnClickListener(view -> {

@@ -9,10 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EditProfilePelangganActivity extends AppCompatActivity {
 
@@ -22,6 +32,10 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
     private EditText etName, etPhone, etLocation, etEmail;
     private AppCompatButton btnSaveChanges;
     private boolean isValid;
+    private DatabaseReference userReference;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +53,11 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
         tvEmailError = findViewById(R.id.tv_emailError);
         btnSaveChanges = findViewById(R.id.btn_saveChanges);
 
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        mAuth = FirebaseAuth.getInstance();
+        userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+        getUserData();
+
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar.setOnClickListener(v -> Toast.makeText(this, "Profile picture clicked!", Toast.LENGTH_SHORT).show());
@@ -53,7 +72,8 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
         btnSaveChanges.setOnClickListener(v -> {
             isValid = true;
 
-            if (etName.getText().toString().trim().isEmpty()) {
+            String name = etName.getText().toString().trim();
+            if (name.isEmpty()) {
                 tvNameError.setText("Nama harus diisi!");
                 tvNameError.setVisibility(View.VISIBLE);
                 etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
@@ -74,7 +94,8 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            if (etLocation.getText().toString().trim().isEmpty()) {
+            String location = etLocation.getText().toString().trim();
+            if (location.isEmpty()) {
                 tvLocationError.setText("Lokasi harus diisi!");
                 tvLocationError.setVisibility(View.VISIBLE);
                 etLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
@@ -96,9 +117,47 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
             }
 
             if (isValid) {
-                Toast.makeText(this, "Profil berhasil di ubah!", Toast.LENGTH_SHORT).show();
-                //Logic update profile
+                Toast.makeText(this, "Data berhasil disimpan!", Toast.LENGTH_SHORT).show();
+                updateUserData(name, phone, location, email);
+            }
+        });
+    }
+
+    private void getUserData() {
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String userName = dataSnapshot.child("name").getValue().toString();
+                String userPhone = dataSnapshot.child("phoneNumber").getValue().toString();
+                String userLocation = dataSnapshot.child("location").getValue().toString();
+                String userEmail = dataSnapshot.child("email").getValue().toString();
+
+                etName.setText(userName);
+                etPhone.setText(userPhone);
+                etLocation.setText(userLocation);
+                etEmail.setText(userEmail);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void updateUserData(String name, String phone, String location, String email) {
+        userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("name", name);
+        updates.put("phoneNumber", phone);
+        updates.put("location", location);
+        updates.put("email", email);
+        userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
+            if (task2.isSuccessful()) {
                 startProfilePage();
+            } else {
+                // Handle the error here
+                Toast.makeText(this, "Data gagal tersimpan", Toast.LENGTH_SHORT).show();
             }
         });
     }

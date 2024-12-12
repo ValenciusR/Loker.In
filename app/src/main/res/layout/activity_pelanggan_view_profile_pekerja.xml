@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PelangganViewProfilePekerjaActivity">
+
+
+    <include layout="@layout/toolbar_submain"
+        android:id="@+id/layout_toolbar_submain"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_toolbar_submain"
+        android:layout_marginBottom="50sp">
+
+        <include layout="@layout/layout_pekerja_profile"/>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50sp"
+        android:layout_marginBottom="10sp"
+        android:layout_marginHorizontal="20sp">
+
+        <!-- Left Button (1/5th of the screen width) -->
+        <Button
+            android:id="@+id/btn_chat_pelangganViewProfilePekerja"
+            android:layout_width="50sp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Chat"
+            android:textColor="#1977f3"
+            android:layout_marginEnd="12sp"
+            android:backgroundTint="@null"
+            android:background="@drawable/shape_rounded_blue_border"/>
+
+        <!-- Right Button (remaining 4/5ths of the screen width) -->
+        <Button
+            android:id="@+id/btn_action_pelangganViewProfilePekerja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="#FFFFFF"
+            android:text="Pilih Pekerja"
+            android:backgroundTint="@null"
+            android:background="@drawable/shape_blue_rounded"/>
+
+    </LinearLayout>
+</RelativeLayout>
