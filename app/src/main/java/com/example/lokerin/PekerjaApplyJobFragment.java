@@ -39,7 +39,7 @@ public class PekerjaApplyJobFragment extends Fragment {
     private int counter;
 
     private List<JobData> jobDataList = new ArrayList<>();
-    private ListJobPekerjaAdapter adapter;
+    private ListJobAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,7 +84,7 @@ public class PekerjaApplyJobFragment extends Fragment {
 
         rvRecommendedJobs = view.findViewById(R.id.recyclerView);
         rvRecommendedJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListJobPekerjaAdapter(getActivity(), jobDataList);
+        adapter = new ListJobAdapter(getActivity(), jobDataList);
         rvRecommendedJobs.setAdapter(adapter);
 
         fetchJobsFromFirebase();

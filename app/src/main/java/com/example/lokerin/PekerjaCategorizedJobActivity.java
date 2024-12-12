@@ -42,7 +42,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
     private EditText etSearchBar;
 
     private List<JobData> jobDataList = new ArrayList<>();
-    private ListJobPekerjaAdapter adapter;
+    private ListJobAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ListJobPekerjaAdapter(this, jobDataList);
+        adapter = new ListJobAdapter(this, jobDataList);
         rvJobs.setAdapter(adapter);
 
         etSearchBar = findViewById(R.id.search_bar);

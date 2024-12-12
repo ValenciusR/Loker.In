@@ -33,7 +33,7 @@ public class AdminJobsFragment extends Fragment {
     private EditText etSearchBar;
 
     private List<JobData> jobDataList = new ArrayList<>();
-    private ListJobPelangganAdapter adapter;
+    private ListJobAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class AdminJobsFragment extends Fragment {
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListJobPelangganAdapter(getContext(), jobDataList);
+        adapter = new ListJobAdapter(getContext(), jobDataList);
         rvJobs.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);

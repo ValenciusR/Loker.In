@@ -39,7 +39,7 @@ public class PekerjaMyJobFragment extends Fragment {
     private String currentUserId;
 
     private List<JobData> jobDataList = new ArrayList<>();
-    private ListJobPekerjaAdapter adapter;
+    private ListJobAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,7 +60,7 @@ public class PekerjaMyJobFragment extends Fragment {
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListJobPekerjaAdapter(getActivity(), jobDataList);
+        adapter = new ListJobAdapter(getActivity(), jobDataList);
         rvJobs.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);
