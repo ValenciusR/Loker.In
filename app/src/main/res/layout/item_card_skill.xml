@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20sp"
+    android:backgroundTint="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    android:layout_marginBottom="20sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="20sp">
+
+        <TextView
+            android:id="@+id/tv_name_rvAddKeterampilan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="Skill A"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/iv_delete_rvAddKeterampilan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_delete_trash"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_gravity="right"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

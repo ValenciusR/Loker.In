@@ -1,0 +1,46 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AdminMainActivity">
+    <include layout="@layout/toolbar_main"/>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:layout_above="@id/bottomNavView"
+        android:paddingBottom="10px"/>
+
+    <FrameLayout
+        android:id="@+id/bottomNavContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:clipChildren="false">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavView"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/shape_bottom_nav"
+            app:menu="@menu/bottom_nav_menu_admin"
+            app:itemIconSize="40dp"
+            app:itemIconTint="@drawable/selector_item_nav"
+            app:itemTextColor="@drawable/selector_item_nav"
+            app:itemRippleColor="@android:color/transparent"
+            app:itemBackground="@android:color/transparent"
+            app:itemTextAppearanceActive="@style/ActiveTextAppearance"
+            app:itemTextAppearanceInactive="@style/InactiveTextAppearance"
+            style="@style/RemoveRippleColor"
+            />
+    </FrameLayout>
+
+</RelativeLayout>

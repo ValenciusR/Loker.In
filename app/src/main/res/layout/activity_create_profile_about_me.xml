@@ -3,78 +3,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_vertical"
     android:background="#1977F3"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/title"
-
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ceritakan tentang diri kamu!"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/poppins_bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deskripsi"
-        android:textSize="14sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="@font/poppins_regular" />
-
-    <EditText
-        android:id="@+id/input_aboutMe_aboutMePage"
-        android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:inputType="textImeMultiLine|textMultiLine"
-        android:gravity="top|left"
-        android:textColor="@color/black"
-        android:padding="10dp"
-        android:background="@drawable/shape_rounded"
-        android:height="40dp"
-        android:fontFamily="@font/poppins_regular"/>
-
+    <ImageView
+        android:id="@+id/iv_back_aboutMePage"
+        android:layout_marginTop="40sp"
+        android:layout_width="20sp"
+        android:layout_height="40sp"
+        android:background="@drawable/back_button_icon"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="horizontal"
-        android:layout_marginTop="16dp">
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/title"
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/text_skip_aboutMePage"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Lewati"
-                android:textSize="14sp"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="4dp"
-                android:fontFamily="@font/poppins_regular" />
-        </LinearLayout>
-
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_next_aboutMePage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lanjut"
-            android:textColor="#1977F3"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
-            android:backgroundTint="@null"
-            android:background="@drawable/shape_rounded"
+            android:text="Ceritakan tentang diri kamu!"
+            android:textSize="24sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="16dp"
             android:fontFamily="@font/poppins_bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deskripsi"
+            android:textSize="14sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_regular" />
+
+        <EditText
+            android:id="@+id/input_aboutMe_aboutMePage"
+            android:layout_width="match_parent"
+            android:layout_height="148dp"
+            android:inputType="textImeMultiLine|textMultiLine"
+            android:gravity="top|left"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:background="@drawable/shape_rounded"
+            android:height="40dp"
+            android:fontFamily="@font/poppins_regular"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_skip_aboutMePage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Lewati"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/poppins_regular" />
+            </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_next_aboutMePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lanjut"
+                android:textColor="#1977F3"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:backgroundTint="@null"
+                android:background="@drawable/shape_rounded"
+                android:fontFamily="@font/poppins_bold"/>
+        </LinearLayout>
     </LinearLayout>
+
 
 </LinearLayout>

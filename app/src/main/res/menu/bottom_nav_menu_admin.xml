@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_home"
+        android:icon="@drawable/icon_my_job"
+        android:title="Beranda"/>
+
+    <item
+        android:id="@+id/bottom_users"
+        android:icon="@drawable/icon_people"
+        android:title="User"/>
+
+    <item
+        android:id="@+id/bottom_jobs"
+        android:icon="@drawable/icon_job"
+        android:title="Pekerjaan"/>
+
+</menu>

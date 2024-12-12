@@ -38,31 +38,32 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
     private AutoCompleteTextView etGender;
     private ArrayAdapter<String> adapterItems;
 
-    private String[] item = {"Male", "Female"};
+    private String[] item = {"Laki-Laki", "Perempuan"};
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(CreateProfile_PersonalInfo.this);
         setContentView(R.layout.activity_create_profile_personal_info);
 
-        etName = findViewById(R.id.input_name_personalInfoPage);
-        etPhone = findViewById(R.id.input_phone_personalInfoPage);
-        etLocation = findViewById(R.id.input_location_personalInfoPage);
-        etAge = findViewById(R.id.input_age_personalInfoPage);
-        etGender = findViewById(R.id.input_gender_personalInfoPage);
-        btnNext = findViewById(R.id.btn_next_personalInfoPage);
+        etName = findViewById(R.id.et_name_createProfilePersonalInfoPage);
+        etPhone = findViewById(R.id.et_phone_createProfilePersonalInfoPage);
+        etLocation = findViewById(R.id.et_location_createProfilePersonalInfoPage);
+        etAge = findViewById(R.id.et_age_createProfilePersonalInfoPage);
+        etGender = findViewById(R.id.et_gender_createProfilePersonalInfoPage);
+        btnNext = findViewById(R.id.acb_next_createProfilePersonalInfoPage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
-        etGender = findViewById(R.id.input_gender_personalInfoPage);
-        adapterItems = new ArrayAdapter<String>(this, R.layout.list_item, item);
+        adapterItems = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
 
         etGender.setAdapter(adapterItems);
-
+        etGender.setOnClickListener(v -> {
+            etGender.showDropDown();
+        });
+        etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
         btnNext.setOnClickListener(view -> {
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
             Map<String, Object> updates = new HashMap<>();
