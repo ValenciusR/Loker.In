@@ -100,7 +100,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.settings_icon);
                 } else{
-                    Glide.with(ProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    Glide.with(PekerjaProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
                 }
             }
 

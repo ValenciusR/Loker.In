@@ -22,23 +22,27 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class PelangganAddJobFragment extends Fragment {
 
-    private FirebaseApp firebaseApp;
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference jobsReference;
 
     private Button btnCategory, btnDaily, btnWeekly, btnMonthly, btnSubmit;
     private Spinner spinnerProvince, spinnerRegency;
     private EditText etJobTitle, etDescription, etSalary, etAddress;
-    private String frequentSalary = "", selectedCategory;
+    private String frequentSalary = "", selectedCategory, currentUserId;
     private boolean isCategorySelected = false; ;
     private ArrayAdapter<CharSequence> regencyAdapter;
 
@@ -58,6 +62,14 @@ public class PelangganAddJobFragment extends Fragment {
         FirebaseApp.initializeApp(requireContext());
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app");
         jobsReference = firebaseDatabase.getReference().child("jobs");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            currentUserId = currentUser.getUid();
+        } else {
+            currentUserId = null;
+        }
 
         etJobTitle = view.findViewById(R.id.et_job_addJob);
         etDescription = view.findViewById(R.id.et_description_addJob);
@@ -81,13 +93,13 @@ public class PelangganAddJobFragment extends Fragment {
         btnCategory.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString("jobTitle", etJobTitle.getText().toString());
-            bundle.putString("description", etDescription.getText().toString());
-            bundle.putString("salary", etSalary.getText().toString());
-            bundle.putString("salaryFrequent", frequentSalary);
-            bundle.putString("selectedCategory", btnCategory.getText().toString());
-            bundle.putString("selectedProvince", spinnerProvince.getSelectedItem().toString());
-            bundle.putString("selectedRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
-            bundle.putString("address", etAddress.getText().toString());
+            bundle.putString("jobDescription", etDescription.getText().toString());
+            bundle.putString("jobSalary", etSalary.getText().toString());
+            bundle.putString("jobSalaryFrequent", frequentSalary);
+            bundle.putString("jobCategory", btnCategory.getText().toString());
+            bundle.putString("jobProvince", spinnerProvince.getSelectedItem().toString());
+            bundle.putString("jobRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
+            bundle.putString("jobAddress", etAddress.getText().toString());
             isCategorySelected = true;
             btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
             PelangganAddJobCategoryFragment categoryFragment = new PelangganAddJobCategoryFragment();
@@ -228,16 +240,29 @@ public class PelangganAddJobFragment extends Fragment {
             progressDialog.show();
 
             HashMap<String, Object> jobData = new HashMap<>();
-            jobData.put("title", etJobTitle.getText().toString().trim());
-            jobData.put("description", etDescription.getText().toString().trim());
-            jobData.put("category", selectedCategory);
-            jobData.put("salary", Double.parseDouble(etSalary.getText().toString().trim()));
-            jobData.put("frequentSalary", frequentSalary);
-            jobData.put("province", spinnerProvince.getSelectedItem().toString());
-            jobData.put("regency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
-            jobData.put("address", etAddress.getText().toString().trim());
+            jobData.put("jobMakerId", currentUserId);
+            jobData.put("jobTitle", etJobTitle.getText().toString().trim());
+            jobData.put("jobCategory", selectedCategory);
+            jobData.put("jobDescription", etDescription.getText().toString().trim());
+            jobData.put("jobSalary", Double.parseDouble(etSalary.getText().toString().trim()));
+            jobData.put("jobSalaryFrequent", frequentSalary);
+            jobData.put("jobProvince", spinnerProvince.getSelectedItem().toString());
+            jobData.put("jobRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
+            jobData.put("jobAddress", etAddress.getText().toString().trim());
 
-            jobsReference.push().setValue(jobData).addOnCompleteListener(task -> {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            String currentDate = dateFormat.format(new Date());
+            jobData.put("jobDateUpload", currentDate);
+            jobData.put("jobStatus", "OPEN");
+
+            HashMap<String, Object> jobApplicants = new HashMap<>();
+            jobData.put("jobApplicants", jobApplicants);
+
+            DatabaseReference jobRef = jobsReference.push();
+            String generatedId = jobRef.getKey();
+            jobData.put("jobId", generatedId);
+
+            jobRef.setValue(jobData).addOnCompleteListener(task -> {
                 progressDialog.dismiss();
                 if (task.isSuccessful()) {
                     Toast.makeText(requireContext(), "Pekerjaan berhasil ditambahkan!", Toast.LENGTH_SHORT).show();

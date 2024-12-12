@@ -31,20 +31,20 @@
             android:padding="16sp">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tv_title_pekerja"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Center Title"
+                android:text="Judul Pekerjaan"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:fontFamily="@font/poppins_bold"
                 android:layout_gravity="center_horizontal" />
 
             <TextView
-                android:id="@+id/subtitle"
+                android:id="@+id/tv_category_pekerja"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small detail text"
+                android:text="Kategori"
                 android:textColor="#888888"
                 android:textSize="14sp"
                 android:fontFamily="@font/poppins_medium"
@@ -75,10 +75,10 @@
                         android:contentDescription="Icon 1" />
 
                     <TextView
-                        android:id="@+id/label1"
+                        android:id="@+id/tv_province_pekerja"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category"
+                        android:text="Provinsi"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_medium" />
@@ -100,10 +100,10 @@
                         android:contentDescription="Icon 2" />
 
                     <TextView
-                        android:id="@+id/label2"
+                        android:id="@+id/tv_regency_pekerja"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone"
+                        android:text="Kabupaten"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_medium" />
@@ -125,10 +125,10 @@
                         android:contentDescription="Icon 3" />
 
                     <TextView
-                        android:id="@+id/label3"
+                        android:id="@+id/tv_date_pekerja"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="End Job Date"
+                        android:text="Tanggal"
                         android:textColor="#000000"
                         android:textSize="12sp"
                         android:fontFamily="@font/poppins_medium" />
@@ -136,13 +136,13 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_salary"
+                android:id="@+id/tv_salary_pekerja"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8sp"
                 android:padding="8sp"
-                android:text="Sample Text"
+                android:text="gaji / frekuensi"
                 android:textSize="12sp"
                 android:textColor="#000000"
                 android:fontFamily="@font/poppins_medium"
@@ -171,16 +171,15 @@
                 />
 
             <TextView
-                android:id="@+id/tv_jobDescription_pekerjaDetailJobPage"
+                android:id="@+id/tv_description_pekerja"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#77797c"
                 android:textSize="14sp"
                 android:fontFamily="@font/poppins_light"
                 android:layout_marginStart="30sp"
-                android:text="Lorem ipsum odor amet, consectetuer adipiscing elit. Elementum aliquam sem lacinia potenti blandit risus dis dignissim tortor. Vivamus bibendum nunc faucibus parturient condimentum faucibus nisl. Rhoncus molestie elementum ultrices volutpat eleifend diam. Class cras potenti est consectetur blandit. Pulvinar justo nec metus, pellentesque suspendisse facilisi scelerisque. Congue consequat fermentum fusce orci lacus tellus elit aptent. Adipiscing congue proin pretium phasellus vehicula nisi per. Nulla dictum posuere fusce pulvinar dictum magna nostra odio scelerisque.
-\n\n
-Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc est ullamcorper finibus sagittis. Elementum tortor eu odio primis id fermentum tempor habitasse. Eleifend dapibus diam habitant ut, molestie feugiat taciti. Natoque nam aliquam nostra rutrum posuere interdum, blandit condimentum. Nibh facilisis iaculis, mollis ligula risus sodales."/>
+                android:textColor="#000000"
+                android:text="Deskripsi"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -188,8 +187,6 @@ Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc 
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="50sp"
                 android:layout_marginBottom="10sp">
-
-                <!-- Left Button (1/5th of the screen width) -->
                 <Button
                     android:id="@+id/btn_chat_pekerjaDetailJobPage"
                     android:layout_width="50sp"
@@ -200,8 +197,6 @@ Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc 
                     android:layout_marginEnd="12sp"
                     android:backgroundTint="@null"
                     android:background="@drawable/shape_rounded_blue_border"/>
-
-                <!-- Right Button (remaining 4/5ths of the screen width) -->
                 <Button
                     android:id="@+id/bt_action_pekerjaDetailJobPage"
                     android:layout_width="wrap_content"
@@ -214,12 +209,5 @@ Morbi gravida potenti nec sed suscipit. Potenti taciti leo suspendisse dis nunc 
 
             </LinearLayout>
         </LinearLayout>
-
-
     </ScrollView>
-
-
-
-
-
 </RelativeLayout>

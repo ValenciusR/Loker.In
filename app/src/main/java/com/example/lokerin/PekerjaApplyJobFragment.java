@@ -3,27 +3,60 @@ package com.example.lokerin;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PekerjaApplyJobFragment extends Fragment {
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference jobsRef;
+
     private TextView tvViewAll;
     private RecyclerView rvCategorizedJobs, rvRecommendedJobs;
+    private String currentUserId;
+    private int counter;
+
+    private List<JobData> jobDataList = new ArrayList<>();
+    private ListJobAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pekerja_applyjob, container, false);
+
+        FirebaseApp.initializeApp(requireContext());
+        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        jobsRef = firebaseDatabase.getReference("jobs");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            currentUserId = currentUser.getUid();
+        } else {
+            currentUserId = "noId";
+        }
 
         tvViewAll = view.findViewById(R.id.viewAllTextView);
         tvViewAll.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +84,10 @@ public class PekerjaApplyJobFragment extends Fragment {
 
         rvRecommendedJobs = view.findViewById(R.id.recyclerView);
         rvRecommendedJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        ListJobAdapter adapter = new ListJobAdapter(getActivity(), getJobDataList());
+        adapter = new ListJobAdapter(getActivity(), jobDataList);
         rvRecommendedJobs.setAdapter(adapter);
+
+        fetchJobsFromFirebase();
 
         return view;
     }
@@ -62,31 +97,31 @@ public class PekerjaApplyJobFragment extends Fragment {
         startActivity(intent);
     }
 
-    private List<JobData> getJobDataList() {
-        List<JobData> dataList = new ArrayList<>();
-        List<User> applicants1 = new ArrayList<>();
-        applicants1.add(new User("bangjago@gmail.com", "BangJago"));
-        applicants1.add(new User("jagoan@gmail.com", "Jagoan"));
-
-//        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1", "Open", applicants1));
-//        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2", "Active", new ArrayList<>()));
-//        dataList.add(new JobData("Job Title 3", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
-//        dataList.add(new JobData("Job Title 4", "Location 2", "Date 2", "Category 2", "Ended", new ArrayList<>()));
-//        dataList.add(new JobData("Applicant Open", "Location 2", "Date 2", "Category 2", "Open", applicants1));
-//        dataList.add(new JobData("Applicant Active", "Location 2", "Date 2", "Category 2", "Active", applicants1));;
-//        dataList.add(new JobData("Applicant On Going", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
-//        dataList.add(new JobData("Applicant Ended", "Location 2", "Date 2", "Category 2", "Ended", applicants1));
-
-        List<JobData> filteredList = new ArrayList<>();
-        for (JobData job : dataList) {
-            if (!job.getJobStatus().equalsIgnoreCase("On Going") && !job.getJobStatus().equalsIgnoreCase("Ended")) {
-                JobData tempJob = job;
-                tempJob.setJobStatus("Active");
-                filteredList.add(tempJob);
+    private void fetchJobsFromFirebase() {
+        counter = 0;
+        jobsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                jobDataList.clear();
+                for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
+                    JobData job = jobSnapshot.getValue(JobData.class);
+                    if (job != null) {
+                        //FILTER BY MAPPING RECOMMEND ACTIVITY + ONLY 3
+                        jobDataList.add(job);
+                        counter++;
+                    }
+                    if (counter == 3){
+                        break;
+                    }
+                }
+                adapter.updateList(jobDataList);
             }
-        }
 
-        return filteredList;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to fetch jobs: " + error.getMessage());
+            }
+        });
     }
 
 }
