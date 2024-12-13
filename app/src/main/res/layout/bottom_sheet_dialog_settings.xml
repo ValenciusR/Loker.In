@@ -44,6 +44,30 @@
         android:focusable="true"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_settings_editKeterampilan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit Keterampilan"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/poppins_bold"
+        android:background="@drawable/shape_rounded"
+        android:layout_marginTop="20sp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_settings_tambahPekerjaanSebelumnya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Pekerjaan Sebelumnya"
+        android:textColor="@color/blue"
+        android:fontFamily="@font/poppins_bold"
+        android:background="@drawable/shape_rounded"
+        android:layout_marginTop="20sp"
+        android:clickable="true"
+        android:focusable="true"/>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_settings_addJobsToPortofolio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

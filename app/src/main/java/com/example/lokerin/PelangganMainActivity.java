@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,7 +30,7 @@ public class PelangganMainActivity extends AppCompatActivity {
         tvPageTitle.setText("BERANDA");
         ivProfileNavbar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                startActivity(new Intent(PelangganMainActivity.this, ProfilePelangganActivity.class));
+                startActivity(new Intent(PelangganMainActivity.this, PelangganProfileActivity.class));
                 finish();
             }
         });

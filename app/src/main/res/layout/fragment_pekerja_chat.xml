@@ -7,10 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".PekerjaChatFragment">
     
+    <EditText
+        android:id="@+id/et_searchBar_pekerjaChatFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:hint="Search"
+        />
+    
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/et_searchBar_pekerjaChatFragment"
         android:id="@+id/rv_chat_pekerja"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 
 </RelativeLayout>

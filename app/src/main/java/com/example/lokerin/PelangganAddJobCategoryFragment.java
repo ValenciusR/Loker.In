@@ -33,13 +33,13 @@ public class PelangganAddJobCategoryFragment extends Fragment {
         Bundle args = getArguments();
         if (args != null) {
             jobTitle = args.getString("jobTitle", "No Title");
-            description = args.getString("description", "No Description");
-            salary = args.getString("salary", "No Salary");
-            frequentSalary = args.getString("salaryFrequent", "No Salary");
-            selectedCategory = args.getString("selectedCategory", "");
-            selectedProvince = args.getString("selectedProvince", "");
-            selectedRegency = args.getString("selectedRegency", "");
-            address = args.getString("address", "No Address");
+            description = args.getString("jobDescription", "No Description");
+            salary = args.getString("jobSalary", "No Salary");
+            frequentSalary = args.getString("jobSalaryFrequent", "No Salary");
+            selectedCategory = args.getString("jobCategory", "");
+            selectedProvince = args.getString("jobProvince", "");
+            selectedRegency = args.getString("jobRegency", "");
+            address = args.getString("jobAddress", "No Address");
         }
 
         btnConfirmCategory = view.findViewById(R.id.btn_category_confirm);

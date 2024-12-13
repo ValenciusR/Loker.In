@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_blue_square">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_rounded_blue_border"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:elevation="4dp" >
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_search_blue"
+                android:contentDescription="Search Icon"
+                />
+
+            <EditText
+                android:id="@+id/et_searchBar_tambahPekerjaanSebelumnyaPage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:hint="Cari Pekerjaan"
+                android:textColor="#000000"
+                android:textColorHint="#66202124"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="text" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Tambah Pekerjaan ke Portofolio"
+        android:layout_marginVertical="20sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="20sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_pekerjaanList_tambahPekerjaanSebelumnyaPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="100"
+        android:background="@color/white"
+        android:layout_marginBottom="120dp"
+        android:padding="16dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/acb_tambahPekerjaan_tambahPekerjaanSebelumnyaPage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tambah Pekerjaan Sebelumnya"
+        android:textColor="#FFFFFF"
+        android:paddingHorizontal="8sp"
+        android:paddingVertical="8sp"
+        android:backgroundTint="@null"
+        android:background="@drawable/shape_blue_rounded"
+        android:fontFamily="@font/poppins_medium"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginBottom="20sp"/>
+</LinearLayout>

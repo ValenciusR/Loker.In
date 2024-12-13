@@ -2,24 +2,47 @@ package com.example.lokerin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PekerjaCategorizedJobActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference jobsRef;
+
     private ImageView btnBack, ivProfileNavbar;
-    private String category;
+    private String category, currentUserId;
     private TextView tvPageTitle;
     private RecyclerView rvJobs;
+    private EditText etSearchBar;
+
+    private List<JobData> jobDataList = new ArrayList<>();
+    private ListJobAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +52,18 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         category = intent.getStringExtra("category");
+
+        FirebaseApp.initializeApp(this);
+        firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        jobsRef = firebaseDatabase.getReference("jobs");
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            currentUserId = currentUser.getUid();
+        } else {
+            currentUserId = "noId";
+        }
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
@@ -44,40 +79,63 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
-        ListJobAdapter adapter = new ListJobAdapter(this, getJobDataList(category));
+        adapter = new ListJobAdapter(this, jobDataList);
         rvJobs.setAdapter(adapter);
+
+        etSearchBar = findViewById(R.id.search_bar);
+        etSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterJobs(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        fetchJobsFromFirebase();
     }
 
-    private List<JobData> getJobDataList(String category) {
-        List<JobData> dataList = new ArrayList<>();
-        List<User> applicants1 = new ArrayList<>();
-        applicants1.add(new User("bangjago@gmail.com", "BangJago"));
-        applicants1.add(new User("jagoan@gmail.com", "Jagoan"));
-
-        dataList.add(new JobData("Job Title 1", "Location 1", "Date 1", "Category 1", "Open", applicants1));
-        dataList.add(new JobData("Job Title 2", "Location 2", "Date 2", "Category 2", "Active", new ArrayList<>()));
-        dataList.add(new JobData("Job Title 3", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
-        dataList.add(new JobData("Job Title 4", "Location 2", "Date 2", "Category 2", "Ended", new ArrayList<>()));
-        dataList.add(new JobData("Applicant Open", "Location 2", "Date 2", "Category 2", "Open", applicants1));
-        dataList.add(new JobData("Applicant Active", "Location 2", "Date 2", "Category 2", "Active", applicants1));;
-        dataList.add(new JobData("Applicant On Going", "Location 2", "Date 2", "Category 2", "On Going", applicants1));
-        dataList.add(new JobData("Applicant Ended", "Location 2", "Date 2", "Category 2", "Ended", applicants1));
-
+    private void filterJobs(String query) {
         List<JobData> filteredList = new ArrayList<>();
-        for (JobData job : dataList) {
-            if (!job.getJobStatus().equalsIgnoreCase("On Going") && !job.getJobStatus().equalsIgnoreCase("Ended") && job.getJobCategory().equalsIgnoreCase(category)) {
-                JobData tempJob = job;
-                tempJob.setJobStatus("Applyable");
-                filteredList.add(tempJob);
+        for (JobData job : jobDataList) {
+            if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
+                if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus()) && "ACTIVE".equalsIgnoreCase(job.getJobStatus())) {
+                    filteredList.add(job);
+                }
             }
         }
+        adapter.updateList(filteredList);
+    }
 
-        return filteredList;
+    private void fetchJobsFromFirebase() {
+        jobsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                jobDataList.clear();
+                for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
+                    JobData job = jobSnapshot.getValue(JobData.class);
+                    if (job != null) {
+                        if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus()) && "ACTIVE".equalsIgnoreCase(job.getJobStatus())) {
+                            jobDataList.add(job);
+                        }
+                    }
+                }
+                adapter.updateList(jobDataList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to fetch jobs: " + error.getMessage());
+            }
+        });
     }
 
     private void backPage() {
         startActivity(new Intent(PekerjaCategorizedJobActivity.this, PekerjaMainActivity.class));
         finish();
     }
-
 }

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfilePelangganActivity"
+    tools:context=".PekerjaProfileActivity"
     android:gravity="center_horizontal">
 
-    <include layout="@layout/toolbar_submain" />
+    <include layout="@layout/toolbar_submain"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -22,21 +22,25 @@
             android:background="#FFFFFF">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_profile"
                 android:layout_width="100sp"
                 android:layout_height="100sp"
+                android:id="@+id/iv_profile2_editProfilePekerjaPage"
                 app:shapeAppearanceOverlay="@style/roundedProfileImage"
                 android:src="@drawable/default_no_profile_icon"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
                 android:layout_marginTop="20sp"
-                android:clickable="true" />
+                android:clickable="true"/>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="0"
                 android:orientation="vertical"
                 android:paddingHorizontal="20sp">
+
+                <!-- Label for Name -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,29 +48,31 @@
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
                     android:layout_marginBottom="20sp">
+
                     <EditText
-                        android:id="@+id/et_name"
+                        android:textColor="@color/black"
+                        android:id="@+id/et_name_editProfilePekerjaPage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPersonName"
                         android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular" />
+                        android:fontFamily="@font/poppins_regular"/>
                     <TextView
-                        android:id="@+id/tv_nameError"
+                        android:id="@+id/tv_nameError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"
-                        android:visibility="gone"
-                        android:layout_marginTop="4sp" />
+                        android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Label for Phone -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -78,28 +84,27 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
                     android:layout_marginBottom="20sp">
 
                     <EditText
-                        android:id="@+id/et_phone"
+                        android:textColor="@color/black"
+                        android:id="@+id/et_phone_editProfilePekerjaPage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="phone"
                         android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular" />
-
+                        android:fontFamily="@font/poppins_regular"/>
                     <TextView
-                        android:id="@+id/tv_phoneError"
+                        android:id="@+id/tv_phoneError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"
-                        android:visibility="gone"
-                        android:layout_marginTop="4sp" />
+                        android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Label for Location -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,32 +116,31 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
                     android:layout_marginBottom="20sp">
 
                     <EditText
-                        android:id="@+id/et_location"
+                        android:textColor="@color/black"
+                        android:id="@+id/et_location_editProfilePekerjaPage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular" />
-
+                        android:fontFamily="@font/poppins_regular"/>
                     <TextView
-                        android:id="@+id/tv_locationError"
+                        android:id="@+id/tv_locationError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"
-                        android:visibility="gone"
-                        android:layout_marginTop="4sp" />
+                        android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Label for Job -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email"
+                    android:text="Profesi"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -144,41 +148,77 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
                     android:layout_marginBottom="20sp">
 
                     <EditText
-                        android:id="@+id/et_email"
+                        android:textColor="@color/black"
+                        android:id="@+id/et_job_editProfilePekerjaPage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
                         android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular" />
-
+                        android:fontFamily="@font/poppins_regular"/>
                     <TextView
-                        android:id="@+id/tv_emailError"
+                        android:id="@+id/tv_jobError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"
-                        android:visibility="gone"
-                        android:layout_marginTop="4sp" />
+                        android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Label for Job Description -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Deskripsi Profesi"
+                    android:textSize="12sp"
+                    android:textColor="#1977F3"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="95sp">
+
+                    <EditText
+                        android:textColor="@color/black"
+                        android:id="@+id/et_jobDescription_editProfilePekerjaPage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:padding="10sp"
+                        android:background="@drawable/shape_rounded_blue_border"
+                        android:fontFamily="@font/poppins_regular"
+                        android:gravity="top|start"
+                        android:textAlignment="gravity"/>
+                    <TextView
+                        android:id="@+id/tv_jobDescriptionError_editProfilePekerjaPage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="#F31919"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_saveChanges"
+                    android:id="@+id/btn_saveChanges_editProfilePekerjaPage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Simpan Perubahan"
                     android:textColor="#FFFFFF"
                     android:paddingHorizontal="8sp"
                     android:paddingVertical="8sp"
+                    android:backgroundTint="@null"
                     android:background="@drawable/shape_blue_rounded"
                     android:fontFamily="@font/poppins_medium"
-                    android:layout_marginBottom="20sp" />
+                    android:layout_marginBottom="20sp"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+
 </LinearLayout>
