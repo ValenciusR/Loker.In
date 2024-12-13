@@ -9,19 +9,36 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ListSkillAdapter extends RecyclerView.Adapter<ListSkillAdapter.SkillHolder> {
-    ArrayList<Skill> data;
+    ArrayList<String> data;
     Context context;
+    private FirebaseApp firebaseApp;
+    private FirebaseAuth mAuth ;
+    private FirebaseDatabase firebaseDatabase ;
+    private DatabaseReference userReference;
 
-    public ListSkillAdapter(Context context, ArrayList<Skill> data) {
+    public ListSkillAdapter(Context context, ArrayList<String> data) {
         this.context = context;
         this.data = data;
+        this.firebaseApp = FirebaseApp.initializeApp(context);
+        this.mAuth = FirebaseAuth.getInstance();
+        this.firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        this.userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
     }
 
     @NonNull
@@ -33,7 +50,7 @@ public class ListSkillAdapter extends RecyclerView.Adapter<ListSkillAdapter.Skil
 
     @Override
     public void onBindViewHolder(@NonNull ListSkillAdapter.SkillHolder holder, int position) {
-        holder.tvName.setText(data.get(position).getName());
+        holder.tvName.setText(data.get(position));
         holder.ivDelete.setOnClickListener(v -> {
             showDeleteSkillConfirmationDialog(position);
         });
@@ -67,6 +84,19 @@ public class ListSkillAdapter extends RecyclerView.Adapter<ListSkillAdapter.Skil
         data.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, data.size());
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("skill", data);
+        this.userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
+            if (task2.isSuccessful()) {
+            } else {
+            }
+        });
+    }
+
+    public void updateList(ArrayList<String> updatedList) {
+        this.data = updatedList;
+        notifyDataSetChanged();
     }
 
     @Override

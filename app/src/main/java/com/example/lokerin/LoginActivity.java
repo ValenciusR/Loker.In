@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference usersReference;
+    private DatabaseReference userReference;
 
 
     @SuppressLint("MissingInflatedId")
@@ -52,13 +52,31 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
 
         //check if user is null
         if(firebaseUser != null){
-            Intent intent = new Intent(LoginActivity.this, PekerjaMainActivity.class);
-            startActivity(intent);
-            finish();
+            userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String userType = dataSnapshot.child("type").getValue().toString();
+                    if(userType.equals("pelanggan")) {
+                        startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                        finish();
+                    }
+                    else {
+                        startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         }
 
         registerLink.setOnClickListener(view -> {
@@ -81,9 +99,8 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(this, "Login gagal, Email tidak terdaftar!", Toast.LENGTH_SHORT).show();
                     Log.e("Signup Error", "onCancelled", task.getException());
                 }else{
-                    firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-                    DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+                    userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
                     userReference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
