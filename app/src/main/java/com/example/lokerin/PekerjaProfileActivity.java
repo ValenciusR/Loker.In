@@ -96,6 +96,13 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
                 tvName.setText(user.getName());
+                tvJob.setText(user.getJob());
+                tvLocation.setText(user.getLocation());
+                tvJobDescription.setText(user.getJobDesc());
+                tvPhone.setText(user.getPhoneNumber());
+                tvEmail.setText(user.getEmail());
+
+
 
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
@@ -197,7 +204,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
-                finish();
             }
         });
 
