@@ -46,7 +46,7 @@ public class PekerjaMainActivity extends AppCompatActivity {
                 selectedFragment = new PekerjaApplyJobFragment();
                 tvPageTitle.setText("DAFTAR PEKERJAAN");
             } else if (id == R.id.bottom_chat) {
-                selectedFragment = new ChatFragment();
+                selectedFragment = new PekerjaChatFragment();
                 tvPageTitle.setText("PESAN");
             }
             if (selectedFragment != null) {

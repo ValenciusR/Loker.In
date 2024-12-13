@@ -136,38 +136,6 @@
                         android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Label for Email -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="12sp"
-                    android:textColor="#1977F3"
-                    android:fontFamily="@font/poppins_bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cursorColor="@color/blue"
-                    android:layout_marginBottom="20sp">
-
-                    <EditText
-                        android:textColor="@color/black"
-                        android:id="@+id/et_email_editProfilePekerjaPage"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="10sp"
-                        android:background="@drawable/shape_rounded_blue_border"
-                        android:fontFamily="@font/poppins_regular"/>
-                    <TextView
-                        android:id="@+id/tv_emailError_editProfilePekerjaPage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
                 <!-- Label for Job -->
                 <TextView
                     android:layout_width="wrap_content"

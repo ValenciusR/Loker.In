@@ -96,9 +96,16 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
                 tvName.setText(user.getName());
+                tvJob.setText(user.getJob());
+                tvLocation.setText(user.getLocation());
+                tvJobDescription.setText(user.getJobDesc());
+                tvPhone.setText(user.getPhoneNumber());
+                tvEmail.setText(user.getEmail());
+
+
 
                 if(user.getImageUrl().equals("default")){
-                    ivProfilePicture.setImageResource(R.drawable.settings_icon);
+                    ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
                     Glide.with(PekerjaProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
                 }
@@ -197,7 +204,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
-                finish();
             }
         });
 
@@ -205,7 +211,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaProfileActivity.this, PekerjaAddKeterampilanActivity.class));
-                finish();
             }
         });
 
