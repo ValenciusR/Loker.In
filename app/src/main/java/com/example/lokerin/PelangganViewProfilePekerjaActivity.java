@@ -107,7 +107,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
-                    Glide.with(ProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    Glide.with(PelangganViewProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
                 }
 
             }

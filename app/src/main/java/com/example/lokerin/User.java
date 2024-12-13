@@ -1,6 +1,7 @@
 package com.example.lokerin;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
     private String email;
@@ -12,7 +13,7 @@ public class User implements Serializable {
     private int age;
     private String gender;
     private String aboutMe;
-    private String skill;
+    private ArrayList<String> skill;
     private String skillDesc;
     private String job;
     private String jobDesc;
@@ -23,7 +24,7 @@ public class User implements Serializable {
 
     }
 
-    public User(String id,String email, String password, String type, String name, String phoneNumber, String location, int age, String gender, String aboutMe, String skill, String skillDesc, String job, String jobDesc, String imageUrl) {
+    public User(String id,String email, String password, String type, String name, String phoneNumber, String location, int age, String gender, String aboutMe, ArrayList<String> skill, String skillDesc, String job, String jobDesc, String imageUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -41,7 +42,15 @@ public class User implements Serializable {
         this.imageUrl = imageUrl;
     }
 
-    public User(String id,String email, String name){
+    public ArrayList<String> getSkill() {
+        return skill;
+    }
+
+    public void setSkill(ArrayList<String> skill) {
+        this.skill = skill;
+    }
+
+    public User(String id, String email, String name){
         this.id = id;
         this.email = email;
         this.name = name;
@@ -114,14 +123,6 @@ public class User implements Serializable {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
-    }
-
-    public String getSkill() {
-        return skill;
-    }
-
-    public void setSkill(String skill) {
-        this.skill = skill;
     }
 
     public String getSkillDesc() {

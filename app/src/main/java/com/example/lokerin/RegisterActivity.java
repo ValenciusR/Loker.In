@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -87,8 +88,10 @@ public class RegisterActivity extends AppCompatActivity {
                         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
                         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
 
+
                         HashMap<String, Object> hashMap = getObjectHashMap(email, password);
                         userReference.setValue(hashMap);
+                        userReference.updateChildren(hashMap);
                         progressDialog.dismiss();
                         Intent loginIntent = new Intent(this, CreateProfile.class);
                         startActivity(loginIntent);
@@ -100,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private @NonNull HashMap<String, Object> getObjectHashMap(String email, String password) {
+        ArrayList<String> arraySkill = new ArrayList<>();
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("id", mAuth.getCurrentUser().getUid());
         hashMap.put("email", email);
@@ -111,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("age", 0);
         hashMap.put("gender", "");
         hashMap.put("aboutMe","");
-        hashMap.put("skill","");
+        hashMap.put("skill", arraySkill);
         hashMap.put("skillDesc", "");
         hashMap.put("job", "");
         hashMap.put("jobDesc","");

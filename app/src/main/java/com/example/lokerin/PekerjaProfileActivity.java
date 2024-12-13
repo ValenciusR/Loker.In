@@ -98,7 +98,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 tvName.setText(user.getName());
 
                 if(user.getImageUrl().equals("default")){
-                    ivProfilePicture.setImageResource(R.drawable.settings_icon);
+                    ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
                     Glide.with(PekerjaProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
                 }
@@ -205,7 +205,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaProfileActivity.this, PekerjaAddKeterampilanActivity.class));
-                finish();
             }
         });
 
