@@ -41,7 +41,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     private EditText etSearchBar;
     private String currentUserId;
 
-    private List<JobData> jobDataList = new ArrayList<>();
+    private List<Job> jobList = new ArrayList<>();
     private ListJobAdapter adapter;
 
     @Override
@@ -74,7 +74,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ListJobAdapter(this, jobDataList);
+        adapter = new ListJobAdapter(this, jobList);
         rvJobs.setAdapter(adapter);
 
         etSearchBar = findViewById(R.id.search_bar);
@@ -96,8 +96,8 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     }
 
     private void filterJobs(String query) {
-        List<JobData> filteredList = new ArrayList<>();
-        for (JobData job : jobDataList) {
+        List<Job> filteredList = new ArrayList<>();
+        for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
                 //FILTER BY MAPPING RECOMMEND ACTIVITY
                     filteredList.add(job);
@@ -110,15 +110,15 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                jobDataList.clear();
+                jobList.clear();
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
-                    JobData job = jobSnapshot.getValue(JobData.class);
+                    Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
                         //FILTER BY MAPPING RECOMMEND ACTIVITY
-                            jobDataList.add(job);
+                            jobList.add(job);
                     }
                 }
-                adapter.updateList(jobDataList);
+                adapter.updateList(jobList);
             }
 
             @Override

@@ -39,7 +39,7 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.UserVi
         }
 
         holder.viewDetailButton.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), DetailProfileActivity.class);
+            Intent intent = new Intent(v.getContext(), AdminDetailProfileActivity.class);
             intent.putExtra("USER_ID", user.getId());
             v.getContext().startActivity(intent);
         });

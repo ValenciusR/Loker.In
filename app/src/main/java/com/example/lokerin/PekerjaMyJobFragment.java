@@ -38,7 +38,7 @@ public class PekerjaMyJobFragment extends Fragment {
     private EditText etSearchBar;
     private String currentUserId;
 
-    private List<JobData> jobDataList = new ArrayList<>();
+    private List<Job> jobList = new ArrayList<>();
     private ListJobAdapter adapter;
 
     @Override
@@ -60,7 +60,7 @@ public class PekerjaMyJobFragment extends Fragment {
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListJobAdapter(getActivity(), jobDataList);
+        adapter = new ListJobAdapter(getActivity(), jobList);
         rvJobs.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);
@@ -83,8 +83,8 @@ public class PekerjaMyJobFragment extends Fragment {
     }
 
     private void filterJobs(String query) {
-        List<JobData> filteredList = new ArrayList<>();
-        for (JobData job : jobDataList) {
+        List<Job> filteredList = new ArrayList<>();
+        for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
                 //FILTER ONLY APPLIED JOB BY USER ID
                     filteredList.add(job);
@@ -97,16 +97,16 @@ public class PekerjaMyJobFragment extends Fragment {
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                jobDataList.clear();
+                jobList.clear();
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
-                    JobData job = jobSnapshot.getValue(JobData.class);
+                    Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
                         if (!"noId".equalsIgnoreCase(currentUserId) && currentUserId.equalsIgnoreCase(job.getJobMakerId())) {
-                            jobDataList.add(job);
+                            jobList.add(job);
                         }
                     }
                 }
-                adapter.updateList(jobDataList);
+                adapter.updateList(jobList);
             }
 
             @Override
