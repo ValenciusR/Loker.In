@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -46,12 +48,15 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
+    private String isFromPelanggan, userIdFromPelanggan;
+    private Button btnChat, btnAccept;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ListPortofolioAdapter portofolioAdapter;
     private ListReviewAdapter reviewAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +70,9 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         });
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         ivProfilePicture = findViewById(R.id.iv_profilePicture_profilePekerjaPage);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         tvName = findViewById(R.id.tv_name_profilePekerjaPage);
         tvJob = findViewById(R.id.tv_job_profilePekerjaPage);
         tvLocation = findViewById(R.id.tv_location_profilePekerjaPage);
@@ -77,19 +82,39 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
         rvReview = findViewById(R.id.rv_reviewList_profilePekerjaPage);
         flKeterampilan = findViewById(R.id.fl_keterampilan_profilePekerjaPage);
+        btnChat = findViewById(R.id.btn_chat_profilePekerjaPage);
+        btnAccept = findViewById(R.id.btn_accept_profilePekerjaPage);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        Intent intent = getIntent();
+        isFromPelanggan = intent.getStringExtra("isFromPelanggan");
+        userIdFromPelanggan = intent.getStringExtra("USER_ID");
+
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
+        if (isFromPelanggan == null) {
+            fuser = FirebaseAuth.getInstance().getCurrentUser();
+            userReference = firebaseDatabase.getReference().child("users").child(fuser.getUid());
+            btnChat.setVisibility(View.GONE);
+            btnAccept.setVisibility(View.GONE);
+        } else {
+            userReference = firebaseDatabase.getReference().child("users").child(userIdFromPelanggan);
+            ivProfileNavbar.setVisibility(View.GONE);
+            btnChat.setOnClickListener(v -> {
+                Toast.makeText(this, "INI PINDAH KE CHAT (INI DARI PELANGGAN (get auth) KE DETAIL PEKERJA YANG SEDANG DI CEK)", Toast.LENGTH_SHORT).show();
+            });
+            btnAccept.setOnClickListener(v -> {
+                Toast.makeText(this, "MOVE FROM APPLICANTS TO ACCEPTED WORKER", Toast.LENGTH_SHORT).show();
+            });
+        }
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 backPage();
             }
         });
-
-        fuser = FirebaseAuth.getInstance().getCurrentUser();
-        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        userReference = firebaseDatabase.getReference().child("users").child(fuser.getUid());
+        tvPageTitle.setText("Profil");
+        ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -116,10 +141,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
             }
         });
-
-
-        tvPageTitle.setText("Profil");
-        ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
 //        Set Portofolio Recycler View
         Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
@@ -160,13 +181,15 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
     private void setSkills(User user){
         List<String> skills = user.getSkill();
+
+        if (skills == null || skills.isEmpty()) {
+            return;
+        }
+
         for (String skill : skills) {
             TextView tvSkill = new TextView(this);
-
-            // Set skill name
             tvSkill.setText(skill);
 
-            // Set styling
             tvSkill.setTextColor(getResources().getColor(R.color.blue));
             tvSkill.setBackgroundResource(R.drawable.shape_rounded_blue_border); // Custom drawable
             tvSkill.setPadding(50, 25, 50, 25);
@@ -175,7 +198,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
             ));
-            // Create LayoutParams with margins
             FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -183,7 +205,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             layoutParams.setMargins(0, 0, 25, 25);
             tvSkill.setLayoutParams(layoutParams);
 
-            // Add TextView to FlexboxLayout
             flKeterampilan.addView(tvSkill);
         }
     }

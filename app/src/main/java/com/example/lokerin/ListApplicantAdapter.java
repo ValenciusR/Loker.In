@@ -22,11 +22,13 @@ import java.util.List;
 
 public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdapter.UserViewHolder> {
 
+    private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase ;
     private DatabaseReference userReference;
 
     private List<String> userList;
     private String status;
+
 
     public ListApplicantAdapter(List<String> userList, String status) {
         this.userList = userList;
@@ -68,11 +70,38 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
             holder.viewDetailButton.setText("RATE REVIEW");
         }
 
-        holder.viewDetailButton.setVisibility(View.GONE);
         holder.viewDetailButton.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), AdminDetailProfileActivity.class);
-            intent.putExtra("USER_ID", userId);
-            v.getContext().startActivity(intent);
+            mAuth = FirebaseAuth.getInstance();
+            userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+            userReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    String userType = "";
+
+                    if (dataSnapshot.exists() && dataSnapshot.child("type").getValue() != null) {
+                        userType = dataSnapshot.child("type").getValue(String.class);
+                    }
+
+                    if(userType.equals("pelanggan")) {
+                        Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
+                        intent.putExtra("isFromPelanggan", "TRUE");
+                        intent.putExtra("USER_ID", userId);
+                        v.getContext().startActivity(intent);
+                    } else if (userType.equals("pekerja")){
+                        Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(v.getContext(), AdminDetailProfileActivity.class);
+                        intent.putExtra("USER_ID", userId);
+                        v.getContext().startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
         });
     }
 

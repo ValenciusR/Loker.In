@@ -53,8 +53,7 @@ public class LoginActivity extends AppCompatActivity {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
-
-
+        
         //check if user is null
         if(firebaseUser != null){
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
@@ -96,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
                 if(!task.isSuccessful()){
-                    Toast.makeText(this, "Login gagal, Email tidak terdaftar!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Login gagal, autentikasi salah!", Toast.LENGTH_SHORT).show();
                     Log.e("Signup Error", "onCancelled", task.getException());
                 }else{
 
