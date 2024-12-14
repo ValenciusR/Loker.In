@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,10 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class PelangganDetailJobActivity extends AppCompatActivity {
+public class AdminDetailJobActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -44,7 +41,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pelanggan_detail_job);
+        setContentView(R.layout.activity_admin_detail_job);
 
         Intent intent = getIntent();
         jobId = intent.getStringExtra("jobId");
@@ -104,105 +101,11 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             }
         });
 
-        if ("Active".equals(jobStatus)) {
-            btnAction.setText("Mulai Pekerjaan");
-            btnAction.setOnClickListener(v -> showConfirmBookConfirmationDialog());
-            btnDelete.setVisibility(View.GONE);
-        } else if ("On Going".equals(jobStatus)) {
-            btnAction.setText("Akhiri Pekerjaan");
-            btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
-            btnDelete.setVisibility(View.GONE);
-        } else if ("Ended".equals(jobStatus)) {
-            btnAction.setVisibility(View.GONE);
-            btnDelete.setVisibility(View.GONE);
-        } else if ("Applyable".equals(jobStatus)) {
-            btnAction.setText("Daftar");
-            btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
-            btnDelete.setVisibility(View.GONE);
-            rvApplicants.setVisibility(View.GONE);
-        } else{
-            btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
-        }
+        btnAction.setVisibility(View.GONE);
+        btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
 
         getJobData();
 
-    }
-
-    private void showDeleteConfirmationDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().setDimAmount(0.7f);
-
-        TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Hapus Pekerjaan?");
-
-        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
-        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
-
-        btnCancel.setOnClickListener(view -> dialog.dismiss());
-
-        btnConfirm.setOnClickListener(view -> {
-            if (jobId != null) {
-                databaseReference.removeValue()
-                        .addOnSuccessListener(aVoid -> {
-                            Toast.makeText(PelangganDetailJobActivity.this, "Data pekerjaan berhasil dihapus.", Toast.LENGTH_SHORT).show();
-                            navigateToAdminMainActivity();
-                        })
-                        .addOnFailureListener(e -> {
-                            Toast.makeText(PelangganDetailJobActivity.this, "Gagal menghapus data pekerjaan.", Toast.LENGTH_SHORT).show();
-                        });
-            } else {
-                Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
-            }
-            dialog.dismiss();
-        });
-
-        dialog.show();
-    }
-
-    private void showConfirmBookConfirmationDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().setDimAmount(0.7f);
-
-        TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Konfirmasi Pekerjaan?");
-
-        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
-        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
-
-        btnCancel.setOnClickListener(view -> dialog.dismiss());
-
-        btnConfirm.setOnClickListener(view -> {
-            //Change Status of the Job
-            dialog.dismiss();
-        });
-
-        dialog.show();
-    }
-
-    private void showFinishJobConfirmationDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().setDimAmount(0.7f);
-
-        TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Selesaikan Pekerjaan?");
-
-        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
-        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
-
-        btnCancel.setOnClickListener(view -> dialog.dismiss());
-
-        btnConfirm.setOnClickListener(view -> {
-            //Change Status of the Job
-            dialog.dismiss();
-        });
-
-        dialog.show();
     }
 
     private void getJobData() {
@@ -215,10 +118,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                 if (task.getResult().exists()) {
                     updateJobShown(task);
                 } else {
-                    Toast.makeText(PelangganDetailJobActivity.this, "Data pekerjaan tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminDetailJobActivity.this, "Data pekerjaan tidak ditemukan.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(PelangganDetailJobActivity.this, "Error mengambil data pekerjaan.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminDetailJobActivity.this, "Error mengambil data pekerjaan.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -244,8 +147,42 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
     }
 
+    private void showDeleteConfirmationDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setDimAmount(0.7f);
+
+        TextView title = dialog.findViewById(R.id.title_popup);
+        title.setText("Hapus Pekerjaan?");
+
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            if (jobId != null) {
+                databaseReference.removeValue()
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(AdminDetailJobActivity.this, "Data pekerjaan berhasil dihapus.", Toast.LENGTH_SHORT).show();
+                            navigateToAdminMainActivity();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(AdminDetailJobActivity.this, "Gagal menghapus data pekerjaan.", Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                Toast.makeText(AdminDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
+            }
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
     private void navigateToAdminMainActivity() {
-        Intent intent = new Intent(PelangganDetailJobActivity.this, PelangganMainActivity.class);
+        Intent intent = new Intent(AdminDetailJobActivity.this, AdminMainActivity.class);
+        intent.putExtra("targetFragment", "AdminJobsFragment");
         startActivity(intent);
         finish();
     }

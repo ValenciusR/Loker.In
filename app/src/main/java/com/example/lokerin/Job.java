@@ -1,9 +1,8 @@
 package com.example.lokerin;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
 
-public class JobData {
+public class Job {
     private String jobId;
     private String jobMakerId;
     private String jobTitle;
@@ -16,9 +15,10 @@ public class JobData {
     private String jobAddress;
     private String jobDateUpload;
     private String jobStatus;
-    private Map<String, User> jobApplicants;
+    private ArrayList<String> jobWorkers;
+    private ArrayList<String> jobApplicants;
 
-    public JobData() {
+    public Job() {
     }
 
     public String getJobId() {
@@ -117,11 +117,19 @@ public class JobData {
         this.jobStatus = jobStatus;
     }
 
-    public Map<String, User> getJobApplicants() {
+    public ArrayList<String> getJobWorkers() {
+        return jobWorkers;
+    }
+
+    public void setJobWorkers(ArrayList<String> jobWorkers) {
+        this.jobWorkers = jobWorkers;
+    }
+
+    public ArrayList<String> getJobApplicants() {
         return jobApplicants;
     }
 
-    public void setJobApplicants(Map<String, User> jobApplicants) {
+    public void setJobApplicants(ArrayList<String> jobApplicants) {
         this.jobApplicants = jobApplicants;
     }
 }

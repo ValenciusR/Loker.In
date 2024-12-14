@@ -38,7 +38,7 @@ public class PekerjaApplyJobFragment extends Fragment {
     private String currentUserId;
     private int counter;
 
-    private List<JobData> jobDataList = new ArrayList<>();
+    private List<Job> jobList = new ArrayList<>();
     private ListJobAdapter adapter;
 
     @Override
@@ -84,7 +84,7 @@ public class PekerjaApplyJobFragment extends Fragment {
 
         rvRecommendedJobs = view.findViewById(R.id.recyclerView);
         rvRecommendedJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListJobAdapter(getActivity(), jobDataList);
+        adapter = new ListJobAdapter(getActivity(), jobList);
         rvRecommendedJobs.setAdapter(adapter);
 
         fetchJobsFromFirebase();
@@ -102,19 +102,19 @@ public class PekerjaApplyJobFragment extends Fragment {
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                jobDataList.clear();
+                jobList.clear();
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
-                    JobData job = jobSnapshot.getValue(JobData.class);
+                    Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
                         //FILTER BY MAPPING RECOMMEND ACTIVITY + ONLY 3
-                        jobDataList.add(job);
+                        jobList.add(job);
                         counter++;
                     }
                     if (counter == 3){
                         break;
                     }
                 }
-                adapter.updateList(jobDataList);
+                adapter.updateList(jobList);
             }
 
             @Override

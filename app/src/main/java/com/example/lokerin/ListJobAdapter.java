@@ -6,8 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,18 +18,17 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardViewHolder>{
 
-    private List<JobData> jobDataList;
+    private List<Job> jobList;
     private Context context;
     private FirebaseDatabase firebaseDatabase;
 
-    public ListJobAdapter(Context context, List<JobData> jobDataList) {
+    public ListJobAdapter(Context context, List<Job> jobList) {
         this.context = context;
-        this.jobDataList = jobDataList;
+        this.jobList = jobList;
     }
 
     @NonNull
@@ -42,7 +40,7 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
 
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-        JobData data = jobDataList.get(position);
+        Job data = jobList.get(position);
         holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "-");
         holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "-");
         holder.jobDateUpload.setText(data.getJobDateUpload() != null ? data.getJobDateUpload() : "-");
@@ -55,14 +53,22 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
             userReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String userType = dataSnapshot.child("type").getValue().toString();
+                    String userType = "";
+
+                    if (dataSnapshot.exists() && dataSnapshot.child("type").getValue() != null) {
+                        userType = dataSnapshot.child("type").getValue(String.class);
+                    }
+
                     if(userType.equals("pelanggan")) {
                         Intent intent = new Intent(context.getApplicationContext(), PelangganDetailJobActivity.class);
                         intent.putExtra("jobId", data.getJobId());
                         context.startActivity(intent);
-                    }
-                    else {
+                    } else if(userType.equals("pekerja")){
                         Intent intent = new Intent(context.getApplicationContext(), PekerjaDetailJobActivity.class);
+                        intent.putExtra("jobId", data.getJobId());
+                        context.startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(context.getApplicationContext(), AdminDetailJobActivity.class);
                         intent.putExtra("jobId", data.getJobId());
                         context.startActivity(intent);
                     }
@@ -78,11 +84,11 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
 
     @Override
     public int getItemCount() {
-        return jobDataList.size();
+        return jobList.size();
     }
 
-    public void updateList(List<JobData> updatedList) {
-        this.jobDataList = updatedList;
+    public void updateList(List<Job> updatedList) {
+        this.jobList = updatedList;
         notifyDataSetChanged();
     }
 

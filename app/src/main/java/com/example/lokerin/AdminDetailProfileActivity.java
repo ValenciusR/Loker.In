@@ -1,9 +1,11 @@
 package com.example.lokerin;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,9 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class DetailProfileActivity extends AppCompatActivity {
+public class AdminDetailProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -33,7 +34,7 @@ public class DetailProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_profile);
+        setContentView(R.layout.activity_admin_detail_profile);
 
         userId = getIntent().getStringExtra("USER_ID");
         if (userId == null) {
@@ -56,6 +57,8 @@ public class DetailProfileActivity extends AppCompatActivity {
         tvJobDesc = findViewById(R.id.tv_job_desc);
         tvType = findViewById(R.id.tv_type);
 
+        btnDeleteUser = findViewById(R.id.btn_delete);
+
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
@@ -63,8 +66,7 @@ public class DetailProfileActivity extends AppCompatActivity {
         tvPageTitle.setText("Detail Pengguna");
         ivProfileNavbar.setVisibility(View.GONE);
 
-        btnDeleteUser = findViewById(R.id.btn_delete);
-        btnDeleteUser.setOnClickListener(v -> deleteUserData());
+        btnDeleteUser.setOnClickListener(v -> showDeleteConfirmationDialog());
 
         getUserData();
     }
@@ -79,10 +81,10 @@ public class DetailProfileActivity extends AppCompatActivity {
                 if (task.getResult().exists()) {
                     updateUserProfile(task);
                 } else {
-                    Toast.makeText(DetailProfileActivity.this, "Data pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminDetailProfileActivity.this, "Data pengguna tidak ditemukan.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(DetailProfileActivity.this, "Error mengambil data pengguna.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminDetailProfileActivity.this, "Error mengambil data pengguna.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -116,23 +118,42 @@ public class DetailProfileActivity extends AppCompatActivity {
         tvType.setText(type != null && !type.isEmpty() ? type : "N/A");
     }
 
-    private void deleteUserData() {
-        if (userId != null) {
-            databaseReference.removeValue()
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(DetailProfileActivity.this, "Data pengguna berhasil dihapus.", Toast.LENGTH_SHORT).show();
-                        navigateToAdminMainActivity();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(DetailProfileActivity.this, "Gagal menghapus data pengguna.", Toast.LENGTH_SHORT).show();
-                    });
-        } else {
-            Toast.makeText(DetailProfileActivity.this, "User ID pengguna tidak valid!", Toast.LENGTH_SHORT).show();
-        }
+    private void showDeleteConfirmationDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setDimAmount(0.7f);
+
+        TextView title = dialog.findViewById(R.id.title_popup);
+        title.setText("Hapus User?");
+
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            if (userId != null) {
+                databaseReference.removeValue()
+                        .addOnSuccessListener(aVoid -> {
+                            Toast.makeText(AdminDetailProfileActivity.this, "Data pengguna berhasil dihapus.", Toast.LENGTH_SHORT).show();
+                            navigateToAdminMainActivity();
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(AdminDetailProfileActivity.this, "Gagal menghapus data pengguna.", Toast.LENGTH_SHORT).show();
+                        });
+            } else {
+                Toast.makeText(AdminDetailProfileActivity.this, "User ID pengguna tidak valid!", Toast.LENGTH_SHORT).show();
+            }
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void navigateToAdminMainActivity() {
-        Intent intent = new Intent(DetailProfileActivity.this, AdminMainActivity.class);
+        Intent intent = new Intent(AdminDetailProfileActivity.this, AdminMainActivity.class);
+        intent.putExtra("targetFragment", "AdminUsersFragment");
         startActivity(intent);
         finish();
     }

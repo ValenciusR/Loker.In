@@ -32,7 +32,7 @@ public class AdminJobsFragment extends Fragment {
     private RecyclerView rvJobs;
     private EditText etSearchBar;
 
-    private List<JobData> jobDataList = new ArrayList<>();
+    private List<Job> jobList = new ArrayList<>();
     private ListJobAdapter adapter;
 
     @Override
@@ -45,7 +45,7 @@ public class AdminJobsFragment extends Fragment {
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ListJobAdapter(getContext(), jobDataList);
+        adapter = new ListJobAdapter(getContext(), jobList);
         rvJobs.setAdapter(adapter);
 
         etSearchBar = view.findViewById(R.id.search_bar);
@@ -68,8 +68,8 @@ public class AdminJobsFragment extends Fragment {
     }
 
     private void filterJobs(String query) {
-        List<JobData> filteredList = new ArrayList<>();
-        for (JobData job : jobDataList) {
+        List<Job> filteredList = new ArrayList<>();
+        for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
                 filteredList.add(job);
             }
@@ -81,14 +81,14 @@ public class AdminJobsFragment extends Fragment {
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                jobDataList.clear();
+                jobList.clear();
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
-                    JobData job = jobSnapshot.getValue(JobData.class);
+                    Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        jobDataList.add(job);
+                        jobList.add(job);
                     }
                 }
-                adapter.updateList(jobDataList);
+                adapter.updateList(jobList);
             }
 
             @Override

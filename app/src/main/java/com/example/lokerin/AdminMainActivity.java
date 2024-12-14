@@ -22,16 +22,30 @@ public class AdminMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new AdminHomeFragment())
-                .commit();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
+
+        String targetFragment = getIntent().getStringExtra("targetFragment");
+        if (targetFragment != null) {
+            if ("AdminUsersFragment".equals(targetFragment)) {
+                loadFragment(new AdminUsersFragment());
+                bottomNavigationView.setSelectedItemId(R.id.bottom_users);
+            } else if ("AdminJobsFragment".equals(targetFragment)) {
+                loadFragment(new AdminJobsFragment());
+                bottomNavigationView.setSelectedItemId(R.id.bottom_jobs);
+            } else {
+                loadFragment(new AdminHomeFragment());
+                bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+            }
+        } else {
+            loadFragment(new AdminHomeFragment());
+            bottomNavigationView.setSelectedItemId(R.id.bottom_home);
+        }
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvPageTitle.setText("BERANDA");
         ivProfileNavbar.setVisibility(View.GONE);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             int id = item.getItemId();
@@ -52,5 +66,12 @@ public class AdminMainActivity extends AppCompatActivity {
             }
             return true;
         });
+    }
+
+    private void loadFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }
