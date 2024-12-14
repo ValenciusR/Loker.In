@@ -447,6 +447,9 @@ public class PelangganAddJobFragment extends Fragment {
     private void resetForm() {
         etJobTitle.setText("");
         etDescription.setText("");
+        selectedCategory = "";
+        isCategorySelected = false;
+        btnCategory.setText("Pilih Kategori");
         etSalary.setText("");
         etAddress.setText("");
         spinnerProvince.setSelection(0);
