@@ -102,7 +102,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 tvPhone.setText(user.getPhoneNumber());
                 tvEmail.setText(user.getEmail());
 
-
+                setSkills(user);
 
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
@@ -156,8 +156,10 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             }
         });
 
-//        Set Keterampilan
-        List<String> skills = Arrays.asList("Plumbing", "Berkebun", "Service AC", "Maintenance Listrik", "Pengrajin Kayu", "Pandai Besi");
+    }
+
+    private void setSkills(User user){
+        List<String> skills = user.getSkill();
         for (String skill : skills) {
             TextView tvSkill = new TextView(this);
 
