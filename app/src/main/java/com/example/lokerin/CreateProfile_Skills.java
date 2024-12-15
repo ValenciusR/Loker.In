@@ -69,7 +69,7 @@ public class CreateProfile_Skills extends AppCompatActivity {
         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
 
         btnBack.setOnClickListener(view -> {
-            startActivity(new Intent(this, CreateProfile_PersonalInfo.class));
+            startActivity(new Intent(this, CreateProfile_AboutMe.class));
             finish();
         });
 
@@ -80,7 +80,6 @@ public class CreateProfile_Skills extends AppCompatActivity {
         tvSkip.setOnClickListener(view -> {
             Intent loginIntent = new Intent(this, CreateProfile_WorkExperience.class);
             startActivity(loginIntent);
-            finish();
         });
 
         etSearch = findViewById(R.id.et_searchBar_addKeterampilanPage);

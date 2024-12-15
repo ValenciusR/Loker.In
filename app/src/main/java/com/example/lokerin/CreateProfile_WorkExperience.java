@@ -58,7 +58,7 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
         btnBack.setOnClickListener(view -> {
-            startActivity(new Intent(this, CreateProfile_PersonalInfo.class));
+            startActivity(new Intent(this, CreateProfile_Skills.class));
             finish();
         });
 
@@ -67,7 +67,7 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
         });
 
         tvSkip.setOnClickListener(view -> {
-            Intent loginIntent = new Intent(this, PelangganMainActivity.class);
+            Intent loginIntent = new Intent(this, PekerjaMainActivity.class);
             startActivity(loginIntent);
             finish();
         });
@@ -95,7 +95,6 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
                 Intent intent = new Intent(CreateProfile_WorkExperience.this, PekerjaModifyWorkExperienceActivity.class);
                 intent.putExtra("activityOrigin", "CreateProfile");
                 startActivity(intent);
-                finish();
             }
         });
     }

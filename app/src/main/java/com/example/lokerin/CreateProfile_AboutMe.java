@@ -98,11 +98,9 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
             if(type.equals("pelanggan")){
                 Intent loginIntent = new Intent(this, PelangganMainActivity.class);
                 startActivity(loginIntent);
-                finish();
             }else{
                 Intent loginIntent = new Intent(this, CreateProfile_Skills.class);
                 startActivity(loginIntent);
-                finish();
             }
         });
 
