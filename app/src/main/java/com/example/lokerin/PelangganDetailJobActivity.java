@@ -81,6 +81,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Detail Pekerjaan");
+        ivProfileNavbar.setVisibility(View.GONE);
 
         applicants = new ArrayList<>();
         listApplicantAdapter = new ListApplicantAdapter(applicants, jobStatus);

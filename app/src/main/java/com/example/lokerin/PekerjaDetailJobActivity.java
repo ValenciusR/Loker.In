@@ -11,25 +11,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PekerjaDetailJobActivity extends AppCompatActivity {
 
+    private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference jobsReference;
+    private DatabaseReference userReference;
 
-    private ImageView btnBack;
+    private ImageView btnBack, ivProfileNavbar;;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary, tvDescription;
     private String jobId, jobStatus;
     private Button btnAction, btnChat;
+    private ArrayList<String> applicantsList;
+    private Map<String, Object> applicantsListUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +57,35 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             finish();
             return;
         }
+
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        databaseReference = firebaseDatabase.getReference().child("jobs").child(jobId);
-        jobStatus = databaseReference.child("jobStatus").toString();
+        jobsReference = firebaseDatabase.getReference().child("jobs").child(jobId);
+        mAuth = FirebaseAuth.getInstance();
+        jobsReference.child("jobStatus").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                jobStatus = task.getResult().getValue(String.class);
+                if (jobStatus != null) {
+                    Toast.makeText(this, "Status pekerjaan : " + jobStatus, Toast.LENGTH_SHORT).show();
+
+                    if ("OPEN".equalsIgnoreCase(jobStatus)) {
+                        btnAction.setText("Daftar Pekerjaan");
+                        btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
+                    } else if ("On Going".equalsIgnoreCase(jobStatus)) {
+                        btnAction.setText("Batalkan Pekerjaan");
+                        btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
+                    } else if ("On Going2".equalsIgnoreCase(jobStatus)) {
+                        btnAction.setEnabled(false);
+                    } else if ("Ended".equalsIgnoreCase(jobStatus)) {
+                        btnChat.setVisibility(View.GONE);
+                        btnAction.setVisibility(View.GONE);
+                    }
+                } else {
+                    Toast.makeText(this, "Status pekerjaan sudah kadaluwarsa", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Gagal mendapatkan status pekerjaan", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         tvTitle = findViewById(R.id.tv_title_pekerja);
         tvCategory = findViewById(R.id.tv_category_pekerja);
@@ -57,10 +96,11 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tv_description_pekerja);
 
         btnChat = findViewById(R.id.btn_chat_pekerjaDetailJobPage);
-        btnAction = findViewById(R.id.bt_action_pekerjaDetailJobPage);
+        btnAction = findViewById(R.id.btn_action_pekerjaDetailJobPage);
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,19 +108,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Detail Pekerjaan");
-
-        if ("Active".equals(jobStatus) /* && belum apply */) {
-            btnAction.setText("Daftar Pekerjaan");
-            btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
-        } else if ("On Going".equals(jobStatus) /* && belum di accept */) {
-            btnAction.setText("Batalkan Pekerjaan");
-            btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
-        } else if ("On Going2".equals(jobStatus)  /* && sudah di accept */) {
-            btnAction.setEnabled(false);
-        } else if ("Ended".equals(jobStatus)) {
-            btnChat.setVisibility(View.GONE);
-            btnAction.setVisibility(View.GONE);
-        }
+        ivProfileNavbar.setVisibility(View.GONE);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -113,15 +141,46 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
+        dialog.show();
+
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            //Apply to Job
+            jobsReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot snapshot = task.getResult();
+
+                    applicantsList = new ArrayList<>();
+                    if (snapshot.child("jobApplicants").exists()) {
+                        applicantsList = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
+                    }
+                    if (applicantsList == null) {
+                        applicantsList = new ArrayList<>();
+                    }
+
+                    String currentUserId = mAuth.getUid();
+                    if (currentUserId != null && !applicantsList.contains(currentUserId)) {
+                        applicantsList.add(currentUserId);
+                        jobsReference.child("jobApplicants").setValue(applicantsList)
+                                .addOnCompleteListener(updateTask -> {
+                                    if (updateTask.isSuccessful()) {
+                                        Toast.makeText(this, "Berhasil mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(this, "Gagal mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(this, "Anda sudah mendaftar pada pekerjaan ini!", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();
+                }
+            });
+
             dialog.dismiss();
         });
-
-        dialog.show();
     }
+
 
     private void showCancelJobConfirmationDialog() {
         Dialog dialog = new Dialog(this);
@@ -150,7 +209,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             return;
         }
 
-        databaseReference.get().addOnCompleteListener(task -> {
+        jobsReference.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (task.getResult().exists()) {
                     updateJobShown(task);

@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class PekerjaMyJobFragment extends Fragment {
 
@@ -86,8 +87,9 @@ public class PekerjaMyJobFragment extends Fragment {
         List<Job> filteredList = new ArrayList<>();
         for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
-                //FILTER ONLY APPLIED JOB BY USER ID
+                if (job.getJobApplicants() != null && job.getJobApplicants().contains(currentUserId)) {
                     filteredList.add(job);
+                }
             }
         }
         adapter.updateList(filteredList);
@@ -101,8 +103,15 @@ public class PekerjaMyJobFragment extends Fragment {
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                     Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        if (!"noId".equalsIgnoreCase(currentUserId) && currentUserId.equalsIgnoreCase(job.getJobMakerId())) {
-                            jobList.add(job);
+                        if (jobSnapshot.child("jobApplicants").exists()) {
+                            Object jobApplicantsObject = jobSnapshot.child("jobApplicants").getValue();
+
+                            if (jobApplicantsObject instanceof ArrayList) {
+                                ArrayList<String> jobApplicantsList = (ArrayList<String>) jobApplicantsObject;
+                                if (jobApplicantsList.contains(currentUserId)) {
+                                    jobList.add(job);
+                                }
+                            }
                         }
                     }
                 }
