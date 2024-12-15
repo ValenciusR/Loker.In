@@ -25,12 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 public class LoginActivity extends AppCompatActivity {
 
     private Button btnLogin;
-    private FirebaseAuth mAuth;
     private EditText etEmail, etPassword;
     private TextView registerLink, forgotPassLink;
     private FirebaseApp firebaseApp;
 
-    FirebaseUser firebaseUser;
+    private FirebaseUser firebaseUser;
+    private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userReference;
 

@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -45,6 +46,7 @@ public class PelangganAddJobFragment extends Fragment {
     private String frequentSalary = "", selectedCategory, currentUserId;
     private boolean isCategorySelected = false; ;
     private ArrayAdapter<CharSequence> regencyAdapter;
+    private ArrayList<String> applicantsList;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private RelativeLayout uploadContainer;
@@ -255,8 +257,8 @@ public class PelangganAddJobFragment extends Fragment {
             jobData.put("jobDateUpload", currentDate);
             jobData.put("jobStatus", "OPEN");
 
-            HashMap<String, Object> jobApplicants = new HashMap<>();
-            jobData.put("jobApplicants", jobApplicants);
+            ArrayList<String> applicantsList = new ArrayList<>();
+            jobData.put("jobApplicants", applicantsList);
 
             DatabaseReference jobRef = jobsReference.push();
             String generatedId = jobRef.getKey();
@@ -458,5 +460,6 @@ public class PelangganAddJobFragment extends Fragment {
         btnWeekly.setSelected(false);
         btnMonthly.setSelected(false);
         frequentSalary = "";
+
     }
 }
