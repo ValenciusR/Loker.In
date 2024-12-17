@@ -84,11 +84,6 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                if(!charSequence.toString().equals("")){
-//                    searchUsers(charSequence.toString().toLowerCase());
-//                }else{
-//                }
-
                 searchUsers(charSequence.toString().toLowerCase());
 
             }

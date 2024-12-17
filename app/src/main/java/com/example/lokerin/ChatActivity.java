@@ -138,7 +138,21 @@ public class ChatActivity extends AppCompatActivity {
                 chatsReference.push().setValue(hashMap);
 
                 DatabaseReference chatRef = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chatlist").child(fuser.getUid()).child(userid);
+                DatabaseReference chatRefReceiver = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chatlist").child(userid).child(fuser.getUid());
 
+                chatRefReceiver.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(!snapshot.exists()){
+                            chatRefReceiver.child("id").setValue(fuser.getUid());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 chatRef.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

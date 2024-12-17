@@ -46,7 +46,8 @@ public class PelangganMainActivity extends AppCompatActivity {
                 selectedFragment = new PelangganAddJobFragment();
                 tvPageTitle.setText("TAMBAHKAN PEKERJAAN");
             } else if (id == R.id.bottom_chat) {
-                selectedFragment = new PelangganChatFragment();
+//                selectedFragment = new ChatFragment();
+                selectedFragment = new PekerjaChatFragment();
                 tvPageTitle.setText("PESAN");
             }
             if (selectedFragment != null) {
