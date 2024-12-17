@@ -15,7 +15,9 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
 
@@ -50,7 +52,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.MessageViewHolder holder, int position) {
         Chat chat = mChat.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formmatedTime = sdf.format(chat.getDate());
         holder.show_message.setText(chat.getMessage());
+        holder.show_time.setText(formmatedTime);
 
         if(imageurl.equals("default")){
             holder.profile_image.setImageResource(R.mipmap.ic_launcher);
@@ -66,12 +71,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public class MessageViewHolder extends RecyclerView.ViewHolder{
         public TextView show_message;
+        public TextView show_time;
         public ImageView profile_image;
 
         public MessageViewHolder(View itemView){
             super(itemView);
 
             show_message = itemView.findViewById(R.id.tv_show_message);
+            show_time = itemView.findViewById(R.id.tv_time);
             profile_image = itemView.findViewById(R.id.imageView_profile_icon);
 
         }

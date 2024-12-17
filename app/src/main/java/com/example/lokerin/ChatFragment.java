@@ -34,9 +34,9 @@ public class ChatFragment extends Fragment {
 
     FirebaseUser fuser;
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference usersReference, chatsReference;
+    DatabaseReference reference, chatsReference;
 
-    private List<String> usersList;
+    private List<Chatlist> usersList;
     EditText searchUsers;
 
     @Override
@@ -53,24 +53,19 @@ public class ChatFragment extends Fragment {
         usersList = new ArrayList<>();
 
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
-        chatsReference = firebaseDatabase.getReference().child("chats");
 
-        chatsReference.addValueEventListener(new ValueEventListener() {
+
+        reference = firebaseDatabase.getReference("Chatlist").child(fuser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 usersList.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Chat chat = snapshot.getValue(Chat.class);
-
-                    if(chat.getSender().equals(fuser.getUid())){
-                        usersList.add(chat.getReceiver());
-                    }
-                    if(chat.getReceiver().equals(fuser.getUid())){
-                        usersList.add(chat.getSender());
-                    }
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Chatlist chatlist = snapshot.getValue(Chatlist.class);
+                    usersList.add(chatlist);
                 }
 
-                readChats();
+                chatList();
             }
 
             @Override
@@ -78,6 +73,7 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
 
         searchUsers = view.findViewById(R.id.et_searchBar_chatFragment);
         searchUsers.addTextChangedListener(new TextWatcher() {
@@ -88,7 +84,8 @@ public class ChatFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString());
+                searchUsers(charSequence.toString().toLowerCase());
+
             }
 
             @Override
@@ -100,17 +97,43 @@ public class ChatFragment extends Fragment {
         return view;
     }
 
+    private void chatList() {
+        mUsers = new ArrayList<>();
+        reference = firebaseDatabase.getReference().child("users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mUsers.clear();
+                for(DataSnapshot snapshot1 :snapshot.getChildren()){
+                    User user = snapshot1.getValue(User.class);
+                    for(Chatlist chatlist : usersList){
+                        if(user.getId().equals(chatlist.getId())){
+                            mUsers.add(user);
+                        }
+                    }
+                }
+                listUserChatAdapter = new ListUserChatAdapter(getContext(), mUsers);
+                recyclerView.setAdapter(listUserChatAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void searchUsers(String string) {
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("users").orderByChild("name").startAt(string).endAt(string+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("users").orderByChild("nameLowerCase").startAt(string).endAt(string+"\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     User user = snapshot.getValue(User.class);
-                    for (String id : usersList){
-                        if(user.getId().equals(id)){
+                    for (Chatlist chatlist : usersList){
+                        if(user.getId().equals(chatlist.getId())){
                             if(mUsers.size() != 0){
                                 for(User user1 : mUsers){
                                     if(!user.getId().equals(user1.getId())){
@@ -135,42 +158,5 @@ public class ChatFragment extends Fragment {
 
     }
 
-    private void readChats() {
-        mUsers = new ArrayList<>();
 
-        usersReference = firebaseDatabase.getReference().child("users");
-        usersReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(searchUsers.getText().toString().equals("") || searchUsers.getText().toString().isEmpty()){
-                    mUsers.clear();
-                    for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        User user = snapshot.getValue(User.class);
-                        for (String id : usersList){
-                            if(user.getId().equals(id)){
-                                if(mUsers.size() != 0){
-                                    for(User user1 : mUsers){
-                                        if(!user.getId().equals(user1.getId())){
-                                            mUsers.add(user);
-                                        }
-                                    }
-                                }else{
-                                    mUsers.add(user);
-                                }
-                            }
-                        }
-                    }
-                    listUserChatAdapter = new ListUserChatAdapter(getContext(),mUsers);
-                    recyclerView.setAdapter(listUserChatAdapter);
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 }

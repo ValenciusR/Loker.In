@@ -39,7 +39,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
 
     private ImageView btnBack, ivProfileNavbar;;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary, tvDescription;
-    private String jobId, jobStatus;
+    private String jobId, jobStatus, jobMakerId;
     private Button btnAction, btnChat;
     private ArrayList<String> applicantsList, workersList;
 
@@ -60,6 +60,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         jobsReference = firebaseDatabase.getReference().child("jobs").child(jobId);
         mAuth = FirebaseAuth.getInstance();
+
         jobsReference.child("jobStatus").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 jobStatus = task.getResult().getValue(String.class);
@@ -83,6 +84,12 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 }
             } else {
                 Toast.makeText(this, "Gagal mendapatkan status pekerjaan", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        jobsReference.child("jobMakerId").get().addOnCompleteListener(task2 -> {
+            if (task2.isSuccessful()) {
+                jobMakerId = task2.getResult().getValue(String.class);
             }
         });
 
@@ -119,7 +126,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PekerjaDetailJobActivity.this, ChatActivity.class);
-                intent.putExtra("userid", "Ming ming");
+                intent.putExtra("userid", jobMakerId);
                 startActivity(intent);
             }
         });

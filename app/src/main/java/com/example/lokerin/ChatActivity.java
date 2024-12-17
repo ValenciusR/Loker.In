@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -132,8 +133,40 @@ public class ChatActivity extends AppCompatActivity {
                 hashMap.put("sender",fuser.getUid());
                 hashMap.put("receiver",userid);
                 hashMap.put("message",msg);
+                hashMap.put("date", new Date());
 
                 chatsReference.push().setValue(hashMap);
+
+                DatabaseReference chatRef = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chatlist").child(fuser.getUid()).child(userid);
+                DatabaseReference chatRefReceiver = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chatlist").child(userid).child(fuser.getUid());
+
+                chatRefReceiver.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(!snapshot.exists()){
+                            chatRefReceiver.child("id").setValue(fuser.getUid());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                chatRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists()){
+                            chatRef.child("id").setValue(userid);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }else{
                 Toast.makeText(this, "Can't send empty message", Toast.LENGTH_SHORT).show();
             }
