@@ -91,7 +91,6 @@ public class PekerjaChatFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 searchUsers(charSequence.toString().toLowerCase());
-                Log.d("TEST", "onTextChanged: TOLOL" + charSequence);
             }
 
             @Override

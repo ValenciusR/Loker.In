@@ -136,6 +136,23 @@ public class ChatActivity extends AppCompatActivity {
                 hashMap.put("date", new Date());
 
                 chatsReference.push().setValue(hashMap);
+
+                DatabaseReference chatRef = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chatlist").child(fuser.getUid()).child(userid);
+
+                chatRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(!dataSnapshot.exists()){
+                            chatRef.child("id").setValue(userid);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
             }else{
                 Toast.makeText(this, "Can't send empty message", Toast.LENGTH_SHORT).show();
             }
