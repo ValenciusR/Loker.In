@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp"
+    android:paddingTop="20dp"
+    android:paddingHorizontal="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
@@ -31,10 +32,29 @@
         android:text="Username"
         android:layout_toEndOf="@+id/cv_profile"
         android:layout_marginLeft="20dp"
-        android:layout_centerVertical="true"
         android:textSize="18sp"
         android:fontFamily="@font/poppins_regular"
         android:textColor="@color/black"
         />
+    
+    <TextView
+        android:id="@+id/tv_lastMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_username"
+        android:layout_toRightOf="@id/cv_profile"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/grey_60"
+        android:maxLines="1"
+        android:text="testing"
+        android:textSize="14sp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_40"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/tv_lastMessage"/>
 
 </RelativeLayout>
