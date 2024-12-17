@@ -1,7 +1,8 @@
 package com.example.lokerin;
 
+import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,29 +34,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 public class PekerjaProfileActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference userReference;
+    private DatabaseReference userReference, jobReference;
     FirebaseUser fuser;
     private User user;
 
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
-    private String isFromPelanggan, userIdFromPelanggan;
+    private String fromUserType, userIdFromPelanggan, jobIdFromPelanggan;
     private Button btnChat, btnAccept;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
+    private ArrayList<String> applicantsList, workersList;
+
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ListPortofolioAdapter portofolioAdapter;
     private ListReviewAdapter reviewAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,12 +86,13 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         btnAccept = findViewById(R.id.btn_accept_profilePekerjaPage);
 
         Intent intent = getIntent();
-        isFromPelanggan = intent.getStringExtra("isFromPelanggan");
+        fromUserType = intent.getStringExtra("fromUserType");
         userIdFromPelanggan = intent.getStringExtra("USER_ID");
+        jobIdFromPelanggan = intent.getStringExtra("JOB_ID");
 
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
-        if (isFromPelanggan == null) {
+        if (fromUserType == null) {
             fuser = FirebaseAuth.getInstance().getCurrentUser();
             userReference = firebaseDatabase.getReference().child("users").child(fuser.getUid());
             btnChat.setVisibility(View.GONE);
@@ -99,12 +100,11 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         } else {
             userReference = firebaseDatabase.getReference().child("users").child(userIdFromPelanggan);
             ivProfileNavbar.setVisibility(View.GONE);
+            jobReference = firebaseDatabase.getReference().child("jobs").child(jobIdFromPelanggan);
             btnChat.setOnClickListener(v -> {
                 Toast.makeText(this, "INI PINDAH KE CHAT (INI DARI PELANGGAN (get auth) KE DETAIL PEKERJA YANG SEDANG DI CEK)", Toast.LENGTH_SHORT).show();
             });
-            btnAccept.setOnClickListener(v -> {
-                Toast.makeText(this, "MOVE FROM APPLICANTS TO ACCEPTED WORKER", Toast.LENGTH_SHORT).show();
-            });
+            btnAccept.setOnClickListener(v -> {showApproveApplicantConfirmationDialog();});
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -260,6 +260,73 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
                 finish();
             }
+        });
+    }
+
+    private void showApproveApplicantConfirmationDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setDimAmount(0.7f);
+
+        TextView title = dialog.findViewById(R.id.title_popup);
+        title.setText("Terima Pekerja?");
+
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
+
+        dialog.show();
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            jobReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot snapshot = task.getResult();
+
+                    applicantsList = new ArrayList<>();
+                    if (snapshot.child("jobApplicants").exists()) {
+                        applicantsList = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
+                    }
+                    if (applicantsList == null) {
+                        applicantsList = new ArrayList<>();
+                    }
+
+                    workersList = new ArrayList<>();
+                    if (snapshot.child("jobWorkers").exists()) {
+                        workersList = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                    }
+                    if (workersList == null) {
+                        workersList = new ArrayList<>();
+                    }
+
+                    String userIdToBeAccept = userIdFromPelanggan;
+                    if (userIdToBeAccept != null && applicantsList.contains(userIdToBeAccept)) {
+                        applicantsList.remove(userIdToBeAccept);
+                        jobReference.child("jobApplicants").setValue(applicantsList).addOnCompleteListener(updateTask -> {
+                            if (updateTask.isSuccessful()) {
+                                workersList.add(userIdToBeAccept);
+                                jobReference.child("jobWorkers").setValue(workersList).addOnCompleteListener(updateTask2 -> {
+                                    if (updateTask2.isSuccessful()) {
+                                        Toast.makeText(this, "Berhasil menerima pekerja ini", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(this, "Gagal menerima pekerja ini", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(this, "Gagal mendaftarkan pekerja ini", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(this, "Pekerja belum mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog.dismiss();
+            Intent intent = new Intent(PekerjaProfileActivity.this, PelangganMainActivity.class);
+            startActivity(intent);
         });
     }
 

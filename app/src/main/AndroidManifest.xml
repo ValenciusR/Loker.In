@@ -45,20 +45,12 @@
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity
-            android:name=".CreateProfile_PersonalInfo"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".CreateProfile_PersonalInfo" android:windowSoftInputMode="adjustResize" android:exported="true" />
         <activity android:name=".CreateProfile" android:exported="false" />
         <activity android:name=".PelangganMainActivity" android:exported="true" />
         <activity android:name=".EditProfilePekerjaActivity" android:exported="true" />
