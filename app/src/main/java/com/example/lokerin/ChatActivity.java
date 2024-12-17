@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -132,6 +133,7 @@ public class ChatActivity extends AppCompatActivity {
                 hashMap.put("sender",fuser.getUid());
                 hashMap.put("receiver",userid);
                 hashMap.put("message",msg);
+                hashMap.put("date", new Date());
 
                 chatsReference.push().setValue(hashMap);
             }else{

@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String password;
     private String type;
     private String name;
+    private String nameLowerCase;
     private String phoneNumber;
     private String location;
     private int age;
@@ -24,12 +25,13 @@ public class User implements Serializable {
 
     }
 
-    public User(String id,String email, String password, String type, String name, String phoneNumber, String location, int age, String gender, String aboutMe, ArrayList<String> skill, String skillDesc, String job, String jobDesc, String imageUrl) {
+    public User(String id,String email, String password, String type, String name, String nameLowerCase, String phoneNumber, String location, int age, String gender, String aboutMe, ArrayList<String> skill, String skillDesc, String job, String jobDesc, String imageUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.type = type;
         this.name = name;
+        this.nameLowerCase = nameLowerCase;
         this.phoneNumber = phoneNumber;
         this.location = location;
         this.age = age;
@@ -59,6 +61,14 @@ public class User implements Serializable {
     public User(String email, String name){
         this.email = email;
         this.name = name;
+    }
+
+    public String getNameLowerCase() {
+        return nameLowerCase;
+    }
+
+    public void setNameLowerCase(String nameLowerCase) {
+        this.nameLowerCase = nameLowerCase;
     }
 
     public String getId() {

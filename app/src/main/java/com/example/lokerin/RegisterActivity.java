@@ -110,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("password", password);
         hashMap.put("type", "");
         hashMap.put("name", "");
+        hashMap.put("nameLowerCase", "");
         hashMap.put("phoneNumber","");
         hashMap.put("location","");
         hashMap.put("age", 0);

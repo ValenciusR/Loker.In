@@ -181,6 +181,7 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
             if(isValid) {
                 Map<String, Object> updates = new HashMap<>();
                 updates.put("name", etName.getText().toString());
+                updates.put("nameLowerCase", etName.getText().toString().toLowerCase());
                 updates.put("phoneNumber", etPhone.getText().toString());
                 updates.put("location", etLocation.getText().toString());
                 updates.put("age", Integer.parseInt(etAge.getText().toString()));

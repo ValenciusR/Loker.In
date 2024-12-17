@@ -81,7 +81,7 @@ public class PekerjaChatFragment extends Fragment {
             }
         });
 
-        searchUsers = view.findViewById(R.id.et_searchBar_pekerjaChatFragment);
+        searchUsers = view.findViewById(R.id.et_searchBar_PekerjaChatFragment);
         searchUsers.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -90,7 +90,8 @@ public class PekerjaChatFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchUsers(charSequence.toString());
+                searchUsers(charSequence.toString().toLowerCase());
+                Log.d("TEST", "onTextChanged: TOLOL" + charSequence);
             }
 
             @Override
@@ -104,7 +105,7 @@ public class PekerjaChatFragment extends Fragment {
 
     private void searchUsers(String string) {
         FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        Query query = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("users").orderByChild("name").startAt(string).endAt(string+"\uf8ff");
+        Query query = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference().child("users").orderByChild("nameLowerCase").startAt(string).endAt(string+"\uf8ff");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
