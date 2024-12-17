@@ -110,7 +110,7 @@ public class PekerjaApplyJobFragment extends Fragment {
                         jobList.add(job);
                         counter++;
                     }
-                    if (counter == 3){
+                    if (counter == 5){
                         break;
                     }
                 }

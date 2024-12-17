@@ -33,10 +33,10 @@ public class AdminDetailJobActivity extends AppCompatActivity {
     private String jobId, jobStatus;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary;
     private Button btnAction, btnDelete;
-    private RecyclerView rvApplicants;
+    private RecyclerView rvApplicants, rvWorkers;
 
-    private ArrayList<String> applicants;
-    private ListApplicantAdapter listApplicantAdapter;
+    private ArrayList<String> applicants, workers;
+    private ListApplicantAdapter listApplicantAdapter,listWorkerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,17 @@ public class AdminDetailJobActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference().child("jobs").child(jobId);
-        jobStatus = databaseReference.child("jobStatus").toString();
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    jobStatus = snapshot.child("jobStatus").getValue(String.class);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
         tvTitle = findViewById(R.id.tv_title);
         tvCategory = findViewById(R.id.tv_category);
@@ -66,7 +76,8 @@ public class AdminDetailJobActivity extends AppCompatActivity {
         btnAction = findViewById(R.id.btn_action);
         btnDelete = findViewById(R.id.btn_delete);
 
-        rvApplicants = findViewById(R.id.recyclerView);
+        rvApplicants = findViewById(R.id.rv_applicants_detailJobAdmin);
+        rvWorkers = findViewById(R.id.rv_workers_detailJobAdmin);
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
@@ -78,9 +89,10 @@ public class AdminDetailJobActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Detail Pekerjaan");
+        ivProfileNavbar.setVisibility(View.GONE);
 
         applicants = new ArrayList<>();
-        listApplicantAdapter = new ListApplicantAdapter(applicants, jobStatus);
+        listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
         rvApplicants.setLayoutManager(new LinearLayoutManager(this));
         rvApplicants.setAdapter(listApplicantAdapter);
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -89,8 +101,30 @@ public class AdminDetailJobActivity extends AppCompatActivity {
                 if(snapshot.child("jobApplicants").exists()) {
                     applicants = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
                     if(!applicants.isEmpty()) {
-                        listApplicantAdapter = new ListApplicantAdapter(applicants, jobStatus);
+                        listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
                         rvApplicants.setAdapter(listApplicantAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        workers = new ArrayList<>();
+        listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+        rvWorkers.setLayoutManager(new LinearLayoutManager(this));
+        rvWorkers.setAdapter(listWorkerAdapter);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child("jobWorkers").exists()) {
+                    workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                    if(!workers.isEmpty()) {
+                        listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+                        rvWorkers.setAdapter(listWorkerAdapter);
                     }
                 }
             }
@@ -148,7 +182,7 @@ public class AdminDetailJobActivity extends AppCompatActivity {
     }
 
     private void showDeleteConfirmationDialog() {
-        Dialog dialog = new Dialog(this);
+        Dialog dialog = new Dialog(AdminDetailJobActivity.this);
         dialog.setContentView(R.layout.confirmation_popup);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.7f);

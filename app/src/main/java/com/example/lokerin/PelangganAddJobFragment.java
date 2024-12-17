@@ -46,7 +46,7 @@ public class PelangganAddJobFragment extends Fragment {
     private String frequentSalary = "", selectedCategory, currentUserId;
     private boolean isCategorySelected = false; ;
     private ArrayAdapter<CharSequence> regencyAdapter;
-    private ArrayList<String> applicantsList;
+    private ArrayList<String> applicantsList, workersList;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private RelativeLayout uploadContainer;
@@ -257,8 +257,11 @@ public class PelangganAddJobFragment extends Fragment {
             jobData.put("jobDateUpload", currentDate);
             jobData.put("jobStatus", "OPEN");
 
-            ArrayList<String> applicantsList = new ArrayList<>();
+            applicantsList = new ArrayList<>();
             jobData.put("jobApplicants", applicantsList);
+
+            workersList = new ArrayList<>();
+            jobData.put("jobWorkers", workersList);
 
             DatabaseReference jobRef = jobsReference.push();
             String generatedId = jobRef.getKey();
