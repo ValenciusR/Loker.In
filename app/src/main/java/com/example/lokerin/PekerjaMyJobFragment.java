@@ -106,13 +106,23 @@ public class PekerjaMyJobFragment extends Fragment {
                         if (jobSnapshot.child("jobApplicants").exists()) {
                             Object jobApplicantsObject = jobSnapshot.child("jobApplicants").getValue();
 
-                            if (jobApplicantsObject instanceof ArrayList) {
-                                ArrayList<String> jobApplicantsList = (ArrayList<String>) jobApplicantsObject;
-                                if (jobApplicantsList.contains(currentUserId)) {
-                                    jobList.add(job);
-                                }
+                            ArrayList<String> jobApplicantsList = (ArrayList<String>) jobApplicantsObject;
+
+                            if (jobApplicantsList.contains(currentUserId)){
+                                jobList.add(job);
                             }
                         }
+
+                        if (jobSnapshot.child("jobWorkers").exists()) {
+                            Object jobWorkersObject = jobSnapshot.child("jobWorkers").getValue();
+
+                            ArrayList<String> jobWorkersList = (ArrayList<String>) jobWorkersObject;
+
+                            if (jobWorkersList.contains(currentUserId)) {
+                                jobList.add(job);
+                            }
+                        }
+
                     }
                 }
                 adapter.updateList(jobList);

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,12 +26,13 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
     private DatabaseReference userReference;
 
     private List<String> userList;
-    private String status;
+    private String jobId, jobStatus;
 
 
-    public ListApplicantAdapter(List<String> userList, String status) {
+    public ListApplicantAdapter(List<String> userList, String jobId, String status) {
         this.userList = userList;
-        this.status = status;
+        this.jobId = jobId;
+        this.jobStatus = status;
         this.firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
     }
 
@@ -46,7 +46,6 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         String userId = userList.get(position);
-
         userReference = firebaseDatabase.getReference().child("users").child(userId).child("name");
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -66,7 +65,7 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
             }
         });
 
-        if ("Ended".equals(status)) {
+        if ("Ended".equals(jobStatus)) {
             holder.viewDetailButton.setText("RATE REVIEW");
         }
 
@@ -84,7 +83,8 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
 
                     if(userType.equals("pelanggan")) {
                         Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
-                        intent.putExtra("isFromPelanggan", "TRUE");
+                        intent.putExtra("fromUserType", "PELANGGAN");
+                        intent.putExtra("JOB_ID", jobId);
                         intent.putExtra("USER_ID", userId);
                         v.getContext().startActivity(intent);
                     } else if (userType.equals("pekerja")){

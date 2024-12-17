@@ -41,8 +41,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary, tvDescription;
     private String jobId, jobStatus;
     private Button btnAction, btnChat;
-    private ArrayList<String> applicantsList;
-    private Map<String, Object> applicantsListUpdate;
+    private ArrayList<String> applicantsList, workersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,8 +157,16 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                         applicantsList = new ArrayList<>();
                     }
 
+                    workersList = new ArrayList<>();
+                    if (snapshot.child("jobWorkers").exists()) {
+                        workersList = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                    }
+                    if (workersList == null) {
+                        workersList = new ArrayList<>();
+                    }
+
                     String currentUserId = mAuth.getUid();
-                    if (currentUserId != null && !applicantsList.contains(currentUserId)) {
+                    if (currentUserId != null && !applicantsList.contains(currentUserId) && !workersList.contains(currentUserId)) {
                         applicantsList.add(currentUserId);
                         jobsReference.child("jobApplicants").setValue(applicantsList)
                                 .addOnCompleteListener(updateTask -> {

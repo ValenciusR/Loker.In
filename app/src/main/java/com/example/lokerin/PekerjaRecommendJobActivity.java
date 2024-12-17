@@ -35,7 +35,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference jobsRef;
 
-    private ImageView btnBack;
+    private ImageView btnBack, ivProfileNavbar;
     private TextView tvPageTitle;
     private RecyclerView rvJobs;
     private EditText etSearchBar;
@@ -64,6 +64,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Rekomendasi Pekerjaan");
+        ivProfileNavbar.setVisibility(View.GONE);
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
