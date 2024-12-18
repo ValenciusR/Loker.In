@@ -275,7 +275,8 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
 
-            Glide.with(this).load(imageUri).into(ivProfilePicture);
+            Glide.with(EditProfilePekerjaActivity.this).load(imageUri).into(ivProfilePicture);
+
         }
     }
 

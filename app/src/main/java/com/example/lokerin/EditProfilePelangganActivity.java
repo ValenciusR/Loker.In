@@ -1,25 +1,35 @@
 package com.example.lokerin;
 
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,10 +47,17 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
 
+    StorageReference storageReference;
+    private static final int IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private StorageTask uploadTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pelanggan_edit_profile);
+
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
         ivProfileNavbar = findViewById(R.id.iv_profile);
         etName = findViewById(R.id.et_name);
@@ -60,7 +77,6 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar.setOnClickListener(v -> Toast.makeText(this, "Profile picture clicked!", Toast.LENGTH_SHORT).show());
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,47 +133,114 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
             }
 
             if (isValid) {
-                Toast.makeText(this, "Data berhasil disimpan!", Toast.LENGTH_SHORT).show();
-                updateUserData(name, phone, location, email);
+                if (imageUri != null) {
+                    uploadImageAndSaveProfile();
+                } else {
+                    saveProfileData(null); // No image to upload
+                }
             }
         });
+
+        ivProfileNavbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openImage();
+            }
+        });
+    }
+
+    private void uploadImageAndSaveProfile() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading image...");
+        progressDialog.show();
+
+        final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+        fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
+                fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    progressDialog.dismiss();
+                    saveProfileData(imageUrl); // Save profile with image URL
+                }).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                })
+        ).addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void saveProfileData(String imageUrl) {
+        DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("name", etName.getText().toString());
+        updates.put("phoneNumber", etPhone.getText().toString());
+        updates.put("location", etLocation.getText().toString());
+        updates.put("email", etEmail.getText().toString());
+
+        if (imageUrl != null) {
+            updates.put("imageUrl", imageUrl); // Include image URL only if an image was uploaded
+        }
+
+        userReference.updateChildren(updates).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Profil berhasil diubah!", Toast.LENGTH_SHORT).show();
+                startProfilePage();
+            } else {
+                Toast.makeText(this, "Failed to save profile!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void openImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+
+            Glide.with(EditProfilePelangganActivity.this).load(imageUri).into(ivProfileNavbar);
+        }
     }
 
     private void getUserData() {
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String userName = dataSnapshot.child("name").getValue().toString();
-                String userPhone = dataSnapshot.child("phoneNumber").getValue().toString();
-                String userLocation = dataSnapshot.child("location").getValue().toString();
-                String userEmail = dataSnapshot.child("email").getValue().toString();
+                User user = dataSnapshot.getValue(User.class);
 
-                etName.setText(userName);
-                etPhone.setText(userPhone);
-                etLocation.setText(userLocation);
-                etEmail.setText(userEmail);
+                etName.setText(user.getName());
+                etPhone.setText(user.getPhoneNumber());
+                etLocation.setText(user.getLocation());
+                etEmail.setText(user.getEmail());
+
+                if(user.getImageUrl().equals("default")){
+                    ivProfileNavbar.setImageResource(R.drawable.default_no_profile_icon);
+                } else{
+                    if(!EditProfilePelangganActivity.this.isDestroyed()){
+                        Glide.with(EditProfilePelangganActivity.this).load(user.getImageUrl()).into(ivProfileNavbar);
+                    }
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-    }
-
-    private void updateUserData(String name, String phone, String location, String email) {
-        userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("name", name);
-        updates.put("phoneNumber", phone);
-        updates.put("location", location);
-        updates.put("email", email);
-        userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
-            if (task2.isSuccessful()) {
-                startProfilePage();
-            } else {
-                // Handle the error here
-                Toast.makeText(this, "Data gagal tersimpan", Toast.LENGTH_SHORT).show();
             }
         });
     }
