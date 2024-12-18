@@ -14,6 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +34,9 @@ public class PelangganProfileActivity extends AppCompatActivity {
     private TextView tvPageTitle, tvName, tvEmail, tvPhone, tvLocation;
     private ImageView btnBack;
     private AppCompatButton btnEditProfile, btnLogOut;
+    private ShapeableImageView ivProfilePicture;
+
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +48,7 @@ public class PelangganProfileActivity extends AppCompatActivity {
         tvPhone = findViewById(R.id.tv_phone_profilePelangganPage);
         tvLocation = findViewById(R.id.tv_location_profilePelangganPage);
         tvEmail = findViewById(R.id.tv_email_profilePelangganPage);
+        ivProfilePicture = findViewById(R.id.iv_profile_profilePelangganPage);
         getUserData();
 
         btnEditProfile = findViewById(R.id.acb_editProfile_profilePelangganPage);
@@ -101,15 +107,20 @@ public class PelangganProfileActivity extends AppCompatActivity {
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String userName = dataSnapshot.child("name").getValue().toString();
-                String userPhone = dataSnapshot.child("phoneNumber").getValue().toString();
-                String userLocation = dataSnapshot.child("location").getValue().toString();
-                String userEmail = dataSnapshot.child("email").getValue().toString();
+                user = dataSnapshot.getValue(User.class);
 
-                tvName.setText(userName);
-                tvPhone.setText(userPhone);
-                tvLocation.setText(userLocation);
-                tvEmail.setText(userEmail);
+                tvName.setText(user.getName());
+                tvPhone.setText(user.getPhoneNumber());
+                tvLocation.setText(user.getLocation());
+                tvEmail.setText(user.getEmail());
+
+                if(user.getImageUrl().equals("default")){
+                    ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
+                } else{
+                    if(!PelangganProfileActivity.this.isDestroyed()){
+                        Glide.with(PelangganProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    }
+                }
             }
 
             @Override
