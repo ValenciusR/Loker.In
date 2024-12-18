@@ -47,7 +47,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
-    private String fromUserType, userIdFromPelanggan, jobIdFromPelanggan;
+    private String fromUserType, userIdFromPelanggan, jobIdFromPelanggan, onPage;
     private Button btnChat, btnAccept;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Portofolio> portofolios;
@@ -89,6 +89,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         fromUserType = intent.getStringExtra("fromUserType");
         userIdFromPelanggan = intent.getStringExtra("USER_ID");
         jobIdFromPelanggan = intent.getStringExtra("JOB_ID");
+        onPage = "PEKERJA";
 
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
@@ -301,24 +302,30 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                     }
 
                     String userIdToBeAccept = userIdFromPelanggan;
-                    if (userIdToBeAccept != null && applicantsList.contains(userIdToBeAccept)) {
-                        applicantsList.remove(userIdToBeAccept);
-                        jobReference.child("jobApplicants").setValue(applicantsList).addOnCompleteListener(updateTask -> {
-                            if (updateTask.isSuccessful()) {
-                                workersList.add(userIdToBeAccept);
-                                jobReference.child("jobWorkers").setValue(workersList).addOnCompleteListener(updateTask2 -> {
-                                    if (updateTask2.isSuccessful()) {
-                                        Toast.makeText(this, "Berhasil menerima pekerja ini", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(this, "Gagal menerima pekerja ini", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                    if (userIdToBeAccept != null) {
+                        if (applicantsList.contains(userIdToBeAccept) && !workersList.contains(userIdToBeAccept)) {
+                            applicantsList.remove(userIdToBeAccept);
+                            jobReference.child("jobApplicants").setValue(applicantsList).addOnCompleteListener(updateTask -> {
+                                if (updateTask.isSuccessful()) {
+                                    workersList.add(userIdToBeAccept);
+                                    jobReference.child("jobWorkers").setValue(workersList).addOnCompleteListener(updateTask2 -> {
+                                        if (updateTask2.isSuccessful()) {
+                                            Toast.makeText(this, "Berhasil menerima pekerja ini", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(this, "Gagal mendaftarkan pekerja ini", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(this, "Gagal mendaftarkan pekerja ini", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            if (!applicantsList.contains(userIdToBeAccept) && !workersList.contains(userIdToBeAccept)) {
+                                Toast.makeText(this, "Pekerja belum mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(this, "Gagal mendaftarkan pekerja ini", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(this, "Pekerja sudah diterima pada pekerjaan ini", Toast.LENGTH_SHORT).show();
                             }
-                        });
-                    } else {
-                        Toast.makeText(this, "Pekerja belum mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 } else {
                     Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();

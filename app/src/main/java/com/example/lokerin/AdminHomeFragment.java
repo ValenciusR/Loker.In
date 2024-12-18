@@ -110,7 +110,6 @@ public class AdminHomeFragment extends Fragment {
             }
         });
 
-
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();

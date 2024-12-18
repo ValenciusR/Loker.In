@@ -83,7 +83,6 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
     }
 
     private void backPage() {
-        startActivity(new Intent(PelangganRatingReviewActivity.this, PelangganMainActivity.class));
         finish();
     }
 }
