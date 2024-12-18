@@ -116,7 +116,10 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
-                    Glide.with(EditProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    if(!EditProfilePekerjaActivity.this.isDestroyed()){
+                        Glide.with(EditProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    }
+
                 }
             }
 
@@ -275,7 +278,11 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
 
-            Glide.with(this).load(imageUri).into(ivProfilePicture);
+
+            if(!EditProfilePekerjaActivity.this.isDestroyed()){
+                Glide.with(EditProfilePekerjaActivity.this).load(imageUri).into(ivProfilePicture);
+            }
+
         }
     }
 

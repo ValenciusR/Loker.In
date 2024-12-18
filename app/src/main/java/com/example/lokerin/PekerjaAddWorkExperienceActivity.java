@@ -65,6 +65,14 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
         portofolios.add(templatePortofolioJob);
         portofolios.add(templatePortofolioJob);
         portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
+        portofolios.add(templatePortofolioJob);
 
         linearLayoutManager = new LinearLayoutManager(PekerjaAddWorkExperienceActivity.this, LinearLayoutManager.VERTICAL, false);
         listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios);

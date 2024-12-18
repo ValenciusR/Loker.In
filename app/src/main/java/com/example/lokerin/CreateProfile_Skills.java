@@ -73,10 +73,6 @@ public class CreateProfile_Skills extends AppCompatActivity {
             finish();
         });
 
-        btnNext.setOnClickListener(view -> {
-
-        });
-
         tvSkip.setOnClickListener(view -> {
             Intent loginIntent = new Intent(this, CreateProfile_WorkExperience.class);
             startActivity(loginIntent);
@@ -124,12 +120,25 @@ public class CreateProfile_Skills extends AppCompatActivity {
 
 //        Get all Skills from DB
         acbTambahKeterampilan.setOnClickListener(v -> {
-            showDeleteSkillConfirmationDialog();
+            showAddSkillDialog();
+        });
+
+        btnNext.setOnClickListener(view -> {
+            Boolean isValid = true;
+            if(this.skills.isEmpty()) {
+                isValid = false;
+                Toast.makeText(this, "Minimal tambahkan satu keterampilan!", Toast.LENGTH_SHORT).show();
+            }
+
+            if(isValid) {
+                Intent loginIntent = new Intent(this, CreateProfile_WorkExperience.class);
+                startActivity(loginIntent);
+            }
         });
     }
 
-    private void showDeleteSkillConfirmationDialog() {
-        Dialog dialog = new Dialog(this);
+    private void showAddSkillDialog() {
+        Dialog dialog = new Dialog(CreateProfile_Skills.this);
         dialog.setContentView(R.layout.confirmation_add_skill_popup);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.7f);

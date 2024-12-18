@@ -33,7 +33,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
 
     private EditText etAboutMe;
     private Button btnNext;
-    private TextView skipText;
+    private TextView skipText, tvAboutMeError;
     private String type;
     private ImageView btnBack;
 
@@ -48,6 +48,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
         btnNext = findViewById(R.id.btn_next_aboutMePage);
         skipText = findViewById(R.id.text_skip_aboutMePage);
         btnBack = findViewById(R.id.iv_back_aboutMePage);
+        tvAboutMeError = findViewById(R.id.tv_aboutMeError_aboutMePage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
@@ -59,6 +60,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 type = snapshot.child("type").getValue().toString();
+                etAboutMe.setText(snapshot.child("aboutMe").getValue().toString());
             }
 
             @Override
@@ -73,25 +75,36 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
         });
 
         btnNext.setOnClickListener(view -> {
+            Boolean isValid = true;
+            if (etAboutMe.getText().toString().trim().length() < 20) {
+                etAboutMe.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvAboutMeError.setText("Deskripsi minimal berisi 20 huruf!");
+                isValid = false;
+            } else {
+                etAboutMe.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                tvAboutMeError.setText("");
+            }
 
-            Map<String, Object> updates = new HashMap<>();
-            updates.put("aboutMe", etAboutMe.getText().toString());
-            userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
-                if (task2.isSuccessful()) {
-                    if(type.equals("pelanggan")){
-                        Intent loginIntent = new Intent(this, PelangganMainActivity.class);
-                        startActivity(loginIntent);
-                        finish();
-                    }else{
-                        Intent loginIntent = new Intent(this, CreateProfile_Skills.class);
-                        startActivity(loginIntent);
-                        finish();
+            if(isValid) {
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("aboutMe", etAboutMe.getText().toString());
+                userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
+                    if (task2.isSuccessful()) {
+                        if(type.equals("pelanggan")){
+                            Intent loginIntent = new Intent(this, PelangganMainActivity.class);
+                            startActivity(loginIntent);
+                            finish();
+                        }else{
+                            Intent loginIntent = new Intent(this, CreateProfile_Skills.class);
+                            startActivity(loginIntent);
+                            finish();
+                        }
+                    } else {
+                        // Handle the error here
+                        Toast.makeText(this, "Gagal menyimpan data user", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    // Handle the error here
-                    Toast.makeText(this, "Gagal menyimpan data user", Toast.LENGTH_SHORT).show();
-                }
-            });
+                });
+            }
         });
 
         skipText.setOnClickListener(view -> {

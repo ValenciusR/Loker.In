@@ -61,12 +61,14 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent startIntentActivity;
                 if(intent.getStringExtra("activityOrigin").toString().equals("CreateProfile")) {
-                    startActivity(new Intent(PekerjaModifyWorkExperienceActivity.this, CreateProfile_WorkExperience.class));
+                    startIntentActivity = new Intent(PekerjaModifyWorkExperienceActivity.this, CreateProfile_WorkExperience.class);
                 }
                 else {
-                    startActivity(new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaAddWorkExperienceActivity.class));
+                    startIntentActivity = new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaAddWorkExperienceActivity.class);
                 }
+                startActivity(startIntentActivity);
                 finish();
             }
         });
