@@ -45,10 +45,10 @@
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
-                    android:id="@+id/tv_category"
+                    android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kategori"
+                    android:text="Status"
                     android:textColor="#888888"
                     android:textSize="14sp"
                     android:fontFamily="@font/poppins_medium"
@@ -103,10 +103,10 @@
                             android:contentDescription="Icon 2" />
 
                         <TextView
-                            android:id="@+id/tv_regency"
+                            android:id="@+id/tv_category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Kabupaten"
+                            android:text="Kategori"
                             android:textColor="#000000"
                             android:textSize="12sp"
                             android:fontFamily="@font/poppins_medium" />
@@ -161,12 +161,15 @@
             android:layout_below="@+id/card_main"
             android:layout_centerHorizontal="true"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal">
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_action"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
                 android:background="@drawable/shape_blue_rounded"
                 android:backgroundTint="@null"
                 android:fontFamily="@font/poppins_medium"
@@ -180,6 +183,8 @@
                 android:id="@+id/btn_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_centerHorizontal="true"
                 android:background="@drawable/shape_red_rounded"
                 android:backgroundTint="@null"
                 android:fontFamily="@font/poppins_medium"
@@ -189,12 +194,29 @@
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_action2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_below="@+id/btn_group"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/shape_blue_rounded"
+            android:backgroundTint="@null"
+            android:fontFamily="@font/poppins_medium"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="UBAH"
+            android:textColor="#FFFFFF"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/tv_applicants"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_group"
-            android:text="PENDAFTAR"
+            android:layout_below="@+id/btn_action2"
+            android:text="PELAMAR"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:layout_marginTop="16sp"
@@ -206,12 +228,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp" />
+        <TextView
+            android:id="@+id/tv_noData_applicants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_applicants_detailJob"
+            android:layout_centerHorizontal="true"
+            android:text="TIDAK ADA PELAMAR"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginBottom="12sp"
+            android:fontFamily="@font/poppins_bold" />
 
         <TextView
             android:id="@+id/tv_workers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rv_applicants_detailJob"
+            android:layout_below="@+id/tv_noData_applicants"
             android:text="PEKERJA"
             android:textColor="@color/black"
             android:textSize="24sp"
@@ -224,5 +257,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp" />
+        <TextView
+            android:id="@+id/tv_noData_workers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_workers_detailJob"
+            android:layout_centerHorizontal="true"
+            android:text="TIDAK ADA PEKERJA"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_bold" />
     </RelativeLayout>
 </ScrollView>

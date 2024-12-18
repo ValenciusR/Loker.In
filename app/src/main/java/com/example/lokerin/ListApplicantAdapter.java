@@ -57,6 +57,10 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
                 } else {
                     holder.userNameText.setText("Nama tidak diketahui!");
                 }
+
+                if ("ENDED".equalsIgnoreCase(jobStatus)) {
+                    holder.viewDetailButton.setText("RATE REVIEW");
+                }
             }
 
             @Override
@@ -65,44 +69,71 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
             }
         });
 
-        if ("Ended".equals(jobStatus)) {
-            holder.viewDetailButton.setText("RATE REVIEW");
+        if ("ENDED".equalsIgnoreCase(jobStatus)) {
+            holder.viewDetailButton.setOnClickListener(v -> {
+                mAuth = FirebaseAuth.getInstance();
+                userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+                userReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String userType = "";
+
+                        if (dataSnapshot.exists() && dataSnapshot.child("type").getValue() != null) {
+                            userType = dataSnapshot.child("type").getValue(String.class);
+                        }
+
+                        if(userType.equals("pelanggan")) {
+                            Intent intent = new Intent(v.getContext(), PelangganRatingReviewActivity.class);
+                            intent.putExtra("JOB_ID", jobId);
+                            intent.putExtra("USER_ID", userId);
+                            v.getContext().startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            });
+        } else {
+            holder.viewDetailButton.setOnClickListener(v -> {
+                mAuth = FirebaseAuth.getInstance();
+                userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+                userReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String userType = "";
+
+                        if (dataSnapshot.exists() && dataSnapshot.child("type").getValue() != null) {
+                            userType = dataSnapshot.child("type").getValue(String.class);
+                        }
+
+                        if(userType.equals("pelanggan")) {
+                            Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
+                            intent.putExtra("fromUserType", "PELANGGAN");
+                            intent.putExtra("JOB_ID", jobId);
+                            intent.putExtra("USER_ID", userId);
+                            v.getContext().startActivity(intent);
+                        } else if (userType.equals("pekerja")){
+                            Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
+                            v.getContext().startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(v.getContext(), AdminDetailProfileActivity.class);
+                            intent.putExtra("USER_ID", userId);
+                            v.getContext().startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            });
         }
 
-        holder.viewDetailButton.setOnClickListener(v -> {
-            mAuth = FirebaseAuth.getInstance();
-            userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
-            userReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    String userType = "";
 
-                    if (dataSnapshot.exists() && dataSnapshot.child("type").getValue() != null) {
-                        userType = dataSnapshot.child("type").getValue(String.class);
-                    }
-
-                    if(userType.equals("pelanggan")) {
-                        Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
-                        intent.putExtra("fromUserType", "PELANGGAN");
-                        intent.putExtra("JOB_ID", jobId);
-                        intent.putExtra("USER_ID", userId);
-                        v.getContext().startActivity(intent);
-                    } else if (userType.equals("pekerja")){
-                        Intent intent = new Intent(v.getContext(), PekerjaProfileActivity.class);
-                        v.getContext().startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(v.getContext(), AdminDetailProfileActivity.class);
-                        intent.putExtra("USER_ID", userId);
-                        v.getContext().startActivity(intent);
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        });
     }
 
     @Override

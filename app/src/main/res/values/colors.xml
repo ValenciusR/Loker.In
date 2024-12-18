@@ -5,9 +5,10 @@
     <color name="blue">#1977F3</color>
     <color name="darkBlue">#21458B</color>
     <color name="whitebg">#FAFCFE</color>
-    <color name="red">#F31919</color>202124
+    <color name="red">#F31919</color>
+    <color name="green">#2AC330</color>
+    <color name="orange">#FF5722</color>
     <color name="grey">#202124</color>
     <color name="grey_60">#99202124</color>
     <color name="grey_40">#66202124</color>
-
 </resources>

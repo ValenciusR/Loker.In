@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,10 +31,11 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     private DatabaseReference jobsReference;
 
     private ImageView btnBack,ivProfileNavbar;
-    private String jobId, jobStatus;
-    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary;
-    private Button btnAction, btnDelete;
+    private String jobId, jobStatus, onPage;
+    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers;
+    private Button btnAction, btnDelete, btnAction2;
     private RecyclerView rvApplicants, rvWorkers;
+    private LinearLayout btnGroup;
 
     private ArrayList<String> applicants, workers;
     private ListApplicantAdapter listApplicantAdapter, listWorkerAdapter;
@@ -45,6 +47,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         jobId = intent.getStringExtra("jobId");
+        onPage = "PELANGGAN";
 
         if (jobId == null) {
             Toast.makeText(this, "ID pekerjaan tidak ditemukan!", Toast.LENGTH_SHORT).show();
@@ -58,25 +61,25 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 jobStatus = task.getResult().getValue(String.class);
                 if (jobStatus != null) {
-                    Toast.makeText(this, "Status pekerjaan : " + jobStatus, Toast.LENGTH_SHORT).show();
-
                     if ("OPEN".equalsIgnoreCase(jobStatus)) {
                         btnAction.setText("Mulai");
                         btnAction.setOnClickListener(v -> showConfirmBookConfirmationDialog());
                         btnDelete.setText("Hapus");
                         btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
                     } else if ("ON GOING".equalsIgnoreCase(jobStatus)) {
-                        btnAction.setText("Akhiri Pekerjaan");
-                        btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
-                        btnDelete.setVisibility(View.GONE);
-                    } else if ("ENDED".equalsIgnoreCase(jobStatus)) {
-                        btnAction.setVisibility(View.GONE);
-                        btnDelete.setVisibility(View.GONE);
-                    } else if ("Applyable".equalsIgnoreCase(jobStatus)) {
-                        btnAction.setText("Daftar");
-                        btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
-                        btnDelete.setVisibility(View.GONE);
+                        btnGroup.setVisibility(View.GONE);
+                        tvApplicants.setVisibility(View.GONE);
                         rvApplicants.setVisibility(View.GONE);
+                        tvEmptyApplicants.setVisibility(View.GONE);
+                        btnAction2.setVisibility(View.VISIBLE);
+                        btnAction2.setText("Akhiri Pekerjaan");
+                        btnAction2.setOnClickListener(v -> showFinishJobConfirmationDialog());
+                    } else if ("ENDED".equalsIgnoreCase(jobStatus)) {
+                        btnGroup.setVisibility(View.GONE);
+                        btnAction2.setVisibility(View.GONE);
+                        tvApplicants.setVisibility(View.GONE);
+                        rvApplicants.setVisibility(View.GONE);
+                        tvEmptyApplicants.setVisibility(View.GONE);
                     }
                 } else {
                     Toast.makeText(this, "Status pekerjaan sudah kadaluwarsa", Toast.LENGTH_SHORT).show();
@@ -87,14 +90,19 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         });
 
         tvTitle = findViewById(R.id.tv_title);
-        tvCategory = findViewById(R.id.tv_category);
+        tvStatus = findViewById(R.id.tv_status);
         tvProvince = findViewById(R.id.tv_province);
-        tvRegency = findViewById(R.id.tv_regency);
+        tvCategory = findViewById(R.id.tv_category);
         tvDate = findViewById(R.id.tv_date);
         tvSalary = findViewById(R.id.tv_salary);
+        tvApplicants = findViewById(R.id.tv_applicants);
+        tvEmptyApplicants = findViewById(R.id.tv_noData_applicants);
+        tvEmptyWorkers = findViewById(R.id.tv_noData_workers);
 
         btnAction = findViewById(R.id.btn_action);
         btnDelete = findViewById(R.id.btn_delete);
+        btnAction2 = findViewById(R.id.btn_action2);
+        btnGroup = findViewById(R.id.btn_group);
 
         rvApplicants = findViewById(R.id.rv_applicants_detailJob);
         rvWorkers = findViewById(R.id.rv_workers_detailJob);
@@ -120,9 +128,19 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("jobApplicants").exists()) {
                     applicants = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
-                    if(!applicants.isEmpty()) {
+                    if(applicants != null && !applicants.isEmpty()) {
                         listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
                         rvApplicants.setAdapter(listApplicantAdapter);
+                        tvEmptyApplicants.setVisibility(View.GONE);
+                    } else {
+                        if (jobStatus.equalsIgnoreCase("OPEN")){
+                            tvEmptyApplicants.setVisibility(View.VISIBLE);
+                        }
+                    }
+                } else {
+                    applicants.clear();
+                    if (jobStatus.equalsIgnoreCase("OPEN")){
+                        tvEmptyApplicants.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -142,10 +160,16 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("jobWorkers").exists()) {
                     workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
-                    if(!workers.isEmpty()) {
+                    if(workers != null && !workers.isEmpty()) {
                         listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
                         rvWorkers.setAdapter(listWorkerAdapter);
+                        tvEmptyWorkers.setVisibility(View.GONE);
+                    } else {
+                        tvEmptyWorkers.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    workers.clear();
+                    tvEmptyWorkers.setVisibility(View.VISIBLE);
                 }
             }
             @Override
@@ -172,7 +196,46 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            //Change Status of the Job
+            if (jobId != null && onPage.equalsIgnoreCase("PELANGGAN")) {
+                jobsReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("jobWorkers").exists()) {
+                            DatabaseReference jobApplicantsRef = jobsReference.child("jobApplicants");
+                            jobApplicantsRef.removeValue()
+                                    .addOnSuccessListener(aVoid -> {
+                                        jobsReference.child("jobStatus").setValue("ON GOING")
+                                                .addOnSuccessListener(statusUpdate -> {
+                                                    Toast.makeText(PelangganDetailJobActivity.this, "Pekerjaan telah dimulai.", Toast.LENGTH_SHORT).show();
+
+                                                    // REFRESH PAGE
+                                                    jobStatus = "ON GOING";
+                                                    btnAction.setText("Akhiri Pekerjaan");
+                                                    btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
+                                                    btnDelete.setVisibility(View.GONE);
+                                                    tvStatus.setText("ON GOING");
+                                                    tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                                                    tvApplicants.setVisibility(View.GONE);
+                                                    tvEmptyApplicants.setVisibility(View.GONE);
+                                                })
+                                                .addOnFailureListener(statusError -> {
+                                                    Toast.makeText(PelangganDetailJobActivity.this, "Gagal memulai pekerjaan.", Toast.LENGTH_SHORT).show();
+                                                });
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Toast.makeText(PelangganDetailJobActivity.this, "Gagal menghapus data pelamar.", Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            Toast.makeText(PelangganDetailJobActivity.this, "Belum ada pekerja diterima, tidak dapat memulai pekerjaan!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            } else {
+                Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
+            }
             dialog.dismiss();
         });
 
@@ -227,9 +290,57 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            //Change Status of the Job
+            if (jobId != null && onPage.equalsIgnoreCase("PELANGGAN")) {
+                jobsReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.child("jobWorkers").exists()) {
+                            jobsReference.child("jobStatus").setValue("ENDED")
+                                    .addOnSuccessListener(statusUpdate -> {
+                                        Toast.makeText(PelangganDetailJobActivity.this, "Pekerjaan telah diakhiri.", Toast.LENGTH_SHORT).show();
+
+                                        // REFRESH PAGE
+                                        jobStatus = "ENDED";
+                                        btnGroup.setVisibility(View.GONE);
+                                        btnAction2.setVisibility(View.GONE);
+                                        tvStatus.setText("ENDED");
+                                        tvStatus.setTextColor(getResources().getColor(R.color.red));
+                                        tvApplicants.setVisibility(View.GONE);
+                                        tvEmptyApplicants.setVisibility(View.GONE);
+
+                                        //REFRESH RECYCLER VIEW
+                                        jobsReference.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                                                listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+                                                rvWorkers.setAdapter(listWorkerAdapter);
+                                                tvEmptyWorkers.setVisibility(View.GONE);
+                                            }
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    })
+                                    .addOnFailureListener(statusError -> {
+                                        Toast.makeText(PelangganDetailJobActivity.this, "Gagal mengakhiri pekerjaan.", Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            Toast.makeText(PelangganDetailJobActivity.this, "Tidak ada pekerja, kesalahan terjadi pada sistem!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            } else {
+                Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
+            }
             dialog.dismiss();
         });
+
 
         dialog.show();
     }
@@ -256,14 +367,15 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         String title = task.getResult().child("jobTitle").getValue(String.class);
         tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
 
-        String category = task.getResult().child("jobCategory").getValue(String.class);
-        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
+        String status = task.getResult().child("jobStatus").getValue(String.class);
+        tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
+        setStatusColor(status);
 
         String province = task.getResult().child("jobProvince").getValue(String.class);
         tvProvince.setText(province != null && !province.isEmpty() ? province : "N/A");
 
-        String regency = task.getResult().child("jobRegency").getValue(String.class);
-        tvRegency.setText(regency != null && !regency.isEmpty() ? regency : "N/A");
+        String category = task.getResult().child("jobCategory").getValue(String.class);
+        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
 
         String date = task.getResult().child("jobDateUpload").getValue(String.class);
         tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
@@ -271,6 +383,25 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
         String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
         tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
+    }
+
+    private void setStatusColor(String status) {
+        if (status == null || status.isEmpty()) return;
+
+        switch (status.toUpperCase()) {
+            case "OPEN":
+                tvStatus.setTextColor(getResources().getColor(R.color.green));
+                break;
+            case "ON GOING":
+                tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                break;
+            case "ENDED":
+                tvStatus.setTextColor(getResources().getColor(R.color.red));
+                break;
+            default:
+                tvStatus.setTextColor(getResources().getColor(android.R.color.black));
+                break;
+        }
     }
 
     private void navigateToAdminMainActivity() {
