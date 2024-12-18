@@ -35,4 +35,28 @@ public class PortofolioJob {
     public Boolean getIs_chosen() {
         return is_chosen;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setIs_chosen(Boolean is_chosen) {
+        this.is_chosen = is_chosen;
+    }
+
+    public void setIs_old_work_experience(Boolean is_old_work_experience) {
+        this.is_old_work_experience = is_old_work_experience;
+    }
 }

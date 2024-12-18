@@ -26,6 +26,9 @@
         <activity android:name=".PekerjaCategorizedJobActivity" android:exported="false" />
         <activity android:name=".PekerjaRecommendJobActivity" android:exported="false" />
         <activity android:name=".PekerjaAddKeterampilanActivity" android:exported="false" />
+        <activity android:name=".PekerjaAddWorkExperienceActivity" android:exported="false" />
+        <activity android:name=".PekerjaModifyWorkExperienceActivity" android:exported="false" />
+        <activity android:name=".PekerjaModifyWorkExperienceCategoryActivity" android:exported="false" />
         <activity android:name=".EditProfilePelangganActivity" android:exported="false" />
         <activity android:name=".PelangganProfileActivity" android:exported="false" />
         <activity android:name=".PekerjaDetailJobActivity" android:exported="false" />

@@ -64,7 +64,7 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
         portofolios.add(templatePortofolioJob);
 
         linearLayoutManager = new LinearLayoutManager(PekerjaEditPortofolioActivity.this, LinearLayoutManager.VERTICAL, false);
-        editPortofolioAdapter = new ListEditPortofolioAdapter(portofolios);
+        editPortofolioAdapter = new ListEditPortofolioAdapter(this, portofolios);
         rvPortofolioJob.setLayoutManager(linearLayoutManager);
         rvPortofolioJob.setAdapter(editPortofolioAdapter);
     }
