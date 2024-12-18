@@ -60,6 +60,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 type = snapshot.child("type").getValue().toString();
+                etAboutMe.setText(snapshot.child("aboutMe").getValue().toString());
             }
 
             @Override
