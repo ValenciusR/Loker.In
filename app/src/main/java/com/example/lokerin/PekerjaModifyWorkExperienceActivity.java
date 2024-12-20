@@ -1,11 +1,14 @@
 package com.example.lokerin;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,11 +23,20 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.cardview.widget.CardView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,8 +51,19 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
     private ImageView ivUploadImage, ivUploadedImage, btnBack, ivProfilePicture;
     private TextView tvUploadImage, tvPageTitle;
     private AppCompatButton acbSave;
-    private ActivityResultLauncher<String> imagePickerLauncher;
     private ArrayAdapter<CharSequence> regencyAdapter, provinceAdapter;
+    private CardView[] cards;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userReference;
+    FirebaseUser fuser;
+    private User user;
+
+    StorageReference storageReference;
+    private static final int IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private StorageTask uploadTask;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +76,43 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             return insets;
         });
 
+        cards = new CardView[]{
+                findViewById(R.id.cv_category1_workExperienceCategoryPage),
+                findViewById(R.id.cv_category2_workExperienceCategoryPage),
+                findViewById(R.id.cv_category3_workExperienceCategoryPage),
+                findViewById(R.id.cv_category4_workExperienceCategoryPage),
+                findViewById(R.id.cv_category5_workExperienceCategoryPage),
+                findViewById(R.id.cv_category6_workExperienceCategoryPage),
+                findViewById(R.id.cv_category7_workExperienceCategoryPage),
+                findViewById(R.id.cv_category8_workExperienceCategoryPage)
+        };
+
+        String[] categoryNames = {
+                "Barber",
+                "Builder",
+                "Driver",
+                "Gardener",
+                "Maid",
+                "Peddler",
+                "Porter",
+                "Secretary",
+        };
+
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
 
         Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+        if(category != null){
+            for(int i = 0; i < categoryNames.length; i++){
+                if(category.equals(categoryNames[i])){
+                    cards[i].setVisibility(View.VISIBLE);
+                }else{
+                    cards[i].setVisibility(View.GONE);
+                }
+            }
+        }
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,10 +149,6 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             }
         });
 
-        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), this::handleImageSelection);
-
-        rlUploadImage.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
-
         provinceAdapter = ArrayAdapter.createFromResource(PekerjaModifyWorkExperienceActivity.this,
                 R.array.province, R.layout.spinner_item);
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
@@ -107,28 +158,40 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             boolean isValid = true;
 //            validations..
         });
+
+        rlUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openImage();
+            }
+        });
     }
 
-    private void handleImageSelection(Uri uri) {
-        if (uri != null) {
-            try {
-                ivUploadedImage.setVisibility(View.VISIBLE);
-                ivUploadImage.setVisibility(View.GONE);
-                tvUploadImage.setVisibility(View.GONE);
-                ivUploadedImage.setImageURI(uri);
+    private void openImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
 
-                InputStream inputStream = PekerjaModifyWorkExperienceActivity.this.getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                ivUploadedImage.setImageBitmap(bitmap);
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(PekerjaModifyWorkExperienceActivity.this, "Gagal untuk mengunggah gambar", Toast.LENGTH_SHORT).show();
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+
+
+            if(!PekerjaModifyWorkExperienceActivity.this.isDestroyed()){
+                Glide.with(PekerjaModifyWorkExperienceActivity.this).load(imageUri).into(ivUploadedImage);
+                ivUploadedImage.setVisibility(View.VISIBLE);
             }
-        } else {
-            Toast.makeText(PekerjaModifyWorkExperienceActivity.this, "Tidak ada gambar yang terpilih", Toast.LENGTH_SHORT).show();
+
         }
     }
 }
