@@ -20,6 +20,7 @@ public class User implements Serializable {
     private String jobDesc;
     private String id;
     private String imageUrl;
+    private ArrayList<String> reviews;
 
     public User(){
 
@@ -181,6 +182,14 @@ public class User implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public ArrayList<String> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(ArrayList<String> reviews) {
+        this.reviews = reviews;
     }
 }
 
