@@ -1,6 +1,7 @@
 package com.example.lokerin;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -42,14 +44,18 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
     private FirebaseApp firebaseApp;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userReference, jobReference;
     private DatabaseReference databaseReference;
 
+    private String userIdFromPelanggan, jobIdFromPelanggan;
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
+    private ArrayList<String> applicantsList, workersList;
+
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ListPortofolioAdapter portofolioAdapter;
     private ListReviewAdapter reviewAdapter;
@@ -67,9 +73,9 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         });
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         ivProfilePicture = findViewById(R.id.iv_profilePicture_profilePekerjaPage);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         tvName = findViewById(R.id.tv_name_profilePekerjaPage);
         tvJob = findViewById(R.id.tv_job_profilePekerjaPage);
         tvLocation = findViewById(R.id.tv_location_profilePekerjaPage);
@@ -82,17 +88,24 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         btnChat = findViewById(R.id.btn_chat_pelangganViewProfilePekerja);
         btnAction = findViewById(R.id.btn_action_pelangganViewProfilePekerja);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        Intent intent = getIntent();
+        userIdFromPelanggan = intent.getStringExtra("USER_ID");
+        jobIdFromPelanggan = intent.getStringExtra("JOB_ID");
+
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        userReference = firebaseDatabase.getReference().child("users").child(userIdFromPelanggan);
+        jobReference = firebaseDatabase.getReference().child("jobs").child(jobIdFromPelanggan);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
+        tvPageTitle.setText("Profil Pelamar");
+        ivProfileNavbar.setVisibility(View.GONE);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,27 +147,24 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         rvPortofolio.setAdapter(portofolioAdapter);
 
 //        Set Review Recycler View
-        Review templateReview = new Review("John", "Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas", 5f);
+//        Review templateReview = new Review("John", "Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas", 5f);
         reviews = new ArrayList<>();
-        reviews.add(templateReview);
-        reviews.add(templateReview);
-        reviews.add(templateReview);
-        reviews.add(templateReview);
+//        reviews.add(templateReview);
+//        reviews.add(templateReview);
+//        reviews.add(templateReview);
+//        reviews.add(templateReview);
 
         linearLayoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         reviewAdapter = new ListReviewAdapter(reviews);
         rvReview.setLayoutManager(linearLayoutManager2);
         rvReview.setAdapter(reviewAdapter);
 
-//        Set Keterampilan
         List<String> skills = Arrays.asList("Plumbing", "Berkebun", "Service AC", "Maintenance Listrik", "Pengrajin Kayu", "Pandai Besi");
         for (String skill : skills) {
             TextView tvSkill = new TextView(this);
 
-            // Set skill name
             tvSkill.setText(skill);
 
-            // Set styling
             tvSkill.setTextColor(getResources().getColor(R.color.blue));
             tvSkill.setBackgroundResource(R.drawable.shape_rounded_blue_border); // Custom drawable
             tvSkill.setPadding(50, 25, 50, 25);
@@ -163,7 +173,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
             ));
-            // Create LayoutParams with margins
+
             FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
@@ -171,43 +181,86 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             layoutParams.setMargins(0, 0, 25, 25);
             tvSkill.setLayoutParams(layoutParams);
 
-            // Add TextView to FlexboxLayout
             flKeterampilan.addView(tvSkill);
         }
 
-        btnChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        btnChat.setOnClickListener(v -> {
+            Toast.makeText(this, "INI PINDAH KE CHAT (INI DARI PELANGGAN (get auth) KE DETAIL PEKERJA YANG SEDANG DI CEK)", Toast.LENGTH_SHORT).show();
         });
-        btnAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showBookPekerjaConfirmationDialog();
-            }
-        });
+        btnAction.setOnClickListener(v -> {showApproveApplicantConfirmationDialog();});
     }
 
-    private void showBookPekerjaConfirmationDialog() {
+    private void showApproveApplicantConfirmationDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.setContentView(R.layout.confirmation_popup_accept_applicant);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Pilih Pekerja?");
+        title.setText("Terima Pekerja?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
+        dialog.show();
+
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-//            Delete Work Experience from DB & user
+            jobReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot snapshot = task.getResult();
+
+                    applicantsList = new ArrayList<>();
+                    if (snapshot.child("jobApplicants").exists()) {
+                        applicantsList = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
+                    }
+                    if (applicantsList == null) {
+                        applicantsList = new ArrayList<>();
+                    }
+
+                    workersList = new ArrayList<>();
+                    if (snapshot.child("jobWorkers").exists()) {
+                        workersList = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                    }
+                    if (workersList == null) {
+                        workersList = new ArrayList<>();
+                    }
+
+                    String userIdToBeAccept = userIdFromPelanggan;
+                    if (userIdToBeAccept != null) {
+                        if (applicantsList.contains(userIdToBeAccept) && !workersList.contains(userIdToBeAccept)) {
+                            applicantsList.remove(userIdToBeAccept);
+                            jobReference.child("jobApplicants").setValue(applicantsList).addOnCompleteListener(updateTask -> {
+                                if (updateTask.isSuccessful()) {
+                                    workersList.add(userIdToBeAccept);
+                                    jobReference.child("jobWorkers").setValue(workersList).addOnCompleteListener(updateTask2 -> {
+                                        if (updateTask2.isSuccessful()) {
+                                            Toast.makeText(this, "Berhasil menerima pekerja ini", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(this, "Gagal mendaftarkan pekerja ini", Toast.LENGTH_SHORT).show();
+                                        }
+                                        Intent intent = new Intent(PelangganViewProfilePekerjaActivity.this, PelangganDetailJobActivity.class);
+                                        intent.putExtra("jobId", jobIdFromPelanggan);
+                                        startActivity(intent);
+                                    });
+                                } else {
+                                    Toast.makeText(this, "Gagal mendaftarkan pekerja ini", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            if (!applicantsList.contains(userIdToBeAccept) && !workersList.contains(userIdToBeAccept)) {
+                                Toast.makeText(this, "Pekerja belum mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Pekerja sudah diterima pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();
+                }
+            });
             dialog.dismiss();
         });
-
-        dialog.show();
     }
 }

@@ -30,9 +30,9 @@ public class ListReviewAdapter extends RecyclerView.Adapter<ListReviewAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull ReviewHolder holder, int position) {
-        holder.tvName.setText(data.get(position).name);
-        holder.tvReview.setText(data.get(position).review);
-        holder.rbRating.setRating(data.get(position).rating);
+        holder.tvName.setText(data.get(position).getPelangganName());
+        holder.tvReview.setText(data.get(position).getReview());
+        holder.rbRating.setRating(data.get(position).getRate());
     }
 
     @Override
