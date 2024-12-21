@@ -37,10 +37,10 @@
         <activity android:name=".CreateProfile_WorkExperience" android:exported="false" />
         <activity android:name=".CreateProfile_Skills" android:exported="false" />
         <activity android:name=".CreateProfile_AboutMe" android:exported="true" >
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.intent.action.MAIN" />-->
+<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
         </activity>
 <!--        <activity android:name=".CreateProfile_PersonalInfo" android:exported="false" />-->
         <activity android:name=".RegisterActivity" android:exported="true">
@@ -53,10 +53,10 @@
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="true" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".CreateProfile_PersonalInfo" android:windowSoftInputMode="adjustResize" android:exported="true" />
         <activity android:name=".CreateProfile" android:exported="false" />

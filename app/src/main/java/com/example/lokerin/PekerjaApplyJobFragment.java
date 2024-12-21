@@ -106,7 +106,7 @@ public class PekerjaApplyJobFragment extends Fragment {
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                     Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        //FILTER BY MAPPING RECOMMEND ACTIVITY + ONLY 3
+                        //FILTER BY MAPPING RECOMMEND ACTIVITY + ONLY 3 + YG ENDED / ON GOING GAPERLU DIMASUKIN
                         jobList.add(job);
                         counter++;
                     }

@@ -103,7 +103,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
         List<Job> filteredList = new ArrayList<>();
         for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
-                if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus()) && "ACTIVE".equalsIgnoreCase(job.getJobStatus())) {
+                if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus())) {
                     filteredList.add(job);
                 }
             }
@@ -119,7 +119,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                     Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus()) && "ACTIVE".equalsIgnoreCase(job.getJobStatus())) {
+                        if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus())) {
                             jobList.add(job);
                         }
                     }
