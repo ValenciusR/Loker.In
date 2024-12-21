@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ import java.util.List;
 public class PekerjaProfileActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference userReference;
+    private DatabaseReference userReference, reviewsReferece;
     FirebaseUser fuser;
     private User user;
 
@@ -53,7 +54,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ListPortofolioAdapter portofolioAdapter;
-    private ListReviewAdapter reviewAdapter;
+    private ListReviewAdapter listReviewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         userReference = firebaseDatabase.getReference().child("users").child(fuser.getUid());
+        reviewsReferece = firebaseDatabase.getReference().child("reviews");
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,18 +137,30 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         rvPortofolio.setLayoutManager(linearLayoutManager);
         rvPortofolio.setAdapter(portofolioAdapter);
 
-//        Set Review Recycler View
-//        RateReview templateReview = new RateReview("John", "Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas", 5f);
-        reviews = new ArrayList<>();
-//        reviews.add(templateReview);
-//        reviews.add(templateReview);
-//        reviews.add(templateReview);
-//        reviews.add(templateReview);
+        reviews = new ArrayList<Review>();
+        listReviewAdapter = new ListReviewAdapter(reviews);
+        rvReview.setLayoutManager(new LinearLayoutManager(this));
+        rvReview.setAdapter(listReviewAdapter);
+        reviewsReferece.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reviews.clear();
+                for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
+                    Review review = jobSnapshot.getValue(Review.class);
+                    if (review != null) {
+                        if (fuser.getUid().equalsIgnoreCase(review.getPekerjaId())) {
+                            reviews.add(review);
+                        }
+                    }
+                }
+                listReviewAdapter.updateList(reviews);
+            }
 
-        linearLayoutManager2 = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.VERTICAL, false);
-        reviewAdapter = new ListReviewAdapter(reviews);
-        rvReview.setLayoutManager(linearLayoutManager2);
-        rvReview.setAdapter(reviewAdapter);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to fetch review: " + error.getMessage());
+            }
+        });
     }
 
     private void setSkills(User user){

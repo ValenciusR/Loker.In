@@ -8,7 +8,7 @@ public class Review {
     private String pelangganName;
     private String pelangganImageUrl;
     private String pekerjaId;
-    private Float rate;
+    private Float rating;
     private Boolean recommend;
     private String review;
 
@@ -16,12 +16,12 @@ public class Review {
 
     }
 
-    public Review(String jobId, String pelangganId, String pelangganName, String pekerjaId, Float rate, Boolean recommended, String review) {
+    public Review(String jobId, String pelangganId, String pelangganName, String pekerjaId, Float rating, Boolean recommended, String review) {
         this.jobId = jobId;
         this.pelangganId = pelangganId;
         this.pelangganName = pelangganName;
         this.pekerjaId = pekerjaId;
-        this.rate = rate;
+        this.rating = rating;
         this.recommend = recommended;
         this.review = review;
     }
@@ -74,12 +74,12 @@ public class Review {
         this.pekerjaId = pekerjaId;
     }
 
-    public Float getRate() {
-        return rate;
+    public Float getRating() {
+        return rating;
     }
 
-    public void setRate(Float rate) {
-        this.rate = rate;
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public Boolean getRecommend() {
