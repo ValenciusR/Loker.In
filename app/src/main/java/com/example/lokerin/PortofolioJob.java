@@ -18,6 +18,9 @@ public class PortofolioJob {
         this.is_old_work_experience = is_old_work_experience;
     }
 
+    public PortofolioJob() {
+
+    }
     public String getImageURI() {
         return imageURI;
     }

@@ -44,6 +44,7 @@ import com.google.firebase.storage.StorageTask;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -247,7 +248,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
     private void saveProfileData(String imageUrl) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+        userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
 
         int   day  = dpDate.getDayOfMonth();
         int   month= dpDate.getMonth();
@@ -259,15 +260,18 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         String category = intent.getStringExtra("category");
 
         PortofolioJob dataPortofolioJob;
+        ArrayList<PortofolioJob> portofolioJobsArray = new ArrayList<>();
 
         if(imageUrl != null){
             dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),imageUrl , false, true );
+            portofolioJobsArray.add(dataPortofolioJob);
         }else{
             dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),"default" , false, true );
+            portofolioJobsArray.add(dataPortofolioJob);
         }
 
         Map<String, Object> updates = new HashMap<>();
-        updates.put("portofolioJob", dataPortofolioJob);
+        updates.put("portofolioJob", portofolioJobsArray);
 
         userReference.updateChildren(updates).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

@@ -20,12 +20,13 @@ public class User implements Serializable {
     private String jobDesc;
     private String id;
     private String imageUrl;
+    private ArrayList<PortofolioJob> portofolioJob;
 
     public User(){
 
     }
 
-    public User(String id,String email, String password, String type, String name, String nameLowerCase, String phoneNumber, String location, int age, String gender, String aboutMe, ArrayList<String> skill, String skillDesc, String job, String jobDesc, String imageUrl) {
+    public User(String id,String email, String password, String type, String name, String nameLowerCase, ArrayList<PortofolioJob> portofolioJob, String phoneNumber, String location, int age, String gender, String aboutMe, ArrayList<String> skill, String skillDesc, String job, String jobDesc, String imageUrl) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -42,6 +43,15 @@ public class User implements Serializable {
         this.job = job;
         this.jobDesc = jobDesc;
         this.imageUrl = imageUrl;
+        this.portofolioJob = portofolioJob;
+    }
+
+    public ArrayList<PortofolioJob> getPortofolioJob() {
+        return portofolioJob;
+    }
+
+    public void setPortofolioJob(ArrayList<PortofolioJob> portofolioJob) {
+        this.portofolioJob = portofolioJob;
     }
 
     public ArrayList<String> getSkill() {
