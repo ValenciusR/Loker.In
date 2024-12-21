@@ -58,21 +58,21 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
         tvPageTitle.setText("Tambah Pekerjaan Sebelumnya");
         ivProfilePicture.setImageResource(R.drawable.settings_icon);
 
-        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
+//        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
         portofolios = new ArrayList<>();
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
 
         linearLayoutManager = new LinearLayoutManager(PekerjaAddWorkExperienceActivity.this, LinearLayoutManager.VERTICAL, false);
         listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios);

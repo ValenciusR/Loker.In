@@ -1,5 +1,6 @@
 package com.example.lokerin;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,14 +33,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
@@ -141,6 +148,9 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         tvUploadImage = findViewById(R.id.tv_uploadImage_modifyWorkExperiencePage);
         acbSave = findViewById(R.id.acb_save_modifyWorkExperiencePage);
 
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,15 +164,116 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
         spnLocation.setAdapter(provinceAdapter);
 
+
+
+
         acbSave.setOnClickListener(v -> {
             boolean isValid = true;
-//            validations..
+            if(etJob.getText().toString().trim().length() < 1){
+                isValid = false;
+                Toast.makeText(this, "Judul Pekerjaan Harus diisi", Toast.LENGTH_SHORT).show();
+            }
+
+            if(spnLocation.getSelectedItem().toString().equals("Choose Province")){
+                isValid = false;
+                Toast.makeText(this, "Lokasi Harus dipilih", Toast.LENGTH_SHORT).show();
+            }
+
+            int   day  = dpDate.getDayOfMonth();
+            int   month= dpDate.getMonth();
+            int   year = dpDate.getYear();
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, day);
+
+            Calendar today = Calendar.getInstance();
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+            String formattedDate = sdf.format(selectedDate.getTime());;
+
+            if (!selectedDate.after(today)) {
+                isValid = false;
+                Toast.makeText(this, "Tanggal yang dipilih harus lebih besar dari hari ini", Toast.LENGTH_SHORT).show();
+            }
+
+            if(category == null){
+                isValid = false;
+                Toast.makeText(this, "Category Harus dipilih", Toast.LENGTH_SHORT).show();
+            }
+
+            if(etDescription.getText().toString().trim().length() < 1){
+                isValid = false;
+                Toast.makeText(this, "Deskripsi Pekerjaan Harus diisi", Toast.LENGTH_SHORT).show();
+            }
+
+            if (isValid) {
+                if (imageUri != null) {
+                    uploadImageAndSaveProfile();
+                } else {
+                    saveProfileData(null); // No image to upload
+                }
+            }
+
         });
 
         rlUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openImage();
+            }
+        });
+    }
+
+    private void uploadImageAndSaveProfile() {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading image...");
+        progressDialog.show();
+
+        final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+        fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
+                fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    String imageUrl = uri.toString();
+                    progressDialog.dismiss();
+                    saveProfileData(imageUrl); // Save profile with image URL
+                }).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                })
+        ).addOnFailureListener(e -> {
+            progressDialog.dismiss();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void saveProfileData(String imageUrl) {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+
+        int   day  = dpDate.getDayOfMonth();
+        int   month= dpDate.getMonth();
+        int   year = dpDate.getYear();
+        Calendar selectedDate = Calendar.getInstance();
+        selectedDate.set(year, month, day);
+
+        Intent intent = getIntent();
+        String category = intent.getStringExtra("category");
+
+        PortofolioJob dataPortofolioJob;
+
+        if(imageUrl != null){
+            dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),imageUrl , false, true );
+        }else{
+            dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),"default" , false, true );
+        }
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("portofolioJob", dataPortofolioJob);
+
+        userReference.updateChildren(updates).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
             }
         });
     }
