@@ -197,7 +197,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         btnConfirm.setOnClickListener(view -> {
             if (jobId != null && function.equalsIgnoreCase("confirm")) {
-                jobsReference.addValueEventListener(new ValueEventListener() {
+                jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.child("jobWorkers").exists()) {
@@ -293,7 +293,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         btnConfirm.setOnClickListener(view -> {
             if (jobId != null && function.equalsIgnoreCase("finish")) {
-                jobsReference.addValueEventListener(new ValueEventListener() {
+                jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                             jobsReference.child("jobStatus").setValue("ENDED")
@@ -310,7 +310,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                         tvEmptyApplicants.setVisibility(View.GONE);
 
                                         // REFRESH RECYCLER VIEW
-                                        jobsReference.addValueEventListener(new ValueEventListener() {
+                                        jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
@@ -332,12 +332,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
-                Toast.makeText(this, "WOII BERHASIL DI PENCET CO", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
-//            Toast.makeText(this, "BUTTON FINISH JOB DI CLICK", Toast.LENGTH_SHORT).show();
         });
 
 

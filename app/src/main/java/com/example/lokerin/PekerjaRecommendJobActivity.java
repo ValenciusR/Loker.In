@@ -101,7 +101,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         List<Job> filteredList = new ArrayList<>();
         for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
-                //FILTER BY MAPPING RECOMMEND ACTIVITY
+                //FILTER BY MAPPING RECOMMEND ACTIVITY + YANG ENDED GAUSAH DIMASUKIN
                     filteredList.add(job);
             }
         }
@@ -116,7 +116,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                     Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        //FILTER BY MAPPING RECOMMEND ACTIVITY
+                        //FILTER BY MAPPING RECOMMEND ACTIVITY + YANG ENDED GAUSAH DIMASUKIN
                             jobList.add(job);
                     }
                 }
