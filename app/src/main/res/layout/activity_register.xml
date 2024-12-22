@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sandi"
+            android:text="Kata Sandi"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
@@ -116,7 +116,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Konfirmasi Sandi"
+            android:text="Konfirmasi Kata Sandi"
             android:textSize="12sp"
             android:textColor="#1977F3"
             android:layout_marginBottom="4dp"
