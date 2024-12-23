@@ -50,7 +50,8 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         holder.tvCategory.setText(data.get(position).getCategory());
         holder.ivEdit.setOnClickListener(v -> {
             Intent intent = new Intent(context, PekerjaModifyWorkExperienceActivity.class);
-//            Get Edit Work Experience data codes here
+            intent.putExtra("portofolioData", data.get(position));
+            intent.putExtra("pos",position);
             context.startActivity(intent);
         });
 

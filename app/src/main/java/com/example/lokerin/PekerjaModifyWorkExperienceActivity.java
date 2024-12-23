@@ -50,6 +50,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +72,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
     FirebaseUser fuser;
     private User user;
     ArrayList<PortofolioJob> portofolioJobsArray;
+    String category;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
@@ -116,7 +118,8 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
 
         Intent intent = getIntent();
-        String category = intent.getStringExtra("category");
+        category = intent.getStringExtra("category");
+        PortofolioJob dataPortofolio = (PortofolioJob) intent.getSerializableExtra("portofolioData");
         if(category != null){
             for(int i = 0; i < categoryNames.length; i++){
                 if(category.equals(categoryNames[i])){
@@ -248,6 +251,51 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 openImage();
             }
         });
+
+        if(dataPortofolio != null){
+            etJob.setText(dataPortofolio.getTitle());
+            String targetValue = dataPortofolio.getLocation(); // The string you want to select in the Spinner
+
+            // Get the index of the target value
+            int index = -1;
+            for (int i = 0; i < provinceAdapter.getCount(); i++) {
+                if (provinceAdapter.getItem(i).equals(targetValue)) {
+                    index = i;
+                    break;
+                }
+            }
+
+            // Set the Spinner selection if the value is found
+            if (index != -1) {
+                spnLocation.setSelection(index);
+            } else {
+                Toast.makeText(this, "Value not found in Spinner", Toast.LENGTH_SHORT).show();
+            }
+
+            Date date = dataPortofolio.getDate();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+
+            dpDate.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+
+            if(dataPortofolio.getCategory() != null){
+                for(int i = 0; i < categoryNames.length; i++){
+                    if(dataPortofolio.getCategory().equals(categoryNames[i])){
+                        cards[i].setVisibility(View.VISIBLE);
+                    }else{
+                        cards[i].setVisibility(View.GONE);
+                    }
+                }
+
+                category = dataPortofolio.getCategory();
+            }
+
+            etDescription.setText(dataPortofolio.getDesc());
+            Log.d("TAG", "onCreate: " + dataPortofolio.getImageURI());
+            Log.d("TAG", "onCreate: " + category);
+            Glide.with(PekerjaModifyWorkExperienceActivity.this).load(dataPortofolio.getImageURI()).into(ivUploadedImage);
+            ivUploadedImage.setVisibility(View.VISIBLE);
+        }
     }
 
     private void uploadImageAndSaveProfile() {
@@ -274,37 +322,71 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
     private void saveProfileData(String imageUrl) {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
-
-        int   day  = dpDate.getDayOfMonth();
-        int   month= dpDate.getMonth();
-        int   year = dpDate.getYear();
-        Calendar selectedDate = Calendar.getInstance();
-        selectedDate.set(year, month, day);
 
         Intent intent = getIntent();
-        String category = intent.getStringExtra("category");
+        Integer pos = intent.getIntExtra("pos", -1);
+        PortofolioJob dataPortofolio = (PortofolioJob) intent.getSerializableExtra("portofolioData");
+        Log.d("TAG", "saveProfileData: " + pos);
+        if (pos != -1){
+            userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid()).child("portofolioJob").child(String.valueOf(pos));
 
-        PortofolioJob dataPortofolioJob;
+            int   day  = dpDate.getDayOfMonth();
+            int   month= dpDate.getMonth();
+            int   year = dpDate.getYear();
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, day);
 
-        if(imageUrl != null){
-            dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),imageUrl , false, true );
-            portofolioJobsArray.add(dataPortofolioJob);
+            PortofolioJob dataPortofolioJob;
+
+            if(dataPortofolio.getImageURI() != null){
+                if(imageUrl != null){
+                    dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),etDescription.getText().toString(),category, selectedDate.getTime(),imageUrl);
+                }else{
+                    dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),etDescription.getText().toString(),category, selectedDate.getTime(),dataPortofolio.getImageURI());
+                }
+            }else{
+                dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),etDescription.getText().toString(),category, selectedDate.getTime(),"default");
+            }
+
+            userReference.setValue(dataPortofolioJob).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }else{
-            dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),"default" , false, true );
-            portofolioJobsArray.add(dataPortofolioJob);
+            userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+
+            int   day  = dpDate.getDayOfMonth();
+            int   month= dpDate.getMonth();
+            int   year = dpDate.getYear();
+            Calendar selectedDate = Calendar.getInstance();
+            selectedDate.set(year, month, day);
+
+            PortofolioJob dataPortofolioJob;
+
+            if(imageUrl != null){
+                dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),etDescription.getText().toString(),category, selectedDate.getTime(),imageUrl);
+                portofolioJobsArray.add(dataPortofolioJob);
+            }else{
+                dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),etDescription.getText().toString(),category, selectedDate.getTime(),"default");
+                portofolioJobsArray.add(dataPortofolioJob);
+            }
+
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("portofolioJob", portofolioJobsArray);
+
+            userReference.updateChildren(updates).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
-        Map<String, Object> updates = new HashMap<>();
-        updates.put("portofolioJob", portofolioJobsArray);
-
-        userReference.updateChildren(updates).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void openImage() {
