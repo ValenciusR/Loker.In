@@ -24,6 +24,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -35,8 +36,11 @@ import androidx.core.view.WindowInsetsCompat;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -66,6 +70,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
     private DatabaseReference userReference;
     FirebaseUser fuser;
     private User user;
+    ArrayList<PortofolioJob> portofolioJobsArray;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
@@ -160,12 +165,33 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             }
         });
 
+        portofolioJobsArray = new ArrayList<>();
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user = snapshot.getValue(User.class);
+                if(user.getPortofolioJob() != null){
+                    portofolioJobsArray = user.getPortofolioJob();
+                }else{
+                    portofolioJobsArray = new ArrayList<>();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         provinceAdapter = ArrayAdapter.createFromResource(PekerjaModifyWorkExperienceActivity.this,
                 R.array.province, R.layout.spinner_item);
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
         spnLocation.setAdapter(provinceAdapter);
-
-
 
 
         acbSave.setOnClickListener(v -> {
@@ -260,7 +286,6 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         String category = intent.getStringExtra("category");
 
         PortofolioJob dataPortofolioJob;
-        ArrayList<PortofolioJob> portofolioJobsArray = new ArrayList<>();
 
         if(imageUrl != null){
             dataPortofolioJob = new PortofolioJob(etJob.getText().toString(),spnLocation.getSelectedItem().toString(),category, selectedDate.getTime(),imageUrl , false, true );

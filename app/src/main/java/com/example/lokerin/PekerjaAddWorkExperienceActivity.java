@@ -80,9 +80,11 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                Log.d("kontol", "onDataChange: " + user.getPortofolioJob());
+
                 portofolios = new ArrayList<>();
-                portofolios = user.getPortofolioJob();
+                if(user.getPortofolioJob() != null){
+                    portofolios = user.getPortofolioJob();
+                }
 
                 linearLayoutManager = new LinearLayoutManager(PekerjaAddWorkExperienceActivity.this, LinearLayoutManager.VERTICAL, false);
                 listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios);

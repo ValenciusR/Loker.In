@@ -146,11 +146,14 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         });
 
 //        Set Portofolio Recycler View
-//        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
+        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?", "default");
+        Portofolio templatePortofolio2 = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. ?", "default");
+        Portofolio templatePortofolio3 = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaai galisum ut officia voluptate qui quia ducimus?", "default");
+
         portofolios = new ArrayList<>();
-//        portofolios.add(templatePortofolio);
-//        portofolios.add(templatePortofolio);
-//        portofolios.add(templatePortofolio);
+        portofolios.add(templatePortofolio);
+        portofolios.add(templatePortofolio2);
+        portofolios.add(templatePortofolio3);
 //        portofolios.add(templatePortofolio);
 
         linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -223,7 +226,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         AppCompatButton btnEditPersonalInfo = viewBottomSheet.findViewById(R.id.btn_settings_editPersonalInformation);
         AppCompatButton btnEditKeterampilan = viewBottomSheet.findViewById(R.id.btn_settings_editKeterampilan);
         AppCompatButton btnTambahPekerjaanSebelumnya = viewBottomSheet.findViewById(R.id.btn_settings_tambahPekerjaanSebelumnya);
-        AppCompatButton btnAddJobsToPortofolio = viewBottomSheet.findViewById(R.id.btn_settings_addJobsToPortofolio);
         AppCompatButton btnLogOut = viewBottomSheet.findViewById(R.id.btn_settings_logOut);
 
         btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
@@ -248,13 +250,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             }
         });
 
-        btnAddJobsToPortofolio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PekerjaProfileActivity.this, PekerjaEditPortofolioActivity.class));
-                finish();
-            }
-        });
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,12 +10,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWorkExperienceAdapter.AddWorkExperienceHolder> {
     ArrayList<PortofolioJob> data;
@@ -66,7 +74,8 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            removeSkill(position);
+            removeWorkExperience(position);
+
 //            Delete Work Experience from DB & user
             dialog.dismiss();
         });
@@ -74,10 +83,19 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         dialog.show();
     }
 
-    private void removeSkill(int position) {
+    private void removeWorkExperience(int position) {
         data.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, data.size());
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+
+
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("portofolioJob", data);
+
+        userReference.updateChildren(updates);
     }
 
     @Override
