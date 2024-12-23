@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
     private FirebaseApp firebaseApp;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference userReference, jobReference;
+    private DatabaseReference userReference, jobReference, reviewsReferece;
     private DatabaseReference databaseReference;
 
     private String userIdFromPelanggan, jobIdFromPelanggan;
@@ -58,7 +59,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
 
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ListPortofolioAdapter portofolioAdapter;
-    private ListReviewAdapter reviewAdapter;
+    private ListReviewAdapter listReviewAdapter;
     private Button btnChat, btnAction;
 
     @Override
@@ -95,6 +96,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         userReference = firebaseDatabase.getReference().child("users").child(userIdFromPelanggan);
         jobReference = firebaseDatabase.getReference().child("jobs").child(jobIdFromPelanggan);
+        reviewsReferece = firebaseDatabase.getReference().child("reviews");
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,18 +148,30 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         rvPortofolio.setLayoutManager(linearLayoutManager);
         rvPortofolio.setAdapter(portofolioAdapter);
 
-//        Set Review Recycler View
-//        Review templateReview = new Review("John", "Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas", 5f);
-        reviews = new ArrayList<>();
-//        reviews.add(templateReview);
-//        reviews.add(templateReview);
-//        reviews.add(templateReview);
-//        reviews.add(templateReview);
+        reviews = new ArrayList<Review>();
+        listReviewAdapter = new ListReviewAdapter(reviews);
+        rvReview.setLayoutManager(new LinearLayoutManager(this));
+        rvReview.setAdapter(listReviewAdapter);
+        reviewsReferece.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reviews.clear();
+                for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
+                    Review review = jobSnapshot.getValue(Review.class);
+                    if (review != null) {
+                        if (userIdFromPelanggan.equalsIgnoreCase(review.getPekerjaId())) {
+                            reviews.add(review);
+                        }
+                    }
+                }
+                listReviewAdapter.updateList(reviews);
+            }
 
-        linearLayoutManager2 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        reviewAdapter = new ListReviewAdapter(reviews);
-        rvReview.setLayoutManager(linearLayoutManager2);
-        rvReview.setAdapter(reviewAdapter);
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to fetch review: " + error.getMessage());
+            }
+        });
 
         List<String> skills = Arrays.asList("Plumbing", "Berkebun", "Service AC", "Maintenance Listrik", "Pengrajin Kayu", "Pandai Besi");
         for (String skill : skills) {

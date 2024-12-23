@@ -67,6 +67,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +77,7 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
         if (category != null) {
             tvPageTitle.setText(category);
         }
+        ivProfileNavbar.setVisibility(View.GONE);
 
         rvJobs = findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(this));
@@ -135,7 +137,6 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
     }
 
     private void backPage() {
-        startActivity(new Intent(PekerjaCategorizedJobActivity.this, PekerjaMainActivity.class));
         finish();
     }
 }

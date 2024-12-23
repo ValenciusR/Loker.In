@@ -62,7 +62,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_barber"/>
+                        android:src="@drawable/img_gardener"/>
                     <TextView
                         android:id="@+id/text1"
                         android:layout_width="wrap_content"
@@ -70,9 +70,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Barber"
+                        android:text="AGRIKULTUR"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -98,7 +98,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_builder" />
+                        android:src="@drawable/img_security_guard" />
 
                     <TextView
                         android:id="@+id/text2"
@@ -107,9 +107,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Builder"
+                        android:text="KEAMANAN"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -133,7 +133,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_driver" />
+                        android:src="@drawable/img_maid" />
 
                     <TextView
                         android:id="@+id/text3"
@@ -142,9 +142,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Driver"
+                        android:text="KEBERSIHAN"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -168,7 +168,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_gardener" />
+                        android:src="@drawable/img_craftsman" />
                     <TextView
                         android:id="@+id/text4"
                         android:layout_width="wrap_content"
@@ -176,9 +176,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Gardener"
+                        android:text="KERAJINAN"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -204,7 +204,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_maid" />
+                        android:src="@drawable/img_builder" />
 
                     <TextView
                         android:id="@+id/text5"
@@ -213,9 +213,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Maid"
+                        android:text="KONSTRUKSI"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -239,7 +239,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_peddler" />
+                        android:src="@drawable/img_barber" />
 
                     <TextView
                         android:id="@+id/text6"
@@ -248,9 +248,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Peddler"
+                        android:text="LAYANAN"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -274,7 +274,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_porter" />
+                        android:src="@drawable/img_factory_worker" />
                     <TextView
                         android:id="@+id/text7"
                         android:layout_width="wrap_content"
@@ -282,9 +282,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Porter"
+                        android:text="MANUFAKTUR"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="11.5sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -308,7 +308,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:contentDescription="Image"
-                        android:src="@drawable/img_secretary" />
+                        android:src="@drawable/img_driver" />
                     <TextView
                         android:id="@+id/text8"
                         android:layout_width="wrap_content"
@@ -316,9 +316,9 @@
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/poppins_medium"
                         android:gravity="center"
-                        android:text="Secretary"
+                        android:text="TRANSPORT"
                         android:textColor="#21458B"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </GridLayout>

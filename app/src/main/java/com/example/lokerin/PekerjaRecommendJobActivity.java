@@ -71,7 +71,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Rekomendasi Pekerjaan");
+        tvPageTitle.setText("Semua Pekerjaan");
         ivProfileNavbar.setVisibility(View.GONE);
 
         rvJobs = findViewById(R.id.recyclerView);
@@ -101,8 +101,9 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         List<Job> filteredList = new ArrayList<>();
         for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
-                //FILTER BY MAPPING RECOMMEND ACTIVITY + YANG ENDED GAUSAH DIMASUKIN
+                if ("OPEN".equalsIgnoreCase(job.getJobStatus())) {
                     filteredList.add(job);
+                }
             }
         }
         adapter.updateList(filteredList);
@@ -116,8 +117,9 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                     Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        //FILTER BY MAPPING RECOMMEND ACTIVITY + YANG ENDED GAUSAH DIMASUKIN
+                        if ("OPEN".equalsIgnoreCase(job.getJobStatus())) {
                             jobList.add(job);
+                        }
                     }
                 }
                 adapter.updateList(jobList);
@@ -131,7 +133,6 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     }
 
     private void backPage() {
-        startActivity(new Intent(PekerjaRecommendJobActivity.this, PekerjaMainActivity.class));
         finish();
     }
 }
