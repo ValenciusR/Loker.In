@@ -69,7 +69,8 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
                 finish();
             }
         });
-        tvPageTitle.setText("Tambah Pekerjaan Sebelumnya");
+
+        tvPageTitle.setText("Tambah Portofolio");
         ivProfilePicture.setImageResource(R.drawable.settings_icon);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

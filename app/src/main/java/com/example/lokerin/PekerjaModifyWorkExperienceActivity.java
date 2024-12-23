@@ -129,6 +129,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 }
             }
         }
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +144,6 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 finish();
             }
         });
-        tvPageTitle.setText("Tambah Pekerjaan Sebelumnya");
         ivProfilePicture.setImageResource(R.drawable.settings_icon);
 
         etJob = findViewById(R.id.et_job_modifyWorkExperiencePage);
@@ -252,7 +252,9 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             }
         });
 
+        tvPageTitle.setText("Tambah Portofolio");
         if(dataPortofolio != null){
+            tvPageTitle.setText("Update Portofolio");
             etJob.setText(dataPortofolio.getTitle());
             String targetValue = dataPortofolio.getLocation(); // The string you want to select in the Spinner
 
