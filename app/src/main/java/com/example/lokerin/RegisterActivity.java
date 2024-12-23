@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         loginLink = findViewById(R.id.login_link_registerPage);
 
         ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Please Wait..");
+        progressDialog.setTitle("Mohon Tunggu..");
         progressDialog.setCancelable(false);
 
         loginLink.setOnClickListener(view -> {
@@ -64,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
             String password = etPassword.getText().toString();
             String passwordConf = etConfPassword.getText().toString();
 
-            if (!email.contains("@") || !email.endsWith(".com")) {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 Toast.makeText(this, "Email harus mengandung '@' dan diakhiri '.com'", Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else if (email.isEmpty() || password.isEmpty() || passwordConf.isEmpty()) {

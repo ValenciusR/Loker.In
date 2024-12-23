@@ -93,36 +93,43 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         btnLogin.setOnClickListener(view -> {
+            Boolean isValid = true;
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
-                if(!task.isSuccessful()){
-                    Toast.makeText(this, "Login gagal, autentikasi salah!", Toast.LENGTH_SHORT).show();
-                    Log.e("Signup Error", "onCancelled", task.getException());
-                }else{
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Email dan Kata Sandi harus diisi!", Toast.LENGTH_SHORT).show();
+                isValid = false;
+            }
+            if(isValid) {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(LoginActivity.this, task -> {
+                    if(!task.isSuccessful()){
+                        Toast.makeText(this, "Gagal masuk, email atau kata sandi salah!", Toast.LENGTH_SHORT).show();
+                        Log.e("Signin Error", "onCancelled", task.getException());
+                    }else{
 
-                    userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
-                    userReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String userType = dataSnapshot.child("type").getValue().toString();
-                            if(userType.equals("pelanggan")) {
-                                startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
-                                finish();
+                        userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+                        userReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String userType = dataSnapshot.child("type").getValue().toString();
+                                if(userType.equals("pelanggan")) {
+                                    startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                                    finish();
+                                }
+                                else {
+                                    startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
+                                    finish();
+                                }
                             }
-                            else {
-                                startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
-                                finish();
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
                             }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            }
 
         });
 
