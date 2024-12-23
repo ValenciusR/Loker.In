@@ -1,11 +1,11 @@
 package com.example.lokerin;
 
-public class CategoryData {
+public class Category {
 
     private int imageResId;
     private String title;
 
-    public CategoryData(int imageResId, String title) {
+    public Category(int imageResId, String title) {
         this.imageResId = imageResId;
         this.title = title;
     }

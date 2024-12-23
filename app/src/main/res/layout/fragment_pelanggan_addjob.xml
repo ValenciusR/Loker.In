@@ -162,52 +162,50 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <!-- UPLOAD IMAGE -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="UNGGAH GAMBAR"
-            android:textColor="#1977F3"
-            android:textSize="12sp"
-            android:layout_marginTop="10dp" />
+<!--        &lt;!&ndash; UPLOAD IMAGE &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            android:fontFamily="@font/poppins_bold"-->
+<!--            android:text="UNGGAH GAMBAR"-->
+<!--            android:textColor="#1977F3"-->
+<!--            android:textSize="12sp"-->
+<!--            android:layout_marginTop="10dp" />-->
 
-        <RelativeLayout
-            android:id="@+id/upload_image_container"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@drawable/shape_rounded_blue_border"
-            android:clickable="true"
-            android:focusable="true">
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/upload_image_container"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:background="@drawable/shape_rounded_blue_border"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true">-->
 
-            <ImageView
-                android:id="@+id/iv_upload_image_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/icon_add_photo"
-                app:tint="@color/blue" />
-            <TextView
-                android:id="@+id/tv_upload_image_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_upload_image_icon"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dp"
-                android:text="Tekan untuk mengunggah"
-                android:textColor="@color/blue"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="12sp" />
-            <ImageView
-                android:id="@+id/iv_uploaded_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_upload_image_icon"-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:src="@drawable/icon_add_photo"-->
+<!--                app:tint="@color/blue" />-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_upload_image_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/iv_upload_image_icon"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:text="Tekan untuk mengunggah"-->
+<!--                android:textColor="@color/blue"-->
+<!--                android:fontFamily="@font/poppins_regular"-->
+<!--                android:textSize="12sp" />-->
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_uploaded_image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:visibility="gone" />-->
+<!--        </RelativeLayout>-->
 
         <!-- SECTION : ADDRESS DETAIL -->
         <TextView
