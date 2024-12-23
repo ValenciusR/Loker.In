@@ -50,7 +50,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     private String fromUserType, userIdFromPelanggan, jobIdFromPelanggan, onPage;
     private Button btnChat, btnAccept;
     private RecyclerView rvPortofolio, rvReview;
-    private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
     private ArrayList<String> applicantsList, workersList;
 
@@ -130,6 +129,8 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
                 setSkills(user);
 
+                setPortofolio(user);
+
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
@@ -145,21 +146,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             }
         });
 
-//        Set Portofolio Recycler View
-        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?", "default");
-        Portofolio templatePortofolio2 = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. ?", "default");
-        Portofolio templatePortofolio3 = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaai galisum ut officia voluptate qui quia ducimus?", "default");
-
-        portofolios = new ArrayList<>();
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio2);
-        portofolios.add(templatePortofolio3);
-//        portofolios.add(templatePortofolio);
-
-        linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        portofolioAdapter = new ListPortofolioAdapter(portofolios);
-        rvPortofolio.setLayoutManager(linearLayoutManager);
-        rvPortofolio.setAdapter(portofolioAdapter);
 
 //        Set Review Recycler View
         Review templateReview = new Review("John", "Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas", 5f);
@@ -182,6 +168,40 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 backPage();
             }
         });
+
+    }
+
+    private void setPortofolio(User user) {
+
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user.getPortofolioJob() != null){
+                    ArrayList<PortofolioJob> portofolios =  user.getPortofolioJob();
+                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                    linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    rvPortofolio.setLayoutManager(linearLayoutManager);
+                    rvPortofolio.setAdapter(portofolioAdapter);
+                }else{
+                    ArrayList<PortofolioJob> portofolios =  new ArrayList<>();
+                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                    linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    rvPortofolio.setLayoutManager(linearLayoutManager);
+                    rvPortofolio.setAdapter(portofolioAdapter);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
     }
 

@@ -9,13 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAdapter.PortofolioHolder> {
-    ArrayList<Portofolio> data;
+    ArrayList<PortofolioJob> data;
 
-    public ListPortofolioAdapter(ArrayList<Portofolio> data) {
+    public ListPortofolioAdapter(ArrayList<PortofolioJob> data) {
         this.data = data;
     }
 
@@ -29,9 +31,10 @@ public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAd
     @Override
     public void onBindViewHolder(@NonNull PortofolioHolder holder, int position) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
-        holder.tvJob.setText(data.get(position).jobTitle);
-        holder.tvDate.setText(dateFormat.format(data.get(position).date));
-        holder.tvDescription.setText(data.get(position).jobDescription);
+        holder.tvJob.setText(data.get(position).getTitle());
+        holder.tvDate.setText(dateFormat.format(data.get(position).getDate()));
+        holder.tvDescription.setText(data.get(position).getDesc());
+        Glide.with(holder.itemView.getContext()).load(data.get(position).getImageURI()).into(holder.ivImage);
     }
 
     @Override

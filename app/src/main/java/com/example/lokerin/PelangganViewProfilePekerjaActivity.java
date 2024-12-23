@@ -129,7 +129,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
 //        portofolios.add(templatePortofolio);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        portofolioAdapter = new ListPortofolioAdapter(portofolios);
+//        portofolioAdapter = new ListPortofolioAdapter(portofolios);
         rvPortofolio.setLayoutManager(linearLayoutManager);
         rvPortofolio.setAdapter(portofolioAdapter);
 
