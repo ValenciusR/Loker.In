@@ -4,16 +4,16 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/icon_my_job"
-        android:title="Beranda"/>
+        android:title="TERPROSES"/>
 
     <item
         android:id="@+id/bottom_search"
         android:icon="@drawable/icon_add_job"
-        android:title="Tambah"/>
+        android:title="TAMBAH"/>
 
     <item
         android:id="@+id/bottom_chat"
         android:icon="@drawable/icon_chat"
-        android:title="Pesan"/>
+        android:title="PESAN"/>
 
 </menu>

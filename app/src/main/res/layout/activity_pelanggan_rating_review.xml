@@ -32,27 +32,26 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Center Title"
+                android:text="Judul Pekerjaan"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:fontFamily="@font/poppins_bold"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="center_horizontal" />
 
             <TextView
-                android:id="@+id/subtitle"
+                android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Small detail text"
+                android:text="Status"
                 android:textColor="#888888"
                 android:textSize="14sp"
                 android:fontFamily="@font/poppins_medium"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp" />
 
-            <!-- ITEMS -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,16 +72,16 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/image_login_page"
-                        android:contentDescription="Icon 1"/>
+                        android:contentDescription="Icon 1" />
 
                     <TextView
-                        android:id="@+id/label1"
+                        android:id="@+id/tv_province"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category"
+                        android:text="Provinsi"
                         android:textColor="#000000"
                         android:textSize="12sp"
-                        android:fontFamily="@font/poppins_medium"/>
+                        android:fontFamily="@font/poppins_medium" />
                 </LinearLayout>
 
                 <!-- SECOND ITEM -->
@@ -98,16 +97,16 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/image_login_page"
-                        android:contentDescription="Icon 2"/>
+                        android:contentDescription="Icon 2" />
 
                     <TextView
-                        android:id="@+id/label2"
+                        android:id="@+id/tv_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone"
+                        android:text="Kategori"
                         android:textColor="#000000"
                         android:textSize="12sp"
-                        android:fontFamily="@font/poppins_medium"/>
+                        android:fontFamily="@font/poppins_medium" />
                 </LinearLayout>
 
                 <!-- THIRD ITEM -->
@@ -117,23 +116,38 @@
                     android:layout_weight="1"
                     android:orientation="vertical"
                     android:gravity="center">
+
                     <ImageView
                         android:id="@+id/icon3"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:src="@drawable/image_login_page"
-                        android:contentDescription="Icon 3"/>
+                        android:contentDescription="Icon 3" />
 
                     <TextView
-                        android:id="@+id/label3"
+                        android:id="@+id/tv_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="End Job Date"
+                        android:text="Tanggal"
                         android:textColor="#000000"
                         android:textSize="12sp"
-                        android:fontFamily="@font/poppins_medium"/>
+                        android:fontFamily="@font/poppins_medium" />
                 </LinearLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_salary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:text="gaji / frekuensi"
+                android:textSize="12sp"
+                android:textColor="#000000"
+                android:fontFamily="@font/poppins_medium"
+                android:background="@drawable/shape_grey_rounded"
+                android:gravity="center" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

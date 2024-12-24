@@ -66,14 +66,14 @@ public class PelangganAddJobCategoryFragment extends Fragment {
     }
 
     private String[] categoryNames = {
-            "Barber",
-            "Builder",
-            "Driver",
-            "Gardener",
-            "Maid",
-            "Peddler",
-            "Porter",
-            "Secretary",
+            "AGRIKULTUR",
+            "KEAMANAN",
+            "KEBERSIHAN",
+            "KERAJINAN",
+            "KONTRUKSI",
+            "LAYANAN",
+            "MANUFAKTUR",
+            "TRANSPORT",
     };
 
     private void selectCard(int index) {

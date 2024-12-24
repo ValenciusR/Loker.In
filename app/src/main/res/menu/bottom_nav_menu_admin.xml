@@ -4,16 +4,16 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/icon_my_job"
-        android:title="Beranda"/>
+        android:title="RANGKUMAN"/>
 
     <item
         android:id="@+id/bottom_users"
         android:icon="@drawable/icon_people"
-        android:title="User"/>
+        android:title="USER"/>
 
     <item
         android:id="@+id/bottom_jobs"
         android:icon="@drawable/icon_job"
-        android:title="Pekerjaan"/>
+        android:title="PEKERJAAN"/>
 
 </menu>

@@ -15,10 +15,10 @@ import java.util.List;
 
 public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapter.CardViewHolder> {
 
-        private List<CategoryData> itemList;
+        private List<Category> itemList;
         private Context context;
 
-        public ListCategoryAdapter(Context context, List<CategoryData> itemList) {
+        public ListCategoryAdapter(Context context, List<Category> itemList) {
             this.context = context;
             this.itemList = itemList;
         }
@@ -32,7 +32,7 @@ public class ListCategoryAdapter extends RecyclerView.Adapter<ListCategoryAdapte
 
         @Override
         public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
-            CategoryData data = itemList.get(position);
+            Category data = itemList.get(position);
             holder.image.setImageResource(data.getImageResId());
             holder.text.setText(data.getTitle());
 

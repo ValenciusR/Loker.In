@@ -31,7 +31,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     private DatabaseReference jobsReference;
 
     private ImageView btnBack,ivProfileNavbar;
-    private String jobId, jobStatus, onPage;
+    private String jobId, jobStatus;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers;
     private Button btnAction, btnDelete, btnAction2;
     private RecyclerView rvApplicants, rvWorkers;
@@ -47,7 +47,6 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         jobId = intent.getStringExtra("jobId");
-        onPage = "PELANGGAN";
 
         if (jobId == null) {
             Toast.makeText(this, "ID pekerjaan tidak ditemukan!", Toast.LENGTH_SHORT).show();
@@ -183,9 +182,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private void showConfirmBookConfirmationDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.setContentView(R.layout.confirmation_popup_confirmjob);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.7f);
+        String function = "confirm";
 
         TextView title = dialog.findViewById(R.id.title_popup);
         title.setText("Konfirmasi Pekerjaan?");
@@ -196,8 +196,8 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            if (jobId != null && onPage.equalsIgnoreCase("PELANGGAN")) {
-                jobsReference.addValueEventListener(new ValueEventListener() {
+            if (jobId != null && function.equalsIgnoreCase("confirm")) {
+                jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.child("jobWorkers").exists()) {
@@ -244,9 +244,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private void showDeleteConfirmationDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.setContentView(R.layout.confirmation_popup_deletejob);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.7f);
+        String function = "delete";
 
         TextView title = dialog.findViewById(R.id.title_popup);
         title.setText("Hapus Pekerjaan?");
@@ -257,7 +258,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            if (jobId != null) {
+            if (jobId != null && function.equalsIgnoreCase("delete")) {
                 jobsReference.removeValue()
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(PelangganDetailJobActivity.this, "Data pekerjaan berhasil dihapus.", Toast.LENGTH_SHORT).show();
@@ -277,9 +278,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private void showFinishJobConfirmationDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.confirmation_popup);
+        dialog.setContentView(R.layout.confirmation_popup_confirmjob);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.getWindow().setDimAmount(0.7f);
+        String function = "finish";
 
         TextView title = dialog.findViewById(R.id.title_popup);
         title.setText("Selesaikan Pekerjaan?");
@@ -290,11 +292,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            if (jobId != null && onPage.equalsIgnoreCase("PELANGGAN")) {
-                jobsReference.addValueEventListener(new ValueEventListener() {
+            if (jobId != null && function.equalsIgnoreCase("finish")) {
+                jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.child("jobWorkers").exists()) {
                             jobsReference.child("jobStatus").setValue("ENDED")
                                     .addOnSuccessListener(statusUpdate -> {
                                         Toast.makeText(PelangganDetailJobActivity.this, "Pekerjaan telah diakhiri.", Toast.LENGTH_SHORT).show();
@@ -308,8 +309,8 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                         tvApplicants.setVisibility(View.GONE);
                                         tvEmptyApplicants.setVisibility(View.GONE);
 
-                                        //REFRESH RECYCLER VIEW
-                                        jobsReference.addValueEventListener(new ValueEventListener() {
+                                        // REFRESH RECYCLER VIEW
+                                        jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                 workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
@@ -326,11 +327,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                     .addOnFailureListener(statusError -> {
                                         Toast.makeText(PelangganDetailJobActivity.this, "Gagal mengakhiri pekerjaan.", Toast.LENGTH_SHORT).show();
                                     });
-                        } else {
-                            Toast.makeText(PelangganDetailJobActivity.this, "Tidak ada pekerja, kesalahan terjadi pada sistem!", Toast.LENGTH_SHORT).show();
-                        }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }

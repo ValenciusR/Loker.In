@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
@@ -25,12 +25,13 @@
                 android:orientation="horizontal"
                 android:paddingHorizontal="16dp"
                 android:gravity="center_vertical">
+
                 <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/img_worker"
+                    android:layout_width="105dp"
+                    android:layout_height="120dp"
                     android:contentDescription="Card Image"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_secretary" />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewCategory"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:orientation="horizontal"
@@ -71,7 +72,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Rekomendasi Pekerjaan"
+                android:text="Rekomendasi"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:layout_weight="1"/>
@@ -80,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Lihat Semua"
+                android:text="Lihat Semua Pekerjaan"
                 android:textColor="@color/black"
                 android:textSize="8dp"
                 android:onClick="onViewAllClick"/>
