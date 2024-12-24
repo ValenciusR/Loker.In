@@ -3,12 +3,21 @@ package com.example.lokerin;
 import java.util.Date;
 
 public class Portofolio {
-    String jobTitle, jobDescription;
+    String jobTitle, jobDescription, imageURL;
     Date date;
-    public Portofolio(String jobTitle, Date date, String jobDescription) {
+    public Portofolio(String jobTitle, Date date, String jobDescription, String imageURL) {
         this.jobTitle = jobTitle;
         this.date = date;
         this.jobDescription = jobDescription;
+        this.imageURL = imageURL;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getJobTitle() {

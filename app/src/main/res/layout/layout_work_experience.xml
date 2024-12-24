@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Tambah Pekerjaan ke Portofolio"
+                android:text="Tambah Portofolio"
                 android:layout_marginVertical="20sp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppins_bold"
