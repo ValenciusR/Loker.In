@@ -3,6 +3,7 @@ package com.example.lokerin;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -66,6 +67,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
     private AppCompatButton acbSave;
     private ArrayAdapter<CharSequence> regencyAdapter, provinceAdapter;
     private CardView[] cards;
+    private String[] categoryNames;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userReference;
@@ -76,6 +78,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
+    private static final int CATEGORY_REQUEST = 2;
     private Uri imageUri;
     private StorageTask uploadTask;
 
@@ -102,7 +105,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 findViewById(R.id.cv_category8_workExperienceCategoryPage)
         };
 
-        String[] categoryNames = {
+        categoryNames = new String[]{
                 "Barber",
                 "Builder",
                 "Driver",
@@ -113,22 +116,14 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 "Secretary",
         };
 
+
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
 
         Intent intent = getIntent();
-        category = intent.getStringExtra("category");
         PortofolioJob dataPortofolio = (PortofolioJob) intent.getSerializableExtra("portofolioData");
-        if(category != null){
-            for(int i = 0; i < categoryNames.length; i++){
-                if(category.equals(categoryNames[i])){
-                    cards[i].setVisibility(View.VISIBLE);
-                }else{
-                    cards[i].setVisibility(View.GONE);
-                }
-            }
-        }
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,11 +155,98 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
+        provinceAdapter = ArrayAdapter.createFromResource(PekerjaModifyWorkExperienceActivity.this,
+                R.array.province, R.layout.spinner_item);
+        provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spnLocation.setAdapter(provinceAdapter);
+
+        dpDate.setMaxDate(System.currentTimeMillis());
+
+//        SharedPreferences sharedPreferences = getSharedPreferences("FormData", MODE_PRIVATE);
+//
+//// Retrieve the data
+//        String title = sharedPreferences.getString("title", "");
+//        String desc = sharedPreferences.getString("desc", "");
+//        String location = sharedPreferences.getString("location", "");
+//        Integer dateDay = sharedPreferences.getInt("dateDay", -1);
+//        Integer dateMonth = sharedPreferences.getInt("dateMonth", -1);
+//        Integer dateYear = sharedPreferences.getInt("dateYear", -1);
+//        String imageUriString = sharedPreferences.getString("imageUri", "");
+//
+//// Set the data back to the UI components
+//        if (title != null) {
+//            etJob.setText(title);
+//        }
+//
+//        if (desc != null) {
+//            etDescription.setText(desc);
+//        }
+//
+//        if (location != null) {
+//            // Get the index of the target value
+//            int index = -1;
+//            for (int i = 0; i < provinceAdapter.getCount(); i++) {
+//                if (provinceAdapter.getItem(i).equals(location)) {
+//                    index = i;
+//                    break;
+//                }
+//            }
+//
+//            // Set the Spinner selection if the value is found
+//            if (index != -1) {
+//                spnLocation.setSelection(index);
+//            } else {
+//                Toast.makeText(this, "Value not found in Spinner", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//
+//        if (dateDay != -1 && dateMonth != -1 && dateYear != -1) {
+//            Log.d("TAG", "onCreate: " + dateDay);
+//            Log.d("TAG", "onCreate: " + dateMonth);
+//            Log.d("TAG", "onCreate: " + dateYear);
+//
+//            dpDate.updateDate(dateYear, dateMonth, dateDay);
+//        }
+//
+//        if (imageUriString != null) {
+//            imageUri = Uri.parse(imageUriString);
+//            // Set the image to an ImageView or process it further
+//            Glide.with(PekerjaModifyWorkExperienceActivity.this).load(imageUri).into(ivUploadedImage);
+//            ivUploadedImage.setVisibility(View.VISIBLE);
+//        }
+
         btnCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaModifyWorkExperienceCategoryActivity.class));
-                finish();
+                Intent intent = new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaModifyWorkExperienceCategoryActivity.class);
+                startActivityForResult(intent, CATEGORY_REQUEST);
+
+//                int   day  = dpDate.getDayOfMonth();
+//                int   month= dpDate.getMonth();
+//                int   year = dpDate.getYear();
+//                Calendar selectedDate = Calendar.getInstance();
+//                selectedDate.set(year, month, day);
+//
+//                getContentResolver().takePersistableUriPermission(
+//                        imageUri,
+//                        Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                );
+//
+//                SharedPreferences sharedPreferences = getSharedPreferences("FormData", MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("title", etJob.getText().toString());
+//                editor.putString("desc", etDescription.getText().toString());
+//                editor.putString("location", spnLocation.getSelectedItem().toString());
+//                editor.putInt("dateDay", dpDate.getDayOfMonth());
+//                editor.putInt("dateMonth", dpDate.getMonth());
+//                editor.putInt("dateYear", dpDate.getYear());
+//                if (imageUri != null) {
+//                    editor.putString("imageUri", imageUri.toString());
+//                } else {
+//                    editor.remove("imageUri"); // Optional: remove any existing value
+//                }
+//                editor.apply();
+
             }
         });
 
@@ -191,10 +273,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             }
         });
 
-        provinceAdapter = ArrayAdapter.createFromResource(PekerjaModifyWorkExperienceActivity.this,
-                R.array.province, R.layout.spinner_item);
-        provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
-        spnLocation.setAdapter(provinceAdapter);
+
 
 
         acbSave.setOnClickListener(v -> {
@@ -220,10 +299,10 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String formattedDate = sdf.format(selectedDate.getTime());;
 
-            if (!selectedDate.after(today)) {
-                isValid = false;
-                Toast.makeText(this, "Tanggal yang dipilih harus lebih besar dari hari ini", Toast.LENGTH_SHORT).show();
-            }
+//            if (!selectedDate.after(today)) {
+//                isValid = false;
+//                Toast.makeText(this, "Tanggal yang dipilih harus lebih besar dari hari ini", Toast.LENGTH_SHORT).show();
+//            }
 
             if(category == null){
                 isValid = false;
@@ -293,8 +372,6 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             }
 
             etDescription.setText(dataPortofolio.getDesc());
-            Log.d("TAG", "onCreate: " + dataPortofolio.getImageURI());
-            Log.d("TAG", "onCreate: " + category);
             Glide.with(PekerjaModifyWorkExperienceActivity.this).load(dataPortofolio.getImageURI()).into(ivUploadedImage);
             ivUploadedImage.setVisibility(View.VISIBLE);
         }
@@ -304,6 +381,16 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Uploading image...");
         progressDialog.show();
+
+        try {
+            getContentResolver().takePersistableUriPermission(
+                    imageUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+            );
+
+        } catch (SecurityException e) {
+            Log.e("TAG", "Failed to re-grant persistable permission: " + e.getMessage());
+        }
 
         final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
 
@@ -406,6 +493,20 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null && requestCode == CATEGORY_REQUEST) {
+            String response = data.getStringExtra("category");
+            if(response != null){
+                for(int i = 0; i < categoryNames.length; i++){
+                    if(response.equals(categoryNames[i])){
+                        cards[i].setVisibility(View.VISIBLE);
+                    }else{
+                        cards[i].setVisibility(View.GONE);
+                    }
+                }
+                category = response;
+            }
+        }
 
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();

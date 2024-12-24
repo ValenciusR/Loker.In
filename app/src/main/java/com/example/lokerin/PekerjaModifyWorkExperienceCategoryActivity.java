@@ -77,11 +77,9 @@ public class PekerjaModifyWorkExperienceCategoryActivity extends AppCompatActivi
                 if (selectedCardIndex == -1) {
                     Toast.makeText(PekerjaModifyWorkExperienceCategoryActivity.this, "Pilih satu kategori pekerjaan!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(PekerjaModifyWorkExperienceCategoryActivity.this, PekerjaModifyWorkExperienceActivity.class);
+                    Intent intent = new Intent();
                     intent.putExtra("category", selectedCategory);
-                    startActivity(intent);
-
-
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             }

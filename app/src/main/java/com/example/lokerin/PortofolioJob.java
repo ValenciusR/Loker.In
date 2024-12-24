@@ -17,6 +17,15 @@ public class PortofolioJob implements Serializable {
         this.imageURI = imageURI;
     }
 
+    public PortofolioJob(String title, String location, String desc, Date date, String imageURI) {
+        this.title = title;
+        this.location = location;
+        this.desc = desc;
+        this.date = date;
+        this.imageURI = imageURI;
+    }
+
+
     public PortofolioJob() {
 
     }
