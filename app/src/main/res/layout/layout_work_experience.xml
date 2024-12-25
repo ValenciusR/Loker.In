@@ -72,7 +72,7 @@
             android:id="@+id/acb_tambahPekerjaan_tambahPekerjaanSebelumnyaPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tambah Pekerjaan Sebelumnya"
+            android:text="Tambah Portofolio"
             android:textColor="#FFFFFF"
             android:paddingHorizontal="8sp"
             android:paddingVertical="8sp"
