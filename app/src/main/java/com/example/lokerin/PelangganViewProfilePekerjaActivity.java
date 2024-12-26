@@ -136,15 +136,15 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
 //        Set Portofolio Recycler View
-        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
+//        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
         portofolios = new ArrayList<>();
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio);
+//        portofolios.add(templatePortofolio);
+//        portofolios.add(templatePortofolio);
+//        portofolios.add(templatePortofolio);
+//        portofolios.add(templatePortofolio);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        portofolioAdapter = new ListPortofolioAdapter(portofolios);
+//        portofolioAdapter = new ListPortofolioAdapter(portofolios);
         rvPortofolio.setLayoutManager(linearLayoutManager);
         rvPortofolio.setAdapter(portofolioAdapter);
 

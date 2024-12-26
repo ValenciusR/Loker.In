@@ -49,7 +49,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
     private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
     private RecyclerView rvPortofolio, rvReview;
-    private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
 
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
@@ -109,6 +108,8 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
                 setSkills(user);
 
+                setPortofolio(user);
+
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
@@ -124,18 +125,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             }
         });
 
-//        Set Portofolio Recycler View
-        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
-        portofolios = new ArrayList<>();
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio);
-        portofolios.add(templatePortofolio);
-
-        linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        portofolioAdapter = new ListPortofolioAdapter(portofolios);
-        rvPortofolio.setLayoutManager(linearLayoutManager);
-        rvPortofolio.setAdapter(portofolioAdapter);
 
         reviews = new ArrayList<Review>();
         listReviewAdapter = new ListReviewAdapter(reviews);
@@ -161,6 +150,40 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                 Log.e("FirebaseError", "Failed to fetch review: " + error.getMessage());
             }
         });
+    }
+
+    private void setPortofolio(User user) {
+
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user.getPortofolioJob() != null){
+                    ArrayList<PortofolioJob> portofolios =  user.getPortofolioJob();
+                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                    linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    rvPortofolio.setLayoutManager(linearLayoutManager);
+                    rvPortofolio.setAdapter(portofolioAdapter);
+                }else{
+                    ArrayList<PortofolioJob> portofolios =  new ArrayList<>();
+                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                    linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    rvPortofolio.setLayoutManager(linearLayoutManager);
+                    rvPortofolio.setAdapter(portofolioAdapter);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
     }
 
     private void setSkills(User user){
@@ -204,7 +227,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         AppCompatButton btnEditPersonalInfo = viewBottomSheet.findViewById(R.id.btn_settings_editPersonalInformation);
         AppCompatButton btnEditKeterampilan = viewBottomSheet.findViewById(R.id.btn_settings_editKeterampilan);
         AppCompatButton btnTambahPekerjaanSebelumnya = viewBottomSheet.findViewById(R.id.btn_settings_tambahPekerjaanSebelumnya);
-        AppCompatButton btnAddJobsToPortofolio = viewBottomSheet.findViewById(R.id.btn_settings_addJobsToPortofolio);
         AppCompatButton btnLogOut = viewBottomSheet.findViewById(R.id.btn_settings_logOut);
 
         btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
@@ -229,13 +251,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             }
         });
 
-        btnAddJobsToPortofolio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PekerjaProfileActivity.this, PekerjaEditPortofolioActivity.class));
-                finish();
-            }
-        });
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

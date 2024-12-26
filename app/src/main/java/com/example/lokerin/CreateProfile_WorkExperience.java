@@ -76,13 +76,13 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
         rvPekerjaanList = findViewById(R.id.rv_pekerjaanList_tambahPekerjaanSebelumnyaPage);
         acpTambahPekerjaan = findViewById(R.id.acb_tambahPekerjaan_tambahPekerjaanSebelumnyaPage);
 
-        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
+//        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
         portofolios = new ArrayList<>();
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
 
         linearLayoutManager = new LinearLayoutManager(CreateProfile_WorkExperience.this, LinearLayoutManager.VERTICAL, false);
         listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(CreateProfile_WorkExperience.this, portofolios);

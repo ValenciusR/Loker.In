@@ -32,8 +32,7 @@ public class ListEditPortofolioAdapter extends RecyclerView.Adapter<ListEditPort
         holder.tvTitle.setText(data.get(position).getTitle());
         holder.tvDate.setText(dateFormat.format(data.get(position).getDate()));
         holder.tvLocation.setText(data.get(position).getLocation());
-        holder.tvCategory.setText(data.get(position).getCategory());
-        holder.cbCheckBox.setChecked(data.get(position).getIs_chosen());
+        holder.tvCategory.setText(data.get(position).getCategory());;
     }
 
     @Override

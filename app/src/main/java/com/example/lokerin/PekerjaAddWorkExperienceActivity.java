@@ -2,12 +2,14 @@ package com.example.lokerin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.graphics.Insets;
@@ -15,6 +17,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +39,10 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
     private ArrayList<PortofolioJob> portofolios;
     private LinearLayoutManager linearLayoutManager;
     private ListAddWorkExperienceAdapter listAddWorkExperienceAdapter;
+
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,29 +69,51 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
                 finish();
             }
         });
-        tvPageTitle.setText("Tambah Pekerjaan Sebelumnya");
+
+        tvPageTitle.setText("Tambah Portofolio");
         ivProfilePicture.setImageResource(R.drawable.settings_icon);
 
-        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
-        portofolios = new ArrayList<>();
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
-        portofolios.add(templatePortofolioJob);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+        userReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
 
-        linearLayoutManager = new LinearLayoutManager(PekerjaAddWorkExperienceActivity.this, LinearLayoutManager.VERTICAL, false);
-        listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios);
-        rvPekerjaanList.setLayoutManager(linearLayoutManager);
-        rvPekerjaanList.setAdapter(listAddWorkExperienceAdapter);
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+
+                portofolios = new ArrayList<>();
+                if(user.getPortofolioJob() != null){
+                    portofolios = user.getPortofolioJob();
+                }
+
+                linearLayoutManager = new LinearLayoutManager(PekerjaAddWorkExperienceActivity.this, LinearLayoutManager.VERTICAL, false);
+                listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios);
+                rvPekerjaanList.setLayoutManager(linearLayoutManager);
+                rvPekerjaanList.setAdapter(listAddWorkExperienceAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+//        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
+
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
+//        portofolios.add(templatePortofolioJob);
 
         acpTambahPekerjaan.setOnClickListener(new View.OnClickListener() {
             @Override
