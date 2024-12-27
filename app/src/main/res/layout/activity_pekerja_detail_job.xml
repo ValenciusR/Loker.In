@@ -153,7 +153,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/card_main">
+        android:layout_below="@+id/card_main"
+        android:layout_marginBottom="50sp">
         <LinearLayout
             android:layout_below="@+id/card_main"
             android:layout_width="match_parent"
@@ -180,13 +181,16 @@
                 android:textColor="#000000"
                 android:text="Deskripsi"/>
 
-            <LinearLayout
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="50sp"
-                android:layout_marginBottom="10sp">
+                android:layout_marginBottom="10sp"
+                android:layout_marginHorizontal="20sp">
                 <Button
                     android:id="@+id/btn_chat_pekerjaDetailJobPage"
                     android:layout_width="50sp"
@@ -208,6 +212,4 @@
                     android:background="@drawable/shape_blue_rounded"/>
 
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
 </RelativeLayout>
