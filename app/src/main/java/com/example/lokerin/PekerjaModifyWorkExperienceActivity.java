@@ -106,14 +106,14 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         };
 
         categoryNames = new String[]{
-                "Barber",
-                "Builder",
-                "Driver",
-                "Gardener",
-                "Maid",
-                "Peddler",
-                "Porter",
-                "Secretary",
+                "AGRIKULTUR",
+                "KEAMANAN",
+                "KEBERSIHAN",
+                "KERAJINAN",
+                "KONSTRUKSI",
+                "LAYANAN",
+                "MANUFAKTUR",
+                "TRANSPORT",
         };
 
 

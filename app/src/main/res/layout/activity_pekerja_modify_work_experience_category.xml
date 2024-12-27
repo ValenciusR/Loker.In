@@ -69,7 +69,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_barber"/>
+                            android:src="@drawable/img_gardener"/>
                         <TextView
                             android:id="@+id/tv_text1_modifyWorkExperienceCategoryPage"
                             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Barber"
+                            android:text="Agrikultur"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -98,14 +98,15 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:paddingVertical="16dp">
+
 
                         <ImageView
                             android:id="@+id/iv_image2_modifyWorkExperienceCategoryPage"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_builder" />
+                            android:src="@drawable/img_security_guard" />
 
                         <TextView
                             android:id="@+id/tv_text2_modifyWorkExperienceCategoryPage"
@@ -114,7 +115,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Builder"
+                            android:text="Keamanan"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -134,13 +135,13 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:paddingVertical="16dp">
                         <ImageView
                             android:id="@+id/iv_image3_modifyWorkExperienceCategoryPage"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_driver" />
+                            android:src="@drawable/img_maid" />
 
                         <TextView
                             android:id="@+id/tv_text3_modifyWorkExperienceCategoryPage"
@@ -149,7 +150,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Driver"
+                            android:text="Kebersihan"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -175,7 +176,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_gardener" />
+                            android:src="@drawable/img_craftsman" />
                         <TextView
                             android:id="@+id/tv_text4_modifyWorkExperienceCategoryPage"
                             android:layout_width="wrap_content"
@@ -183,7 +184,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Gardener"
+                            android:text="Kerajinan"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -204,14 +205,14 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:paddingVertical="16dp">
 
                         <ImageView
                             android:id="@+id/iv_image5_modifyWorkExperienceCategoryPage"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_maid" />
+                            android:src="@drawable/img_builder" />
 
                         <TextView
                             android:id="@+id/tv_text5_modifyWorkExperienceCategoryPage"
@@ -220,7 +221,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Maid"
+                            android:text="Konstruksi"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -246,7 +247,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_peddler" />
+                            android:src="@drawable/img_barber" />
 
                         <TextView
                             android:id="@+id/tv_text6_modifyWorkExperienceCategoryPage"
@@ -255,7 +256,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Peddler"
+                            android:text="Layanan"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -275,13 +276,13 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:paddingVertical="16dp">
                         <ImageView
                             android:id="@+id/iv_image7_modifyWorkExperienceCategoryPage"
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_porter" />
+                            android:src="@drawable/img_factory_worker" />
                         <TextView
                             android:id="@+id/tv_text7_modifyWorkExperienceCategoryPage"
                             android:layout_width="wrap_content"
@@ -289,7 +290,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Porter"
+                            android:text="Manufaktur"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -315,7 +316,7 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:contentDescription="Image"
-                            android:src="@drawable/img_secretary" />
+                            android:src="@drawable/img_driver" />
                         <TextView
                             android:id="@+id/tv_text8_modifyWorkExperienceCategoryPage"
                             android:layout_width="wrap_content"
@@ -323,7 +324,7 @@
                             android:layout_marginTop="8dp"
                             android:fontFamily="@font/poppins_medium"
                             android:gravity="center"
-                            android:text="Secretary"
+                            android:text="Transport"
                             android:textColor="#21458B"
                             android:textSize="16sp" />
                     </LinearLayout>
