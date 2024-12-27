@@ -22,7 +22,7 @@ public class PekerjaMainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pekerja_main);
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new PekerjaMyJobFragment())
+                .replace(R.id.fragment_container, new PekerjaApplyJobFragment())
                 .commit();
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
