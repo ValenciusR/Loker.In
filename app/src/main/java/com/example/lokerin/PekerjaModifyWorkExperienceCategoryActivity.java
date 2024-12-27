@@ -87,14 +87,14 @@ public class PekerjaModifyWorkExperienceCategoryActivity extends AppCompatActivi
     }
 
     private String[] categoryNames = {
-            "Barber",
-            "Builder",
-            "Driver",
-            "Gardener",
-            "Maid",
-            "Peddler",
-            "Porter",
-            "Secretary",
+            "AGRIKULTUR",
+            "KEAMANAN",
+            "KEBERSIHAN",
+            "KERAJINAN",
+            "KONSTRUKSI",
+            "LAYANAN",
+            "MANUFAKTUR",
+            "TRANSPORT",
     };
 
     private void selectCard(int index) {
@@ -137,7 +137,4 @@ public class PekerjaModifyWorkExperienceCategoryActivity extends AppCompatActivi
         }
     }
 
-    private void confirmCategorySelection() {
-
-    }
 }

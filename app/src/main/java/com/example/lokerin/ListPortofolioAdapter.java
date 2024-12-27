@@ -34,6 +34,7 @@ public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAd
         holder.tvJob.setText(data.get(position).getTitle());
         holder.tvDate.setText(dateFormat.format(data.get(position).getDate()));
         holder.tvDescription.setText(data.get(position).getDesc());
+        holder.tvLocation.setText(data.get(position).getLocation());
         Glide.with(holder.itemView.getContext()).load(data.get(position).getImageURI()).into(holder.ivImage);
     }
 
@@ -44,7 +45,7 @@ public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAd
 
     public class PortofolioHolder extends RecyclerView.ViewHolder{
         ImageView ivImage;
-        TextView tvJob, tvDate, tvDescription;
+        TextView tvJob, tvDate, tvDescription, tvLocation;
 
         public PortofolioHolder(@NonNull View itemView) {
             super(itemView);
@@ -52,6 +53,7 @@ public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAd
             tvJob = itemView.findViewById(R.id.tv_jobTitle_rvPortofolio);
             tvDate = itemView.findViewById(R.id.tv_date_rvPortofolio);
             tvDescription = itemView.findViewById(R.id.tv_jobDescription_rvPortofolio);
+            tvLocation = itemView.findViewById(R.id.tv_location_rvPortofolio);
         }
     }
 }

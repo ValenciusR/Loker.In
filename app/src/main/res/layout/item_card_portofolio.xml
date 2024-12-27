@@ -36,7 +36,7 @@ android:layout_marginBottom="20sp">
                 android:id="@+id/tv_jobTitle_rvPortofolio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Job Title"
+                android:text="Job Title - Kategori"
                 android:fontFamily="@font/poppins_bold"
                 android:textSize="14sp"
                 android:textColor="@color/black"
@@ -51,6 +51,24 @@ android:layout_marginBottom="20sp">
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:gravity="end"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginHorizontal="20sp">
+
+            <TextView
+                android:id="@+id/tv_location_rvPortofolio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lokasi"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="14sp"
+                android:textColor="@color/grey_40"
+                android:gravity="start"/>
 
         </LinearLayout>
 

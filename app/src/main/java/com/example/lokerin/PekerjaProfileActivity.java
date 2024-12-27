@@ -153,8 +153,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     }
 
     private void setPortofolio(User user) {
-
-
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
