@@ -1,7 +1,5 @@
 package com.example.lokerin;
 
-import static java.security.AccessController.getContext;
-
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -24,10 +22,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,14 +32,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static android.app.Activity.RESULT_OK;
-
-public class EditProfilePekerjaActivity extends AppCompatActivity {
+public class PekerjaEditProfileActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -116,8 +107,8 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
-                    if(!EditProfilePekerjaActivity.this.isDestroyed()){
-                        Glide.with(EditProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    if(!PekerjaEditProfileActivity.this.isDestroyed()){
+                        Glide.with(PekerjaEditProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
                     }
 
                 }
@@ -279,15 +270,15 @@ public class EditProfilePekerjaActivity extends AppCompatActivity {
             imageUri = data.getData();
 
 
-            if(!EditProfilePekerjaActivity.this.isDestroyed()){
-                Glide.with(EditProfilePekerjaActivity.this).load(imageUri).into(ivProfilePicture);
+            if(!PekerjaEditProfileActivity.this.isDestroyed()){
+                Glide.with(PekerjaEditProfileActivity.this).load(imageUri).into(ivProfilePicture);
             }
 
         }
     }
 
     private void startProfilePage() {
-        startActivity(new Intent(EditProfilePekerjaActivity.this, PekerjaProfileActivity.class));
+        startActivity(new Intent(PekerjaEditProfileActivity.this, PekerjaProfileActivity.class));
         finish();
     }
 }

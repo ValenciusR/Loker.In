@@ -1,0 +1,342 @@
+<android.widget.ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PelangganEditJobCategoryActivity">
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KATEGORI"
+            android:textColor="#21458B"
+            android:textSize="32sp"
+            android:layout_marginTop="16sp"
+            android:layout_marginStart="20sp"
+            android:fontFamily="@font/poppins_extrabold" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilih kategori pekerjaan yang paling cocok dengan pekerjaan yang anda butuhkan!"
+            android:textColor="#21458B"
+            android:textSize="16sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginEnd="20sp"
+            android:fontFamily="@font/poppins_medium" />
+
+        <GridLayout
+            android:id="@+id/gridLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:columnCount="3"
+            android:orientation="horizontal">
+
+            <!-- FIRST CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image1"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_gardener"/>
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="AGRIKULTUR"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- SECOND CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card2"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/image2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_security_guard" />
+
+                    <TextView
+                        android:id="@+id/text2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="KEAMANAN"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- THIRD CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card3"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image3"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_maid" />
+
+                    <TextView
+                        android:id="@+id/text3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="KEBERSIHAN"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- FOURTH CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card4"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image4"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_craftsman" />
+                    <TextView
+                        android:id="@+id/text4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="KERAJINAN"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- FIFTH CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card5"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/image5"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_builder" />
+
+                    <TextView
+                        android:id="@+id/text5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="KONSTRUKSI"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- SIXTH CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card6"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image6"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_barber" />
+
+                    <TextView
+                        android:id="@+id/text6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="LAYANAN"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- SEVENTH CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card7"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image7"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_factory_worker" />
+                    <TextView
+                        android:id="@+id/text7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="MANUFAKTUR"
+                        android:textColor="#21458B"
+                        android:textSize="11.5sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- EIGHTH CATEGORY -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card8"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/image8"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:contentDescription="Image"
+                        android:src="@drawable/img_driver" />
+                    <TextView
+                        android:id="@+id/text8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:text="TRANSPORT"
+                        android:textColor="#21458B"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </GridLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_category_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:layout_marginBottom="120dp"
+            android:layout_marginHorizontal="22dp"
+            android:background="@drawable/shape_blue_rounded"
+            android:backgroundTint="@null"
+            android:fontFamily="@font/poppins_medium"
+            android:text="KONFIRMASI"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal"/>
+
+    </LinearLayout>
+</android.widget.ScrollView>

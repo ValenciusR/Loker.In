@@ -33,7 +33,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     private ImageView btnBack,ivProfileNavbar;
     private String jobId, jobStatus;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers;
-    private Button btnAction, btnDelete, btnAction2;
+    private Button btnAction, btnDelete, btnAction2, btnEdit;
     private RecyclerView rvApplicants, rvWorkers;
     private LinearLayout btnGroup;
 
@@ -56,35 +56,63 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         jobsReference = firebaseDatabase.getReference().child("jobs").child(jobId);
-        jobsReference.child("jobStatus").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                jobStatus = task.getResult().getValue(String.class);
-                if (jobStatus != null) {
-                    if ("OPEN".equalsIgnoreCase(jobStatus)) {
-                        btnAction.setText("Mulai");
-                        btnAction.setOnClickListener(v -> showConfirmBookConfirmationDialog());
-                        btnDelete.setText("Hapus");
-                        btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
-                    } else if ("ON GOING".equalsIgnoreCase(jobStatus)) {
-                        btnGroup.setVisibility(View.GONE);
-                        tvApplicants.setVisibility(View.GONE);
-                        rvApplicants.setVisibility(View.GONE);
-                        tvEmptyApplicants.setVisibility(View.GONE);
-                        btnAction2.setVisibility(View.VISIBLE);
-                        btnAction2.setText("Akhiri Pekerjaan");
-                        btnAction2.setOnClickListener(v -> showFinishJobConfirmationDialog());
-                    } else if ("ENDED".equalsIgnoreCase(jobStatus)) {
-                        btnGroup.setVisibility(View.GONE);
-                        btnAction2.setVisibility(View.GONE);
-                        tvApplicants.setVisibility(View.GONE);
-                        rvApplicants.setVisibility(View.GONE);
-                        tvEmptyApplicants.setVisibility(View.GONE);
+
+        jobsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean hasApplicants = false;
+                boolean hasWorkers = false;
+                String jobStatusTemp = "";
+
+                if (snapshot.child("jobApplicants").exists()) {
+                    applicants = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
+                    if (applicants != null && !applicants.isEmpty()) {
+                        hasApplicants = true;
+                    }
+                }
+
+                if (snapshot.child("jobWorkers").exists()) {
+                    workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                    if (workers != null && !workers.isEmpty()) {
+                        hasWorkers = true;
+                    }
+                }
+
+                if (snapshot.child("jobStatus").exists()) {
+                    jobStatusTemp = snapshot.child("jobStatus").getValue(String.class);
+                }
+
+                if ("OPEN".equalsIgnoreCase(jobStatusTemp) && !hasApplicants && !hasWorkers) {
+                    btnEdit.setVisibility(View.VISIBLE);
+                    btnEdit.setOnClickListener(v -> navigateToEditJobActivity(jobId));
+                } else {
+                    btnEdit.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        jobsReference.child("jobStatus").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    jobStatus = snapshot.getValue(String.class);
+                    if (jobStatus != null) {
+                        handleJobStatus(jobStatus);
+                    } else {
+                        Toast.makeText(PelangganDetailJobActivity.this, "Status pekerjaan sudah kadaluwarsa", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(this, "Status pekerjaan sudah kadaluwarsa", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PelangganDetailJobActivity.this, "Status pekerjaan tidak ditemukan", Toast.LENGTH_SHORT).show();
                 }
-            } else {
-                Toast.makeText(this, "Gagal mendapatkan status pekerjaan", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(PelangganDetailJobActivity.this, "Gagal mendapatkan status pekerjaan: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -100,6 +128,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         btnAction = findViewById(R.id.btn_action);
         btnDelete = findViewById(R.id.btn_delete);
+        btnEdit = findViewById(R.id.btn_edit);
         btnAction2 = findViewById(R.id.btn_action2);
         btnGroup = findViewById(R.id.btn_group);
 
@@ -133,12 +162,16 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                         tvEmptyApplicants.setVisibility(View.GONE);
                     } else {
                         if (jobStatus.equalsIgnoreCase("OPEN")){
+                            listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
+                            rvApplicants.setAdapter(listApplicantAdapter);
                             tvEmptyApplicants.setVisibility(View.VISIBLE);
                         }
                     }
                 } else {
                     applicants.clear();
                     if (jobStatus.equalsIgnoreCase("OPEN")){
+                        listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
+                        rvApplicants.setAdapter(listApplicantAdapter);
                         tvEmptyApplicants.setVisibility(View.VISIBLE);
                     }
                 }
@@ -164,10 +197,14 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                         rvWorkers.setAdapter(listWorkerAdapter);
                         tvEmptyWorkers.setVisibility(View.GONE);
                     } else {
+                        listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+                        rvWorkers.setAdapter(listWorkerAdapter);
                         tvEmptyWorkers.setVisibility(View.VISIBLE);
                     }
                 } else {
                     workers.clear();
+                    listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+                    rvWorkers.setAdapter(listWorkerAdapter);
                     tvEmptyWorkers.setVisibility(View.VISIBLE);
                 }
             }
@@ -179,6 +216,49 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         getJobData();
 
     }
+
+    private void handleJobStatus(String jobStatus) {
+        switch (jobStatus.toUpperCase()) {
+            case "OPEN":
+                btnAction.setText("Mulai");
+                btnAction.setVisibility(View.VISIBLE);
+                btnAction.setOnClickListener(v -> showConfirmBookConfirmationDialog());
+
+                btnDelete.setText("Hapus");
+                btnDelete.setVisibility(View.VISIBLE);
+                btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
+
+                btnGroup.setVisibility(View.VISIBLE);
+                btnAction2.setVisibility(View.GONE);
+
+                tvApplicants.setVisibility(View.VISIBLE);
+                break;
+
+            case "ON GOING":
+                btnGroup.setVisibility(View.GONE);
+                tvApplicants.setVisibility(View.GONE);
+                rvApplicants.setVisibility(View.GONE);
+                tvEmptyApplicants.setVisibility(View.GONE);
+
+                btnAction2.setVisibility(View.VISIBLE);
+                btnAction2.setText("Akhiri Pekerjaan");
+                btnAction2.setOnClickListener(v -> showFinishJobConfirmationDialog());
+                break;
+
+            case "ENDED":
+                btnGroup.setVisibility(View.GONE);
+                btnAction2.setVisibility(View.GONE);
+                tvApplicants.setVisibility(View.GONE);
+                rvApplicants.setVisibility(View.GONE);
+                tvEmptyApplicants.setVisibility(View.GONE);
+                break;
+
+            default:
+                Toast.makeText(this, "Status pekerjaan tidak valid", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
 
     private void showConfirmBookConfirmationDialog() {
         Dialog dialog = new Dialog(this);
@@ -262,7 +342,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                 jobsReference.removeValue()
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(PelangganDetailJobActivity.this, "Data pekerjaan berhasil dihapus.", Toast.LENGTH_SHORT).show();
-                            navigateToAdminMainActivity();
+                            navigateToMainActivity();
                         })
                         .addOnFailureListener(e -> {
                             Toast.makeText(PelangganDetailJobActivity.this, "Gagal menghapus data pekerjaan.", Toast.LENGTH_SHORT).show();
@@ -401,7 +481,13 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         }
     }
 
-    private void navigateToAdminMainActivity() {
+    private void navigateToEditJobActivity(String jobId) {
+        Intent intent = new Intent(PelangganDetailJobActivity.this, PelangganEditJobActivity.class);
+        intent.putExtra("JOB_ID", jobId);
+        startActivity(intent);
+    }
+
+    private void navigateToMainActivity() {
         Intent intent = new Intent(PelangganDetailJobActivity.this, PelangganMainActivity.class);
         startActivity(intent);
         finish();

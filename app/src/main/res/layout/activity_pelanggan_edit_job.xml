@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PelangganEditJobActivity"
+    android:gravity="center_horizontal"
+    android:fitsSystemWindows="true">>
+
+    <include layout="@layout/toolbar_submain" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="16sp">
+
+            <!-- SECTION : JOB INFORMATION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_extrabold"
+                android:text="INFORMASI PEKERJAAN"
+                android:textColor="@color/darkBlue"
+                android:textSize="20dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue"
+                android:layout_marginBottom="16dp" />
+
+            <!-- JOB TITLE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="JUDUL PEKERJAAN"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_job_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="text"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="KATEGORI"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_category_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_darkblue_rounded"
+                android:fontFamily="@font/poppins_medium"
+                android:padding="10dp"
+                android:textColor="#FFFFFF"
+                android:drawableEnd="@drawable/icon_arrow_forward"
+                android:drawablePadding="8dp"
+                android:gravity="center_vertical|start"
+                android:text="Pilih Kategori"
+                android:textAllCaps="false" />
+
+            <!-- DESCRIPTION -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="DESKRIPSI"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_description_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textImeMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <!-- SALARY -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="UPAH (IDR)"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+
+            <EditText
+                android:id="@+id/et_salary_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:padding="0dp"
+                android:layout_margin="0dp">
+
+                <!-- Daily Button -->
+                <Button
+                    android:id="@+id/btn_dailySalary_addJob"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_item_salary_bg"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="HARIAN"
+                    android:textColor="@drawable/selector_salary_item_salary_txt"
+                    android:textSize="12sp" />
+
+                <!-- Weekly Button -->
+                <Button
+                    android:id="@+id/btn_weeklySalary_addJob"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_item_salary_bg"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="MINGGUAN"
+                    android:textColor="@drawable/selector_salary_item_salary_txt"
+                    android:textSize="12sp" />
+
+                <!-- Monthly Button -->
+                <Button
+                    android:id="@+id/btn_monthlySalary_addJob"
+                    android:layout_width="0dp"
+                    android:layout_height="34dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_item_salary_bg"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="BULANAN"
+                    android:textColor="@drawable/selector_salary_item_salary_txt"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!--        &lt;!&ndash; UPLOAD IMAGE &ndash;&gt;-->
+            <!--        <TextView-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:layout_marginBottom="4dp"-->
+            <!--            android:fontFamily="@font/poppins_bold"-->
+            <!--            android:text="UNGGAH GAMBAR"-->
+            <!--            android:textColor="#1977F3"-->
+            <!--            android:textSize="12sp"-->
+            <!--            android:layout_marginTop="10dp" />-->
+
+            <!--        <RelativeLayout-->
+            <!--            android:id="@+id/upload_image_container"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="100dp"-->
+            <!--            android:background="@drawable/shape_rounded_blue_border"-->
+            <!--            android:clickable="true"-->
+            <!--            android:focusable="true">-->
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_upload_image_icon"-->
+            <!--                android:layout_width="24dp"-->
+            <!--                android:layout_height="24dp"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:src="@drawable/icon_add_photo"-->
+            <!--                app:tint="@color/blue" />-->
+            <!--            <TextView-->
+            <!--                android:id="@+id/tv_upload_image_text"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_below="@id/iv_upload_image_icon"-->
+            <!--                android:layout_centerHorizontal="true"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:text="Tekan untuk mengunggah"-->
+            <!--                android:textColor="@color/blue"-->
+            <!--                android:fontFamily="@font/poppins_regular"-->
+            <!--                android:textSize="12sp" />-->
+            <!--            <ImageView-->
+            <!--                android:id="@+id/iv_uploaded_image"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:scaleType="centerCrop"-->
+            <!--                android:visibility="gone" />-->
+            <!--        </RelativeLayout>-->
+
+            <!-- SECTION : ADDRESS DETAIL -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_extrabold"
+                android:layout_marginTop="20dp"
+                android:text="DETAIL ALAMAT"
+                android:textColor="@color/darkBlue"
+                android:textSize="20dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue"
+                android:layout_marginBottom="16dp"/>
+
+            <!-- PROVINCE -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="PROVINSI"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <Spinner
+                android:id="@+id/spinner_province_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:padding="10dp"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@drawable/shape_spinner_dropdown_bg"
+                android:dropDownVerticalOffset="10dp"
+                android:dropDownHorizontalOffset="10dp"
+                android:dropDownWidth="match_parent" />
+
+            <!-- REGENCY -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="KABUPATEN"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <Spinner
+                android:id="@+id/spinner_regency_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:padding="10dp"
+                android:spinnerMode="dropdown"
+                android:popupBackground="@drawable/shape_spinner_dropdown_bg"
+                android:dropDownVerticalOffset="0dp"
+                android:enabled="false" />
+
+            <!-- ADDRESS -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="ALAMAT"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_address_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textImeMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_editJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_blue_rounded"
+                android:backgroundTint="@null"
+                android:fontFamily="@font/poppins_medium"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:text="UBAH PEKERJAAN"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

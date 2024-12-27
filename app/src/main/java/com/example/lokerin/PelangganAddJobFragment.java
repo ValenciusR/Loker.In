@@ -44,7 +44,7 @@ public class PelangganAddJobFragment extends Fragment {
     private Spinner spinnerProvince, spinnerRegency;
     private EditText etJobTitle, etDescription, etSalary, etAddress;
     private String frequentSalary = "", selectedCategory, currentUserId;
-    private boolean isCategorySelected = false; ;
+    private boolean isCategorySelected = false;
     private ArrayAdapter<CharSequence> regencyAdapter;
     private ArrayList<String> applicantsList, workersList;
 
@@ -220,7 +220,7 @@ public class PelangganAddJobFragment extends Fragment {
 
         if (isValid && spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
             spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(getContext(), "Pilih salah satu kabupaten!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Pilih salah satu kota / kabupaten!", Toast.LENGTH_SHORT).show();
             isValid = false;
         } else {
             spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -462,6 +462,5 @@ public class PelangganAddJobFragment extends Fragment {
         btnWeekly.setSelected(false);
         btnMonthly.setSelected(false);
         frequentSalary = "";
-
     }
 }

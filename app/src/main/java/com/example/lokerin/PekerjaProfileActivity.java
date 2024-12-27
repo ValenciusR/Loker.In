@@ -1,17 +1,13 @@
 package com.example.lokerin;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -35,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class PekerjaProfileActivity extends AppCompatActivity {
@@ -232,7 +227,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PekerjaProfileActivity.this, EditProfilePekerjaActivity.class));
+                startActivity(new Intent(PekerjaProfileActivity.this, PekerjaEditProfileActivity.class));
             }
         });
 

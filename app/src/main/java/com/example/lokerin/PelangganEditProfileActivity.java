@@ -21,7 +21,6 @@ import androidx.appcompat.widget.AppCompatButton;
 import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +33,7 @@ import com.google.firebase.storage.StorageTask;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditProfilePelangganActivity extends AppCompatActivity {
+public class PelangganEditProfileActivity extends AppCompatActivity {
 
     private ImageView btnBack;
     private ShapeableImageView ivProfileNavbar;
@@ -214,7 +213,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
 
-            Glide.with(EditProfilePelangganActivity.this).load(imageUri).into(ivProfileNavbar);
+            Glide.with(PelangganEditProfileActivity.this).load(imageUri).into(ivProfileNavbar);
         }
     }
 
@@ -232,8 +231,8 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
                 if(user.getImageUrl().equals("default")){
                     ivProfileNavbar.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
-                    if(!EditProfilePelangganActivity.this.isDestroyed()){
-                        Glide.with(EditProfilePelangganActivity.this).load(user.getImageUrl()).into(ivProfileNavbar);
+                    if(!PelangganEditProfileActivity.this.isDestroyed()){
+                        Glide.with(PelangganEditProfileActivity.this).load(user.getImageUrl()).into(ivProfileNavbar);
                     }
                 }
             }
@@ -246,7 +245,7 @@ public class EditProfilePelangganActivity extends AppCompatActivity {
     }
 
     private void startProfilePage() {
-        startActivity(new Intent(EditProfilePelangganActivity.this, PelangganProfileActivity.class));
+        startActivity(new Intent(PelangganEditProfileActivity.this, PelangganProfileActivity.class));
         finish();
     }
 }
