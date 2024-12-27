@@ -72,7 +72,7 @@ public class PelangganProfileActivity extends AppCompatActivity {
 
         btnEditProfile.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                startActivity(new Intent(PelangganProfileActivity.this, EditProfilePelangganActivity.class));
+                startActivity(new Intent(PelangganProfileActivity.this, PelangganEditProfileActivity.class));
                 finish();
             }
         });
