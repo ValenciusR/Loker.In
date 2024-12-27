@@ -27,7 +27,7 @@ public class PekerjaMainActivity extends AppCompatActivity {
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-        tvPageTitle.setText("BERANDA");
+        tvPageTitle.setText("DAFTAR PEKERJAAN");
         ivProfileNavbar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaMainActivity.this, PekerjaProfileActivity.class));
@@ -36,6 +36,7 @@ public class PekerjaMainActivity extends AppCompatActivity {
         });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavView);
+        bottomNavigationView.setSelectedItemId(R.id.bottom_search);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
             int id = item.getItemId();
