@@ -114,6 +114,7 @@ public class PelangganEditJobActivity extends AppCompatActivity {
             intentCategory.putExtra("jobRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
             intentCategory.putExtra("jobAddress", etAddress.getText().toString());
             startActivity(intentCategory);
+            finish();
         });
 
         btnDaily.setOnClickListener(v -> setSelectedButton(btnDaily));
@@ -333,13 +334,25 @@ public class PelangganEditJobActivity extends AppCompatActivity {
 
             jobReference.updateChildren(updates).addOnCompleteListener(task -> {
                 progressDialog.dismiss();
+
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Pekerjaan berhasil diubah!", Toast.LENGTH_SHORT).show();
+
+                    Intent resultIntent = new Intent();
+                    setResult(RESULT_OK, resultIntent);
+
+                    Intent intentUpdatePage = new Intent(PelangganEditJobActivity.this, PelangganDetailJobActivity.class);
+                    intentUpdatePage.putExtra("jobId", jobId);
+                    startActivity(intentUpdatePage);
                 } else {
                     Toast.makeText(this, "Gagal menyimpan data!", Toast.LENGTH_SHORT).show();
                 }
+
+                finish();
+            }).addOnFailureListener(e -> {
+                progressDialog.dismiss();
+                Toast.makeText(this, "Terjadi kesalahan: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
-            finish();
         }
     }
 
@@ -510,6 +523,8 @@ public class PelangganEditJobActivity extends AppCompatActivity {
     }
 
     private void backPage() {
+        Intent resultIntent = new Intent();
+        setResult(RESULT_CANCELED, resultIntent);
         finish();
     }
 }

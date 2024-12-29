@@ -51,6 +51,24 @@ public class PelangganEditJobCategoryActivity extends AppCompatActivity {
         btnConfirmCategory.setOnClickListener(v -> confirmCategorySelection());
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent resultIntent = new Intent(this, PelangganEditJobActivity.class);
+        resultIntent.putExtra("JOB_ID", jobId);
+        resultIntent.putExtra("jobTitle", jobTitle);
+        resultIntent.putExtra("jobCategory", jobCategory);
+        resultIntent.putExtra("jobDescription", jobDescription);
+        resultIntent.putExtra("jobSalary", jobSalary);
+        resultIntent.putExtra("jobSalaryFrequent", jobSalaryFrequent);
+        resultIntent.putExtra("jobProvince", jobProvince);
+        resultIntent.putExtra("jobRegency", jobRegency);
+        resultIntent.putExtra("jobAddress", jobAddress);
+        //Toast.makeText(this, jobTitle + " " + selectedCategory + " " + jobDescription + " " + jobSalary + " " + jobProvince + " " + jobAddress, Toast.LENGTH_SHORT).show();
+        startActivity(resultIntent);
+        finish();
+        super.onBackPressed();
+    }
+
     private void initializeCards() {
         cards = new CardView[]{
                 findViewById(R.id.card1),
