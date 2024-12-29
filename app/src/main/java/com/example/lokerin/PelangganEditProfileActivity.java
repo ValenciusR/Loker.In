@@ -35,8 +35,8 @@ import java.util.Map;
 
 public class PelangganEditProfileActivity extends AppCompatActivity {
 
-    private ImageView btnBack;
-    private ShapeableImageView ivProfileNavbar;
+    private ImageView btnBack, ivProfileNavbar;
+    private ShapeableImageView ivProfile;
     private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvEmailError;
     private EditText etName, etPhone, etLocation, etEmail;
     private AppCompatButton btnSaveChanges;
@@ -58,7 +58,10 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
-        ivProfileNavbar = findViewById(R.id.iv_profile);
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
+        ivProfile = findViewById(R.id.iv_profile);
         etName = findViewById(R.id.et_name);
         etPhone = findViewById(R.id.et_phone);
         etLocation = findViewById(R.id.et_location);
@@ -74,8 +77,6 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
         getUserData();
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +84,7 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Edit Profil");
+        ivProfileNavbar.setVisibility(View.GONE);
 
         btnSaveChanges.setOnClickListener(v -> {
             isValid = true;
@@ -140,12 +142,18 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
             }
         });
 
-        ivProfileNavbar.setOnClickListener(new View.OnClickListener() {
+        ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openImage();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startProfilePage();
+        super.onBackPressed();
     }
 
     private void uploadImageAndSaveProfile() {
@@ -213,7 +221,7 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
         if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
 
-            Glide.with(PelangganEditProfileActivity.this).load(imageUri).into(ivProfileNavbar);
+            Glide.with(PelangganEditProfileActivity.this).load(imageUri).into(ivProfile);
         }
     }
 
@@ -229,10 +237,10 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
                 etEmail.setText(user.getEmail());
 
                 if(user.getImageUrl().equals("default")){
-                    ivProfileNavbar.setImageResource(R.drawable.default_no_profile_icon);
+                    ivProfile.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
                     if(!PelangganEditProfileActivity.this.isDestroyed()){
-                        Glide.with(PelangganEditProfileActivity.this).load(user.getImageUrl()).into(ivProfileNavbar);
+                        Glide.with(PelangganEditProfileActivity.this).load(user.getImageUrl()).into(ivProfile);
                     }
                 }
             }

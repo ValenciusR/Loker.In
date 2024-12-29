@@ -32,7 +32,7 @@ public class PelangganProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private TextView tvPageTitle, tvName, tvEmail, tvPhone, tvLocation;
-    private ImageView btnBack;
+    private ImageView btnBack, ivProfileNavbar;
     private AppCompatButton btnEditProfile, btnLogOut;
     private ShapeableImageView ivProfilePicture;
 
@@ -44,6 +44,9 @@ public class PelangganProfileActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pelanggan_profile);
 
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvName = findViewById(R.id.tv_name_profilePelangganPage);
         tvPhone = findViewById(R.id.tv_phone_profilePelangganPage);
         tvLocation = findViewById(R.id.tv_location_profilePelangganPage);
@@ -60,8 +63,6 @@ public class PelangganProfileActivity extends AppCompatActivity {
             return insets;
         });
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,6 +70,7 @@ public class PelangganProfileActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Profil");
+        ivProfileNavbar.setVisibility(View.GONE);
 
         btnEditProfile.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -98,6 +100,12 @@ public class PelangganProfileActivity extends AppCompatActivity {
         }
 
 */
+    }
+
+    @Override
+    public void onBackPressed() {
+        backPage();
+        super.onBackPressed();
     }
 
     private void getUserData() {

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +40,8 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private ArrayList<String> applicants, workers;
     private ListApplicantAdapter listApplicantAdapter, listWorkerAdapter;
+
+    private static final int REQUEST_CODE_VALIDATION = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,9 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             }
         });
 
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvTitle = findViewById(R.id.tv_title);
         tvStatus = findViewById(R.id.tv_status);
         tvProvince = findViewById(R.id.tv_province);
@@ -135,13 +141,10 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         rvApplicants = findViewById(R.id.rv_applicants_detailJob);
         rvWorkers = findViewById(R.id.rv_workers_detailJob);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backPage();
+                navigateToMainActivity();
             }
         });
         tvPageTitle.setText("Detail Pekerjaan");
@@ -215,6 +218,24 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         getJobData();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_VALIDATION) {
+            if (resultCode == RESULT_OK) {
+                finish();
+            } else if (resultCode == RESULT_CANCELED) {
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        navigateToMainActivity();
+        super.onBackPressed();
     }
 
     private void handleJobStatus(String jobStatus) {
@@ -484,16 +505,12 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     private void navigateToEditJobActivity(String jobId) {
         Intent intent = new Intent(PelangganDetailJobActivity.this, PelangganEditJobActivity.class);
         intent.putExtra("JOB_ID", jobId);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_VALIDATION);
     }
 
     private void navigateToMainActivity() {
         Intent intent = new Intent(PelangganDetailJobActivity.this, PelangganMainActivity.class);
         startActivity(intent);
-        finish();
-    }
-
-    private void backPage() {
         finish();
     }
 
