@@ -89,7 +89,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Edit Profil");
-        ivProfileNavbar.setImageResource(R.drawable.settings_icon);
+        ivProfileNavbar.setVisibility(View.GONE);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");

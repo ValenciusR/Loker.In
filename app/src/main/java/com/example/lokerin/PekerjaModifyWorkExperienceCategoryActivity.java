@@ -50,7 +50,7 @@ public class PekerjaModifyWorkExperienceCategoryActivity extends AppCompatActivi
             }
         });
         tvPageTitle.setText("Pilih Kategori Pekerjaan Sebelumnya");
-        ivProfilePicture.setImageResource(R.drawable.settings_icon);
+        ivProfilePicture.setVisibility(View.GONE);
 
         cards = new CardView[]{
                 findViewById(R.id.cv_category1_modifyWorkExperienceCategoryPage),

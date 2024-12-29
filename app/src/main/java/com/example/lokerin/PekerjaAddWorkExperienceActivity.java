@@ -69,9 +69,8 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         tvPageTitle.setText("Tambah Portofolio");
-        ivProfilePicture.setImageResource(R.drawable.settings_icon);
+        ivProfilePicture.setVisibility(View.GONE);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");

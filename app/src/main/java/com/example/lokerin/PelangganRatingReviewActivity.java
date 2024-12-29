@@ -196,7 +196,12 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         tvStatus.setTextColor(getResources().getColor(R.color.red));
 
         String province = task.getResult().child("jobProvince").getValue(String.class);
-        tvProvince.setText(province != null && !province.isEmpty() ? province : "N/A");
+        String regency = task.getResult().child("jobRegency").getValue(String.class);
+        if (province != null && !province.isEmpty() && regency != null && !regency.isEmpty()){
+            tvProvince.setText(regency + ", " + province);
+        } else {
+            tvProvince.setText("N/A");
+        }
 
         String category = task.getResult().child("jobCategory").getValue(String.class);
         tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");

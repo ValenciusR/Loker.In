@@ -38,7 +38,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
     private DatabaseReference userReference;
 
     private ImageView btnBack, ivProfileNavbar;;
-    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary, tvDescription;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvCategory, tvProvince, tvDate, tvSalary, tvDescription;
     private String jobId, jobStatus, jobMakerId;
     private Button btnAction, btnChat;
     private ArrayList<String> applicantsList, workersList;
@@ -70,12 +70,12 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                     if ("OPEN".equalsIgnoreCase(jobStatus)) {
                         btnAction.setText("Daftar Pekerjaan");
                         btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
-                    } else if ("On Going".equalsIgnoreCase(jobStatus)) {
+                    } else if ("OPEN".equalsIgnoreCase(jobStatus)) {
                         btnAction.setText("Batalkan Pekerjaan");
                         btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
-                    } else if ("On Going2".equalsIgnoreCase(jobStatus)) {
+                    } else if ("ON GOING".equalsIgnoreCase(jobStatus)) {
                         btnAction.setEnabled(false);
-                    } else if ("Ended".equalsIgnoreCase(jobStatus)) {
+                    } else if ("ENDED".equalsIgnoreCase(jobStatus)) {
                         btnChat.setVisibility(View.GONE);
                         btnAction.setVisibility(View.GONE);
                     }
@@ -93,12 +93,12 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             }
         });
 
-        tvTitle = findViewById(R.id.tv_title_pekerja);
-        tvCategory = findViewById(R.id.tv_category_pekerja);
-        tvProvince = findViewById(R.id.tv_province_pekerja);
-        tvRegency = findViewById(R.id.tv_regency_pekerja);
-        tvDate = findViewById(R.id.tv_date_pekerja);
-        tvSalary = findViewById(R.id.tv_salary_pekerja);
+        tvTitle = findViewById(R.id.tv_title);
+        tvStatus = findViewById(R.id.tv_status);
+        tvProvince = findViewById(R.id.tv_province);
+        tvCategory = findViewById(R.id.tv_category);
+        tvDate = findViewById(R.id.tv_date);
+        tvSalary = findViewById(R.id.tv_salary);
         tvDescription = findViewById(R.id.tv_description_pekerja);
 
         btnChat = findViewById(R.id.btn_chat_pekerjaDetailJobPage);
@@ -240,14 +240,20 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         String title = task.getResult().child("jobTitle").getValue(String.class);
         tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
 
-        String category = task.getResult().child("jobCategory").getValue(String.class);
-        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
+        String status = task.getResult().child("jobStatus").getValue(String.class);
+        tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
+        setStatusColor(status);
 
         String province = task.getResult().child("jobProvince").getValue(String.class);
-        tvProvince.setText(province != null && !province.isEmpty() ? province : "N/A");
-
         String regency = task.getResult().child("jobRegency").getValue(String.class);
-        tvRegency.setText(regency != null && !regency.isEmpty() ? regency : "N/A");
+        if (province != null && !province.isEmpty() && regency != null && !regency.isEmpty()){
+            tvProvince.setText(regency + ", " + province);
+        } else {
+            tvProvince.setText("N/A");
+        }
+
+        String category = task.getResult().child("jobCategory").getValue(String.class);
+        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
 
         String date = task.getResult().child("jobDateUpload").getValue(String.class);
         tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
@@ -255,9 +261,25 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
         String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
         tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
+    }
 
-        String description = task.getResult().child("jobDescription").getValue(String.class);
-        tvDescription.setText(description != null && !description.isEmpty() ? description : "N/A");
+    private void setStatusColor(String status) {
+        if (status == null || status.isEmpty()) return;
+
+        switch (status.toUpperCase()) {
+            case "OPEN":
+                tvStatus.setTextColor(getResources().getColor(R.color.green));
+                break;
+            case "ON GOING":
+                tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                break;
+            case "ENDED":
+                tvStatus.setTextColor(getResources().getColor(R.color.red));
+                break;
+            default:
+                tvStatus.setTextColor(getResources().getColor(android.R.color.black));
+                break;
+        }
     }
 
     private void backPage() {

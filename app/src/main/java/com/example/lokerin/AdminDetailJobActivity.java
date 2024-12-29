@@ -31,7 +31,7 @@ public class AdminDetailJobActivity extends AppCompatActivity {
 
     private ImageView btnBack,ivProfileNavbar;
     private String jobId, jobStatus;
-    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvRegency, tvDate, tvSalary;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary, tvEmptyApplicants, tvEmptyWorkers;
     private Button btnAction, btnDelete;
     private RecyclerView rvApplicants, rvWorkers;
 
@@ -66,10 +66,13 @@ public class AdminDetailJobActivity extends AppCompatActivity {
             }
         });
 
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvTitle = findViewById(R.id.tv_title);
         tvCategory = findViewById(R.id.tv_category);
         tvProvince = findViewById(R.id.tv_province);
-        tvRegency = findViewById(R.id.tv_regency);
+        tvStatus = findViewById(R.id.tv_status);
         tvDate = findViewById(R.id.tv_date);
         tvSalary = findViewById(R.id.tv_salary);
 
@@ -78,10 +81,9 @@ public class AdminDetailJobActivity extends AppCompatActivity {
 
         rvApplicants = findViewById(R.id.rv_applicants_detailJobAdmin);
         rvWorkers = findViewById(R.id.rv_workers_detailJobAdmin);
+        tvEmptyApplicants = findViewById(R.id.tv_noData_applicants);
+        tvEmptyWorkers = findViewById(R.id.tv_noData_workers);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,10 +102,20 @@ public class AdminDetailJobActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("jobApplicants").exists()) {
                     applicants = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
-                    if(!applicants.isEmpty()) {
+                    if(applicants != null && !applicants.isEmpty()) {
                         listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
                         rvApplicants.setAdapter(listApplicantAdapter);
+                        tvEmptyApplicants.setVisibility(View.GONE);
+                    } else {
+                        listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
+                        rvApplicants.setAdapter(listApplicantAdapter);
+                        tvEmptyApplicants.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    applicants.clear();
+                    listApplicantAdapter = new ListApplicantAdapter(applicants, jobId, jobStatus);
+                    rvApplicants.setAdapter(listApplicantAdapter);
+                    tvEmptyApplicants.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -122,10 +134,20 @@ public class AdminDetailJobActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child("jobWorkers").exists()) {
                     workers = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
-                    if(!workers.isEmpty()) {
+                    if(workers != null && !workers.isEmpty()) {
                         listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
                         rvWorkers.setAdapter(listWorkerAdapter);
+                        tvEmptyWorkers.setVisibility(View.GONE);
+                    } else {
+                        listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+                        rvWorkers.setAdapter(listWorkerAdapter);
+                        tvEmptyWorkers.setVisibility(View.VISIBLE);
                     }
+                } else {
+                    workers.clear();
+                    listWorkerAdapter = new ListApplicantAdapter(workers, jobId, jobStatus);
+                    rvWorkers.setAdapter(listWorkerAdapter);
+                    tvEmptyWorkers.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -139,46 +161,6 @@ public class AdminDetailJobActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(v -> showDeleteConfirmationDialog());
 
         getJobData();
-
-    }
-
-    private void getJobData() {
-        if (jobId == null) {
-            return;
-        }
-
-        databaseReference.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult().exists()) {
-                    updateJobShown(task);
-                } else {
-                    Toast.makeText(AdminDetailJobActivity.this, "Data pekerjaan tidak ditemukan.", Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(AdminDetailJobActivity.this, "Error mengambil data pekerjaan.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void updateJobShown(Task<DataSnapshot> task) {
-        String title = task.getResult().child("jobTitle").getValue(String.class);
-        tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
-
-        String category = task.getResult().child("jobCategory").getValue(String.class);
-        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
-
-        String province = task.getResult().child("jobProvince").getValue(String.class);
-        tvProvince.setText(province != null && !province.isEmpty() ? province : "N/A");
-
-        String regency = task.getResult().child("jobRegency").getValue(String.class);
-        tvRegency.setText(regency != null && !regency.isEmpty() ? regency : "N/A");
-
-        String date = task.getResult().child("jobDateUpload").getValue(String.class);
-        tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
-
-        Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
-        String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
-        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
     }
 
     private void showDeleteConfirmationDialog() {
@@ -212,6 +194,70 @@ public class AdminDetailJobActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void getJobData() {
+        if (jobId == null) {
+            return;
+        }
+
+        databaseReference.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
+                    updateJobShown(task);
+                } else {
+                    Toast.makeText(AdminDetailJobActivity.this, "Data pekerjaan tidak ditemukan.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(AdminDetailJobActivity.this, "Error mengambil data pekerjaan.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateJobShown(Task<DataSnapshot> task) {
+        String title = task.getResult().child("jobTitle").getValue(String.class);
+        tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
+
+        String status = task.getResult().child("jobStatus").getValue(String.class);
+        tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
+        setStatusColor(status);
+
+        String province = task.getResult().child("jobProvince").getValue(String.class);
+        String regency = task.getResult().child("jobRegency").getValue(String.class);
+        if (province != null && !province.isEmpty() && regency != null && !regency.isEmpty()){
+            tvProvince.setText(regency + ", " + province);
+        } else {
+            tvProvince.setText("N/A");
+        }
+
+        String category = task.getResult().child("jobCategory").getValue(String.class);
+        tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
+
+        String date = task.getResult().child("jobDateUpload").getValue(String.class);
+        tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
+
+        Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
+        String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
+        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
+    }
+
+    private void setStatusColor(String status) {
+        if (status == null || status.isEmpty()) return;
+
+        switch (status.toUpperCase()) {
+            case "OPEN":
+                tvStatus.setTextColor(getResources().getColor(R.color.green));
+                break;
+            case "ON GOING":
+                tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                break;
+            case "ENDED":
+                tvStatus.setTextColor(getResources().getColor(R.color.red));
+                break;
+            default:
+                tvStatus.setTextColor(getResources().getColor(android.R.color.black));
+                break;
+        }
     }
 
     private void navigateToAdminMainActivity() {

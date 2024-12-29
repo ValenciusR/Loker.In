@@ -45,10 +45,10 @@
                     android:layout_gravity="center_horizontal" />
 
                 <TextView
-                    android:id="@+id/tv_category"
+                    android:id="@+id/tv_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kategori"
+                    android:text="Status"
                     android:textColor="#888888"
                     android:textSize="14sp"
                     android:fontFamily="@font/poppins_medium"
@@ -63,10 +63,9 @@
                     android:orientation="horizontal"
                     android:gravity="center">
 
-                    <!-- FIRST ITEM -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center">
@@ -74,24 +73,26 @@
                         <ImageView
                             android:id="@+id/icon1"
                             android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/image_login_page"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/img_location"
                             android:contentDescription="Icon 1" />
 
                         <TextView
                             android:id="@+id/tv_province"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="Provinsi"
                             android:textColor="#000000"
                             android:textSize="12sp"
                             android:fontFamily="@font/poppins_medium" />
                     </LinearLayout>
 
-                    <!-- SECOND ITEM -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center">
@@ -99,45 +100,52 @@
                         <ImageView
                             android:id="@+id/icon2"
                             android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/image_login_page"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/img_category"
                             android:contentDescription="Icon 2" />
 
                         <TextView
-                            android:id="@+id/tv_regency"
+                            android:id="@+id/tv_category"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Kabupaten"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Kategori"
                             android:textColor="#000000"
                             android:textSize="12sp"
                             android:fontFamily="@font/poppins_medium" />
                     </LinearLayout>
 
-                    <!-- THIRD ITEM -->
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         android:gravity="center">
 
                         <ImageView
                             android:id="@+id/icon3"
-                            android:layout_width="50dp"
-                            android:layout_height="50dp"
-                            android:src="@drawable/image_login_page"
+                            android:layout_width="75dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_calendar"
                             android:contentDescription="Icon 3" />
 
                         <TextView
                             android:id="@+id/tv_date"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="Tanggal"
                             android:textColor="#000000"
                             android:textSize="12sp"
                             android:fontFamily="@font/poppins_medium" />
                     </LinearLayout>
                 </LinearLayout>
+
 
                 <TextView
                     android:id="@+id/tv_salary"
@@ -195,7 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btn_group"
-            android:text="PENDAFTAR"
+            android:text="PELAMAR"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:layout_marginTop="16sp"
@@ -207,6 +215,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp" />
+        <TextView
+            android:id="@+id/tv_noData_applicants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_applicants_detailJobAdmin"
+            android:layout_centerHorizontal="true"
+            android:text="TIDAK ADA PELAMAR"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:layout_marginBottom="12sp"
+            android:fontFamily="@font/poppins_bold" />
 
         <TextView
             android:id="@+id/tv_workers"
@@ -225,6 +244,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp" />
+        <TextView
+            android:id="@+id/tv_noData_workers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_workers_detailJobAdmin"
+            android:layout_centerHorizontal="true"
+            android:text="TIDAK ADA PEKERJA"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_bold" />
 
     </RelativeLayout>
 </ScrollView>

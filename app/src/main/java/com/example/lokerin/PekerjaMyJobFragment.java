@@ -87,7 +87,7 @@ public class PekerjaMyJobFragment extends Fragment {
         List<Job> filteredList = new ArrayList<>();
         for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
-                if (job.getJobApplicants() != null && job.getJobApplicants().contains(currentUserId)) {
+                if ((job.getJobApplicants() != null && job.getJobApplicants().contains(currentUserId)) || job.getJobWorkers() != null && job.getJobWorkers().contains(currentUserId)) {
                     filteredList.add(job);
                 }
             }

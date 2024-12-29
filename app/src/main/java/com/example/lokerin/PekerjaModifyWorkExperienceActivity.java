@@ -116,14 +116,22 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 "TRANSPORT",
         };
 
+        Intent intent = getIntent();
+        PortofolioJob dataPortofolio = (PortofolioJob) intent.getSerializableExtra("portofolioData");
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
-
-        Intent intent = getIntent();
-        PortofolioJob dataPortofolio = (PortofolioJob) intent.getSerializableExtra("portofolioData");
-
+        etJob = findViewById(R.id.et_job_modifyWorkExperiencePage);
+        dpDate = findViewById(R.id.dp_date_modifyWorkExperiencePage);
+        etDescription = findViewById(R.id.et_description_modifyWorkExperiencePage);
+        spnLocation = findViewById(R.id.spinner_location_modifyWorkExperiencePage);
+        btnCategory = findViewById(R.id.btn_category_modifyWorkExperiencePage);
+        rlUploadImage = findViewById(R.id.rl_uploadImage_modifyWorkExperiencePage);
+        ivUploadImage = findViewById(R.id.iv_uploadImage_modifyWorkExperiencePage);
+        ivUploadedImage = findViewById(R.id.iv_uploadedImage_modifyWorkExperiencePage);
+        tvUploadImage = findViewById(R.id.tv_uploadImage_modifyWorkExperiencePage);
+        acbSave = findViewById(R.id.acb_save_modifyWorkExperiencePage);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,18 +147,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 finish();
             }
         });
-        ivProfilePicture.setImageResource(R.drawable.settings_icon);
-
-        etJob = findViewById(R.id.et_job_modifyWorkExperiencePage);
-        dpDate = findViewById(R.id.dp_date_modifyWorkExperiencePage);
-        etDescription = findViewById(R.id.et_description_modifyWorkExperiencePage);
-        spnLocation = findViewById(R.id.spinner_location_modifyWorkExperiencePage);
-        btnCategory = findViewById(R.id.btn_category_modifyWorkExperiencePage);
-        rlUploadImage = findViewById(R.id.rl_uploadImage_modifyWorkExperiencePage);
-        ivUploadImage = findViewById(R.id.iv_uploadImage_modifyWorkExperiencePage);
-        ivUploadedImage = findViewById(R.id.iv_uploadedImage_modifyWorkExperiencePage);
-        tvUploadImage = findViewById(R.id.tv_uploadImage_modifyWorkExperiencePage);
-        acbSave = findViewById(R.id.acb_save_modifyWorkExperiencePage);
+        ivProfilePicture.setVisibility(View.GONE);
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");

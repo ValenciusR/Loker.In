@@ -77,7 +77,7 @@ public class PekerjaAddKeterampilanActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Edit Keterampilan");
-        ivProfilePicture.setImageResource(R.drawable.settings_icon);
+        ivProfilePicture.setVisibility(View.GONE);
 
         etSearch = findViewById(R.id.et_searchBar_addKeterampilanPage);
         rvKeterampilanList = findViewById(R.id.rv_keterampilanList_addKeterampilanPage);
