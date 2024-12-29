@@ -128,13 +128,28 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                     etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
                     tvNameError.setText("Nama harus diisi!");
                     isValid = false;
-                } else if (!etName.getText().toString().matches("[a-zA-Z]+")) {
-                    etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvNameError.setText("Nama hanya boleh diisi dengan huruf!");
-                    isValid = false;
-                } else {
-                    etName.setBackgroundResource(R.drawable.shape_rounded_blue_border);
-                    tvNameError.setText("");
+                }
+//                else if (!etName.getText().toString().matches("[a-zA-Z]+")) {
+//                    etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
+//                    tvNameError.setText("Nama hanya boleh diisi dengan huruf!");
+//                    isValid = false;
+//                }
+                else {
+//                    etName.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+//                    tvNameError.setText("");
+
+                    for (char c : etName.getText().toString().toCharArray()) {
+                        if (!Character.isLetter(c) && !Character.isWhitespace(c)) {
+                            etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                            tvNameError.setText("Nama hanya boleh diisi dengan huruf!");
+                            isValid = false;
+                            break;
+                        }
+                    }
+                    if(isValid) {
+                        etName.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        tvNameError.setText("");
+                    }
                 }
 
 //                check phone length
