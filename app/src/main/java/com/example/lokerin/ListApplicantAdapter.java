@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,7 +94,7 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
                             }
                         }
 
-                        holder.viewDetailButton.setText("RATE REVIEW");
+                        holder.viewDetailButton.setText("ULASAN");
                         holder.viewDetailButton.setOnClickListener(v -> {
                             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
                             userReference.addValueEventListener(new ValueEventListener() {
@@ -122,6 +123,8 @@ public class ListApplicantAdapter extends RecyclerView.Adapter<ListApplicantAdap
                                         intent.putExtra("PELANGGAN_NAME", userName);
                                         intent.putExtra("PELANGGAN_IMAGE_URL", userImageUrl);
                                         v.getContext().startActivity(intent);
+                                    } else if (userType.equalsIgnoreCase("admin")){
+                                        Toast.makeText(v.getContext(), "Hanya pengguna yang dapat memberikan ulasan.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 

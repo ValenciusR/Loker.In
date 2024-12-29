@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class PekerjaEditPortofolioActivity extends AppCompatActivity {
 
-    private ImageView btnBack;
+    private ImageView btnBack, ivProfilePicture;
     private TextView tvPageTitle;
     private EditText etSearchBar;
     private RecyclerView rvPortofolioJob;
@@ -41,11 +41,10 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfilePicture = findViewById(R.id.btn_profile_toolbar);
         etSearchBar = findViewById(R.id.et_searchBar_editPortofolioPage);
         rvPortofolioJob = findViewById(R.id.rv_portofolioList_editPortofolioPage);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +52,7 @@ public class PekerjaEditPortofolioActivity extends AppCompatActivity {
             }
         });
         tvPageTitle.setText("Ubah Portofolio");
+        ivProfilePicture.setVisibility(View.GONE);
 
 //        Set Edit Portofolio Recycler View
         PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta","kontol", "Construction", new Date() , "default");

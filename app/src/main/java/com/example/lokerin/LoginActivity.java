@@ -115,9 +115,11 @@ public class LoginActivity extends AppCompatActivity {
                                 if(userType.equals("pelanggan")) {
                                     startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
                                     finish();
-                                }
-                                else {
+                                } else if (userType.equals("pekerja")) {
                                     startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
+                                    finish();
+                                } else if (userType.equals("admin")) {
+                                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                                     finish();
                                 }
                             }
