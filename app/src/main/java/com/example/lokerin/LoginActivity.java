@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseApp firebaseApp;
 
     private FrameLayout loadingView;
-
     private LinearLayout linearView;
 
     private FirebaseUser firebaseUser;

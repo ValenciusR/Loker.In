@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,9 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
     private EditText etReviewRate;
     private AppCompatButton btnPublish;
 
+    private FrameLayout loadingView;
+    private RelativeLayout mainView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,9 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         pekerjaReference = firebaseDatabase.getReference().child("users").child((pekerjaId));
         reviewReference = firebaseDatabase.getReference().child("reviews");
 
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvTitle = findViewById(R.id.tv_title);
         tvStatus = findViewById(R.id.tv_status);
         tvProvince = findViewById(R.id.tv_province);
@@ -74,9 +82,9 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         etReviewRate = findViewById(R.id.et_review_rate);
         btnPublish = findViewById(R.id.btn_login);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
+        loadingView = findViewById(R.id.loading_overlay);
+        mainView = findViewById(R.id.main);
+
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,10 +118,8 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Mengunggah...");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
+            mainView.setClickable(false);
+            loadingView.setVisibility(View.VISIBLE);
 
             HashMap<String, Object> reviewData = new HashMap<>();
             reviewData.put("jobId", jobId);
@@ -130,7 +136,8 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
             reviewData.put("rateReviewId", generatedId);
 
             reviewRef.setValue(reviewData).addOnCompleteListener(task -> {
-                progressDialog.dismiss();
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 if (task.isSuccessful()) {
                     pekerjaReference.get().addOnCompleteListener(pekerjaTask -> {
                         if (pekerjaTask.isSuccessful() && pekerjaTask.getResult().exists()) {
@@ -166,6 +173,7 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
             });
             Intent intent = new Intent(PelangganRatingReviewActivity.this, PelangganMainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

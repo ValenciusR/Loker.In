@@ -1,228 +1,245 @@
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PelangganMainActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".PelangganMainActivity"
+    android:fitsSystemWindows="true">
 
-    <!-- Toolbar -->
-    <include
-        android:id="@+id/toolbar_submain"
-        layout="@layout/toolbar_submain"
+    <RelativeLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_submain"
-        android:layout_margin="16dp"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="8dp">
-
-        <LinearLayout
-            android:id="@+id/general_title"
+        <!-- Toolbar -->
+        <include
+            android:id="@+id/toolbar_submain"
+            layout="@layout/toolbar_submain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_alignParentTop="true" />
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Judul Pekerjaan"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                android:fontFamily="@font/poppins_bold"
-                android:layout_gravity="center_horizontal" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbar_submain"
+            android:layout_margin="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp">
 
-            <TextView
-                android:id="@+id/tv_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Status"
-                android:textColor="#888888"
-                android:textSize="14sp"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp" />
-
-            <!-- ITEMS -->
             <LinearLayout
+                android:id="@+id/general_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:orientation="horizontal"
-                android:gravity="center">
+                android:orientation="vertical"
+                android:padding="16dp">
 
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Judul Pekerjaan"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:layout_gravity="center_horizontal" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:textColor="#888888"
+                    android:textSize="14sp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp" />
+
+                <!-- ITEMS -->
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:orientation="horizontal"
                     android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/icon1"
-                        android:layout_width="50dp"
-                        android:layout_height="0dp"
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
-                        android:src="@drawable/img_location"
-                        android:contentDescription="Icon 1" />
+                        android:orientation="vertical"
+                        android:gravity="center">
 
-                    <TextView
-                        android:id="@+id/tv_province"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
+                        <ImageView
+                            android:id="@+id/icon1"
+                            android:layout_width="50dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/img_location"
+                            android:contentDescription="Icon 1" />
+
+                        <TextView
+                            android:id="@+id/tv_province"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Provinsi"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Provinsi"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_medium" />
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/icon2"
+                            android:layout_width="50dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:src="@drawable/img_category"
+                            android:contentDescription="Icon 2" />
+
+                        <TextView
+                            android:id="@+id/tv_category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Kategori"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="120dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:id="@+id/icon3"
+                            android:layout_width="75dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img_calendar"
+                            android:contentDescription="Icon 3" />
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Tanggal"
+                            android:textColor="#000000"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
 
-                    <ImageView
-                        android:id="@+id/icon2"
-                        android:layout_width="50dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/img_category"
-                        android:contentDescription="Icon 2" />
-
-                    <TextView
-                        android:id="@+id/tv_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Kategori"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_medium" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="120dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/icon3"
-                        android:layout_width="75dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/img_calendar"
-                        android:contentDescription="Icon 3" />
-
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Tanggal"
-                        android:textColor="#000000"
-                        android:textSize="12sp"
-                        android:fontFamily="@font/poppins_medium" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_salary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:padding="8dp"
+                    android:text="gaji / frekuensi"
+                    android:textSize="12sp"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/poppins_medium"
+                    android:background="@drawable/shape_grey_rounded"
+                    android:gravity="center" />
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
 
+        <!-- RATING BAR -->
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/card_main"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:rating="0"
+            android:layout_centerHorizontal="true"/>
+
+        <!-- RECOMMENDATION CHECKBOX -->
+        <CheckBox
+            android:id="@+id/checkbox_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rating_bar"
+            android:layout_centerHorizontal="true"
+            android:text="Saya merekomendasikan pekerja ini"
+            android:textColor="@color/blue"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:padding="16sp"
+            android:layout_below="@id/checkbox_recommend">
+
+            <!-- WRITE YOUR REVIEW -->
             <TextView
-                android:id="@+id/tv_salary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:text="gaji / frekuensi"
-                android:textSize="12sp"
-                android:textColor="#000000"
+                android:layout_below="@+id/checkbox_recommend"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Tulis Ulasanmu"
+                android:textColor="#1977F3"
+                android:textSize="12sp" />
+            <EditText
+                android:id="@+id/et_review_rate"
+                android:layout_width="match_parent"
+                android:layout_height="148dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/shape_rounded_blue_border"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="textImeMultiLine"
+                android:padding="10dp"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_blue_rounded"
+                android:backgroundTint="@null"
                 android:fontFamily="@font/poppins_medium"
-                android:background="@drawable/shape_grey_rounded"
-                android:gravity="center" />
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp"
+                android:text="UNGGAH"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
 
-
-    <!-- RATING BAR -->
-    <RatingBar
-        android:id="@+id/rating_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/card_main"
-        android:numStars="5"
-        android:stepSize="0.5"
-        android:rating="0"
-        android:layout_centerHorizontal="true"/>
-
-    <!-- RECOMMENDATION CHECKBOX -->
-    <CheckBox
-        android:id="@+id/checkbox_recommend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/rating_bar"
-        android:layout_centerHorizontal="true"
-        android:text="Saya merekomendasikan pekerja ini"
-        android:textColor="@color/blue"
-        />
-
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/loading_overlay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:orientation="vertical"
-        android:padding="16sp"
-        android:layout_below="@id/checkbox_recommend">
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
+        >
+        <include layout="@layout/loading_spinner_view" />
+    </FrameLayout>
 
-        <!-- WRITE YOUR REVIEW -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/checkbox_recommend"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Tulis Ulasanmu"
-            android:textColor="#1977F3"
-            android:textSize="12sp" />
-        <EditText
-            android:id="@+id/et_review_rate"
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/shape_rounded_blue_border"
-            android:fontFamily="@font/poppins_regular"
-            android:inputType="textImeMultiLine"
-            android:padding="10dp"
-            android:textColor="@color/black" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/shape_blue_rounded"
-            android:backgroundTint="@null"
-            android:fontFamily="@font/poppins_medium"
-            android:layout_marginTop="8dp"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
-            android:text="UNGGAH"
-            android:textColor="#FFFFFF"
-            android:layout_gravity="center_horizontal"/>
-    </LinearLayout>
 </RelativeLayout>
