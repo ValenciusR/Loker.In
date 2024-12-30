@@ -42,7 +42,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
-    private TextView tvPageTitle, tvName, tvLocation, tvPhone, tvEmail,tvAboutMe;
+    private TextView tvPageTitle, tvName, tvLocation, tvPhone, tvEmail,tvAboutMe, tvEmptyPortofolio, tvEmptyReview;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Review> reviews;
 
@@ -73,6 +73,8 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
         rvReview = findViewById(R.id.rv_reviewList_profilePekerjaPage);
         flKeterampilan = findViewById(R.id.fl_keterampilan_profilePekerjaPage);
+        tvEmptyPortofolio = findViewById(R.id.tv_emptyPortofolio_profilePekerjaPage);
+        tvEmptyReview = findViewById(R.id.tv_emptyReview_profilePekerjaPage);
 
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         fuser = FirebaseAuth.getInstance().getCurrentUser();
@@ -136,6 +138,11 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                     }
                 }
                 listReviewAdapter.updateList(reviews);
+                if(reviews.isEmpty()){
+                    tvEmptyReview.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmptyReview.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -156,12 +163,14 @@ public class PekerjaProfileActivity extends AppCompatActivity {
                     linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
                     rvPortofolio.setLayoutManager(linearLayoutManager);
                     rvPortofolio.setAdapter(portofolioAdapter);
+                    tvEmptyPortofolio.setVisibility(View.GONE);
                 }else{
                     ArrayList<PortofolioJob> portofolios =  new ArrayList<>();
                     portofolioAdapter = new ListPortofolioAdapter(portofolios);
                     linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
                     rvPortofolio.setLayoutManager(linearLayoutManager);
                     rvPortofolio.setAdapter(portofolioAdapter);
+                    tvEmptyPortofolio.setVisibility(View.VISIBLE);
                 }
 
 

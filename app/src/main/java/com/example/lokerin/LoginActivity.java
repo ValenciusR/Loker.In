@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else if (userType.equals("pekerja")){
                         if(!user.getName().isEmpty()){
-                            startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                            startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
                             finish();
                         }else{
                             startActivity(new Intent(LoginActivity.this, CreateProfile_PersonalInfo.class));

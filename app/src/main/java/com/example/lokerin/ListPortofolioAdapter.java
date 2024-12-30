@@ -35,7 +35,12 @@ public class ListPortofolioAdapter extends RecyclerView.Adapter<ListPortofolioAd
         holder.tvDate.setText(dateFormat.format(data.get(position).getDate()));
         holder.tvDescription.setText(data.get(position).getDesc());
         holder.tvLocation.setText(data.get(position).getLocation());
-        Glide.with(holder.itemView.getContext()).load(data.get(position).getImageURI()).into(holder.ivImage);
+        if(data.get(position).getImageURI().equals("default")){
+            holder.ivImage.setImageResource(R.drawable.no_image);
+        }else{
+            Glide.with(holder.itemView.getContext()).load(data.get(position).getImageURI()).into(holder.ivImage);
+        }
+
     }
 
     @Override

@@ -195,6 +195,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scrollbars="horizontal" />
+            <TextView
+                android:id="@+id/tv_emptyPortofolio_profilePekerjaPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10sp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Tidak ada Portofolio"
+                android:textColor="@color/grey_40"
+                android:textSize="18sp"
+                android:visibility="gone"
+                />
         </LinearLayout>
 
 
@@ -205,7 +216,6 @@
             android:textColor="@color/black"
             android:fontFamily="@font/poppins_bold"
             android:layout_marginHorizontal="20sp"
-            android:layout_marginBottom="10sp"
             android:textSize="20sp"/>
 
         <androidx.cardview.widget.CardView
@@ -220,5 +230,16 @@
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical"/>
         </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tv_emptyReview_profilePekerjaPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10sp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Tidak ada Penilaian &amp; Ulasan"
+            android:textColor="@color/grey_40"
+            android:textSize="18sp"
+            android:visibility="gone"
+            />
     </LinearLayout>
 </ScrollView>
