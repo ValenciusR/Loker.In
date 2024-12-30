@@ -87,7 +87,7 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
                 }
 
                 linearLayoutManager = new LinearLayoutManager(PekerjaAddWorkExperienceActivity.this, LinearLayoutManager.VERTICAL, false);
-                listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios);
+                listAddWorkExperienceAdapter = new ListAddWorkExperienceAdapter(PekerjaAddWorkExperienceActivity.this, portofolios,"Profile");
                 rvPekerjaanList.setLayoutManager(linearLayoutManager);
                 rvPekerjaanList.setAdapter(listAddWorkExperienceAdapter);
             }
@@ -97,22 +97,6 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
 
             }
         });
-
-//        PortofolioJob templatePortofolioJob = new PortofolioJob("Plumbing", "Jakarta", "Construction", new Date(), false, true);
-
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
-//        portofolios.add(templatePortofolioJob);
 
         acpTambahPekerjaan.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -28,10 +28,12 @@ import java.util.Map;
 public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWorkExperienceAdapter.AddWorkExperienceHolder> {
     ArrayList<PortofolioJob> data;
     Context context;
+    String source;
 
-    public ListAddWorkExperienceAdapter(Context context, ArrayList<PortofolioJob> data) {
+    public ListAddWorkExperienceAdapter(Context context, ArrayList<PortofolioJob> data, String source) {
         this.context = context;
         this.data = data;
+        this.source = source;
     }
 
     @NonNull
@@ -49,7 +51,13 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         holder.tvLocation.setText(data.get(position).getLocation());
         holder.tvCategory.setText(data.get(position).getCategory());
         holder.ivEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(context, PekerjaModifyWorkExperienceActivity.class);
+            Intent intent;
+            if(source.equals("CreateProfile")){
+                intent = new Intent(context, PekerjaModifyWorkExperienceActivity.class);
+                intent.putExtra("activityOrigin", "CreateProfile");
+            }else{
+                intent = new Intent(context, PekerjaModifyWorkExperienceActivity.class);
+            }
             intent.putExtra("portofolioData", data.get(position));
             intent.putExtra("pos",position);
             context.startActivity(intent);
@@ -58,6 +66,11 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
         holder.ivDelete.setOnClickListener(v -> {
             showDeleteWorkExperienceConfirmationDialog(position);
         });
+    }
+
+    public void updateList(ArrayList<PortofolioJob> updatedList) {
+        this.data = updatedList;
+        notifyDataSetChanged();
     }
 
     private void showDeleteWorkExperienceConfirmationDialog(int position) {
