@@ -37,15 +37,16 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase ;
     private DatabaseReference userReference;
 
-    private EditText etName, etPhone, etLocation, etAge;
+    private EditText etName, etPhone, etAge;
     private Button btnNext;
     private String type;
     private TextView tvNameError, tvPhoneError, tvLocationError, tvAgeError, tvGenderError;
 
-    private AutoCompleteTextView etGender;
-    private ArrayAdapter<String> adapterItems;
+    private AutoCompleteTextView etGender, etLocation;
+    private ArrayAdapter<String> adapterItems, adapterItemsLocation;
 
     private String[] item = {"Laki-Laki", "Perempuan"};
+    private String[] item2 = {"Laki-Laki", "Perempuan"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,6 +62,7 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         etGender = findViewById(R.id.et_gender_createProfilePersonalInfoPage);
         btnNext = findViewById(R.id.acb_next_createProfilePersonalInfoPage);
 
+
         tvNameError = findViewById(R.id.tv_nameError_createProfilePersonalInfoPage);
         tvPhoneError = findViewById(R.id.tv_phoneError_createProfilePersonalInfoPage);
         tvLocationError = findViewById(R.id.tv_locationError_createProfilePersonalInfoPage);
@@ -71,6 +73,8 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         adapterItems = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
+        String[] provinces = getResources().getStringArray(R.array.province);
+        adapterItemsLocation = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, provinces);
         userReference = firebaseDatabase.getReference().child("users").child(mAuth.getCurrentUser().getUid());
 
         userReference.addValueEventListener(new ValueEventListener() {
@@ -96,6 +100,12 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
             etGender.showDropDown();
         });
         etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
+
+        etLocation.setAdapter(adapterItemsLocation);
+        etLocation.setOnClickListener(v -> {
+            etLocation.showDropDown();
+        });
+        etLocation.setOnFocusChangeListener((v, hasFocus) -> etLocation.showDropDown());
         btnNext.setOnClickListener(view -> {
             Boolean isValid = true;
 

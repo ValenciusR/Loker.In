@@ -77,7 +77,8 @@
             android:text="Lokasi"
             android:textColor="@color/white"
             android:fontFamily="@font/poppins_regular"/>
-        <EditText
+
+        <AutoCompleteTextView
             android:id="@+id/et_location_createProfilePersonalInfoPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
