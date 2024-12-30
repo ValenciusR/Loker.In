@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         //check if user is null
         if(firebaseUser != null){
             userReference = firebaseDatabase.getReference().child("users").child(mAuth.getUid());
+            Log.d("TAG", "onCreate: " + mAuth.getUid());
             userReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -97,6 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     } else if (userType.equals("admin")){
                         startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                        finish();
+                    } else{
+                        startActivity(new Intent(LoginActivity.this, CreateProfile.class));
                         finish();
                     }
                 }
@@ -190,6 +194,9 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else if (userType.equals("admin")) {
                                     startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
+                                    finish();
+                                }else{
+                                    startActivity(new Intent(LoginActivity.this, CreateProfile.class));
                                     finish();
                                 }
                             }
