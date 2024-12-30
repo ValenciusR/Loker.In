@@ -51,7 +51,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
     private String userIdFromPelanggan, jobIdFromPelanggan;
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
-    private TextView tvPageTitle, tvName, tvJob, tvLocation, tvJobDescription, tvPhone, tvEmail;
+    private TextView tvPageTitle, tvName, tvLocation, tvAboutMe, tvPhone, tvEmail;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
@@ -78,9 +78,8 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         ivProfilePicture = findViewById(R.id.iv_profilePicture_profilePekerjaPage);
         tvName = findViewById(R.id.tv_name_profilePekerjaPage);
-        tvJob = findViewById(R.id.tv_job_profilePekerjaPage);
         tvLocation = findViewById(R.id.tv_location_profilePekerjaPage);
-        tvJobDescription = findViewById(R.id.tv_jobDescription_profilePekerjaPage);
+        tvAboutMe = findViewById(R.id.tv_aboutMe_profilePekerjaPage);
         tvPhone = findViewById(R.id.tv_phone_profilePekerjaPage);
         tvEmail = findViewById(R.id.tv_email_profilePekerjaPage);
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
@@ -114,8 +113,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 tvName.setText(user.getName());
-                tvJob.setText(user.getJob());
-                tvJobDescription.setText(user.getJobDesc());
+                tvAboutMe.setText(user.getAboutMe());
                 tvLocation.setText(user.getLocation());
                 tvPhone.setText(user.getPhoneNumber());
                 tvEmail.setText(user.getEmail());

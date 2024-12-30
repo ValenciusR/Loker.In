@@ -64,23 +64,6 @@
                         android:layout_marginBottom="10sp"
                         android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_job_profilePekerjaPage"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10sp"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="Job"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="10sp"
-                            android:fontFamily="@font/poppins_regular"
-                            android:text="."
-                            android:textSize="14sp" />
-
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -99,11 +82,11 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tv_jobDescription_profilePekerjaPage"
+                        android:id="@+id/tv_aboutMe_profilePekerjaPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Ini ceritanya job description ges. Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus? Et molestias quis qui sunt nulla et omnis alias"
+                        android:text="Ini ceritanya About Me ges. Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus? Et molestias quis qui sunt nulla et omnis alias"
                         android:textSize="14sp" />
 
                 </LinearLayout>
