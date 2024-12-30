@@ -57,6 +57,7 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
                 intent.putExtra("activityOrigin", "CreateProfile");
             }else{
                 intent = new Intent(context, PekerjaModifyWorkExperienceActivity.class);
+                intent.putExtra("activityOrigin", "Profile");
             }
             intent.putExtra("portofolioData", data.get(position));
             intent.putExtra("pos",position);

@@ -70,7 +70,8 @@ public class CreateProfile_WorkExperience extends AppCompatActivity {
         });
 
         btnNext.setOnClickListener(view -> {
-
+            startActivity(new Intent(this, PekerjaMainActivity.class));
+            finish();
         });
 
         tvSkip.setOnClickListener(view -> {
