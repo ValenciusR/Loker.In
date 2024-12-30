@@ -123,7 +123,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 isValid = true;
-//                check for if fields are empty
+
                 if (etName.getText().toString().trim().length() < 1) {
                     etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
                     tvNameError.setText("Nama harus diisi!");
