@@ -1,17 +1,20 @@
 package com.example.lokerin;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,16 +22,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PekerjaDetailJobActivity extends AppCompatActivity {
 
@@ -42,6 +41,9 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
     private String jobId, jobStatus, jobMakerId;
     private Button btnAction, btnChat;
     private ArrayList<String> applicantsList, workersList;
+
+    private FrameLayout loadingView;
+    private RelativeLayout mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +67,55 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 jobStatus = task.getResult().getValue(String.class);
                 if (jobStatus != null) {
-                    Toast.makeText(this, "Status pekerjaan : " + jobStatus, Toast.LENGTH_SHORT).show();
-
                     if ("OPEN".equalsIgnoreCase(jobStatus)) {
-                        btnAction.setText("Daftar Pekerjaan");
-                        btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
-                    } else if ("OPEN".equalsIgnoreCase(jobStatus)) {
-                        btnAction.setText("Batalkan Pekerjaan");
-                        btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
+                        jobsReference.child("jobApplicants").get().addOnCompleteListener(applicantsTask -> {
+                            if (applicantsTask.isSuccessful()) {
+                                boolean isApplicant;
+                                AtomicBoolean isWorker = new AtomicBoolean(false);
+
+                                if (applicantsTask.getResult().exists()) {
+                                    ArrayList<String> jobApplicantsList = (ArrayList<String>) applicantsTask.getResult().getValue();
+                                    if (jobApplicantsList != null && jobApplicantsList.contains(mAuth.getUid())) {
+                                        isApplicant = true;
+                                    } else {
+                                        isApplicant = false;
+                                    }
+                                } else {
+                                    isApplicant = false;
+                                }
+
+                                jobsReference.child("jobWorkers").get().addOnCompleteListener(workersTask -> {
+                                    if (workersTask.isSuccessful()) {
+                                        if (workersTask.getResult().exists()) {
+                                            ArrayList<String> jobWorkersList = (ArrayList<String>) workersTask.getResult().getValue();
+                                            if (jobWorkersList != null && jobWorkersList.contains(mAuth.getUid())) {
+                                                isWorker.set(true);
+                                            }
+                                        }
+
+                                        if (isWorker.get()) {
+                                            btnAction.setText("TERDAFTAR");
+                                            btnAction.setEnabled(false);
+                                            btnAction.setBackgroundResource(R.drawable.shape_grey_rounded_border);
+                                        } else if (isApplicant) {
+                                            btnAction.setText("Batalkan Pekerjaan");
+                                            btnAction.setOnClickListener(v -> showCancelJobConfirmationDialog());
+                                        } else {
+                                            btnAction.setText("Daftar Pekerjaan");
+                                            btnAction.setOnClickListener(v -> showApplyJobConfirmationDialog());
+                                        }
+                                    } else {
+                                        Toast.makeText(this, "Gagal memeriksa daftar pekerja", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(this, "Gagal memeriksa daftar pelamar", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else if ("ON GOING".equalsIgnoreCase(jobStatus)) {
+                        btnAction.setText("Pekerjaan Sedang Berjalan");
                         btnAction.setEnabled(false);
+                        btnAction.setBackgroundResource(R.drawable.shape_grey_rounded_border);
                     } else if ("ENDED".equalsIgnoreCase(jobStatus)) {
                         btnChat.setVisibility(View.GONE);
                         btnAction.setVisibility(View.GONE);
@@ -103,6 +144,9 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
 
         btnChat = findViewById(R.id.btn_chat_pekerjaDetailJobPage);
         btnAction = findViewById(R.id.btn_action_pekerjaDetailJobPage);
+
+        loadingView = findViewById(R.id.loading_overlay);
+        mainView = findViewById(R.id.main);
 
         btnBack = findViewById(R.id.btn_back_toolbar);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
@@ -152,7 +196,14 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
+            dialog.dismiss();
+
+            mainView.setClickable(false);
+            loadingView.setVisibility(View.VISIBLE);
+
             jobsReference.get().addOnCompleteListener(task -> {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 if (task.isSuccessful() && task.getResult().exists()) {
                     DataSnapshot snapshot = task.getResult();
 
@@ -179,6 +230,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                                 .addOnCompleteListener(updateTask -> {
                                     if (updateTask.isSuccessful()) {
                                         Toast.makeText(this, "Berhasil mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                                        finish();
                                     } else {
                                         Toast.makeText(this, "Gagal mendaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
                                     }
@@ -190,11 +242,8 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                     Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();
                 }
             });
-
-            dialog.dismiss();
         });
     }
-
 
     private void showCancelJobConfirmationDialog() {
         Dialog dialog = new Dialog(this);
@@ -203,20 +252,57 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         dialog.getWindow().setDimAmount(0.7f);
 
         TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Batalkan Pekerjaan?");
+        title.setText("Batalkan Pendaftaran?");
 
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
+        dialog.show();
+
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
-            //Cencel Job
             dialog.dismiss();
-        });
 
-        dialog.show();
+            mainView.setClickable(false);
+            loadingView.setVisibility(View.VISIBLE);
+
+            jobsReference.get().addOnCompleteListener(task -> {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot snapshot = task.getResult();
+
+                    ArrayList<String> applicantsList = new ArrayList<>();
+                    if (snapshot.child("jobApplicants").exists()) {
+                        applicantsList = (ArrayList<String>) snapshot.child("jobApplicants").getValue();
+                    }
+                    if (applicantsList == null) {
+                        applicantsList = new ArrayList<>();
+                    }
+
+                    String currentUserId = mAuth.getUid();
+                    if (currentUserId != null && applicantsList.contains(currentUserId)) {
+                        applicantsList.remove(currentUserId);
+                        jobsReference.child("jobApplicants").setValue(applicantsList)
+                                .addOnCompleteListener(updateTask -> {
+                                    if (updateTask.isSuccessful()) {
+                                        Toast.makeText(this, "Pendaftaran pada pekerjaan ini berhasil dibatalkan", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    } else {
+                                        Toast.makeText(this, "Gagal membatalkan pendaftaran pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    } else {
+                        Toast.makeText(this, "Anda belum terdaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
+
 
     private void getJobData() {
         if (jobId == null) {

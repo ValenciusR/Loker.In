@@ -6,8 +6,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,9 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private ArrayList<String> applicants, workers;
     private ListApplicantAdapter listApplicantAdapter, listWorkerAdapter;
+
+    private FrameLayout loadingView;
+    private RelativeLayout mainView;
 
     private static final int REQUEST_CODE_VALIDATION = 1001;
 
@@ -140,6 +145,9 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         rvApplicants = findViewById(R.id.rv_applicants_detailJob);
         rvWorkers = findViewById(R.id.rv_workers_detailJob);
+
+        loadingView = findViewById(R.id.loading_overlay);
+        mainView = findViewById(R.id.main);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -294,10 +302,19 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
+        dialog.show();
+
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
+            dialog.dismiss();
+
+            mainView.setClickable(false);
+            loadingView.setVisibility(View.VISIBLE);
+
             if (jobId != null && function.equalsIgnoreCase("confirm")) {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -337,10 +354,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
             }
-            dialog.dismiss();
         });
-
-        dialog.show();
     }
 
     private void showDeleteConfirmationDialog() {
@@ -356,10 +370,19 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
+        dialog.show();
+
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
+            dialog.dismiss();
+
+            mainView.setClickable(false);
+            loadingView.setVisibility(View.VISIBLE);
+
             if (jobId != null && function.equalsIgnoreCase("delete")) {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 jobsReference.removeValue()
                         .addOnSuccessListener(aVoid -> {
                             Toast.makeText(PelangganDetailJobActivity.this, "Data pekerjaan berhasil dihapus.", Toast.LENGTH_SHORT).show();
@@ -369,12 +392,11 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                             Toast.makeText(PelangganDetailJobActivity.this, "Gagal menghapus data pekerjaan.", Toast.LENGTH_SHORT).show();
                         });
             } else {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
             }
-            dialog.dismiss();
         });
-
-        dialog.show();
     }
 
     private void showFinishJobConfirmationDialog() {
@@ -390,10 +412,19 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
         Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
+        dialog.show();
+
         btnCancel.setOnClickListener(view -> dialog.dismiss());
 
         btnConfirm.setOnClickListener(view -> {
+            dialog.dismiss();
+
+            mainView.setClickable(false);
+            loadingView.setVisibility(View.VISIBLE);
+
             if (jobId != null && function.equalsIgnoreCase("finish")) {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 jobsReference.addListenerForSingleValueEvent (new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -434,13 +465,11 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                     }
                 });
             } else {
+                loadingView.setVisibility(View.GONE);
+                mainView.setClickable(true);
                 Toast.makeText(PelangganDetailJobActivity.this, "ID pekerjaan tidak valid!", Toast.LENGTH_SHORT).show();
             }
-            dialog.dismiss();
         });
-
-
-        dialog.show();
     }
 
     private void getJobData() {
