@@ -64,6 +64,9 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
             return insets;
         });
 
+        btnBack = findViewById(R.id.btn_back_toolbar);
+        tvPageTitle = findViewById(R.id.tv_page_toolbar);
+        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
         ivProfilePicture = findViewById(R.id.iv_profile2_editProfilePekerjaPage);
         etName = findViewById(R.id.et_name_editProfilePekerjaPage);
@@ -79,9 +82,6 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         tvJobError = findViewById(R.id.tv_jobError_editProfilePekerjaPage);
         tvJobDescriptionError = findViewById(R.id.tv_jobDescriptionError_editProfilePekerjaPage);
 
-        btnBack = findViewById(R.id.btn_back_toolbar);
-        tvPageTitle = findViewById(R.id.tv_page_toolbar);
-        ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
