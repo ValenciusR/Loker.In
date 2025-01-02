@@ -283,14 +283,20 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             tvLocationError.setVisibility(View.GONE);
             tvDescError.setVisibility(View.GONE);
             tvKategoriError.setVisibility(View.GONE);
+
+            etJob.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            spnLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             if(etJob.getText().toString().trim().length() < 1){
                 isValid = false;
+                etJob.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvJobError.setVisibility(View.VISIBLE);
                 tvJobError.setText("Judul Pekerjaan Harus Diisi!");
             }
 
             if(spnLocation.getSelectedItem().toString().equals("Pilih Provinsi")){
                 isValid = false;
+                spnLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvLocationError.setVisibility(View.VISIBLE);
                 tvLocationError.setText("Lokasi Harus Dipilih!");
             }
@@ -314,6 +320,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
             if(etDescription.getText().toString().trim().length() < 1){
                 isValid = false;
+                etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvDescError.setVisibility(View.VISIBLE);
                 tvDescError.setText("Deskripsi Pekerjaan Harus diisi");
             }
@@ -451,7 +458,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Portofolio gagal disimpan!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -481,7 +488,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Portofolio gagal disimpan!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
