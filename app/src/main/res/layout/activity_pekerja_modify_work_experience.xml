@@ -52,12 +52,22 @@
                 android:id="@+id/et_job_modifyWorkExperiencePage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_jobNameError_modifyWorkExperiencePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#F31919"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,7 +82,7 @@
                 android:id="@+id/spinner_location_modifyWorkExperiencePage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:padding="10dp"
                 android:spinnerMode="dropdown"
@@ -80,6 +90,16 @@
                 android:dropDownVerticalOffset="10dp"
                 android:dropDownHorizontalOffset="10dp"
                 android:dropDownWidth="match_parent" />
+            <TextView
+                android:id="@+id/tv_locationError_modifyWorkExperiencePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#F31919"
+                android:textSize="12sp"
+                android:layout_marginBottom="4dp"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -419,7 +439,7 @@
                 android:id="@+id/btn_category_modifyWorkExperiencePage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="2dp"
                 android:background="@drawable/shape_darkblue_rounded"
                 android:fontFamily="@font/poppins_medium"
                 android:padding="10dp"
@@ -429,6 +449,16 @@
                 android:gravity="center_vertical|start"
                 android:text="Pilih Kategori"
                 android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_kategoriError_modifyWorkExperiencePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#F31919"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
 
             <!-- DESCRIPTION -->
             <TextView
@@ -446,12 +476,26 @@
                 android:id="@+id/et_description_modifyWorkExperiencePage"
                 android:layout_width="match_parent"
                 android:layout_height="148dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="top|start"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"
-                android:inputType="textImeMultiLine"
+                android:inputType="textMultiLine"
                 android:padding="10dp"
+                android:scrollbars="vertical"
+                android:scrollHorizontally="false"
+                android:singleLine="false"
                 android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_descError_modifyWorkExperiencePage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="#F31919"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
 
             <TextView
                 android:layout_width="wrap_content"

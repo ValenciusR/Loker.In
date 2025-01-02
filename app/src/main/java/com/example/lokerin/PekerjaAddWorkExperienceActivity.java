@@ -2,6 +2,8 @@ package com.example.lokerin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -98,6 +100,19 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
             }
         });
 
+        etSearchBar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterPortofolios(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
         acpTambahPekerjaan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,5 +122,16 @@ public class PekerjaAddWorkExperienceActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void filterPortofolios(String query) {
+        ArrayList<PortofolioJob> filteredList = new ArrayList<>();
+        for (PortofolioJob porto : portofolios) {
+            if (porto.getTitle() != null && porto.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                //FILTER ONLY APPLIED JOB BY USER ID
+                filteredList.add(porto);
+            }
+        }
+        listAddWorkExperienceAdapter.updateList(filteredList);
     }
 }
