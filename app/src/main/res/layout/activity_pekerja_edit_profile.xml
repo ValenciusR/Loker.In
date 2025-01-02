@@ -19,18 +19,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:paddingTop="20sp"
             android:background="#FFFFFF">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                android:id="@+id/iv_profile2_editProfilePekerjaPage"
-                app:shapeAppearanceOverlay="@style/roundedProfileImage"
-                android:src="@drawable/default_no_profile_icon"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center"
-                android:layout_marginTop="20sp"
-                android:clickable="true"/>
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <!-- Circular Image -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_profile2_editProfilePekerjaPage"
+                    app:shapeAppearanceOverlay="@style/roundedProfileImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/default_no_profile_icon"
+                    android:scaleType="centerCrop"
+                    android:clickable="true" />
+
+                <!-- Edit Label -->
+                <TextView
+                    android:id="@+id/tv_edit_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@drawable/circular_button"
+                    android:padding="4dp"
+                    android:text="Edit"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    />
+            </FrameLayout>
 
             <LinearLayout
 
@@ -53,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cursorColor="@color/blue"
-                    android:layout_marginBottom="20sp">
+                    android:layout_marginBottom="10sp">
 
                     <EditText
                         android:textColor="@color/black"
@@ -85,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cursorColor="@color/blue"
-                    android:layout_marginBottom="20sp">
+                    android:layout_marginBottom="10sp">
 
                     <EditText
                         android:textColor="@color/black"
@@ -117,17 +137,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cursorColor="@color/blue"
-                    android:layout_marginBottom="20sp">
+                    android:layout_marginBottom="10sp">
 
-                    <EditText
-                        android:textColor="@color/black"
-                        android:id="@+id/et_location_editProfilePekerjaPage"
+                    <Spinner
+                        android:id="@+id/spinner_location_editProfilePage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:fontFamily="@font/poppins_regular"/>
+                        android:padding="10dp"
+                        android:spinnerMode="dropdown"
+                        android:popupBackground="@drawable/shape_spinner_dropdown_bg"
+                        android:dropDownVerticalOffset="10dp"
+                        android:dropDownHorizontalOffset="10dp"
+                        android:dropDownWidth="match_parent" />
+
                     <TextView
                         android:id="@+id/tv_locationError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
@@ -149,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cursorColor="@color/blue"
-                    android:layout_marginBottom="20sp">
+                    android:layout_marginBottom="10sp">
 
                     <EditText
                         android:textColor="@color/black"
@@ -181,7 +204,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cursorColor="@color/blue"
-                    android:layout_marginBottom="95sp">
+                    android:layout_marginBottom="20sp">
 
                     <EditText
                         android:textColor="@color/black"

@@ -7,8 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +44,9 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private ImageView btnBack, ivProfileNavbar, ivProfilePicture;
-    private EditText etName, etPhone, etLocation, etJob, etJobDescription;
+    private EditText etName, etPhone, etJob, etJobDescription;
+    private Spinner spnLocation;
+    private ArrayAdapter<CharSequence> provinceAdapter;
     private AppCompatButton btnSaveChanges;
     private Boolean isValid;
     private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvJobError, tvJobDescriptionError;
@@ -71,7 +75,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         ivProfilePicture = findViewById(R.id.iv_profile2_editProfilePekerjaPage);
         etName = findViewById(R.id.et_name_editProfilePekerjaPage);
         etPhone = findViewById(R.id.et_phone_editProfilePekerjaPage);
-        etLocation = findViewById(R.id.et_location_editProfilePekerjaPage);
+        spnLocation = findViewById(R.id.spinner_location_editProfilePage);
         etJob = findViewById(R.id.et_job_editProfilePekerjaPage);
         etJobDescription = findViewById(R.id.et_jobDescription_editProfilePekerjaPage);
         btnSaveChanges = findViewById(R.id.btn_saveChanges_editProfilePekerjaPage);
@@ -91,6 +95,11 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         tvPageTitle.setText("Edit Profil");
         ivProfileNavbar.setVisibility(View.GONE);
 
+        provinceAdapter = ArrayAdapter.createFromResource(PekerjaEditProfileActivity.this,
+                R.array.province, R.layout.spinner_item);
+        provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spnLocation.setAdapter(provinceAdapter);
+
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
@@ -102,7 +111,20 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 etName.setText(user.getName());
                 etJob.setText(user.getJob());
                 etJobDescription.setText(user.getJobDesc());
-                etLocation.setText(user.getLocation());
+
+                int index = -1;
+                for (int i = 0; i < provinceAdapter.getCount(); i++) {
+                    if (provinceAdapter.getItem(i).equals(user.getLocation())) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Set the Spinner selection if the value is found
+                if (index != -1) {
+                    spnLocation.setSelection(index);
+                }
+
                 etPhone.setText(user.getPhoneNumber());
                 if(user.getImageUrl().equals("default")){
                     ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
@@ -161,12 +183,12 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 }
 
 //                Check if location is empty
-                if (etLocation.getText().toString().trim().length() < 1) {
-                    etLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvLocationError.setText("Lokasi harus diisi!");
+                if (spnLocation.getSelectedItem().toString().equals("Choose Province")) {
+                    spnLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvLocationError.setText("Lokasi harus dipilih!");
                     isValid = false;
                 } else {
-                    etLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    spnLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                     tvLocationError.setText("");
                 }
 
@@ -238,7 +260,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         Map<String, Object> updates = new HashMap<>();
         updates.put("name", etName.getText().toString());
         updates.put("phoneNumber", etPhone.getText().toString());
-        updates.put("location", etLocation.getText().toString());
+        updates.put("location", spnLocation.getSelectedItem().toString());
         updates.put("job", etJob.getText().toString());
         updates.put("jobDesc", etJobDescription.getText().toString());
 
