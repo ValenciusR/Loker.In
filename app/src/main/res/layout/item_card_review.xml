@@ -65,7 +65,7 @@
                 android:text="John Doe"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppins_bold"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_review_rvReview"
@@ -74,7 +74,7 @@
                 android:text="Pekerja berperilaku baik, hasil pekerjaan bagus dan berkualitas"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
 
         </LinearLayout>
