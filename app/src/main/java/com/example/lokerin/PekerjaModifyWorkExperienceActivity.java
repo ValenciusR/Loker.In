@@ -63,7 +63,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
     private Button btnCategory;
     private RelativeLayout rlUploadImage;
     private ImageView ivUploadImage, ivUploadedImage, btnBack, ivProfilePicture;
-    private TextView tvUploadImage, tvPageTitle;
+    private TextView tvUploadImage, tvPageTitle, tvJobError, tvLocationError, tvKategoriError, tvDescError;
     private AppCompatButton acbSave;
     private ArrayAdapter<CharSequence> regencyAdapter, provinceAdapter;
     private CardView[] cards;
@@ -132,6 +132,10 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
         ivUploadedImage = findViewById(R.id.iv_uploadedImage_modifyWorkExperiencePage);
         tvUploadImage = findViewById(R.id.tv_uploadImage_modifyWorkExperiencePage);
         acbSave = findViewById(R.id.acb_save_modifyWorkExperiencePage);
+        tvDescError = findViewById(R.id.tv_descError_modifyWorkExperiencePage);
+        tvKategoriError = findViewById(R.id.tv_kategoriError_modifyWorkExperiencePage);
+        tvJobError = findViewById(R.id.tv_jobNameError_modifyWorkExperiencePage);
+        tvLocationError = findViewById(R.id.tv_locationError_modifyWorkExperiencePage);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -275,14 +279,26 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
         acbSave.setOnClickListener(v -> {
             boolean isValid = true;
+            tvJobError.setVisibility(View.GONE);
+            tvLocationError.setVisibility(View.GONE);
+            tvDescError.setVisibility(View.GONE);
+            tvKategoriError.setVisibility(View.GONE);
+
+            etJob.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            spnLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             if(etJob.getText().toString().trim().length() < 1){
                 isValid = false;
-                Toast.makeText(this, "Judul Pekerjaan Harus diisi", Toast.LENGTH_SHORT).show();
+                etJob.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvJobError.setVisibility(View.VISIBLE);
+                tvJobError.setText("Judul Pekerjaan Harus Diisi!");
             }
 
-            if(spnLocation.getSelectedItem().toString().equals("Choose Province")){
+            if(spnLocation.getSelectedItem().toString().equals("Pilih Provinsi")){
                 isValid = false;
-                Toast.makeText(this, "Lokasi Harus dipilih", Toast.LENGTH_SHORT).show();
+                spnLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvLocationError.setVisibility(View.VISIBLE);
+                tvLocationError.setText("Lokasi Harus Dipilih!");
             }
 
             int   day  = dpDate.getDayOfMonth();
@@ -296,19 +312,23 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             String formattedDate = sdf.format(selectedDate.getTime());;
 
-//            if (!selectedDate.after(today)) {
-//                isValid = false;
-//                Toast.makeText(this, "Tanggal yang dipilih harus lebih besar dari hari ini", Toast.LENGTH_SHORT).show();
-//            }
-
             if(category == null){
                 isValid = false;
-                Toast.makeText(this, "Category Harus dipilih", Toast.LENGTH_SHORT).show();
+                tvKategoriError.setVisibility(View.VISIBLE);
+                tvKategoriError.setText("Kategori Harus Diisi!");
             }
 
             if(etDescription.getText().toString().trim().length() < 1){
                 isValid = false;
-                Toast.makeText(this, "Deskripsi Pekerjaan Harus diisi", Toast.LENGTH_SHORT).show();
+                etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvDescError.setVisibility(View.VISIBLE);
+                tvDescError.setText("Deskripsi Pekerjaan Harus diisi");
+            }
+
+            if(etDescription.getText().toString().trim().length() > 150){
+                isValid = false;
+                tvDescError.setVisibility(View.VISIBLE);
+                tvDescError.setText("Deskripsi Pekerjaan Maksimal 150 kata");
             }
 
             if (isValid) {
@@ -438,7 +458,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Portofolio gagal disimpan!", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -468,7 +488,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Failed to save Portofolio!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Portofolio gagal disimpan!", Toast.LENGTH_SHORT).show();
                 }
             });
         }

@@ -72,8 +72,6 @@ public class ListSkillAdapter extends RecyclerView.Adapter<ListSkillAdapter.Skil
 
         btnConfirm.setOnClickListener(view -> {
             removeSkill(position);
-//            data.remove(position);
-//            Delete Skill from DB & user
             dialog.dismiss();
         });
 

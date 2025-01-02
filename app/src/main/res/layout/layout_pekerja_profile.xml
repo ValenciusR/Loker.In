@@ -57,7 +57,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:text="John Doe"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:text="Keterampilan"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <com.google.android.flexbox.FlexboxLayout
                         android:id="@+id/fl_keterampilan_profilePekerjaPage"
@@ -126,7 +126,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:text="Kontak"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="18sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
