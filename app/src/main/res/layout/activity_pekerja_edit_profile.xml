@@ -139,15 +139,18 @@
                     app:cursorColor="@color/blue"
                     android:layout_marginBottom="10sp">
 
-                    <EditText
-                        android:textColor="@color/black"
-                        android:id="@+id/et_location_editProfilePekerjaPage"
+                    <Spinner
+                        android:id="@+id/spinner_location_editProfilePage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:fontFamily="@font/poppins_regular"/>
+                        android:padding="10dp"
+                        android:spinnerMode="dropdown"
+                        android:popupBackground="@drawable/shape_spinner_dropdown_bg"
+                        android:dropDownVerticalOffset="10dp"
+                        android:dropDownHorizontalOffset="10dp"
+                        android:dropDownWidth="match_parent" />
+
                     <TextView
                         android:id="@+id/tv_locationError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
