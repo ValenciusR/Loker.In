@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -44,17 +45,21 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private ImageView btnBack, ivProfileNavbar, ivProfilePicture;
-    private EditText etName, etPhone, etJob, etJobDescription;
+    private EditText etName, etPhone, etAboutMe, etAge;
+    private AutoCompleteTextView etGender;
     private Spinner spnLocation;
     private ArrayAdapter<CharSequence> provinceAdapter;
     private AppCompatButton btnSaveChanges;
     private Boolean isValid;
-    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvJobError, tvJobDescriptionError;
+    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvAboutMeError, tvGenderError, tvAgeError;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
     private Uri imageUri;
     private StorageTask uploadTask;
+
+    private String[] item = {"Laki-Laki", "Perempuan"};
+    private ArrayAdapter<String> adapterItems;
 
 
     @Override
@@ -75,16 +80,18 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         ivProfilePicture = findViewById(R.id.iv_profile2_editProfilePekerjaPage);
         etName = findViewById(R.id.et_name_editProfilePekerjaPage);
         etPhone = findViewById(R.id.et_phone_editProfilePekerjaPage);
+        etAge = findViewById(R.id.et_age_editProfilePage);
+        etGender = findViewById(R.id.et_gender_editProfilePage);
         spnLocation = findViewById(R.id.spinner_location_editProfilePage);
-        etJob = findViewById(R.id.et_job_editProfilePekerjaPage);
-        etJobDescription = findViewById(R.id.et_jobDescription_editProfilePekerjaPage);
+        etAboutMe = findViewById(R.id.et_aboutMe_editProfilePekerjaPage);
         btnSaveChanges = findViewById(R.id.btn_saveChanges_editProfilePekerjaPage);
 
         tvNameError = findViewById(R.id.tv_nameError_editProfilePekerjaPage);
         tvPhoneError = findViewById(R.id.tv_phoneError_editProfilePekerjaPage);
         tvLocationError = findViewById(R.id.tv_locationError_editProfilePekerjaPage);
-        tvJobError = findViewById(R.id.tv_jobError_editProfilePekerjaPage);
-        tvJobDescriptionError = findViewById(R.id.tv_jobDescriptionError_editProfilePekerjaPage);
+        tvAboutMeError = findViewById(R.id.tv_aboutMeError_editProfilePekerjaPage);
+        tvAgeError = findViewById(R.id.tv_ageError_editProfilePage);
+        tvGenderError = findViewById(R.id.tv_ageError_editProfilePage);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +107,13 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
         spnLocation.setAdapter(provinceAdapter);
 
+        adapterItems = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
+        etGender.setAdapter(adapterItems);
+        etGender.setOnClickListener(v -> {
+            etGender.showDropDown();
+        });
+        etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
+
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
@@ -109,8 +123,9 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 etName.setText(user.getName());
-                etJob.setText(user.getJob());
-                etJobDescription.setText(user.getJobDesc());
+                etAboutMe.setText(user.getAboutMe());
+                etAge.setText(Integer.toString(user.getAge()));
+                etGender.setText(user.getGender());
 
                 int index = -1;
                 for (int i = 0; i < provinceAdapter.getCount(); i++) {
@@ -192,24 +207,46 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                     tvLocationError.setText("");
                 }
 
-//                Check if job is empty
-                if (etJob.getText().toString().trim().length() < 1) {
-                    etJob.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvJobError.setText("Profesi harus diisi!");
+//                Check if about me is empty
+                if (etAboutMe.getText().toString().trim().length() < 20) {
+                    etAboutMe.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvAboutMeError.setText("Minimal berisi 20 huruf!");
                     isValid = false;
                 } else {
-                    etJob.setBackgroundResource(R.drawable.shape_rounded_blue_border);
-                    tvJobError.setText("");
+                    etAboutMe.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    tvAboutMeError.setText("");
                 }
 
-//                Check if job description is empty
-                if (etJobDescription.getText().toString().trim().length() < 20) {
-                    etJobDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvJobDescriptionError.setText("Deskripsi profesi minimal berisi 20 huruf!");
+                //check gender
+                if (etGender.getText().toString().isEmpty()) {
+                    etGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvGenderError.setText("Jenis kelamin harus dipilih!");
                     isValid = false;
-                } else {
-                    etJobDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
-                    tvJobDescriptionError.setText("");
+                }
+                else if (!etGender.getText().toString().equals("Laki-Laki") && !etGender.getText().toString().equals("Perempuan")) {
+                    etGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvGenderError.setText("Pilih antara Laki-Laki atau Perempuan!");
+                    isValid = false;
+                }
+                else {
+                    etGender.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    tvGenderError.setText("");
+                }
+
+                //check age
+                if (etAge.getText().toString().isEmpty()) {
+                    etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvAgeError.setText("Umur harus diisi!");
+                    isValid = false;
+                }
+                else if (!etAge.getText().toString().matches("\\d+(?:\\.\\d+)?")) {
+                    etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvAgeError.setText("Umur hanya boleh diisi dengan angka!");
+                    isValid = false;
+                }
+                else {
+                    etAge.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    tvAgeError.setText("");
                 }
 
                 if (isValid) {
@@ -261,8 +298,9 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         updates.put("name", etName.getText().toString());
         updates.put("phoneNumber", etPhone.getText().toString());
         updates.put("location", spnLocation.getSelectedItem().toString());
-        updates.put("job", etJob.getText().toString());
-        updates.put("jobDesc", etJobDescription.getText().toString());
+        updates.put("aboutMe", etAboutMe.getText().toString());
+        updates.put("age", Integer.parseInt(etAge.getText().toString()));
+        updates.put("gender", etGender.getText().toString());
 
         if (imageUrl != null) {
             updates.put("imageUrl", imageUrl); // Include image URL only if an image was uploaded

@@ -78,7 +78,7 @@ public class CreateProfile_AboutMe extends AppCompatActivity {
             Boolean isValid = true;
             if (etAboutMe.getText().toString().trim().length() < 20) {
                 etAboutMe.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                tvAboutMeError.setText("Deskripsi minimal berisi 20 huruf!");
+                tvAboutMeError.setText("Minimal berisi 20 huruf!");
                 isValid = false;
             } else {
                 etAboutMe.setBackgroundResource(R.drawable.shape_rounded_blue_border);
