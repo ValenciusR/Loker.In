@@ -159,43 +159,77 @@
                         android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Label for Job -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profesi"
-                    android:textSize="12sp"
-                    android:textColor="#1977F3"
-                    android:fontFamily="@font/poppins_bold" />
-
-                <com.google.android.material.textfield.TextInputLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cursorColor="@color/blue"
-                    android:layout_marginBottom="10sp">
-
-                    <EditText
-                        android:textColor="@color/black"
-                        android:id="@+id/et_job_editProfilePekerjaPage"
-                        android:layout_width="match_parent"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="10sp"
-                        android:background="@drawable/shape_rounded_blue_border"
-                        android:fontFamily="@font/poppins_regular"/>
-                    <TextView
-                        android:id="@+id/tv_jobError_editProfilePekerjaPage"
-                        android:layout_width="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Umur"
+                            android:textSize="12sp"
+                            android:textColor="#1977F3"
+                            android:fontFamily="@font/poppins_bold"/>
+                        <EditText
+                            android:id="@+id/et_age_editProfilePage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_rounded_blue_border"
+                            android:fontFamily="@font/poppins_regular"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:textColor="@color/black"/>
+                        <TextView
+                            android:id="@+id/tv_ageError_editProfilePage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textColor="#F31919"
+                            android:layout_marginBottom="10sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="20sp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Kelamin"
+                            android:textSize="12sp"
+                            android:textColor="#1977F3"
+                            android:fontFamily="@font/poppins_bold"/>
+                        <AutoCompleteTextView
+                            android:id="@+id/et_gender_editProfilePage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_rounded_blue_border"
+                            android:fontFamily="@font/poppins_regular"
+                            android:inputType="text"
+                            android:padding="10dp"
+                            android:textColor="@color/black"/>
+                        <TextView
+                            android:id="@+id/tv_genderError_editProfilePage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textColor="#F31919"
+                            android:layout_marginBottom="10sp"/>
+                    </LinearLayout>
+                </LinearLayout>
 
-                <!-- Label for Job Description -->
+
+                <!-- Label for About Me -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Deskripsi Profesi"
+                    android:text="Tentang Saya"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_bold" />
@@ -208,7 +242,7 @@
 
                     <EditText
                         android:textColor="@color/black"
-                        android:id="@+id/et_jobDescription_editProfilePekerjaPage"
+                        android:id="@+id/et_aboutMe_editProfilePekerjaPage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
@@ -219,7 +253,7 @@
                         android:gravity="top|start"
                         android:textAlignment="gravity"/>
                     <TextView
-                        android:id="@+id/tv_jobDescriptionError_editProfilePekerjaPage"
+                        android:id="@+id/tv_aboutMeError_editProfilePekerjaPage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"

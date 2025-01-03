@@ -46,7 +46,6 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
     private ArrayAdapter<String> adapterItems, adapterItemsLocation;
 
     private String[] item = {"Laki-Laki", "Perempuan"};
-    private String[] item2 = {"Laki-Laki", "Perempuan"};
 
     @SuppressLint("MissingInflatedId")
     @Override
