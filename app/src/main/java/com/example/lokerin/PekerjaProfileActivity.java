@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -255,9 +258,19 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Sign out from Firebase
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
-                finish();
+
+                // Revoke access to the current Google account
+                GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
+                GoogleSignInClient googleSignIn = GoogleSignIn.getClient(PekerjaProfileActivity.this, options);
+
+                googleSignIn.revokeAccess()
+                        .addOnCompleteListener(task -> {
+                            // Redirect to login screen after successful sign-out and access revocation
+                            startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
+                            finish();
+                        });
             }
         });
     }

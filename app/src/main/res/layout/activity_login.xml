@@ -133,21 +133,49 @@
                     android:textColor="#F31919"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_login_loginPage"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Login"
-                android:textColor="#FFFFFF"
+                android:orientation="horizontal"
                 android:layout_marginTop="20sp"
                 android:layout_marginBottom="4dp"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="8dp"
-                android:backgroundTint="@null"
-                android:background="@drawable/shape_blue_rounded"
-                android:fontFamily="@font/poppins_medium"/>
+                android:gravity="center"
+
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_login_loginPage"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Login"
+                    android:textColor="#FFFFFF"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp"
+                    android:backgroundTint="@null"
+                    android:background="@drawable/shape_blue_rounded"
+                    android:fontFamily="@font/poppins_medium"
+                    android:layout_marginEnd="20sp"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/btn_loginGoogle_loginPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/shape_rounded_blue_border"
+                    android:padding="12dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/google__g__logo_svg" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
             <TextView
                 android:id="@+id/tv_loginError_loginPage"
                 android:layout_width="match_parent"

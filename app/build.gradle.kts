@@ -49,5 +49,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
 
 }
