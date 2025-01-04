@@ -41,7 +41,7 @@
         <activity android:name=".PelangganDetailJobActivity" android:exported="false" />
         <activity android:name=".CreateProfile_WorkExperience" android:exported="false" />
         <activity android:name=".CreateProfile_Skills" android:exported="false" />
-        <activity android:name=".CreateProfile_AboutMe" android:exported="true" >
+        <activity android:name=".CreateProfile_AboutMe" android:windowSoftInputMode="adjustPan" android:exported="true" >
 <!--                <intent-filter>-->
 <!--                    <action android:name="android.intent.action.MAIN" />-->
 <!--                    <category android:name="android.intent.category.LAUNCHER" />-->
@@ -63,7 +63,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateProfile_PersonalInfo" android:windowSoftInputMode="adjustResize" android:exported="true" />
+        <activity android:name=".CreateProfile_PersonalInfo" android:windowSoftInputMode="adjustPan" android:exported="true" />
         <activity android:name=".CreateProfile" android:exported="false" />
         <activity android:name=".PelangganMainActivity" android:exported="true" />
         <activity android:name=".PekerjaEditProfileActivity" android:windowSoftInputMode="adjustPan" android:exported="true" />

@@ -31,7 +31,9 @@
         android:id="@+id/layout_navbar_skillsPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="20sp"
+        android:paddingTop="20sp"
+        android:paddingHorizontal="20sp"
+        android:paddingBottom="50sp"
         android:orientation="horizontal"
         android:background="#1977F3"
         android:layout_alignParentBottom="true">
