@@ -118,9 +118,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         forgotPassLink.setOnClickListener(view -> {
-//            Intent forgetIntent = new Intent(this, ForgotPassword.class);
-//            startActivity(forgetIntent);
-//            finish();
+            Intent forgetIntent = new Intent(this, ForgetPasswordActivity.class);
+            startActivity(forgetIntent);
+            finish();
         });
 
         btnLogin.setOnClickListener(view -> {
