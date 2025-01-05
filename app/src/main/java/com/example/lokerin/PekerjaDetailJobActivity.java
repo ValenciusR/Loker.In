@@ -26,7 +26,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PekerjaDetailJobActivity extends AppCompatActivity {
@@ -157,7 +159,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Detail Pekerjaan");
+        tvPageTitle.setText("Detil Pekerjaan");
         ivProfileNavbar.setVisibility(View.GONE);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -345,8 +347,21 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
+        NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
+        priceFormat.setMaximumFractionDigits(0);
+        priceFormat.setCurrency(Currency.getInstance("IDR"));
         String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
-        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
+        if(salaryFrequent.equals("Daily")) {
+            salaryFrequent = "Hari";
+        } else if (salaryFrequent.equals("Weekly")) {
+            salaryFrequent = "Minggu";
+        } else if (salaryFrequent.equals("Monthly")) {
+            salaryFrequent = "Bulan";
+        }
+        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp" + String.valueOf(priceFormat.format(salary)).replace("IDR","") + ".00 / " + salaryFrequent : "N/A");
+
+        String description = task.getResult().child("jobDescription").getValue(String.class);
+        tvDescription.setText(description != null ? description : "");
     }
 
     private void setStatusColor(String status) {
