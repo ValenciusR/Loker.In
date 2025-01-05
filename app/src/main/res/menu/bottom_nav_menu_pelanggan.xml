@@ -4,7 +4,7 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/icon_my_job"
-        android:title="TERPROSES"/>
+        android:title="RIWAYAT"/>
 
     <item
         android:id="@+id/bottom_search"

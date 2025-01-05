@@ -27,7 +27,7 @@ public class PelangganMainActivity extends AppCompatActivity {
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-        tvPageTitle.setText("BERANDA");
+        tvPageTitle.setText("RIWAYAT");
         ivProfileNavbar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 startActivity(new Intent(PelangganMainActivity.this, PelangganProfileActivity.class));
@@ -41,10 +41,10 @@ public class PelangganMainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.bottom_home) {
                 selectedFragment = new PelangganMyJobFragment();
-                tvPageTitle.setText("BERANDA");
+                tvPageTitle.setText("RIWAYAT");
             } else if (id == R.id.bottom_search) {
                 selectedFragment = new PelangganAddJobFragment();
-                tvPageTitle.setText("TAMBAHKAN PEKERJAAN");
+                tvPageTitle.setText("TAMBAH PEKERJAAN");
             } else if (id == R.id.bottom_chat) {
 //                selectedFragment = new ChatFragment();
                 selectedFragment = new PekerjaChatFragment();
