@@ -21,16 +21,46 @@
             android:orientation="vertical"
             android:background="#FFFFFF">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="100sp"
-                android:layout_height="100sp"
-                app:shapeAppearanceOverlay="@style/roundedProfileImage"
-                android:src="@drawable/default_no_profile_icon"
-                android:scaleType="centerCrop"
-                android:layout_gravity="center"
+<!--            <com.google.android.material.imageview.ShapeableImageView-->
+<!--                android:id="@+id/iv_profile"-->
+<!--                android:layout_width="100sp"-->
+<!--                android:layout_height="100sp"-->
+<!--                app:shapeAppearanceOverlay="@style/roundedProfileImage"-->
+<!--                android:src="@drawable/default_no_profile_icon"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="20sp"-->
+<!--                android:clickable="true" />-->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
-                android:clickable="true" />
+                android:layout_gravity="center">
+
+                <!-- Circular Image -->
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_profile"
+                    app:shapeAppearanceOverlay="@style/roundedProfileImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/default_no_profile_icon"
+                    android:scaleType="centerCrop"
+                    android:clickable="true" />
+
+                <!-- Edit Label -->
+                <TextView
+                    android:id="@+id/tv_edit_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@drawable/circular_button"
+                    android:padding="4dp"
+                    android:text="Edit"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    />
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -111,60 +141,86 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20sp">
+                    app:cursorColor="@color/blue"
+                    android:layout_marginBottom="10sp">
 
-                    <EditText
-                        android:id="@+id/et_location"
+                    <Spinner
+                        android:id="@+id/spinner_location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular" />
+                        android:paddingVertical="10dp"
+                        android:spinnerMode="dropdown"
+                        android:popupBackground="@drawable/shape_spinner_dropdown_bg"
+                        android:dropDownVerticalOffset="10dp"
+                        android:dropDownHorizontalOffset="10dp"
+                        android:dropDownWidth="match_parent" />
 
                     <TextView
                         android:id="@+id/tv_locationError"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"
-                        android:visibility="gone"
-                        android:layout_marginTop="4sp" />
+                        android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textSize="12sp"
-                    android:textColor="#1977F3"
-                    android:fontFamily="@font/poppins_bold" />
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="20sp">-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20sp">
+<!--                    <EditText-->
+<!--                        android:id="@+id/et_location"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="text"-->
+<!--                        android:padding="10sp"-->
+<!--                        android:background="@drawable/shape_rounded_blue_border"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:fontFamily="@font/poppins_regular" />-->
 
-                    <EditText
-                        android:id="@+id/et_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:padding="10sp"
-                        android:background="@drawable/shape_rounded_blue_border"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/poppins_regular" />
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_locationError"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/poppins_medium"-->
+<!--                        android:textColor="#F31919"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:layout_marginTop="4sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-                    <TextView
-                        android:id="@+id/tv_emailError"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_medium"
-                        android:textColor="#F31919"
-                        android:visibility="gone"
-                        android:layout_marginTop="4sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="Email"-->
+<!--                    android:textSize="12sp"-->
+<!--                    android:textColor="#1977F3"-->
+<!--                    android:fontFamily="@font/poppins_bold" />-->
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="20sp">-->
+
+<!--                    <EditText-->
+<!--                        android:id="@+id/et_email"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:inputType="text"-->
+<!--                        android:padding="10sp"-->
+<!--                        android:background="@drawable/shape_rounded_blue_border"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:fontFamily="@font/poppins_regular" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_emailError"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/poppins_medium"-->
+<!--                        android:textColor="#F31919"-->
+<!--                        android:visibility="gone"-->
+<!--                        android:layout_marginTop="4sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
 
                 <androidx.appcompat.widget.AppCompatButton

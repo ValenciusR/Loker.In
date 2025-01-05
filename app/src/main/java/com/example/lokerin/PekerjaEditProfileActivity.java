@@ -198,7 +198,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 }
 
 //                Check if location is empty
-                if (spnLocation.getSelectedItem().toString().equals("Choose Province")) {
+                if (spnLocation.getSelectedItem().toString().equals("Pilih Provinsi")) {
                     spnLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
                     tvLocationError.setText("Lokasi harus dipilih!");
                     isValid = false;

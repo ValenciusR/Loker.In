@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,11 +39,13 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
 
     private ImageView btnBack, ivProfileNavbar;
     private ShapeableImageView ivProfile;
-    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvEmailError;
-    private EditText etName, etPhone, etLocation, etEmail;
+    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError;
+    private EditText etName, etPhone;
     private AppCompatButton btnSaveChanges;
     private boolean isValid;
     private DatabaseReference userReference;
+    private Spinner spnLocation;
+    private ArrayAdapter<CharSequence> provinceAdapter;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -64,13 +68,19 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
         ivProfile = findViewById(R.id.iv_profile);
         etName = findViewById(R.id.et_name);
         etPhone = findViewById(R.id.et_phone);
-        etLocation = findViewById(R.id.et_location);
-        etEmail = findViewById(R.id.et_email);
+//        etLocation = findViewById(R.id.et_location);
+//        etEmail = findViewById(R.id.et_email);
         tvNameError = findViewById(R.id.tv_nameError);
         tvPhoneError = findViewById(R.id.tv_phoneError);
         tvLocationError = findViewById(R.id.tv_locationError);
-        tvEmailError = findViewById(R.id.tv_emailError);
+//        tvEmailError = findViewById(R.id.tv_emailError);
         btnSaveChanges = findViewById(R.id.btn_saveChanges);
+        spnLocation = findViewById(R.id.spinner_location);
+
+        provinceAdapter = ArrayAdapter.createFromResource(PelangganEditProfileActivity.this,
+                R.array.province, R.layout.spinner_item);
+        provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spnLocation.setAdapter(provinceAdapter);
 
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         mAuth = FirebaseAuth.getInstance();
@@ -111,27 +121,29 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            String location = etLocation.getText().toString().trim();
-            if (location.isEmpty()) {
-                tvLocationError.setText("Lokasi harus diisi!");
+//            String location = etLocation.getText().toString().trim();
+            if (spnLocation.getSelectedItem().toString().equals("Pilih Provinsi")) {
+                tvLocationError.setText("Lokasi harus dipilih!");
                 tvLocationError.setVisibility(View.VISIBLE);
-                etLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                spnLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
+//                etLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 isValid = false;
             } else {
                 tvLocationError.setVisibility(View.GONE);
-                etLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                spnLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+//                etLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            String email = etEmail.getText().toString().trim();
-            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                tvEmailError.setText("Email tidak valid!");
-                tvEmailError.setVisibility(View.VISIBLE);
-                etEmail.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                isValid = false;
-            } else {
-                tvEmailError.setVisibility(View.GONE);
-                etEmail.setBackgroundResource(R.drawable.shape_rounded_blue_border);
-            }
+//            String email = etEmail.getText().toString().trim();
+//            if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//                tvEmailError.setText("Email tidak valid!");
+//                tvEmailError.setVisibility(View.VISIBLE);
+//                etEmail.setBackgroundResource(R.drawable.shape_rounded_red_border);
+//                isValid = false;
+//            } else {
+//                tvEmailError.setVisibility(View.GONE);
+//                etEmail.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+//            }
 
             if (isValid) {
                 if (imageUri != null) {
@@ -184,8 +196,9 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
         Map<String, Object> updates = new HashMap<>();
         updates.put("name", etName.getText().toString());
         updates.put("phoneNumber", etPhone.getText().toString());
-        updates.put("location", etLocation.getText().toString());
-        updates.put("email", etEmail.getText().toString());
+        updates.put("location", spnLocation.getSelectedItem().toString());
+//        updates.put("location", etLocation.getText().toString());
+//        updates.put("email", etEmail.getText().toString());
 
         if (imageUrl != null) {
             updates.put("imageUrl", imageUrl); // Include image URL only if an image was uploaded
@@ -233,8 +246,21 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
 
                 etName.setText(user.getName());
                 etPhone.setText(user.getPhoneNumber());
-                etLocation.setText(user.getLocation());
-                etEmail.setText(user.getEmail());
+//                etLocation.setText(user.getLocation());
+//                etEmail.setText(user.getEmail());
+
+                int index = -1;
+                for (int i = 0; i < provinceAdapter.getCount(); i++) {
+                    if (provinceAdapter.getItem(i).equals(user.getLocation())) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Set the Spinner selection if the value is found
+                if (index != -1) {
+                    spnLocation.setSelection(index);
+                }
 
                 if(user.getImageUrl().equals("default")){
                     ivProfile.setImageResource(R.drawable.default_no_profile_icon);
