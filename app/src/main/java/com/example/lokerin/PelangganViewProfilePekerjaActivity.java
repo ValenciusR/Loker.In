@@ -118,6 +118,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
                 tvName.setText(user.getName());
+                tvPageTitle.setText("Profil "+user.getName());
                 tvAboutMe.setText(user.getAboutMe());
                 tvLocation.setText(user.getLocation());
                 tvPhone.setText(user.getPhoneNumber());
@@ -136,8 +137,6 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-
-        tvPageTitle.setText("Profil");
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
 //        Set Portofolio Recycler View
