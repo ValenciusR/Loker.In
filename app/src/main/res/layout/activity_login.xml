@@ -193,7 +193,7 @@
                     android:id="@+id/register_link_loginPage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mendaftar"
+                    android:text="Daftar"
                     android:textSize="12sp"
                     android:textColor="#1977F3"
                     android:fontFamily="@font/poppins_regular"

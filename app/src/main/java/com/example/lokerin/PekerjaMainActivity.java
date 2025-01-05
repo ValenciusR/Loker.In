@@ -27,7 +27,7 @@ public class PekerjaMainActivity extends AppCompatActivity {
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-        tvPageTitle.setText("DAFTAR PEKERJAAN");
+        tvPageTitle.setText("CARI PEKERJAAN");
         ivProfileNavbar.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 startActivity(new Intent(PekerjaMainActivity.this, PekerjaProfileActivity.class));
@@ -45,7 +45,7 @@ public class PekerjaMainActivity extends AppCompatActivity {
                 tvPageTitle.setText("BERANDA");
             } else if (id == R.id.bottom_search) {
                 selectedFragment = new PekerjaApplyJobFragment();
-                tvPageTitle.setText("DAFTAR PEKERJAAN");
+                tvPageTitle.setText("CARI PEKERJAAN");
             } else if (id == R.id.bottom_chat) {
 //                selectedFragment = new PekerjaChatFragment();
                 selectedFragment = new ChatFragment();
