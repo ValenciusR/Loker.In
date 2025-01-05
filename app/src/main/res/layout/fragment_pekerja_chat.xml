@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
                 android:background="@null"
-                android:hint="Cari Chat"
+                android:hint="Cari Pesan"
                 android:textColor="#000000"
                 android:textColorHint="#66202124"
                 android:fontFamily="@font/poppins_medium"
