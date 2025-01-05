@@ -66,10 +66,10 @@
         </activity>
         <activity android:name=".CreateProfile_PersonalInfo" android:windowSoftInputMode="adjustPan" android:exported="true" />
         <activity android:name=".CreateProfile" android:exported="false" />
-        <activity android:name=".PelangganMainActivity" android:exported="true" />
+        <activity android:name=".PelangganMainActivity" android:windowSoftInputMode="adjustPan" android:exported="true" />
         <activity android:name=".PekerjaEditProfileActivity" android:windowSoftInputMode="adjustPan" android:exported="true" />
         <activity android:name=".PelangganRatingReviewActivity" android:exported="true" />
-        <activity android:name=".PelangganEditJobActivity" android:exported="true" />
+        <activity android:name=".PelangganEditJobActivity" android:windowSoftInputMode="adjustPan" android:exported="true" />
         <activity android:name=".PelangganEditJobCategoryActivity" android:exported="true" />
         <activity android:name=".PekerjaMainActivity" android:exported="true" />
         <activity android:name=".AdminDetailProfileActivity" android:exported="true" />

@@ -53,12 +53,19 @@
                 android:id="@+id/et_job_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"
                 android:inputType="text"
                 android:padding="10dp"
                 android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_jobError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -73,7 +80,6 @@
                 android:id="@+id/btn_category_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/shape_darkblue_rounded"
                 android:fontFamily="@font/poppins_medium"
                 android:padding="10dp"
@@ -83,6 +89,14 @@
                 android:gravity="center_vertical|start"
                 android:text="Pilih Kategori"
                 android:textAllCaps="false" />
+            <TextView
+                android:id="@+id/tv_categoryError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <!-- DESCRIPTION -->
             <TextView
@@ -97,13 +111,23 @@
             <EditText
                 android:id="@+id/et_description_addJob"
                 android:layout_width="match_parent"
-                android:layout_height="148dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:padding="10sp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"
-                android:inputType="textImeMultiLine"
-                android:padding="10dp"
+                android:gravity="top|start"
+                android:textAlignment="gravity"
                 android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_descriptionError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <!-- SALARY -->
             <TextView
@@ -125,6 +149,7 @@
                 android:inputType="number"
                 android:padding="10dp"
                 android:textColor="@color/black" />
+
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
@@ -172,6 +197,14 @@
                     android:textColor="@drawable/selector_salary_item_salary_txt"
                     android:textSize="12sp" />
             </LinearLayout>
+            <TextView
+                android:id="@+id/tv_salaryError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <!--        &lt;!&ndash; UPLOAD IMAGE &ndash;&gt;-->
             <!--        <TextView-->
@@ -246,7 +279,6 @@
                 android:id="@+id/spinner_province_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:padding="10dp"
                 android:spinnerMode="dropdown"
@@ -254,6 +286,14 @@
                 android:dropDownVerticalOffset="10dp"
                 android:dropDownHorizontalOffset="10dp"
                 android:dropDownWidth="match_parent" />
+            <TextView
+                android:id="@+id/tv_provinceError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <!-- REGENCY -->
             <TextView
@@ -261,20 +301,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="KABUPATEN"
+                android:text="KOTA / KABUPATEN"
                 android:textColor="#1977F3"
                 android:textSize="12sp" />
             <Spinner
                 android:id="@+id/spinner_regency_addJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:padding="10dp"
                 android:spinnerMode="dropdown"
                 android:popupBackground="@drawable/shape_spinner_dropdown_bg"
                 android:dropDownVerticalOffset="0dp"
                 android:enabled="false" />
+            <TextView
+                android:id="@+id/tv_regencyError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <!-- ADDRESS -->
             <TextView
@@ -288,18 +335,29 @@
             <EditText
                 android:id="@+id/et_address_addJob"
                 android:layout_width="match_parent"
-                android:layout_height="148dp"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:padding="10sp"
                 android:background="@drawable/shape_rounded_blue_border"
                 android:fontFamily="@font/poppins_regular"
-                android:inputType="textImeMultiLine"
-                android:padding="10dp"
+                android:gravity="top|start"
+                android:textAlignment="gravity"
                 android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_addressError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_editJob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40sp"
+                android:layout_marginTop="30sp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/shape_blue_rounded"
                 android:backgroundTint="@null"

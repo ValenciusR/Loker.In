@@ -55,6 +55,7 @@ public class PelangganEditJobActivity extends AppCompatActivity {
     private boolean isCategorySelected = false;
     private TextView tvPageTitle;
     private ArrayAdapter<CharSequence> regencyAdapter;
+    private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvProvinceError, tvRegencyError, tvAddressError;
 
     private Integer provinceIndex;
 
@@ -81,6 +82,14 @@ public class PelangganEditJobActivity extends AppCompatActivity {
         spinnerProvince = findViewById(R.id.spinner_province_addJob);
         spinnerRegency = findViewById(R.id.spinner_regency_addJob);
         etAddress = findViewById(R.id.et_address_addJob);
+
+        tvjobError = findViewById(R.id.tv_jobError_addJob);
+        tvCategoryError = findViewById(R.id.tv_categoryError_addJob);
+        tvDescriptionError = findViewById(R.id.tv_descriptionError_addJob);
+        tvSalaryError = findViewById(R.id.tv_salaryError_addJob);
+        tvProvinceError = findViewById(R.id.tv_provinceError_addJob);
+        tvRegencyError = findViewById(R.id.tv_regencyError_addJob);
+        tvAddressError = findViewById(R.id.tv_addressError_addJob);
 
         if (intent.hasExtra("jobTitle") && intent.hasExtra("jobCategory")) {
             loadJobDetailsFromIntent(intent);
@@ -180,9 +189,11 @@ public class PelangganEditJobActivity extends AppCompatActivity {
                         int provinceIndex = spinnerProvince.getSelectedItemPosition();
 
                         if (provinceIndex > 0) {
+                            Toast.makeText(PelangganEditJobActivity.this, "Set kota", Toast.LENGTH_SHORT).show();
                             spinnerRegency.setEnabled(true);
                             updateRegencySpinner(provinceIndex, job.getJobRegency());
                         } else {
+                            Toast.makeText(PelangganEditJobActivity.this, "Gak ke Set kota nya", Toast.LENGTH_SHORT).show();
                             spinnerRegency.setEnabled(false);
                         }
 
@@ -242,26 +253,33 @@ public class PelangganEditJobActivity extends AppCompatActivity {
 
     private void updateJobDetails() {
         boolean isValid = true;
+        tvjobError.setText("");
+        tvCategoryError.setText("");
+        tvDescriptionError.setText("");
+        tvSalaryError.setText("");
+        tvProvinceError.setText("");
+        tvRegencyError.setText("");
+        tvAddressError.setText("");
 
         if (etJobTitle.getText().toString().trim().length() < 8) {
             etJobTitle.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(this, "Judul pekerjaan minimal berisi 8 huruf!", Toast.LENGTH_SHORT).show();
+            tvjobError.setText("Judul pekerjaan minimal berisi 8 huruf!");
             isValid = false;
         } else {
             etJobTitle.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
-        if (isValid && !isCategorySelected || selectedCategory.isEmpty()) {
+        if (!isCategorySelected || selectedCategory.isEmpty()) {
             btnCategory.setBackgroundResource(R.drawable.shape_red_rounded);
-            Toast.makeText(this, "Pilih salah satu kategori!", Toast.LENGTH_SHORT).show();
+            tvCategoryError.setText("Pilih salah satu kategori!");
             isValid = false;
         } else {
             btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
         }
 
-        if (isValid && etDescription.getText().toString().trim().length() < 20) {
+        if (etDescription.getText().toString().trim().length() < 20) {
             etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(this, "Deskripsi minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
+            tvDescriptionError.setText("Deskripsi minimal berisi 20 huruf!");
             isValid = false;
         } else {
             etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -272,45 +290,45 @@ public class PelangganEditJobActivity extends AppCompatActivity {
                 double salaryValue = Double.parseDouble(etSalary.getText().toString().trim());
                 if (salaryValue <= 0) {
                     etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    Toast.makeText(this, "Upah harus bilangan positif!", Toast.LENGTH_SHORT).show();
+                    tvSalaryError.setText("Upah harus bilangan positif!");
                     isValid = false;
                 } else {
                     etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                 }
             } catch (NumberFormatException e) {
                 etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(this, "Upah harus berupa angka valid!", Toast.LENGTH_SHORT).show();
+                tvSalaryError.setText("Upah harus berupa angka valid!");
                 isValid = false;
             }
         }
 
-        if (isValid && frequentSalary.isEmpty()) {
+        if (frequentSalary.isEmpty()) {
             btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
             btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
             btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
-            Toast.makeText(this, "Pilih salah satu frekuensi upah!", Toast.LENGTH_SHORT).show();
+            tvSalaryError.setText("Pilih salah satu frekuensi upah!");
             isValid = false;
         }
 
-        if (isValid && spinnerProvince.getSelectedItemPosition() == 0) {
+        if (spinnerProvince.getSelectedItemPosition() == 0) {
             spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(this, "Pilih salah satu provinsi!", Toast.LENGTH_SHORT).show();
+            tvProvinceError.setText("Pilih salah satu provinsi!");
             isValid = false;
         } else {
             spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
-        if (isValid && spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
+        if (spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
             spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(this, "Pilih salah satu kota / kabupaten!", Toast.LENGTH_SHORT).show();
+            tvRegencyError.setText("Pilih salah satu kota / kabupaten!");
             isValid = false;
         } else {
             spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
-        if (isValid && etAddress.getText().toString().trim().length() < 20) {
+        if (etAddress.getText().toString().trim().length() < 20) {
             etAddress.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(this, "Alamat minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
+            tvAddressError.setText("Alamat minimal berisi 20 huruf!");
             isValid = false;
         } else {
             etAddress.setBackgroundResource(R.drawable.shape_rounded_blue_border);

@@ -1,6 +1,7 @@
 package com.example.lokerin;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -47,6 +48,7 @@ public class PelangganAddJobFragment extends Fragment {
     private boolean isCategorySelected = false;
     private ArrayAdapter<CharSequence> regencyAdapter;
     private ArrayList<String> applicantsList, workersList;
+    private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvProvinceError, tvRegencyError, tvAddressError;
 
 //    private static final int IMAGE_PICK_CODE = 1000;
 //    private RelativeLayout uploadContainer;
@@ -80,6 +82,15 @@ public class PelangganAddJobFragment extends Fragment {
         btnDaily = view.findViewById(R.id.btn_dailySalary_addJob);
         btnWeekly = view.findViewById(R.id.btn_weeklySalary_addJob);
         btnMonthly = view.findViewById(R.id.btn_monthlySalary_addJob);
+
+        tvjobError = view.findViewById(R.id.tv_jobError_addJob);
+        tvCategoryError = view.findViewById(R.id.tv_categoryError_addJob);
+        tvDescriptionError = view.findViewById(R.id.tv_descriptionError_addJob);
+        tvSalaryError = view.findViewById(R.id.tv_salaryError_addJob);
+        tvProvinceError = view.findViewById(R.id.tv_provinceError_addJob);
+        tvRegencyError = view.findViewById(R.id.tv_regencyError_addJob);
+        tvAddressError = view.findViewById(R.id.tv_addressError_addJob);
+
 
 //        uploadContainer = view.findViewById(R.id.upload_image_container);
 //        uploadedImageView = view.findViewById(R.id.iv_uploaded_image);
@@ -160,26 +171,33 @@ public class PelangganAddJobFragment extends Fragment {
 
     private void validateForm() {
         boolean isValid = true;
+        tvjobError.setText("");
+        tvCategoryError.setText("");
+        tvDescriptionError.setText("");
+        tvSalaryError.setText("");
+        tvProvinceError.setText("");
+        tvRegencyError.setText("");
+        tvAddressError.setText("");
 
         if (etJobTitle.getText().toString().trim().length() < 8) {
             etJobTitle.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(getContext(), "Judul pekerjaan minimal berisi 8 huruf!", Toast.LENGTH_SHORT).show();
+            tvjobError.setText("Judul pekerjaan minimal berisi 8 huruf!");
             isValid = false;
         } else {
             etJobTitle.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
-        if (isValid && !isCategorySelected) {
+        if (!isCategorySelected) {
             btnCategory.setBackgroundResource(R.drawable.shape_red_rounded);
-            Toast.makeText(getContext(), "Pilih salah satu kategori!", Toast.LENGTH_SHORT).show();
+            tvCategoryError.setText("Pilih salah satu kategori!");
             isValid = false;
         } else {
             btnCategory.setBackgroundResource(R.drawable.shape_darkblue_rounded);
         }
 
-        if (isValid && etDescription.getText().toString().trim().length() < 20) {
+        if (etDescription.getText().toString().trim().length() < 20) {
             etDescription.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(getContext(), "Deskripsi minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
+            tvDescriptionError.setText("Deskripsi minimal berisi 20 huruf!");
             isValid = false;
         } else {
             etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -190,45 +208,45 @@ public class PelangganAddJobFragment extends Fragment {
                 double salaryValue = Double.parseDouble(etSalary.getText().toString().trim());
                 if (salaryValue <= 0) {
                     etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    Toast.makeText(getContext(), "Upah harus bilangan positif!", Toast.LENGTH_SHORT).show();
+                    tvSalaryError.setText("Upah harus bilangan positif!");
                     isValid = false;
                 } else {
                     etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                 }
             } catch (NumberFormatException e) {
                 etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                Toast.makeText(getContext(), "Upah harus berupa angka valid!", Toast.LENGTH_SHORT).show();
+                tvSalaryError.setText("Upah harus berupa angka valid!");
                 isValid = false;
             }
         }
 
-        if (isValid && frequentSalary.isEmpty()) {
+        if (frequentSalary.isEmpty()) {
             btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
             btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
             btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
-            Toast.makeText(getContext(), "Pilih salah satu frekuensi upah!", Toast.LENGTH_SHORT).show();
+            tvSalaryError.setText("Pilih salah satu frekuensi upah!");
             isValid = false;
         }
 
-        if (isValid && spinnerProvince.getSelectedItemPosition() == 0) {
+        if (spinnerProvince.getSelectedItemPosition() == 0) {
             spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(getContext(), "Pilih salah satu provinsi!", Toast.LENGTH_SHORT).show();
+            tvProvinceError.setText("Pilih salah satu provinsi!");
             isValid = false;
         } else {
             spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
-        if (isValid && spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
+        if (spinnerRegency.isEnabled() && spinnerRegency.getSelectedItemPosition() == 0) {
             spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(getContext(), "Pilih salah satu kota / kabupaten!", Toast.LENGTH_SHORT).show();
+            tvRegencyError.setText("Pilih salah satu kota / kabupaten!");
             isValid = false;
         } else {
             spinnerRegency.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
-        if (isValid && etAddress.getText().toString().trim().length() < 20) {
+        if (etAddress.getText().toString().trim().length() < 20) {
             etAddress.setBackgroundResource(R.drawable.shape_rounded_red_border);
-            Toast.makeText(getContext(), "Alamat minimal berisi 20 huruf!", Toast.LENGTH_SHORT).show();
+            tvAddressError.setText("Alamat minimal berisi 20 huruf!");
             isValid = false;
         } else {
             etAddress.setBackgroundResource(R.drawable.shape_rounded_blue_border);
@@ -271,6 +289,9 @@ public class PelangganAddJobFragment extends Fragment {
                 if (task.isSuccessful()) {
                     Toast.makeText(requireContext(), "Pekerjaan berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
                     resetForm();
+                    Intent intent = new Intent(getActivity(), PelangganDetailJobActivity.class);
+                    intent.putExtra("jobId", generatedId);
+                    getContext().startActivity(intent);
                 } else {
                     Toast.makeText(requireContext(), "Gagal menambahkan pekerjaan. Coba lagi!", Toast.LENGTH_SHORT).show();
                 }
