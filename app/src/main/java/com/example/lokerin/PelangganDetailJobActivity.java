@@ -157,7 +157,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                 navigateToMainActivity();
             }
         });
-        tvPageTitle.setText("Detail Pekerjaan");
+        tvPageTitle.setText("Detil Pekerjaan");
         ivProfileNavbar.setVisibility(View.GONE);
 
         applicants = new ArrayList<>();

@@ -185,8 +185,6 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
 
     private void setSkills(User user){

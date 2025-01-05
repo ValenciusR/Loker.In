@@ -51,7 +51,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
     private String userIdFromPelanggan, jobIdFromPelanggan;
     private FlexboxLayout flKeterampilan;
     private ImageView ivProfilePicture, btnBack, ivProfileNavbar;
-    private TextView tvPageTitle, tvName, tvLocation, tvAboutMe, tvPhone, tvEmail;
+    private TextView tvPageTitle, tvName, tvLocation, tvAboutMe, tvPhone, tvEmail, tvEmptyPortofolio;
     private RecyclerView rvPortofolio, rvReview;
     private ArrayList<Portofolio> portofolios;
     private ArrayList<Review> reviews;
@@ -61,6 +61,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
     private ListPortofolioAdapter portofolioAdapter;
     private ListReviewAdapter listReviewAdapter;
     private Button btnChat, btnAction;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         tvPhone = findViewById(R.id.tv_phone_profilePekerjaPage);
         tvEmail = findViewById(R.id.tv_email_profilePekerjaPage);
         rvPortofolio = findViewById(R.id.rv_portofolioList_profilePekerjaPage);
+        tvEmptyPortofolio = findViewById(R.id.tv_emptyPortofolio_profilePekerjaPage);
         rvReview = findViewById(R.id.rv_reviewList_profilePekerjaPage);
         flKeterampilan = findViewById(R.id.fl_keterampilan_profilePekerjaPage);
         btnChat = findViewById(R.id.btn_chat_pelangganViewProfilePekerja);
@@ -100,18 +102,21 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(PelangganViewProfilePekerjaActivity.this, PelangganDetailJobActivity.class);
+                intent.putExtra("jobId", jobIdFromPelanggan);
+                startActivity(intent);
+                finish();
             }
         });
         tvPageTitle.setText("Profil Pelamar");
         ivProfileNavbar.setVisibility(View.GONE);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = firebaseDatabase.getReference().child("users").child(firebaseUser.getUid());
+        databaseReference = firebaseDatabase.getReference().child("users").child(userIdFromPelanggan);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
+                user = dataSnapshot.getValue(User.class);
                 tvName.setText(user.getName());
                 tvAboutMe.setText(user.getAboutMe());
                 tvLocation.setText(user.getLocation());
@@ -122,6 +127,8 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
                 } else{
                     Glide.with(PelangganViewProfilePekerjaActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
                 }
+                setSkills(user);
+                setPortofolio(user);
 
             }
 
@@ -171,33 +178,36 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             }
         });
 
-        List<String> skills = Arrays.asList("Plumbing", "Berkebun", "Service AC", "Maintenance Listrik", "Pengrajin Kayu", "Pandai Besi");
-        for (String skill : skills) {
-            TextView tvSkill = new TextView(this);
-
-            tvSkill.setText(skill);
-
-            tvSkill.setTextColor(getResources().getColor(R.color.blue));
-            tvSkill.setBackgroundResource(R.drawable.shape_rounded_blue_border); // Custom drawable
-            tvSkill.setPadding(50, 25, 50, 25);
-            tvSkill.setTextSize(16);
-            tvSkill.setLayoutParams(new FlexboxLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
-
-            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.setMargins(0, 0, 25, 25);
-            tvSkill.setLayoutParams(layoutParams);
-
-            flKeterampilan.addView(tvSkill);
-        }
+//        List<String> skills = Arrays.asList("Plumbing", "Berkebun", "Service AC", "Maintenance Listrik", "Pengrajin Kayu", "Pandai Besi");
+//        for (String skill : skills) {
+//            TextView tvSkill = new TextView(this);
+//
+//            tvSkill.setText(skill);
+//
+//            tvSkill.setTextColor(getResources().getColor(R.color.blue));
+//            tvSkill.setBackgroundResource(R.drawable.shape_rounded_blue_border); // Custom drawable
+//            tvSkill.setPadding(50, 25, 50, 25);
+//            tvSkill.setTextSize(16);
+//            tvSkill.setLayoutParams(new FlexboxLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.WRAP_CONTENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//            ));
+//
+//            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.WRAP_CONTENT,
+//                    ViewGroup.LayoutParams.WRAP_CONTENT
+//            );
+//            layoutParams.setMargins(0, 0, 25, 25);
+//            tvSkill.setLayoutParams(layoutParams);
+//
+//            flKeterampilan.addView(tvSkill);
+//        }
 
         btnChat.setOnClickListener(v -> {
-            Toast.makeText(this, "INI PINDAH KE CHAT (INI DARI PELANGGAN (get auth) KE DETAIL PEKERJA YANG SEDANG DI CEK)", Toast.LENGTH_SHORT).show();
+            Intent intent2 = new Intent(PelangganViewProfilePekerjaActivity.this, ChatActivity.class);
+            intent2.putExtra("userid", userIdFromPelanggan);
+            startActivity(intent2);
+//            Toast.makeText(this, "INI PINDAH KE CHAT (INI DARI PELANGGAN (get auth) KE DETAIL PEKERJA YANG SEDANG DI CEK)", Toast.LENGTH_SHORT).show();
         });
         btnAction.setOnClickListener(v -> {showApproveApplicantConfirmationDialog();});
     }
@@ -274,5 +284,67 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             });
             dialog.dismiss();
         });
+    }
+
+    private void setPortofolio(User user) {
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                if(user.getPortofolioJob() != null){
+                    ArrayList<PortofolioJob> portofolios =  user.getPortofolioJob();
+                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                    linearLayoutManager = new LinearLayoutManager(PelangganViewProfilePekerjaActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    rvPortofolio.setLayoutManager(linearLayoutManager);
+                    rvPortofolio.setAdapter(portofolioAdapter);
+                    tvEmptyPortofolio.setVisibility(View.GONE);
+                }else{
+                    ArrayList<PortofolioJob> portofolios =  new ArrayList<>();
+                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                    linearLayoutManager = new LinearLayoutManager(PelangganViewProfilePekerjaActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    rvPortofolio.setLayoutManager(linearLayoutManager);
+                    rvPortofolio.setAdapter(portofolioAdapter);
+                    tvEmptyPortofolio.setVisibility(View.VISIBLE);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private void setSkills(User user){
+        List<String> skills = user.getSkill();
+
+        if (skills == null || skills.isEmpty()) {
+            return;
+        }
+
+        for (String skill : skills) {
+            TextView tvSkill = new TextView(this);
+            tvSkill.setText(skill);
+
+            tvSkill.setTextColor(getResources().getColor(R.color.blue));
+            tvSkill.setBackgroundResource(R.drawable.shape_rounded_blue_border); // Custom drawable
+            tvSkill.setPadding(50, 25, 50, 25);
+            tvSkill.setTextSize(16);
+            tvSkill.setLayoutParams(new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            ));
+            FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(0, 0, 25, 25);
+            tvSkill.setLayoutParams(layoutParams);
+
+            flKeterampilan.addView(tvSkill);
+        }
     }
 }
