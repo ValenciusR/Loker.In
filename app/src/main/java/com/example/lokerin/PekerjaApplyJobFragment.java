@@ -23,9 +23,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 public class PekerjaApplyJobFragment extends Fragment {
 
@@ -233,17 +237,37 @@ public class PekerjaApplyJobFragment extends Fragment {
 
     private void fetchJobsFromFirebase(String category) {
         counter = 0;
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Date currentDate = new Date();
+        String currentDateString = dateFormat.format(currentDate);
+
+        Date referenceDate = null;
+        try {
+            referenceDate = dateFormat.parse(currentDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date finalReferenceDate = referenceDate;
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 jobList.clear();
-                if (category.equalsIgnoreCase("no_skill")){
+                if (category.equalsIgnoreCase("no_skill")) {
                     for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                         Job job = jobSnapshot.getValue(Job.class);
                         if (job != null) {
                             if ("OPEN".equalsIgnoreCase(job.getJobStatus())) {
-                                jobList.add(job);
-                                counter++;
+                                try {
+                                    Date jobDeadline = dateFormat.parse(job.getJobDateClose());
+                                    if (jobDeadline != null && !jobDeadline.before(finalReferenceDate)) {
+                                        jobList.add(job);
+                                        counter++;
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                         if (counter == 5) {
@@ -255,12 +279,42 @@ public class PekerjaApplyJobFragment extends Fragment {
                         Job job = jobSnapshot.getValue(Job.class);
                         if (job != null) {
                             if ("OPEN".equalsIgnoreCase(job.getJobStatus()) && category.equalsIgnoreCase(job.getJobCategory())) {
-                                jobList.add(job);
-                                counter++;
+                                try {
+                                    Date jobDeadline = dateFormat.parse(job.getJobDateClose());
+                                    if (jobDeadline != null && !jobDeadline.before(finalReferenceDate)) {
+                                        jobList.add(job);
+                                        counter++;
+                                    }
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                         if (counter == 5) {
                             break;
+                        }
+                    }
+
+                    // Handler if no suitable data found
+                    if (counter < 5) {
+                        for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
+                            Job job = jobSnapshot.getValue(Job.class);
+                            if (job != null) {
+                                if ("OPEN".equalsIgnoreCase(job.getJobStatus())) {
+                                    try {
+                                        Date jobDeadline = dateFormat.parse(job.getJobDateClose());
+                                        if (jobDeadline != null && !jobDeadline.before(finalReferenceDate)) {
+                                            jobList.add(job);
+                                            counter++;
+                                        }
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }
+                            if (counter == 5) {
+                                break;
+                            }
                         }
                     }
                 }

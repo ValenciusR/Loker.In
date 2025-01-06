@@ -158,11 +158,31 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
     }
 
     private void filterJobs(String query) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Date currentDate = new Date();
+        String currentDateString = dateFormat.format(currentDate);
+
+        Date referenceDate = null;
+        try {
+            referenceDate = dateFormat.parse(currentDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date today = referenceDate;
+
         List<Job> filteredList = new ArrayList<>();
         for (Job job : jobList) {
             if (job.getJobTitle() != null && job.getJobTitle().toLowerCase().contains(query.toLowerCase())) {
-                if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus())) {
-                    filteredList.add(job);
+                try {
+                    Date jobDeadline = dateFormat.parse(job.getJobDateClose());
+                    if (jobDeadline != null && !jobDeadline.before(today)) {
+                        if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus())) {
+                            filteredList.add(job);
+                        }
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
             }
         }
@@ -170,6 +190,19 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
     }
 
     private void fetchJobsFromFirebase() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+        Date currentDate = new Date();
+        String currentDateString = dateFormat.format(currentDate);
+
+        Date referenceDate = null;
+        try {
+            referenceDate = dateFormat.parse(currentDateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Date today = referenceDate;
+
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -177,8 +210,15 @@ public class PekerjaCategorizedJobActivity extends AppCompatActivity {
                 for (DataSnapshot jobSnapshot : snapshot.getChildren()) {
                     Job job = jobSnapshot.getValue(Job.class);
                     if (job != null) {
-                        if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus())) {
-                            jobList.add(job);
+                        try {
+                            Date jobDeadline = dateFormat.parse(job.getJobDateClose());
+                            if (jobDeadline != null && !jobDeadline.before(today)) {
+                                if (category.equalsIgnoreCase(job.getJobCategory()) && "OPEN".equalsIgnoreCase(job.getJobStatus())) {
+                                    jobList.add(job);
+                                }
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
                     }
                 }

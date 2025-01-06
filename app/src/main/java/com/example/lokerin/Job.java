@@ -14,6 +14,7 @@ public class Job {
     private String jobRegency;
     private String jobAddress;
     private String jobDateUpload;
+    private String jobDateClose;
     private String jobStatus;
     private ArrayList<String> jobWorkers;
     private ArrayList<String> jobApplicants;
@@ -131,5 +132,13 @@ public class Job {
 
     public void setJobApplicants(ArrayList<String> jobApplicants) {
         this.jobApplicants = jobApplicants;
+    }
+
+    public String getJobDateClose() {
+        return jobDateClose;
+    }
+
+    public void setJobDateClose(String jobDateClose) {
+        this.jobDateClose = jobDateClose;
     }
 }
