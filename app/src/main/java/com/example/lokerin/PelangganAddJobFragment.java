@@ -429,6 +429,10 @@ public class PelangganAddJobFragment extends Fragment {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
                 String currentDate = dateFormat.format(new Date());
                 jobData.put("jobDateUpload", currentDate);
+
+                String selectedDate = dateFormat.format(selectedDateCalendar.getTime());
+                jobData.put("jobDateClose", selectedDate);
+
                 jobData.put("jobStatus", "OPEN");
 
                 applicantsList = new ArrayList<>();
