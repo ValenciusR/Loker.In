@@ -20,6 +20,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,8 +28,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PekerjaDetailJobActivity extends AppCompatActivity {
@@ -38,8 +42,8 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
     private DatabaseReference jobsReference;
     private DatabaseReference userReference;
 
-    private ImageView btnBack, ivProfileNavbar;;
-    private TextView tvPageTitle, tvTitle, tvStatus, tvCategory, tvProvince, tvDate, tvSalary, tvDescription;
+    private ImageView btnBack, ivProfileNavbar, ivJobImage;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvCategory, tvProvince, tvDate, tvSalary, tvDescription, tvDateLeft;
     private String jobId, jobStatus, jobMakerId;
     private Button btnAction, btnChat;
     private ArrayList<String> applicantsList, workersList;
@@ -142,7 +146,9 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         tvCategory = findViewById(R.id.tv_category);
         tvDate = findViewById(R.id.tv_date);
         tvSalary = findViewById(R.id.tv_salary);
-        tvDescription = findViewById(R.id.tv_description_pekerja);
+        tvDescription = findViewById(R.id.tv_jobDesc);
+        ivJobImage = findViewById(R.id.iv_jobImage_pekerjaDetailJob);
+        tvDateLeft = findViewById(R.id.tv_day_left);
 
         btnChat = findViewById(R.id.btn_chat_pekerjaDetailJobPage);
         btnAction = findViewById(R.id.btn_action_pekerjaDetailJobPage);
@@ -346,9 +352,41 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
         String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
         if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
-            tvDate.setText(dateOpen + " - " + dateClose);
+            tvDate.setText(dateClose);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+            try {
+                // Parse the date strings into Date objects
+                Date openDate = dateFormat.parse(dateOpen);
+                Date closeDate = dateFormat.parse(dateClose);
+
+                // Calculate the difference in milliseconds
+                long diffInMillis = closeDate.getTime() - openDate.getTime();
+
+                // Convert milliseconds to days
+                long diffInDays = diffInMillis / (24 * 60 * 60 * 1000);
+
+                if(diffInDays < 0){
+                    tvDateLeft.setText("waktu habis");
+                }else{
+                    tvDateLeft.setText(diffInDays+" hari lagi");
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+
+            }
         } else {
             tvDate.setText("N/A");
+        }
+
+        String jobImgUrl = task.getResult().child("jobImgUri").getValue(String.class);
+        if(jobImgUrl.equals("default")){
+            ivJobImage.setImageResource(R.drawable.no_image);
+        } else{
+            if(!PekerjaDetailJobActivity.this.isDestroyed()){
+                Glide.with(PekerjaDetailJobActivity.this).load(jobImgUrl).into(ivJobImage);
+            }
         }
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
@@ -375,15 +413,15 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         switch (status.toUpperCase()) {
             case "OPEN":
                 tvStatus.setText("TERBUKA");
-                tvStatus.setTextColor(getResources().getColor(R.color.green));
+                tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_green_pill));
                 break;
             case "ON GOING":
                 tvStatus.setText("SEDANG BERJALAN");
-                tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_yellow_pill));
                 break;
             case "ENDED":
                 tvStatus.setText("SELESAI");
-                tvStatus.setTextColor(getResources().getColor(R.color.red));
+                tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_red_pill));
                 break;
             default:
                 tvStatus.setTextColor(getResources().getColor(android.R.color.black));

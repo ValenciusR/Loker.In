@@ -19,178 +19,250 @@
             android:layout_alignParentTop="true" />
 
         <androidx.cardview.widget.CardView
+            android:layout_below="@+id/toolbar_submain"
             android:id="@+id/card_main"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar_submain"
-            android:layout_margin="16dp"
+            android:layout_height="0dp"
+            android:layout_above="@+id/button_layout"
+            android:layout_marginBottom="10dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="8dp">
 
             <LinearLayout
                 android:id="@+id/general_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Judul Pekerjaan"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:layout_gravity="center_horizontal" />
-
-                <TextView
-                    android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Status"
-                    android:textColor="#888888"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/poppins_medium"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp" />
+                <ImageView
+                    android:id="@+id/iv_jobImage_pekerjaDetailJob"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@+id/toolbar_submain"
+                    android:src="@drawable/no_image"
+                    android:scaleType="fitCenter"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
                     android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_marginTop="16sp"
+                    android:layout_marginHorizontal="16sp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Judul Pekerjaan"
+                        android:textColor="#000000"
 
+                        android:textSize="28sp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_gravity="center_horizontal" />
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/icon1"
-                            android:layout_width="50dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/img_location"
-                            android:contentDescription="Icon 1" />
-
-                        <TextView
-                            android:id="@+id/tv_province"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Provinsi"
-                            android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/poppins_medium" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:id="@+id/icon2"
-                            android:layout_width="50dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/img_category"
-                            android:contentDescription="Icon 2" />
-
+                        android:gravity="end|center"
+                        >
                         <TextView
                             android:id="@+id/tv_category"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
+                            android:layout_height="wrap_content"
                             android:text="Kategori"
-                            android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/poppins_medium" />
+                            android:background="@drawable/shape_blue_rounded"
+                            android:textColor="#FFFFFFFF"
+                            android:paddingHorizontal="8sp"
+                            android:paddingVertical="3sp"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/poppins_medium"
+                            />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="120dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:gravity="center">
 
-                        <ImageView
-                            android:id="@+id/icon3"
-                            android:layout_width="75dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img_calendar"
-                            android:contentDescription="Icon 3" />
-
-                        <TextView
-                            android:id="@+id/tv_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="Tanggal"
-                            android:textColor="#000000"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/poppins_medium" />
-                    </LinearLayout>
                 </LinearLayout>
 
+
                 <TextView
-                    android:id="@+id/tv_salary"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_jobDesc"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:padding="8dp"
-                    android:text="gaji / frekuensi"
+                    android:text="Lorem Ipsum. ini isinya deskripsi dari pekerjaanya nantinya bakal ngapain aja"
                     android:textSize="12sp"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/poppins_medium"
-                    android:background="@drawable/shape_grey_rounded"
-                    android:gravity="center" />
+                    android:textColor="@color/grey_60"
+                    android:layout_marginHorizontal="16sp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="start" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16sp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20sp"
+                    >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/date_today"
+                        android:layout_marginEnd="10sp"
+                        />
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="Tanggal"
+                        android:layout_marginTop="2sp"
+                        />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        >
+                        <TextView
+                            android:id="@+id/tv_day_left"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="3sp"
+                            android:paddingHorizontal="6sp"
+                            android:textSize="10sp"
+                            android:background="@drawable/shape_grey_rounded"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"
+                            android:text="Tanggal"
+
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16sp"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20sp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="start|center"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Tentang Pekerjaan"
+
+                            />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_marginStart="10sp"
+                            >
+                            <TextView
+                                android:id="@+id/tv_status"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Status"
+                                android:background="@drawable/shape_rounded_green_pill"
+                                android:textColor="#FFFFFFFF"
+                                android:paddingHorizontal="6sp"
+                                android:paddingVertical="3sp"
+                                android:textSize="10sp"
+                                android:fontFamily="@font/poppins_medium"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8sp"
+
+                        android:gravity="end"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/pin"
+                            android:layout_marginEnd="10sp"
+                            />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="start">
+                            <TextView
+                                android:id="@+id/tv_province"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lokasi"/>
+                            <TextView
+                                android:id="@+id/tv_alamat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="AlamaSADASDASDASDt"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8sp"
+                        android:layout_marginBottom="16sp"
+                        android:gravity="end"
+                        >
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/wallet_alt"
+                            android:layout_marginEnd="10sp"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center">
+                            <TextView
+                                android:id="@+id/tv_salary"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="gaji / rekuensi" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button_layout"
-            android:layout_below="@+id/card_main">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20sp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Deskripsi Pekerjaan"
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/poppins_bold" />
-
-                <TextView
-                    android:id="@+id/tv_description_pekerja"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/poppins_light"
-                    android:layout_marginStart="30sp"
-                    android:textColor="#000000"
-                    android:text="Deskripsi" />
-            </LinearLayout>
-        </ScrollView>
 
         <LinearLayout
             android:id="@+id/button_layout"
