@@ -44,11 +44,11 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Job data = jobList.get(position);
         if (data.getJobStatus().equalsIgnoreCase("OPEN")){
-            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green_pill));
+            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green));
         }else if (data.getJobStatus().equalsIgnoreCase("ON GOING")){
-            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_pill));
+            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.orange));
         }else {
-            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red_pill));
+            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
         }
         holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "-");
         holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "-");
