@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PekerjaRecommendJobActivity extends AppCompatActivity {
@@ -37,8 +39,9 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     private DatabaseReference jobsRef;
 
     private ImageView btnBack, ivProfileNavbar, btnFilter, btnFilterClose;
-    private LinearLayout layoutFilter;
-    private TextView tvPageTitle;
+    private LinearLayout layoutFilter,layoutFilterStatus;
+    private Integer filterNumber;
+    private TextView tvPageTitle,btnFilterAZ, btnFilterZA,btnFilterTanggal;
     private RecyclerView rvJobs;
     private EditText etSearchBar;
     private String currentUserId;
@@ -65,9 +68,34 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         }
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+
+        filterNumber = 0;
         btnFilter = findViewById(R.id.btn_dropdown_filter);
         btnFilterClose = findViewById(R.id.btn_dropdown_filterClose);
+        btnFilterAZ = findViewById(R.id.btn_filter_az);
+        btnFilterZA = findViewById(R.id.btn_filter_za);
+        btnFilterTanggal = findViewById(R.id.btn_filter_tanggal);
         layoutFilter = findViewById(R.id.linear_layout_filter);
+        layoutFilterStatus = findViewById(R.id.layout_filter_status);
+        layoutFilterStatus.setVisibility(View.GONE);
+        btnFilterAZ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterFunction(1);
+            }
+        });
+        btnFilterZA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterFunction(2);
+            }
+        });
+        btnFilterTanggal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterFunction(3);
+            }
+        });
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +112,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                 btnFilterClose.setVisibility(View.GONE);
             }
         });
+
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +159,41 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         adapter.updateList(filteredList);
     }
 
+    private void sortJobs() {
+        List<Job> filteredList = new ArrayList<>();
+        for (Job job : jobList) {
+            if (job.getJobTitle() != null) {
+                if ("OPEN".equalsIgnoreCase(job.getJobStatus())) {
+                    filteredList.add(job);
+                }
+            }
+        }
+        if(filterNumber == 1){
+            Collections.sort(filteredList, new Comparator<Job>() {
+                @Override
+                public int compare(Job job1, Job job2) {
+                    return job1.getJobTitle().compareToIgnoreCase(job2.getJobTitle());
+                }
+            });
+        } else if (filterNumber == 2) {
+            Collections.sort(filteredList, new Comparator<Job>() {
+                @Override
+                public int compare(Job job1, Job job2) {
+                    return job2.getJobTitle().compareToIgnoreCase(job1.getJobTitle());
+                }
+            });
+        } else if (filterNumber == 3){
+            Collections.sort(filteredList, new Comparator<Job>() {
+                @Override
+                public int compare(Job job1, Job job2) {
+                    return job2.getJobDateUpload().compareTo(job1.getJobDateUpload());
+                }
+            });
+        }
+
+        adapter.updateList(filteredList);
+    }
+
     private void fetchJobsFromFirebase() {
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -155,5 +219,47 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
 
     private void backPage() {
         finish();
+    }
+
+    private void filterFunction(int filter){
+        if(filter != filterNumber){
+            filterNumber = filter;
+            switch(filter){
+                case 1:
+                    btnFilterAZ.setBackgroundResource(R.drawable.shape_rounded);
+                    btnFilterAZ.setTextColor(getResources().getColor(R.color.blue));
+                    btnFilterZA.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+                    btnFilterZA.setTextColor(getResources().getColor(R.color.white_80));
+                    btnFilterTanggal.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+                    btnFilterTanggal.setTextColor(getResources().getColor(R.color.white_80));
+                    break;
+                case 2:
+                    btnFilterZA.setBackgroundResource(R.drawable.shape_rounded);
+                    btnFilterZA.setTextColor(getResources().getColor(R.color.blue));
+                    btnFilterAZ.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+                    btnFilterAZ.setTextColor(getResources().getColor(R.color.white_80));
+                    btnFilterTanggal.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+                    btnFilterTanggal.setTextColor(getResources().getColor(R.color.white_80));
+                    break;
+                case 3:
+                    btnFilterTanggal.setBackgroundResource(R.drawable.shape_rounded);
+                    btnFilterTanggal.setTextColor(getResources().getColor(R.color.blue));
+                    btnFilterAZ.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+                    btnFilterAZ.setTextColor(getResources().getColor(R.color.white_80));
+                    btnFilterZA.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+                    btnFilterZA.setTextColor(getResources().getColor(R.color.white_80));
+                    break;
+            }
+        }else{
+            btnFilterAZ.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+            btnFilterAZ.setTextColor(getResources().getColor(R.color.white_80));
+            btnFilterZA.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+            btnFilterZA.setTextColor(getResources().getColor(R.color.white_80));
+            btnFilterTanggal.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+            btnFilterTanggal.setTextColor(getResources().getColor(R.color.white_80));
+            filterNumber = 0;
+        }
+        sortJobs();
+
     }
 }
