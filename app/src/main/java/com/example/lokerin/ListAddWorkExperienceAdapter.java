@@ -1,5 +1,6 @@
 package com.example.lokerin;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -75,27 +76,27 @@ public class ListAddWorkExperienceAdapter extends RecyclerView.Adapter<ListAddWo
     }
 
     private void showDeleteWorkExperienceConfirmationDialog(int position) {
-        Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.confirmation_popup);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        dialog.getWindow().setDimAmount(0.7f);
+        if (context instanceof Activity && !((Activity) context).isFinishing()) {
+            Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.confirmation_popup);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setDimAmount(0.7f);
 
-        TextView title = dialog.findViewById(R.id.title_popup);
-        title.setText("Hapus Pekerjaan?");
+            TextView title = dialog.findViewById(R.id.title_popup);
+            title.setText("Hapus Portofolio?");
 
-        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
-        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
+            Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+            Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
 
-        btnCancel.setOnClickListener(view -> dialog.dismiss());
+            btnCancel.setOnClickListener(view -> dialog.dismiss());
 
-        btnConfirm.setOnClickListener(view -> {
-            removeWorkExperience(position);
+            btnConfirm.setOnClickListener(view -> {
+                removeWorkExperience(position);
+                dialog.dismiss();
+            });
 
-//            Delete Work Experience from DB & user
-            dialog.dismiss();
-        });
-
-        dialog.show();
+            dialog.show();
+        }
     }
 
     private void removeWorkExperience(int position) {

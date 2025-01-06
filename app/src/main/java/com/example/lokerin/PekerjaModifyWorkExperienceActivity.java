@@ -455,11 +455,16 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             }
 
             userReference.setValue(dataPortofolioJob).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Portofolio gagal disimpan!", Toast.LENGTH_SHORT).show();
+                Intent startIntentActivity;
+                Toast.makeText(this, "Portofolio Berhasil Ditambah", Toast.LENGTH_SHORT).show();
+                if(intent.getStringExtra("activityOrigin").toString().equals("CreateProfile")) {
+                    startIntentActivity = new Intent(PekerjaModifyWorkExperienceActivity.this, CreateProfile_WorkExperience.class);
                 }
+                else {
+                    startIntentActivity = new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaAddWorkExperienceActivity.class);
+                }
+                startActivity(startIntentActivity);
+                finish();
             });
 
         }else{
@@ -485,11 +490,16 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
             updates.put("portofolioJob", portofolioJobsArray);
 
             userReference.updateChildren(updates).addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    Toast.makeText(this, "Portofolio berhasil ditambah!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Portofolio gagal disimpan!", Toast.LENGTH_SHORT).show();
+                Intent startIntentActivity;
+                Toast.makeText(this, "Portofolio Berhasil Ditambah", Toast.LENGTH_SHORT).show();
+                if(intent.getStringExtra("activityOrigin").toString().equals("CreateProfile")) {
+                    startIntentActivity = new Intent(PekerjaModifyWorkExperienceActivity.this, CreateProfile_WorkExperience.class);
                 }
+                else {
+                    startIntentActivity = new Intent(PekerjaModifyWorkExperienceActivity.this, PekerjaAddWorkExperienceActivity.class);
+                }
+                startActivity(startIntentActivity);
+                finish();
             });
         }
 
