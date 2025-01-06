@@ -48,7 +48,7 @@ public class ListUserChatAdapter extends RecyclerView.Adapter<ListUserChatAdapte
         User user = mUsers.get(position);
         holder.username.setText(user.getName());
         if(user.getImageUrl().equals("default")){
-            holder.profile_image.setImageResource(R.mipmap.ic_launcher);
+            holder.profile_image.setImageResource(R.drawable.default_no_profile_icon);
         } else{
             Glide.with(mContext).load(user.getImageUrl()).into(holder.profile_image);
         }

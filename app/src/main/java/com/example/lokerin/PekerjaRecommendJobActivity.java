@@ -26,10 +26,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PekerjaRecommendJobActivity extends AppCompatActivity {
 
@@ -186,7 +190,15 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
             Collections.sort(filteredList, new Comparator<Job>() {
                 @Override
                 public int compare(Job job1, Job job2) {
-                    return job2.getJobDateUpload().compareTo(job1.getJobDateUpload());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                    try {
+                        Date date1 = sdf.parse(job1.getJobDateUpload());
+                        Date date2 = sdf.parse(job2.getJobDateUpload());
+                        return date2.compareTo(date1); // Newest date first
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return 0; // Treat as equal if parsing fails
+                    }
                 }
             });
         }

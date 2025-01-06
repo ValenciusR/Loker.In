@@ -91,7 +91,7 @@ public class ChatActivity extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 tvUsername.setText(user.getName());
                 if(user.getImageUrl().equals("default")){
-                    ivProfileImage.setImageResource(R.mipmap.ic_launcher);
+                    ivProfileImage.setImageResource(R.drawable.default_no_profile_icon);
                 } else{
                     Glide.with(ChatActivity.this).load(user.getImageUrl()).into(ivProfileImage);
                 }
