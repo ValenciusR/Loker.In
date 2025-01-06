@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     if (user != null) {
                                                         handleUserType(user);
                                                     }
-                                                }else{
+                                                } else {
                                                     HashMap<String, Object> hashMap = getObjectHashMap(signInAccount.getEmail(), signInAccount.getPhotoUrl().toString(), signInAccount.getDisplayName());
                                                     userReference.setValue(hashMap);
                                                     userReference.updateChildren(hashMap);
@@ -133,6 +133,11 @@ public class LoginActivity extends AppCompatActivity {
                             linearView.setClickable(true);
                             Toast.makeText(LoginActivity.this, "Google Sign-In failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+                    } else {
+                        // Handle the case where the activity is canceled
+                        linearView.setClickable(true);
+                        loadingView.setVisibility(View.GONE);
+                        Toast.makeText(LoginActivity.this, "Sign-In canceled", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
