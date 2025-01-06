@@ -33,6 +33,7 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.UserVi
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.userNameText.setText(user.getName());
+        holder.typeText.setText("Role : " + user.getType());
 
         if("Ended".equals(status)){
             holder.viewDetailButton.setText("RATE REVIEW");
@@ -57,11 +58,13 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.UserVi
 
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView userNameText;
+        TextView typeText;
         Button viewDetailButton;
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
             userNameText = itemView.findViewById(R.id.txt_username);
             viewDetailButton = itemView.findViewById(R.id.btn_view_dtl);
+            typeText =itemView.findViewById(R.id.txt_type);
         }
     }
 }
