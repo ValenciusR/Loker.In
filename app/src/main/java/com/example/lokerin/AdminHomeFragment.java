@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +34,7 @@ public class AdminHomeFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userReference, jobsReference;
 
-    private Button btnLogOut;
+    private CardView btnLogOut;
     private TextView tvPengguna, tvPekerja, tvPelanggan, tvPekerjaan, tvPekerjaanAktif;
     private int penggunaCounter, pekerjaCounter, pelangganCounter, pekerjaanCounter, pekerjaanOpenCounter, pekerjaanOnGoingCounter;
     @Override

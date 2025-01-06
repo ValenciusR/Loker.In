@@ -43,7 +43,7 @@ public class AdminMainActivity extends AppCompatActivity {
 
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
-        tvPageTitle.setText("BERANDA");
+        tvPageTitle.setText("DASHBOARD");
         ivProfileNavbar.setVisibility(View.GONE);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -51,7 +51,7 @@ public class AdminMainActivity extends AppCompatActivity {
             int id = item.getItemId();
             if (id == R.id.bottom_home) {
                 selectedFragment = new AdminHomeFragment();
-                tvPageTitle.setText("BERANDA");
+                tvPageTitle.setText("DASHBOARD");
             } else if (id == R.id.bottom_users) {
                 selectedFragment = new AdminUsersFragment();
                 tvPageTitle.setText("DAFTAR PENGGUNA");

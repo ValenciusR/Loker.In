@@ -1,154 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginTop="20sp"
+    >
 
-    <LinearLayout
+    <GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Pengguna"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_pengguna"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+        android:layout_gravity="center_horizontal"
+        android:padding="8dp"
+        android:columnCount="2"
+        android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- FIRST CATEGORY -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Pelanggan"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_pelanggan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+            android:layout_columnWeight="1"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Total Pengguna"
+                    android:textColor="#21458B"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_pengguna"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="end|bottom"
+                    android:text="xx"
+                    android:textColor="#16C47F"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pekerja"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_pekerja"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Pelanggan"
+                    android:textColor="#21458B"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_pelanggan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="end|bottom"
+                    android:text="xx"
+                    android:textColor="#16C47F"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Total Pekerjaan"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_pekerjaan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Pekerja"
+                    android:textColor="#21458B"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_pekerja"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="end|bottom"
+                    android:text="xx"
+                    android:textColor="#16C47F"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Pekerjaan Aktif"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_pekerjaan_aktif"
-            android:layout_width="match_parent"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Total Pekerjaan"
+                    android:textColor="#21458B"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_pekerjaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="end|bottom"
+                    android:text="xx"
+                    android:textColor="#16C47F"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="xx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Pekerjaan Aktif"
+                    android:textColor="#21458B"
+                    android:textSize="24sp" />
+                <TextView
+                    android:id="@+id/tv_pekerjaan_aktif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="end|bottom"
+                    android:text="xx"
+                    android:textColor="#16C47F"
+                    android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="30sp">
-        <androidx.appcompat.widget.AppCompatButton
+        <androidx.cardview.widget.CardView
             android:id="@+id/btn_logout"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="KELUAR"
-            android:textColor="#FFFFFF"
-            android:paddingHorizontal="20sp"
-            android:paddingVertical="10sp"
-            android:backgroundTint="@null"
-            android:background="@drawable/rounded_red_button"
-            android:fontFamily="@font/poppins_medium"
-            android:clickable="true"
-            android:focusable="true"/>
-    </LinearLayout>
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:background="@color/blue"
+                >
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_gravity="start"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/back_button_icon" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="end"
+                    android:text="Keluar"
+                    android:textColor="@color/white"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+
+    </GridLayout>
+
 
 </LinearLayout>

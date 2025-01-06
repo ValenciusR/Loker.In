@@ -4,7 +4,7 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/icon_my_job"
-        android:title="RANGKUMAN"/>
+        android:title="DASHBOARD"/>
 
     <item
         android:id="@+id/bottom_users"
