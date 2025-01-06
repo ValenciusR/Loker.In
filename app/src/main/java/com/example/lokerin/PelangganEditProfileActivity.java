@@ -39,13 +39,13 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
 
     private ImageView btnBack, ivProfileNavbar;
     private ShapeableImageView ivProfile;
-    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError;
-    private EditText etName, etPhone;
+    private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvAgeError, tvGenderError;
+    private EditText etName, etPhone, etAge;
     private AppCompatButton btnSaveChanges;
     private boolean isValid;
     private DatabaseReference userReference;
-    private Spinner spnLocation;
-    private ArrayAdapter<CharSequence> provinceAdapter;
+    private Spinner spnLocation, spnGender;
+    private ArrayAdapter<CharSequence> provinceAdapter, genderAdapter;
 
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
@@ -68,19 +68,28 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
         ivProfile = findViewById(R.id.iv_profile);
         etName = findViewById(R.id.et_name);
         etPhone = findViewById(R.id.et_phone);
+        etAge = findViewById(R.id.et_age_editPelangganProfilePage);
 //        etLocation = findViewById(R.id.et_location);
 //        etEmail = findViewById(R.id.et_email);
         tvNameError = findViewById(R.id.tv_nameError);
         tvPhoneError = findViewById(R.id.tv_phoneError);
         tvLocationError = findViewById(R.id.tv_locationError);
+        tvAgeError = findViewById(R.id.tv_ageError_editPelangganProfilePage);
+        tvGenderError = findViewById(R.id.tv_genderError_editPelangganProfilePage);
 //        tvEmailError = findViewById(R.id.tv_emailError);
         btnSaveChanges = findViewById(R.id.btn_saveChanges);
         spnLocation = findViewById(R.id.spinner_location);
+        spnGender = findViewById(R.id.spinner_gender_editPelangganProfilePage);
 
         provinceAdapter = ArrayAdapter.createFromResource(PelangganEditProfileActivity.this,
                 R.array.province, R.layout.spinner_item);
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
         spnLocation.setAdapter(provinceAdapter);
+
+        genderAdapter = ArrayAdapter.createFromResource(PelangganEditProfileActivity.this,
+                R.array.gender, R.layout.spinner_item);
+        genderAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spnGender.setAdapter(genderAdapter);
 
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         mAuth = FirebaseAuth.getInstance();
@@ -132,6 +141,36 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
                 tvLocationError.setVisibility(View.GONE);
                 spnLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
 //                etLocation.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+            }
+
+            if (spnGender.getSelectedItem().toString().equals("Pilih Jenis")) {
+                spnGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvGenderError.setText("Jenis kelamin harus dipilih!");
+                isValid = false;
+            }
+            else {
+                spnGender.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                tvGenderError.setText("");
+            }
+
+            if (etAge.getText().toString().isEmpty()) {
+                etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvAgeError.setText("Umur harus diisi!");
+                isValid = false;
+            }
+            else if (Integer.valueOf(etAge.getText().toString()) < 18) {
+                etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvAgeError.setText("Umur minimal 18 tahun!");
+                isValid = false;
+            }
+            else if (!etAge.getText().toString().matches("\\d+(?:\\.\\d+)?")) {
+                etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvAgeError.setText("Umur hanya boleh diisi dengan angka!");
+                isValid = false;
+            }
+            else {
+                etAge.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                tvAgeError.setText("");
             }
 
 //            String email = etEmail.getText().toString().trim();
@@ -197,6 +236,8 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
         updates.put("name", etName.getText().toString());
         updates.put("phoneNumber", etPhone.getText().toString());
         updates.put("location", spnLocation.getSelectedItem().toString());
+        updates.put("age", Integer.parseInt(etAge.getText().toString()));
+        updates.put("gender", spnGender.getSelectedItem().toString());
 //        updates.put("location", etLocation.getText().toString());
 //        updates.put("email", etEmail.getText().toString());
 
@@ -246,6 +287,7 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
 
                 etName.setText(user.getName());
                 etPhone.setText(user.getPhoneNumber());
+                etAge.setText(Integer.toString(user.getAge()));
 //                etLocation.setText(user.getLocation());
 //                etEmail.setText(user.getEmail());
 
@@ -260,6 +302,19 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
                 // Set the Spinner selection if the value is found
                 if (index != -1) {
                     spnLocation.setSelection(index);
+                }
+
+                index = -1;
+                for (int i = 0; i < genderAdapter.getCount(); i++) {
+                    if (genderAdapter.getItem(i).equals(user.getGender())) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Set the Spinner selection if the value is found
+                if (index != -1) {
+                    spnGender.setSelection(index);
                 }
 
                 if(user.getImageUrl().equals("default")){
