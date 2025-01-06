@@ -42,8 +42,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
     private String type;
     private TextView tvNameError, tvPhoneError, tvLocationError, tvAgeError, tvGenderError;
 
-    private AutoCompleteTextView etGender, etLocation;
+    private AutoCompleteTextView etLocation;
     private ArrayAdapter<String> adapterItems, adapterItemsLocation;
+
+    private Spinner spnGender;
+    private ArrayAdapter<CharSequence> genderAdapter;
 
     private String[] item = {"Laki-Laki", "Perempuan"};
 
@@ -58,8 +61,9 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         etPhone = findViewById(R.id.et_phone_createProfilePersonalInfoPage);
         etLocation = findViewById(R.id.et_location_createProfilePersonalInfoPage);
         etAge = findViewById(R.id.et_age_createProfilePersonalInfoPage);
-        etGender = findViewById(R.id.et_gender_createProfilePersonalInfoPage);
+//        etGender = findViewById(R.id.et_gender_createProfilePersonalInfoPage);
         btnNext = findViewById(R.id.acb_next_createProfilePersonalInfoPage);
+        spnGender = findViewById(R.id.spinner_gender_createProfilePersonalInfoPage);
 
 
         tvNameError = findViewById(R.id.tv_nameError_createProfilePersonalInfoPage);
@@ -67,6 +71,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         tvLocationError = findViewById(R.id.tv_locationError_createProfilePersonalInfoPage);
         tvAgeError = findViewById(R.id.tv_ageError_createProfilePersonalInfoPage);
         tvGenderError = findViewById(R.id.tv_genderError_createProfilePersonalInfoPage);
+
+        genderAdapter = ArrayAdapter.createFromResource(CreateProfile_PersonalInfo.this,
+                R.array.gender, R.layout.spinner_item);
+        genderAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spnGender.setAdapter(genderAdapter);
 
         firebaseApp = FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
@@ -85,7 +94,20 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
                 etLocation.setText(snapshot.child("location").getValue().toString());
                 etAge.setText(snapshot.child("age").getValue().toString());
                 if(etAge.getText().toString().equals("0")) etAge.setText("");
-                etGender.setText(snapshot.child("gender").getValue().toString());
+                String tempGender = snapshot.child("gender").getValue().toString();
+                int index = -1;
+                for (int i = 0; i < genderAdapter.getCount(); i++) {
+                    if (genderAdapter.getItem(i).equals(tempGender)) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Set the Spinner selection if the value is found
+                if (index != -1) {
+                    spnGender.setSelection(index);
+                }
+//                etGender.setText(snapshot.child("gender").getValue().toString());
             }
 
             @Override
@@ -94,11 +116,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
             }
         });
 
-        etGender.setAdapter(adapterItems);
-        etGender.setOnClickListener(v -> {
-            etGender.showDropDown();
-        });
-        etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
+//        etGender.setAdapter(adapterItems);
+//        etGender.setOnClickListener(v -> {
+//            etGender.showDropDown();
+//        });
+//        etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
 
         etLocation.setAdapter(adapterItemsLocation);
         etLocation.setOnClickListener(v -> {
@@ -112,7 +134,7 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
             String phoneInput = etPhone.getText().toString();
             String locationInput = etLocation.getText().toString();
             String ageInput = etAge.getText().toString();
-            String genderInput = etGender.getText().toString();
+//            String genderInput = etGender.getText().toString();
             
             if (nameInput.isEmpty()) {
                 etName.setBackgroundResource(R.drawable.shape_rounded_red_border);
@@ -162,6 +184,11 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
                 tvAgeError.setText("Umur harus diisi!");
                 isValid = false;
             }
+            else if (Integer.valueOf(etAge.getText().toString()) < 18) {
+                etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvAgeError.setText("Umur minimal 18 tahun!");
+                isValid = false;
+            }
             else if (!ageInput.matches("\\d+(?:\\.\\d+)?")) {
                 etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvAgeError.setText("Umur hanya boleh diisi dengan angka!");
@@ -172,18 +199,13 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
                 tvAgeError.setText("");
             }
 
-            if (genderInput.isEmpty()) {
-                etGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
+            if (spnGender.getSelectedItem().toString().equals("Pilih Jenis")) {
+                spnGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvGenderError.setText("Jenis kelamin harus dipilih!");
                 isValid = false;
             }
-            else if (!genderInput.equals("Laki-Laki") && !genderInput.equals("Perempuan")) {
-                etGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                tvGenderError.setText("Pilih antara Laki-Laki atau Perempuan!");
-                isValid = false;
-            }
             else {
-                etGender.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                spnGender.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                 tvGenderError.setText("");
             }
 
@@ -194,7 +216,7 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
                 updates.put("phoneNumber", etPhone.getText().toString());
                 updates.put("location", etLocation.getText().toString());
                 updates.put("age", Integer.parseInt(etAge.getText().toString()));
-                updates.put("gender", etGender.getText().toString());
+                updates.put("gender", spnGender.getSelectedItem().toString());
                 userReference.updateChildren(updates).addOnCompleteListener(task2 -> {
                     if (task2.isSuccessful()) {
                         if(type.equals("pelanggan")) {

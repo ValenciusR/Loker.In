@@ -22,6 +22,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -45,6 +46,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -60,10 +62,12 @@ public class PelangganAddJobFragment extends Fragment {
     private Spinner spinnerProvince, spinnerRegency;
     private EditText etJobTitle, etDescription, etSalary, etAddress;
     private String frequentSalary = "", selectedCategory, currentUserId;
+    private DatePicker datePicker;
+    private int selectedYear, selectedMonth, selectedDay;
     private boolean isCategorySelected = false;
     private ArrayAdapter<CharSequence> regencyAdapter;
     private ArrayList<String> applicantsList, workersList;
-    private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvProvinceError, tvRegencyError, tvAddressError;
+    private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvDeadlineDateError, tvProvinceError, tvRegencyError, tvAddressError;
 
 
     private ImageView ivUploadedImage;
@@ -101,6 +105,7 @@ public class PelangganAddJobFragment extends Fragment {
         etJobTitle = view.findViewById(R.id.et_job_addJob);
         etDescription = view.findViewById(R.id.et_description_addJob);
         etSalary = view.findViewById(R.id.et_salary_addJob);
+        datePicker = view.findViewById(R.id.dp_deadlineDate_addJob);
         btnCategory = view.findViewById(R.id.btn_category_addJob);
         btnDaily = view.findViewById(R.id.btn_dailySalary_addJob);
         btnWeekly = view.findViewById(R.id.btn_weeklySalary_addJob);
@@ -120,15 +125,29 @@ public class PelangganAddJobFragment extends Fragment {
         tvCategoryError = view.findViewById(R.id.tv_categoryError_addJob);
         tvDescriptionError = view.findViewById(R.id.tv_descriptionError_addJob);
         tvSalaryError = view.findViewById(R.id.tv_salaryError_addJob);
+        tvDeadlineDateError = view.findViewById(R.id.tv_deadlineDateError_addJob);
         tvProvinceError = view.findViewById(R.id.tv_provinceError_addJob);
         tvRegencyError = view.findViewById(R.id.tv_regencyError_addJob);
         tvAddressError = view.findViewById(R.id.tv_addressError_addJob);
-
 
 //        uploadContainer = view.findViewById(R.id.upload_image_container);
 //        uploadedImageView = view.findViewById(R.id.iv_uploaded_image);
 //        uploadIcon = view.findViewById(R.id.iv_upload_image_icon);
 //        uploadText = view.findViewById(R.id.tv_upload_image_text);
+
+        Calendar calendar = Calendar.getInstance();
+        long todayInMillis = calendar.getTimeInMillis();
+        datePicker.setMinDate(todayInMillis);
+
+        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        selectedYear = year;
+                        selectedMonth = monthOfYear;
+                        selectedDay = dayOfMonth;
+                    }
+                });
 
         spinnerProvince = view.findViewById(R.id.spinner_province_addJob);
         spinnerRegency = view.findViewById(R.id.spinner_regency_addJob);
@@ -208,6 +227,7 @@ public class PelangganAddJobFragment extends Fragment {
         tvCategoryError.setText("");
         tvDescriptionError.setText("");
         tvSalaryError.setText("");
+        tvDeadlineDateError.setText("");
         tvProvinceError.setText("");
         tvRegencyError.setText("");
         tvAddressError.setText("");
@@ -282,6 +302,19 @@ public class PelangganAddJobFragment extends Fragment {
             }
         }
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 3);
+        long threeMonthsInMillis = calendar.getTimeInMillis();
+
+        Calendar selectedDateCalendar = Calendar.getInstance();
+        selectedDateCalendar.set(selectedYear, selectedMonth, selectedDay);
+        long selectedDateInMillis = selectedDateCalendar.getTimeInMillis();
+
+        if (selectedDateInMillis > threeMonthsInMillis) {
+            tvDeadlineDateError.setText("Tanggal tidak boleh lebih dari 3 bulan ke depan!");
+            isValid = false;
+        }
+
         if (spinnerProvince.getSelectedItemPosition() == 0) {
             spinnerProvince.setBackgroundResource(R.drawable.shape_rounded_red_border);
             tvProvinceError.setText("Pilih salah satu provinsi!");
@@ -341,10 +374,14 @@ public class PelangganAddJobFragment extends Fragment {
                             jobData.put("jobAddress", etAddress.getText().toString().trim());
                             jobData.put("jobImgUri", imageUrl);
 
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-                            String currentDate = dateFormat.format(new Date());
-                            jobData.put("jobDateUpload", currentDate);
-                            jobData.put("jobStatus", "OPEN");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            String currentDate = dateFormat.format(new Date());
+            jobData.put("jobDateUpload", currentDate);
+
+            String selectedDate = dateFormat.format(selectedDateCalendar.getTime());
+            jobData.put("jobDateClose", selectedDate);
+
+            jobData.put("jobStatus", "OPEN");
 
                             applicantsList = new ArrayList<>();
                             jobData.put("jobApplicants", applicantsList);

@@ -497,7 +497,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
 
         String status = task.getResult().child("jobStatus").getValue(String.class);
-        tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
+        //tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
         setStatusColor(status);
 
         String province = task.getResult().child("jobProvince").getValue(String.class);
@@ -511,8 +511,13 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         String category = task.getResult().child("jobCategory").getValue(String.class);
         tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
 
-        String date = task.getResult().child("jobDateUpload").getValue(String.class);
-        tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
+        String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
+        String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
+        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
+            tvDate.setText(dateOpen + " - " + dateClose);
+        } else {
+            tvDate.setText("N/A");
+        }
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
         NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
@@ -534,12 +539,15 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         switch (status.toUpperCase()) {
             case "OPEN":
+                tvStatus.setText("TERBUKA");
                 tvStatus.setTextColor(getResources().getColor(R.color.green));
                 break;
             case "ON GOING":
+                tvStatus.setText("SEDANG BERJALAN");
                 tvStatus.setTextColor(getResources().getColor(R.color.blue));
                 break;
             case "ENDED":
+                tvStatus.setText("SELESAI");
                 tvStatus.setTextColor(getResources().getColor(R.color.red));
                 break;
             default:

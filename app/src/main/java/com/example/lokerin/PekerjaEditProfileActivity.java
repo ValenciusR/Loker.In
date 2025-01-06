@@ -46,9 +46,9 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
 
     private ImageView btnBack, ivProfileNavbar, ivProfilePicture;
     private EditText etName, etPhone, etAboutMe, etAge;
-    private AutoCompleteTextView etGender;
-    private Spinner spnLocation;
-    private ArrayAdapter<CharSequence> provinceAdapter;
+//    private AutoCompleteTextView etGender;
+    private Spinner spnLocation, spnGender;
+    private ArrayAdapter<CharSequence> provinceAdapter, genderAdapter;
     private AppCompatButton btnSaveChanges;
     private Boolean isValid;
     private TextView tvPageTitle, tvNameError, tvPhoneError, tvLocationError, tvAboutMeError, tvGenderError, tvAgeError;
@@ -81,7 +81,8 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_name_editProfilePekerjaPage);
         etPhone = findViewById(R.id.et_phone_editProfilePekerjaPage);
         etAge = findViewById(R.id.et_age_editProfilePage);
-        etGender = findViewById(R.id.et_gender_editProfilePage);
+//        etGender = findViewById(R.id.et_gender_editProfilePage);
+        spnGender = findViewById(R.id.spinner_gender_editProfilePage);
         spnLocation = findViewById(R.id.spinner_location_editProfilePage);
         etAboutMe = findViewById(R.id.et_aboutMe_editProfilePekerjaPage);
         btnSaveChanges = findViewById(R.id.btn_saveChanges_editProfilePekerjaPage);
@@ -107,12 +108,19 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         provinceAdapter.setDropDownViewResource(R.layout.spinner_item);
         spnLocation.setAdapter(provinceAdapter);
 
-        adapterItems = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
-        etGender.setAdapter(adapterItems);
-        etGender.setOnClickListener(v -> {
-            etGender.showDropDown();
-        });
-        etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
+        genderAdapter = ArrayAdapter.createFromResource(PekerjaEditProfileActivity.this,
+                R.array.gender, R.layout.spinner_item);
+        genderAdapter.setDropDownViewResource(R.layout.spinner_item);
+        spnGender.setAdapter(genderAdapter);
+
+
+
+//        adapterItems = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, item);
+//        etGender.setAdapter(adapterItems);
+//        etGender.setOnClickListener(v -> {
+//            etGender.showDropDown();
+//        });
+//        etGender.setOnFocusChangeListener((v, hasFocus) -> etGender.showDropDown());
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -125,7 +133,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 etName.setText(user.getName());
                 etAboutMe.setText(user.getAboutMe());
                 etAge.setText(Integer.toString(user.getAge()));
-                etGender.setText(user.getGender());
+//                etGender.setText(user.getGender());
 
                 int index = -1;
                 for (int i = 0; i < provinceAdapter.getCount(); i++) {
@@ -138,6 +146,19 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 // Set the Spinner selection if the value is found
                 if (index != -1) {
                     spnLocation.setSelection(index);
+                }
+
+                index = -1;
+                for (int i = 0; i < genderAdapter.getCount(); i++) {
+                    if (genderAdapter.getItem(i).equals(user.getGender())) {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // Set the Spinner selection if the value is found
+                if (index != -1) {
+                    spnGender.setSelection(index);
                 }
 
                 etPhone.setText(user.getPhoneNumber());
@@ -218,18 +239,13 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 }
 
                 //check gender
-                if (etGender.getText().toString().isEmpty()) {
-                    etGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                if (spnGender.getSelectedItem().toString().equals("Pilih Jenis")) {
+                    spnGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
                     tvGenderError.setText("Jenis kelamin harus dipilih!");
                     isValid = false;
                 }
-                else if (!etGender.getText().toString().equals("Laki-Laki") && !etGender.getText().toString().equals("Perempuan")) {
-                    etGender.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvGenderError.setText("Pilih antara Laki-Laki atau Perempuan!");
-                    isValid = false;
-                }
                 else {
-                    etGender.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    spnGender.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                     tvGenderError.setText("");
                 }
 
@@ -237,6 +253,11 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 if (etAge.getText().toString().isEmpty()) {
                     etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
                     tvAgeError.setText("Umur harus diisi!");
+                    isValid = false;
+                }
+                else if (Integer.valueOf(etAge.getText().toString()) < 18) {
+                    etAge.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                    tvAgeError.setText("Umur minimal 18 tahun!");
                     isValid = false;
                 }
                 else if (!etAge.getText().toString().matches("\\d+(?:\\.\\d+)?")) {
@@ -300,7 +321,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
         updates.put("location", spnLocation.getSelectedItem().toString());
         updates.put("aboutMe", etAboutMe.getText().toString());
         updates.put("age", Integer.parseInt(etAge.getText().toString()));
-        updates.put("gender", etGender.getText().toString());
+        updates.put("gender", spnGender.getSelectedItem().toString());
 
         if (imageUrl != null) {
             updates.put("imageUrl", imageUrl); // Include image URL only if an image was uploaded
