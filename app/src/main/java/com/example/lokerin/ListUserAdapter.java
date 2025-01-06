@@ -36,7 +36,7 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.UserVi
         holder.typeText.setText("Role : " + user.getType());
 
         if("Ended".equals(status)){
-            holder.viewDetailButton.setText("RATE REVIEW");
+            holder.viewDetailButton.setText("ULAS");
         }
 
         holder.viewDetailButton.setOnClickListener(v -> {

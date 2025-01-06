@@ -203,6 +203,14 @@ public class PelangganAddJobFragment extends Fragment {
             etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
+        if (frequentSalary.isEmpty()) {
+            btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
+            btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
+            btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
+            tvSalaryError.setText("Pilih salah satu frekuensi upah!");
+            isValid = false;
+        }
+
         if (isValid) {
             try {
                 double salaryValue = Double.parseDouble(etSalary.getText().toString().trim());
@@ -211,21 +219,34 @@ public class PelangganAddJobFragment extends Fragment {
                     tvSalaryError.setText("Upah harus bilangan positif!");
                     isValid = false;
                 } else {
-                    etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    if (frequentSalary.equalsIgnoreCase("Daily")){
+                        if (salaryValue < 25000 || salaryValue > 500000){
+                            tvSalaryError.setText("Upah harian harus berkisar 25.000 - 500.000!");
+                            isValid = false;
+                        } else {
+                            etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        }
+                    } else if (frequentSalary.equalsIgnoreCase("Weekly")){
+                        if (salaryValue < 125000 || salaryValue > 2500000){
+                            tvSalaryError.setText("Upah mingguan harus berkisar 125.000 - 2.500.000!");
+                            isValid = false;
+                        } else {
+                            etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        }
+                    } else if (frequentSalary.equalsIgnoreCase("Monthly")){
+                        if (salaryValue < 500000 || salaryValue > 10000000){
+                            tvSalaryError.setText("Upah bulanan harus berkisar 500.000 - 10.000.000!");
+                            isValid = false;
+                        } else {
+                            etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        }
+                    }
                 }
             } catch (NumberFormatException e) {
                 etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvSalaryError.setText("Upah harus berupa angka valid!");
                 isValid = false;
             }
-        }
-
-        if (frequentSalary.isEmpty()) {
-            btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
-            btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
-            btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
-            tvSalaryError.setText("Pilih salah satu frekuensi upah!");
-            isValid = false;
         }
 
         if (spinnerProvince.getSelectedItemPosition() == 0) {

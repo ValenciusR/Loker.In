@@ -57,7 +57,7 @@
             android:fontFamily="@font/poppins_medium"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            android:text="VIEW DETAIL"
+            android:text="LIHAT DETAIL"
             android:textColor="#FFFFFF"
             android:minHeight="48dp"
             android:layout_gravity="center_vertical"/>

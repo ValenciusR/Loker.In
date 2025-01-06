@@ -12,5 +12,8 @@
     <color name="grey">#202124</color>
     <color name="grey_60">#99202124</color>
     <color name="grey_40">#66202124</color>
-
+    <color name="green_pill">#16C47F</color>
+    <color name="yellow_pill">#FFD65A</color>
+    <color name="blue_pill">#007BFF</color>
+    <color name="red_pill">#F93827</color>
 </resources>

@@ -27,10 +27,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class PelangganMyJobFragment extends Fragment {
 
@@ -123,27 +127,33 @@ public class PelangganMyJobFragment extends Fragment {
     }
 
     private void handleSortSelection(TextView selectedButton, String sortType) {
-        resetSortButtonStyles();
-
-        selectedButton.setBackgroundResource(R.drawable.shape_rounded);
-        selectedButton.setTextColor(getResources().getColor(R.color.blue, null));
-
-        activeSort = sortType;
-
+        if (sortType.equals(activeSort)) {
+            activeSort = null;
+            selectedButton.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);  // reset style
+            selectedButton.setTextColor(getResources().getColor(R.color.white_80, null));
+        } else {
+            resetSortButtonStyles();
+            selectedButton.setBackgroundResource(R.drawable.shape_rounded);
+            selectedButton.setTextColor(getResources().getColor(R.color.blue, null));
+            activeSort = sortType;
+        }
         filterAndSortJobs(etSearchBar.getText().toString());
-        hideFilterOptions();
+//        hideFilterOptions();
     }
 
     private void handleFilterSelection(TextView selectedButton, String filterType) {
-        resetFilterButtonStyles();
-
-        selectedButton.setBackgroundResource(R.drawable.shape_rounded);
-        selectedButton.setTextColor(getResources().getColor(R.color.blue, null));
-
-        activeFilter = filterType;
-
+        if (filterType.equals(activeFilter)) {
+            activeFilter = null;
+            selectedButton.setBackgroundResource(R.drawable.shape_rounded_white_border_clear);
+            selectedButton.setTextColor(getResources().getColor(R.color.white_80, null));
+        } else {
+            resetFilterButtonStyles();
+            selectedButton.setBackgroundResource(R.drawable.shape_rounded);
+            selectedButton.setTextColor(getResources().getColor(R.color.blue, null));
+            activeFilter = filterType;
+        }
         filterAndSortJobs(etSearchBar.getText().toString());
-        hideFilterOptions();
+//        hideFilterOptions();
     }
 
     private void filterAndSortJobs(String query) {
@@ -168,10 +178,19 @@ public class PelangganMyJobFragment extends Fragment {
                 return title2.compareTo(title1);
             });
         } else if ("date".equalsIgnoreCase(activeSort)) {
-            Collections.sort(filteredList, (job1, job2) -> {
-                if (job1.getJobDateUpload() == null) return -1;
-                if (job2.getJobDateUpload() == null) return 1;
-                return job1.getJobDateUpload().compareTo(job2.getJobDateUpload());
+            Collections.sort(filteredList, new Comparator<Job>() {
+                @Override
+                public int compare(Job job1, Job job2) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                    try {
+                        Date date1 = sdf.parse(job1.getJobDateUpload());
+                        Date date2 = sdf.parse(job2.getJobDateUpload());
+                        return date2.compareTo(date1);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        return 0;
+                    }
+                }
             });
         }
 
