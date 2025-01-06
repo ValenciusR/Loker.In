@@ -7,13 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
@@ -25,9 +28,10 @@ public class AdminDetailProfileActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    private TextView tvPageTitle, tvName, tvPhone, tvLocation, tvEmail, tvAge, tvGender, tvJob, tvJobDesc, tvType;
-    private AppCompatButton btnDeleteUser;
+    private TextView tvPageTitle, tvName, tvPhone, tvLocation, tvEmail, tvAge, tvGender, tvAboutMe, tvType;
+    private LinearLayout btnDeleteUser;
     private ImageView btnBack, ivProfileNavbar;
+    private ShapeableImageView ivProfilePicture;
 
     private String userId;
 
@@ -47,14 +51,14 @@ public class AdminDetailProfileActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         databaseReference = firebaseDatabase.getReference().child("users").child(userId);
 
+        ivProfilePicture = findViewById(R.id.iv_profilePicture);
         tvName = findViewById(R.id.tv_name);
         tvPhone = findViewById(R.id.tv_phone);
         tvLocation = findViewById(R.id.tv_location);
         tvEmail = findViewById(R.id.tv_email);
         tvAge = findViewById(R.id.tv_age);
         tvGender = findViewById(R.id.tv_gender);
-        tvJob = findViewById(R.id.tv_job);
-        tvJobDesc = findViewById(R.id.tv_job_desc);
+        tvAboutMe = findViewById(R.id.tv_aboutMe);
         tvType = findViewById(R.id.tv_type);
 
         btnDeleteUser = findViewById(R.id.btn_delete);
@@ -108,14 +112,20 @@ public class AdminDetailProfileActivity extends AppCompatActivity {
         String gender = task.getResult().child("gender").getValue(String.class);
         tvGender.setText(gender != null && !gender.isEmpty() ? gender : "N/A");
 
-        String job = task.getResult().child("job").getValue(String.class);
-        tvJob.setText(job != null && !job.isEmpty() ? job : "N/A");
-
-        String jobDesc = task.getResult().child("jobDesc").getValue(String.class);
-        tvJobDesc.setText(jobDesc != null && !jobDesc.isEmpty() ? jobDesc : "N/A");
+        String aboutMe = task.getResult().child("job").getValue(String.class);
+        tvAboutMe.setText(aboutMe != null && !aboutMe.isEmpty() ? aboutMe : "N/A");
 
         String type = task.getResult().child("type").getValue(String.class);
         tvType.setText(type != null && !type.isEmpty() ? type : "N/A");
+
+        String imgUrl = task.getResult().child("imageUrl").getValue(String.class);
+        if(imgUrl.equals("default")){
+            ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
+        } else{
+            if(!AdminDetailProfileActivity.this.isDestroyed()){
+                Glide.with(AdminDetailProfileActivity.this).load(imgUrl).into(ivProfilePicture);
+            }
+        }
     }
 
     private void showDeleteConfirmationDialog() {

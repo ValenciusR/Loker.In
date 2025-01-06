@@ -8,252 +8,283 @@
     android:background="#FFFFFF">
 
     <include layout="@layout/toolbar_submain"/>
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_name"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+            android:layout_margin="10sp"
+            android:elevation="20sp"
+            app:cardCornerRadius="10sp">
 
-    <LinearLayout
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="30sp">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_profilePicture"
+                    android:layout_width="150sp"
+                    android:layout_height="150sp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20sp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/default_no_profile_icon"
+                    app:shapeAppearanceOverlay="@style/roundedProfileImage" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20sp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nama"
+                            android:layout_gravity="start"
+                            android:textSize="12sp"
+                            android:textColor="@color/grey_60"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/tv_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="xxx"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nomor Telepon"
+                            android:layout_gravity="start"
+                            android:textSize="12sp"
+                            android:textColor="@color/grey_60"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="xxx"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lokasi"
+                            android:layout_gravity="start"
+                            android:textSize="12sp"
+                            android:textColor="@color/grey_60"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/tv_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="xxx"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Email"
+                            android:layout_gravity="start"
+                            android:textSize="12sp"
+                            android:textColor="@color/grey_60"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/tv_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="xxx"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10sp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Umur"
+                                android:layout_gravity="start"
+                                android:textSize="12sp"
+                                android:textColor="@color/grey_60"
+                                android:fontFamily="@font/poppins_medium"/>
+                            <TextView
+                                android:id="@+id/tv_age"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="xxx"
+                                android:gravity="start"
+                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/poppins_medium"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Gender"
+                                android:layout_gravity="start"
+                                android:textSize="12sp"
+                                android:textColor="@color/grey_60"
+                                android:fontFamily="@font/poppins_medium"/>
+                            <TextView
+                                android:id="@+id/tv_gender"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="xxx"
+                                android:gravity="start"
+                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                android:fontFamily="@font/poppins_medium"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tentang Saya"
+                            android:layout_gravity="start"
+                            android:textSize="12sp"
+                            android:textColor="@color/grey_60"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/tv_aboutMe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="xxx"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10sp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Role"
+                            android:layout_gravity="start"
+                            android:textSize="12sp"
+                            android:textColor="@color/grey_60"
+                            android:fontFamily="@font/poppins_medium"/>
+                        <TextView
+                            android:id="@+id/tv_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="xxx"
+                            android:gravity="start"
+                            android:textSize="20sp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/poppins_medium"/>
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nomor Telepon"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
+        android:layout_margin="10sp"
+        android:elevation="20sp"
+        app:cardCornerRadius="10sp">
+
+    </androidx.cardview.widget.CardView>
 
     <LinearLayout
+        android:id="@+id/btn_delete"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#F31919"
         android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
+        android:padding="10sp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lokasi"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Umur"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_age"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Gender"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_gender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pekerjaan"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_job"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Deskripsi Pekerjaan"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_job_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="23sp"
-        android:layout_marginVertical="20sp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipe User"
-            android:layout_gravity="start"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_bold"/>
-        <TextView
-            android:id="@+id/tv_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="xxx"
-            android:gravity="end"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/poppins_medium"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="30sp">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="HAPUS"
+            android:text="Hapus"
             android:textColor="#FFFFFF"
-            android:paddingHorizontal="20sp"
-            android:paddingVertical="10sp"
-            android:backgroundTint="@null"
-            android:background="@drawable/rounded_red_button"
-            android:fontFamily="@font/poppins_medium"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            />
+
+
     </LinearLayout>
 
 </LinearLayout>
