@@ -30,8 +30,8 @@ public class AdminDetailJobActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     private ImageView btnBack,ivProfileNavbar;
-    private String jobId, jobStatus;
-    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary, tvEmptyApplicants, tvEmptyWorkers;
+    private String jobId, jobStatus, jobMakerId;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary, tvEmptyApplicants, tvEmptyWorkers, tvCreatedBy;
     private Button btnAction, btnDelete;
     private RecyclerView rvApplicants, rvWorkers;
 
@@ -59,6 +59,20 @@ public class AdminDetailJobActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     jobStatus = snapshot.child("jobStatus").getValue(String.class);
+                    jobMakerId = snapshot.child("jobMakerId").getValue(String.class);
+                    DatabaseReference databaseReferenceJobMaker = firebaseDatabase.getReference().child("users").child(jobMakerId);
+                    databaseReferenceJobMaker.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            User user = snapshot.getValue(User.class);
+                            tvCreatedBy.setText("Dibuat Oleh : " + user.getName());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
             @Override
@@ -75,6 +89,7 @@ public class AdminDetailJobActivity extends AppCompatActivity {
         tvStatus = findViewById(R.id.tv_status);
         tvDate = findViewById(R.id.tv_date);
         tvSalary = findViewById(R.id.tv_salary);
+        tvCreatedBy = findViewById(R.id.tv_createdBy_adminDetailJobPage);
 
         btnAction = findViewById(R.id.btn_action);
         btnDelete = findViewById(R.id.btn_delete);
