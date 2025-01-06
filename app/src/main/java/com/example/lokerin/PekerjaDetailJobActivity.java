@@ -329,7 +329,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         tvTitle.setText(title != null && !title.isEmpty() ? title : "N/A");
 
         String status = task.getResult().child("jobStatus").getValue(String.class);
-        tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
+        //tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
         setStatusColor(status);
 
         String province = task.getResult().child("jobProvince").getValue(String.class);
@@ -369,12 +369,15 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
 
         switch (status.toUpperCase()) {
             case "OPEN":
+                tvStatus.setText("TERBUKA");
                 tvStatus.setTextColor(getResources().getColor(R.color.green));
                 break;
             case "ON GOING":
+                tvStatus.setText("SEDANG BERJALAN");
                 tvStatus.setTextColor(getResources().getColor(R.color.blue));
                 break;
             case "ENDED":
+                tvStatus.setText("SELESAI");
                 tvStatus.setTextColor(getResources().getColor(R.color.red));
                 break;
             default:
