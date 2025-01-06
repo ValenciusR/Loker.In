@@ -70,7 +70,7 @@ public class PelangganAddJobCategoryFragment extends Fragment {
             "KEAMANAN",
             "KEBERSIHAN",
             "KERAJINAN",
-            "KONTRUKSI",
+            "KONSTRUKSI",
             "LAYANAN",
             "MANUFAKTUR",
             "TRANSPORT",
