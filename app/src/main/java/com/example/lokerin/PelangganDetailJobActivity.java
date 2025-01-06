@@ -511,8 +511,13 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         String category = task.getResult().child("jobCategory").getValue(String.class);
         tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
 
-        String date = task.getResult().child("jobDateUpload").getValue(String.class);
-        tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
+        String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
+        String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
+        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
+            tvDate.setText(dateOpen + " - " + dateClose);
+        } else {
+            tvDate.setText("N/A");
+        }
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
         NumberFormat priceFormat = NumberFormat.getCurrencyInstance();

@@ -206,6 +206,31 @@
                 android:textSize="12sp"
                 android:layout_marginBottom="8dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="TENGGAT WAKTU"
+                android:textColor="#1977F3"
+                android:textSize="12sp"
+                android:layout_marginTop="20sp"/>
+            <DatePicker
+                android:id="@+id/dp_deadlineDate_addJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                />
+            <TextView
+                android:id="@+id/tv_deadlineDateError_addJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/red"
+                android:textSize="12sp"
+                android:layout_marginBottom="8dp"/>
+
             <!--        &lt;!&ndash; UPLOAD IMAGE &ndash;&gt;-->
             <!--        <TextView-->
             <!--            android:layout_width="wrap_content"-->

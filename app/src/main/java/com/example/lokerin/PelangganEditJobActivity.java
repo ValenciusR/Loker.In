@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -52,10 +54,12 @@ public class PelangganEditJobActivity extends AppCompatActivity {
     private Spinner spinnerProvince, spinnerRegency;
     private EditText etJobTitle, etDescription, etSalary, etAddress;
     private String frequentSalary = "", selectedCategory, currentUserId, jobId;
+    private DatePicker datePicker;
+    private int selectedYear, selectedMonth, selectedDay;
     private boolean isCategorySelected = false;
     private TextView tvPageTitle;
     private ArrayAdapter<CharSequence> regencyAdapter;
-    private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvProvinceError, tvRegencyError, tvAddressError;
+    private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvDeadlineDateError, tvProvinceError, tvRegencyError, tvAddressError;
 
     private Integer provinceIndex;
 
@@ -75,6 +79,7 @@ public class PelangganEditJobActivity extends AppCompatActivity {
         etJobTitle = findViewById(R.id.et_job_addJob);
         etDescription = findViewById(R.id.et_description_addJob);
         etSalary = findViewById(R.id.et_salary_addJob);
+        datePicker = findViewById(R.id.dp_deadlineDate_addJob);
         btnCategory = findViewById(R.id.btn_category_addJob);
         btnDaily = findViewById(R.id.btn_dailySalary_addJob);
         btnWeekly = findViewById(R.id.btn_weeklySalary_addJob);
@@ -87,6 +92,7 @@ public class PelangganEditJobActivity extends AppCompatActivity {
         tvCategoryError = findViewById(R.id.tv_categoryError_addJob);
         tvDescriptionError = findViewById(R.id.tv_descriptionError_addJob);
         tvSalaryError = findViewById(R.id.tv_salaryError_addJob);
+        tvDeadlineDateError = findViewById(R.id.tv_deadlineDateError_addJob);
         tvProvinceError = findViewById(R.id.tv_provinceError_addJob);
         tvRegencyError = findViewById(R.id.tv_regencyError_addJob);
         tvAddressError = findViewById(R.id.tv_addressError_addJob);
@@ -185,15 +191,27 @@ public class PelangganEditJobActivity extends AppCompatActivity {
                             frequentSalary = "Monthly";
                         }
 
+                        Calendar calendar = Calendar.getInstance();
+                        long todayInMillis = calendar.getTimeInMillis();
+                        datePicker.setMinDate(todayInMillis);
+
+                        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                                new DatePicker.OnDateChangedListener() {
+                                    @Override
+                                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                        selectedYear = year;
+                                        selectedMonth = monthOfYear;
+                                        selectedDay = dayOfMonth;
+                                    }
+                                });
+
                         setSpinnerSelection(spinnerProvince, job.getJobProvince());
                         int provinceIndex = spinnerProvince.getSelectedItemPosition();
 
                         if (provinceIndex > 0) {
-                            Toast.makeText(PelangganEditJobActivity.this, "Set kota", Toast.LENGTH_SHORT).show();
                             spinnerRegency.setEnabled(true);
                             updateRegencySpinner(provinceIndex, job.getJobRegency());
                         } else {
-                            Toast.makeText(PelangganEditJobActivity.this, "Gak ke Set kota nya", Toast.LENGTH_SHORT).show();
                             spinnerRegency.setEnabled(false);
                         }
 
@@ -233,6 +251,20 @@ public class PelangganEditJobActivity extends AppCompatActivity {
             btnMonthly.setSelected(true);
         }
 
+        Calendar calendar = Calendar.getInstance();
+        long todayInMillis = calendar.getTimeInMillis();
+        datePicker.setMinDate(todayInMillis);
+
+        datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+                new DatePicker.OnDateChangedListener() {
+                    @Override
+                    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        selectedYear = year;
+                        selectedMonth = monthOfYear;
+                        selectedDay = dayOfMonth;
+                    }
+                });
+
         String provinceTemp = intent.getStringExtra("jobProvince");
         if (provinceTemp != null && !provinceTemp.isEmpty()) {
             spinnerProvince.post(() -> {
@@ -257,6 +289,7 @@ public class PelangganEditJobActivity extends AppCompatActivity {
         tvCategoryError.setText("");
         tvDescriptionError.setText("");
         tvSalaryError.setText("");
+        tvDeadlineDateError.setText("");
         tvProvinceError.setText("");
         tvRegencyError.setText("");
         tvAddressError.setText("");
@@ -285,6 +318,14 @@ public class PelangganEditJobActivity extends AppCompatActivity {
             etDescription.setBackgroundResource(R.drawable.shape_rounded_blue_border);
         }
 
+        if (frequentSalary.isEmpty()) {
+            btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
+            btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
+            btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
+            tvSalaryError.setText("Pilih salah satu frekuensi upah!");
+            isValid = false;
+        }
+
         if (isValid) {
             try {
                 double salaryValue = Double.parseDouble(etSalary.getText().toString().trim());
@@ -293,7 +334,28 @@ public class PelangganEditJobActivity extends AppCompatActivity {
                     tvSalaryError.setText("Upah harus bilangan positif!");
                     isValid = false;
                 } else {
-                    etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                    if (frequentSalary.equalsIgnoreCase("Daily")){
+                        if (salaryValue < 25000 || salaryValue > 500000){
+                            tvSalaryError.setText("Upah harian harus berkisar 25.000 - 500.000!");
+                            isValid = false;
+                        } else {
+                            etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        }
+                    } else if (frequentSalary.equalsIgnoreCase("Weekly")){
+                        if (salaryValue < 125000 || salaryValue > 2500000){
+                            tvSalaryError.setText("Upah mingguan harus berkisar 125.000 - 2.500.000!");
+                            isValid = false;
+                        } else {
+                            etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        }
+                    } else if (frequentSalary.equalsIgnoreCase("Monthly")){
+                        if (salaryValue < 500000 || salaryValue > 10000000){
+                            tvSalaryError.setText("Upah bulanan harus berkisar 500.000 - 10.000.000!");
+                            isValid = false;
+                        } else {
+                            etSalary.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                        }
+                    }
                 }
             } catch (NumberFormatException e) {
                 etSalary.setBackgroundResource(R.drawable.shape_rounded_red_border);
@@ -302,11 +364,16 @@ public class PelangganEditJobActivity extends AppCompatActivity {
             }
         }
 
-        if (frequentSalary.isEmpty()) {
-            btnDaily.setBackgroundResource(R.drawable.shape_button_salary_error);
-            btnWeekly.setBackgroundResource(R.drawable.shape_button_salary_error);
-            btnMonthly.setBackgroundResource(R.drawable.shape_button_salary_error);
-            tvSalaryError.setText("Pilih salah satu frekuensi upah!");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 3);
+        long threeMonthsInMillis = calendar.getTimeInMillis();
+
+        Calendar selectedDateCalendar = Calendar.getInstance();
+        selectedDateCalendar.set(selectedYear, selectedMonth, selectedDay);
+        long selectedDateInMillis = selectedDateCalendar.getTimeInMillis();
+
+        if (selectedDateInMillis > threeMonthsInMillis) {
+            tvDeadlineDateError.setText("Tanggal tidak boleh lebih dari 3 bulan ke depan!");
             isValid = false;
         }
 
@@ -340,12 +407,16 @@ public class PelangganEditJobActivity extends AppCompatActivity {
             progressDialog.setCancelable(false);
             progressDialog.show();
 
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            String selectedDate = dateFormat.format(selectedDateCalendar.getTime());
+
             Map<String, Object> updates = new HashMap<>();
             updates.put("jobTitle", etJobTitle.getText().toString());
             updates.put("jobCategory", selectedCategory);
             updates.put("jobDescription", etDescription.getText().toString());
             updates.put("jobSalary", Double.parseDouble(etSalary.getText().toString()));
             updates.put("jobSalaryFrequent", frequentSalary);
+            updates.put("jobDateClose", selectedDate);
             updates.put("jobProvince", spinnerProvince.getSelectedItem().toString());
             updates.put("jobRegency", spinnerRegency.getSelectedItem().toString());
             updates.put("jobAddress", etAddress.getText().toString());
