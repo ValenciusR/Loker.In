@@ -159,7 +159,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Detil Pekerjaan");
+        tvPageTitle.setText("Detail Pekerjaan");
         ivProfileNavbar.setVisibility(View.GONE);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
