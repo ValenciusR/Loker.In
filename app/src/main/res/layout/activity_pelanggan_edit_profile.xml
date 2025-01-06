@@ -164,6 +164,75 @@
                         android:textColor="#F31919"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Umur"
+                            android:textSize="12sp"
+                            android:textColor="#1977F3"
+                            android:fontFamily="@font/poppins_bold"/>
+                        <EditText
+                            android:id="@+id/et_age_editPelangganProfilePage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_rounded_blue_border"
+                            android:fontFamily="@font/poppins_regular"
+                            android:inputType="number"
+                            android:padding="10dp"
+                            android:textColor="@color/black"/>
+                        <TextView
+                            android:id="@+id/tv_ageError_editPelangganProfilePage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textColor="#F31919"
+                            android:layout_marginBottom="10sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="20sp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jenis Kelamin"
+                            android:textSize="12sp"
+                            android:textColor="#1977F3"
+                            android:fontFamily="@font/poppins_bold"/>
+                        <Spinner
+                            android:id="@+id/spinner_gender_editPelangganProfilePage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_rounded_blue_border"
+                            android:fontFamily="@font/poppins_regular"
+                            android:paddingVertical="5dp"
+                            android:textColor="@color/black"
+                            android:spinnerMode="dropdown"
+                            android:popupBackground="@drawable/shape_spinner_dropdown_bg"
+                            android:dropDownVerticalOffset="10dp"
+                            android:dropDownHorizontalOffset="10dp"
+                            android:dropDownWidth="match_parent" />
+                        <TextView
+                            android:id="@+id/tv_genderError_editPelangganProfilePage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
+                            android:textColor="#F31919"
+                            android:layout_marginBottom="10sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+
 <!--                <com.google.android.material.textfield.TextInputLayout-->
 <!--                    android:layout_width="match_parent"-->
 <!--                    android:layout_height="wrap_content"-->
