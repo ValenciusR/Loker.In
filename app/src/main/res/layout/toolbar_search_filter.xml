@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_blue_square"
+    android:orientation="vertical"
+    android:paddingVertical="10sp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="8dp"
+
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_rounded_blue_border"
+            android:layout_marginEnd="8sp"
+
+            android:padding="8dp"
+            android:elevation="4dp" >
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/icon_search_blue"
+                android:contentDescription="Search Icon"
+                />
+
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:background="@null"
+                android:hint="Cari Pekerjaan"
+                android:textColor="#000000"
+                android:textColorHint="#66202124"
+                android:fontFamily="@font/poppins_medium"
+                android:inputType="text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/btn_dropdown_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ep_arrow_down_bold"
+                android:visibility="visible"
+                />
+
+            <ImageView
+                android:rotation="180"
+                android:id="@+id/btn_dropdown_filterClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ep_arrow_down_bold"
+                android:visibility="gone"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10sp"
+        android:visibility="gone"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8sp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Urutkan Berdasarkan"
+                android:textColor="@color/white_80"
+                android:layout_marginBottom="10sp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="2sp"
+                >
+                <LinearLayout
+                    android:id="@+id/btn_filter_az"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5sp"
+                        android:paddingHorizontal="10sp"
+                        android:background="@drawable/shape_rounded_white_border_clear"
+                        android:textColor="@color/white_80"
+                        android:textSize="10sp"
+                        android:text="Abjad A-Z"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_filter_za"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5sp"
+                        android:paddingHorizontal="10sp"
+                        android:background="@drawable/shape_rounded_white_border_clear"
+                        android:textColor="@color/white_80"
+                        android:textSize="10sp"
+                        android:text="Abjad Z-A"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_filter_tanggal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5sp"
+                        android:paddingHorizontal="10sp"
+                        android:background="@drawable/shape_rounded_white_border_clear"
+                        android:textColor="@color/white_80"
+                        android:textSize="10sp"
+                        android:text="Tanggal Terbaru"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8sp"
+            android:orientation="vertical"
+            android:layout_marginTop="10sp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textColor="@color/white_80"
+                android:layout_marginBottom="10sp"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="2sp"
+                android:layout_marginBottom="10sp"
+                >
+                <LinearLayout
+                    android:id="@+id/btn_filter_status_open"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5sp"
+                        android:paddingHorizontal="10sp"
+                        android:background="@drawable/shape_rounded_white_border_clear"
+                        android:textColor="@color/white_80"
+                        android:textSize="10sp"
+                        android:text="Open"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_filter_status_ongoing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10sp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5sp"
+                        android:paddingHorizontal="10sp"
+                        android:background="@drawable/shape_rounded_white_border_clear"
+                        android:textColor="@color/white_80"
+                        android:textSize="10sp"
+                        android:text="Ongoing"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_filter_status_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5sp"
+                        android:paddingHorizontal="10sp"
+                        android:background="@drawable/shape_rounded_white_border_clear"
+                        android:textColor="@color/white_80"
+                        android:textSize="10sp"
+                        android:text="Ended"/>
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

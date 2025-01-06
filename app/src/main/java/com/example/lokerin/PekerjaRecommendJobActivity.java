@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -35,7 +36,8 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference jobsRef;
 
-    private ImageView btnBack, ivProfileNavbar;
+    private ImageView btnBack, ivProfileNavbar, btnFilter, btnFilterClose;
+    private LinearLayout layoutFilter;
     private TextView tvPageTitle;
     private RecyclerView rvJobs;
     private EditText etSearchBar;
@@ -63,6 +65,25 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         }
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+        btnFilter = findViewById(R.id.btn_dropdown_filter);
+        btnFilterClose = findViewById(R.id.btn_dropdown_filterClose);
+        layoutFilter = findViewById(R.id.linear_layout_filter);
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutFilter.setVisibility(View.VISIBLE);
+                btnFilter.setVisibility(View.GONE);
+                btnFilterClose.setVisibility(View.VISIBLE);
+            }
+        });
+        btnFilterClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                layoutFilter.setVisibility(View.GONE);
+                btnFilter.setVisibility(View.VISIBLE);
+                btnFilterClose.setVisibility(View.GONE);
+            }
+        });
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         btnBack.setOnClickListener(new View.OnClickListener() {
