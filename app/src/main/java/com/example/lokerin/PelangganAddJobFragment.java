@@ -1,15 +1,24 @@
 package com.example.lokerin;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,11 +30,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+
+import com.bumptech.glide.Glide;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -50,6 +65,13 @@ public class PelangganAddJobFragment extends Fragment {
     private ArrayList<String> applicantsList, workersList;
     private TextView tvjobError, tvCategoryError, tvDescriptionError, tvSalaryError, tvProvinceError, tvRegencyError, tvAddressError;
 
+
+    private ImageView ivUploadedImage;
+    private RelativeLayout rlUploadImage;
+    StorageReference storageReference;
+    private static final int IMAGE_REQUEST = 1;
+    private Uri imageUri;
+    private StorageTask uploadTask;
 //    private static final int IMAGE_PICK_CODE = 1000;
 //    private RelativeLayout uploadContainer;
 //    private ImageView uploadedImageView;
@@ -57,6 +79,7 @@ public class PelangganAddJobFragment extends Fragment {
 //    private TextView uploadText;
 //    private ActivityResultLauncher<String> imagePickerLauncher;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,6 +105,16 @@ public class PelangganAddJobFragment extends Fragment {
         btnDaily = view.findViewById(R.id.btn_dailySalary_addJob);
         btnWeekly = view.findViewById(R.id.btn_weeklySalary_addJob);
         btnMonthly = view.findViewById(R.id.btn_monthlySalary_addJob);
+        rlUploadImage = view.findViewById(R.id.rl_uploadImage_pelangganAddJob);
+        ivUploadedImage = view.findViewById(R.id.iv_uploadedImage_pelangganAddJob);
+
+        storageReference = FirebaseStorage.getInstance().getReference("uploads");
+        rlUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openImage();
+            }
+        });
 
         tvjobError = view.findViewById(R.id.tv_jobError_addJob);
         tvCategoryError = view.findViewById(R.id.tv_categoryError_addJob);
@@ -279,44 +312,113 @@ public class PelangganAddJobFragment extends Fragment {
             progressDialog.setCancelable(false);
             progressDialog.show();
 
-            HashMap<String, Object> jobData = new HashMap<>();
-            jobData.put("jobMakerId", currentUserId);
-            jobData.put("jobTitle", etJobTitle.getText().toString().trim());
-            jobData.put("jobCategory", selectedCategory);
-            jobData.put("jobDescription", etDescription.getText().toString().trim());
-            jobData.put("jobSalary", Double.parseDouble(etSalary.getText().toString().trim()));
-            jobData.put("jobSalaryFrequent", frequentSalary);
-            jobData.put("jobProvince", spinnerProvince.getSelectedItem().toString());
-            jobData.put("jobRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
-            jobData.put("jobAddress", etAddress.getText().toString().trim());
+            if(imageUri != null){
+                try {
+                    getActivity().getContentResolver().takePersistableUriPermission(
+                            imageUri,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    );
 
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            String currentDate = dateFormat.format(new Date());
-            jobData.put("jobDateUpload", currentDate);
-            jobData.put("jobStatus", "OPEN");
-
-            applicantsList = new ArrayList<>();
-            jobData.put("jobApplicants", applicantsList);
-
-            workersList = new ArrayList<>();
-            jobData.put("jobWorkers", workersList);
-
-            DatabaseReference jobRef = jobsReference.push();
-            String generatedId = jobRef.getKey();
-            jobData.put("jobId", generatedId);
-
-            jobRef.setValue(jobData).addOnCompleteListener(task -> {
-                progressDialog.dismiss();
-                if (task.isSuccessful()) {
-                    Toast.makeText(requireContext(), "Pekerjaan berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
-                    resetForm();
-                    Intent intent = new Intent(getActivity(), PelangganDetailJobActivity.class);
-                    intent.putExtra("jobId", generatedId);
-                    getContext().startActivity(intent);
-                } else {
-                    Toast.makeText(requireContext(), "Gagal menambahkan pekerjaan. Coba lagi!", Toast.LENGTH_SHORT).show();
+                } catch (SecurityException e) {
+                    Log.e("TAG", "Failed to re-grant persistable permission: " + e.getMessage());
                 }
-            });
+
+                final StorageReference fileReference = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+
+                fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot ->
+                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                            String imageUrl = uri.toString();
+                            progressDialog.dismiss();
+                            HashMap<String, Object> jobData = new HashMap<>();
+                            jobData.put("jobMakerId", currentUserId);
+                            jobData.put("jobTitle", etJobTitle.getText().toString().trim());
+                            jobData.put("jobCategory", selectedCategory);
+                            jobData.put("jobDescription", etDescription.getText().toString().trim());
+                            jobData.put("jobSalary", Double.parseDouble(etSalary.getText().toString().trim()));
+                            jobData.put("jobSalaryFrequent", frequentSalary);
+                            jobData.put("jobProvince", spinnerProvince.getSelectedItem().toString());
+                            jobData.put("jobRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
+                            jobData.put("jobAddress", etAddress.getText().toString().trim());
+                            jobData.put("jobImgUri", imageUrl);
+
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                            String currentDate = dateFormat.format(new Date());
+                            jobData.put("jobDateUpload", currentDate);
+                            jobData.put("jobStatus", "OPEN");
+
+                            applicantsList = new ArrayList<>();
+                            jobData.put("jobApplicants", applicantsList);
+
+                            workersList = new ArrayList<>();
+                            jobData.put("jobWorkers", workersList);
+
+                            DatabaseReference jobRef = jobsReference.push();
+                            String generatedId = jobRef.getKey();
+                            jobData.put("jobId", generatedId);
+
+                            jobRef.setValue(jobData).addOnCompleteListener(task -> {
+                                progressDialog.dismiss();
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(requireContext(), "Pekerjaan berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
+                                    resetForm();
+                                    Intent intent = new Intent(getActivity(), PelangganDetailJobActivity.class);
+                                    intent.putExtra("jobId", generatedId);
+                                    getContext().startActivity(intent);
+                                } else {
+                                    Toast.makeText(requireContext(), "Gagal menambahkan pekerjaan. Coba lagi!", Toast.LENGTH_SHORT).show();
+                                }
+                            });// Save profile with image URL
+                        }).addOnFailureListener(e -> {
+                            progressDialog.dismiss();
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        })
+                ).addOnFailureListener(e -> {
+                    progressDialog.dismiss();
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }else{
+                HashMap<String, Object> jobData = new HashMap<>();
+                jobData.put("jobMakerId", currentUserId);
+                jobData.put("jobTitle", etJobTitle.getText().toString().trim());
+                jobData.put("jobCategory", selectedCategory);
+                jobData.put("jobDescription", etDescription.getText().toString().trim());
+                jobData.put("jobSalary", Double.parseDouble(etSalary.getText().toString().trim()));
+                jobData.put("jobSalaryFrequent", frequentSalary);
+                jobData.put("jobProvince", spinnerProvince.getSelectedItem().toString());
+                jobData.put("jobRegency", spinnerRegency.isEnabled() ? spinnerRegency.getSelectedItem().toString() : "");
+                jobData.put("jobAddress", etAddress.getText().toString().trim());
+                jobData.put("jobImgUri", "default");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                String currentDate = dateFormat.format(new Date());
+                jobData.put("jobDateUpload", currentDate);
+                jobData.put("jobStatus", "OPEN");
+
+                applicantsList = new ArrayList<>();
+                jobData.put("jobApplicants", applicantsList);
+
+                workersList = new ArrayList<>();
+                jobData.put("jobWorkers", workersList);
+
+                DatabaseReference jobRef = jobsReference.push();
+                String generatedId = jobRef.getKey();
+                jobData.put("jobId", generatedId);
+
+                jobRef.setValue(jobData).addOnCompleteListener(task -> {
+                    progressDialog.dismiss();
+                    if (task.isSuccessful()) {
+                        Toast.makeText(requireContext(), "Pekerjaan berhasil ditambahkan!", Toast.LENGTH_SHORT).show();
+                        resetForm();
+                        Intent intent = new Intent(getActivity(), PelangganDetailJobActivity.class);
+                        intent.putExtra("jobId", generatedId);
+                        getContext().startActivity(intent);
+                    } else {
+                        Toast.makeText(requireContext(), "Gagal menambahkan pekerjaan. Coba lagi!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+
         }
     }
 
@@ -504,5 +606,33 @@ public class PelangganAddJobFragment extends Fragment {
         btnWeekly.setSelected(false);
         btnMonthly.setSelected(false);
         frequentSalary = "";
+    }
+
+    private void openImage() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, IMAGE_REQUEST);
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver contentResolver = getActivity().getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imageUri = data.getData();
+
+
+            if(!getActivity().isDestroyed()){
+                Glide.with(getActivity()).load(imageUri).into(ivUploadedImage);
+                ivUploadedImage.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 }
