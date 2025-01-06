@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +43,13 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
     @Override
     public void onBindViewHolder(@NonNull CardViewHolder holder, int position) {
         Job data = jobList.get(position);
+        if (data.getJobStatus().equalsIgnoreCase("OPEN")){
+            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.green_pill));
+        }else if (data.getJobStatus().equalsIgnoreCase("ON GOING")){
+            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.blue_pill));
+        }else {
+            holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red_pill));
+        }
         holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "-");
         holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "-");
         holder.jobDateUpload.setText(data.getJobDateUpload() != null ? data.getJobDateUpload() : "-");
@@ -93,10 +102,12 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
     }
 
     public static class CardViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout jobStatus;
         TextView jobTitle, jobLocation, jobDateUpload, jobCategory;
 
         public CardViewHolder(@NonNull View itemView) {
             super(itemView);
+            jobStatus = itemView.findViewById(R.id.status_indicator);
             jobTitle = itemView.findViewById(R.id.text_left_upper);
             jobLocation = itemView.findViewById(R.id.text_left_bottom);
             jobDateUpload = itemView.findViewById(R.id.text_right_upper);
