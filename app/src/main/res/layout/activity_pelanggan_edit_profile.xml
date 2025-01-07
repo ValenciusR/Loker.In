@@ -93,7 +93,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
                         android:textColor="#F31919"
-                        android:visibility="gone"
                         android:layout_marginTop="4sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -126,7 +125,6 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_medium"
                         android:textColor="#F31919"
-                        android:visibility="gone"
                         android:layout_marginTop="4sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -119,16 +119,20 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
                 etName.setBackgroundResource(R.drawable.shape_rounded_blue_border);
             }
 
-            String phone = etPhone.getText().toString().trim();
-            if (phone.isEmpty() || phone.length() < 10 || !phone.matches("\\d+")) {
-                tvPhoneError.setText("Nomor telepon tidak valid!");
-                tvPhoneError.setVisibility(View.VISIBLE);
+            String phoneInput = etPhone.getText().toString().trim();
+            if (phoneInput.length() < 10) {
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvPhoneError.setText("Nomor telepon minimal memiliki 10 angka!");
+                isValid = false;
+            } else if (!phoneInput.matches("^08\\d{8,11}$")) {
+                etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
+                tvPhoneError.setText("Format nomor telepon tidak valid! Gunakan format: 08XXXXXXXXXX");
                 isValid = false;
             } else {
-                tvPhoneError.setVisibility(View.GONE);
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_blue_border);
+                tvPhoneError.setText("");
             }
+
 
 //            String location = etLocation.getText().toString().trim();
             if (spnLocation.getSelectedItem().toString().equals("Pilih Provinsi")) {

@@ -203,20 +203,20 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 }
 
 //                check phone length
-                if (etPhone.getText().toString().trim().length() < 10) {
+                String phoneInput = etPhone.getText().toString();
+                if (phoneInput.length() < 10) {
                     etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
                     tvPhoneError.setText("Nomor telepon minimal memiliki 10 angka!");
                     isValid = false;
-                }
-                else if (!etPhone.getText().toString().matches("\\d+(?:\\.\\d+)?")) {
+                } else if (!phoneInput.matches("^08\\d{8,11}$")) {
                     etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                    tvPhoneError.setText("Nomor telepon hanya boleh memiliki angka!");
+                    tvPhoneError.setText("Format nomor telepon tidak valid! Gunakan format: 08XXXXXXXXXX");
                     isValid = false;
-                }
-                else {
+                } else {
                     etPhone.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                     tvPhoneError.setText("");
                 }
+
 
 //                Check if location is empty
                 if (spnLocation.getSelectedItem().toString().equals("Pilih Provinsi")) {
