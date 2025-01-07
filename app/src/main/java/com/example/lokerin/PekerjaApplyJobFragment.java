@@ -38,7 +38,7 @@ public class PekerjaApplyJobFragment extends Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference jobsRef, usersRef;
 
-    private TextView tvViewAll;
+    private TextView tvViewAll, tvEmpthyRv;
     private RecyclerView rvCategorizedJobs, rvRecommendedJobs;
     private String currentUserId;
     private int counter;
@@ -206,6 +206,8 @@ public class PekerjaApplyJobFragment extends Fragment {
             }
         });
 
+        tvEmpthyRv = view.findViewById(R.id.tv_empthyRv);
+
         rvCategorizedJobs = view.findViewById(R.id.recyclerViewCategory);
         rvCategorizedJobs.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
@@ -317,6 +319,12 @@ public class PekerjaApplyJobFragment extends Fragment {
                             }
                         }
                     }
+                }
+
+                if(jobList.isEmpty()){
+                    tvEmpthyRv.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmpthyRv.setVisibility(View.GONE);
                 }
                 adapter.updateList(jobList);
             }
