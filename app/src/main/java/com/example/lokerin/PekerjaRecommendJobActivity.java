@@ -45,7 +45,7 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
     private ImageView btnBack, ivProfileNavbar, btnFilter, btnFilterClose;
     private LinearLayout layoutFilter,layoutFilterStatus;
     private Integer filterNumber;
-    private TextView tvPageTitle,btnFilterAZ, btnFilterZA,btnFilterTanggal;
+    private TextView tvPageTitle,btnFilterAZ, btnFilterZA,btnFilterTanggal, tvEmpthyRv;
     private RecyclerView rvJobs;
     private EditText etSearchBar;
     private String currentUserId;
@@ -72,6 +72,8 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
         }
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+
+        tvEmpthyRv = findViewById(R.id.tv_empthyRv);
 
         filterNumber = 0;
         btnFilter = findViewById(R.id.btn_dropdown_filter);
@@ -180,6 +182,11 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                 }
             }
         }
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
@@ -222,7 +229,11 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                 }
             });
         }
-
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
@@ -259,6 +270,11 @@ public class PekerjaRecommendJobActivity extends AppCompatActivity {
                         }
 
                     }
+                }
+                if(jobList.isEmpty()){
+                    tvEmpthyRv.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmpthyRv.setVisibility(View.GONE);
                 }
                 adapter.updateList(jobList);
             }

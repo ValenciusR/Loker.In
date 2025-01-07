@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:background="#FFFFFF"
+        android:layout_height="match_parent"
+
+
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -94,14 +94,14 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:layout_marginBottom="120dp" />
+
+                />
 
             <TextView
                 android:id="@+id/tv_empthyRv"
                 android:layout_width="match_parent"
                 android:gravity="center"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="10sp"
                 android:fontFamily="@font/poppins_bold"
