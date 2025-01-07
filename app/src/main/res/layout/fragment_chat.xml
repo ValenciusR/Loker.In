@@ -43,10 +43,32 @@
         </LinearLayout>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
         android:layout_below="@+id/toolbar_search"
-        android:id="@+id/rv_chats"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/toolbar_search"
+            android:id="@+id/rv_chats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_empthyRv"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="10sp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Tidak ada Chat"
+            android:textColor="@color/grey_40"
+            android:textSize="18sp"
+            />
+    </LinearLayout>
+
+
 
 </RelativeLayout>
