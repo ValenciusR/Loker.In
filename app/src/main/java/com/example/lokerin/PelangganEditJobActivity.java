@@ -194,6 +194,9 @@ public class PelangganEditJobActivity extends AppCompatActivity {
                         Calendar calendar = Calendar.getInstance();
                         long todayInMillis = calendar.getTimeInMillis();
                         datePicker.setMinDate(todayInMillis);
+                        selectedYear = calendar.get(Calendar.YEAR);
+                        selectedMonth = calendar.get(Calendar.MONTH);
+                        selectedDay = calendar.get(Calendar.DAY_OF_MONTH);
 
                         datePicker.init(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
                                 new DatePicker.OnDateChangedListener() {

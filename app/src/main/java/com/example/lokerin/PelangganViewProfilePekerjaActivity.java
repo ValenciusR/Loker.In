@@ -139,13 +139,7 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
         });
         ivProfileNavbar.setImageResource(R.drawable.settings_icon);
 
-//        Set Portofolio Recycler View
-//        Portofolio templatePortofolio = new Portofolio("Plumbing", new Date(), "Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus?");
         portofolios = new ArrayList<>();
-//        portofolios.add(templatePortofolio);
-//        portofolios.add(templatePortofolio);
-//        portofolios.add(templatePortofolio);
-//        portofolios.add(templatePortofolio);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
 //        portofolioAdapter = new ListPortofolioAdapter(portofolios);
@@ -206,9 +200,50 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             Intent intent2 = new Intent(PelangganViewProfilePekerjaActivity.this, ChatActivity.class);
             intent2.putExtra("userid", userIdFromPelanggan);
             startActivity(intent2);
-//            Toast.makeText(this, "INI PINDAH KE CHAT (INI DARI PELANGGAN (get auth) KE DETAIL PEKERJA YANG SEDANG DI CEK)", Toast.LENGTH_SHORT).show();
         });
-        btnAction.setOnClickListener(v -> {showApproveApplicantConfirmationDialog();});
+
+        jobReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String jobStatus = dataSnapshot.child("jobStatus").getValue(String.class);
+                    DataSnapshot workersSnapshot = dataSnapshot.child("jobWorkers");
+
+                    if ("ON GOING".equalsIgnoreCase(jobStatus) || "ENDED".equalsIgnoreCase(jobStatus)) {
+                        btnAction.setText("PEKERJA TELAH TERDAFTAR");
+                        btnAction.setEnabled(false);
+                    } else if ("OPEN".equalsIgnoreCase(jobStatus)) {
+                        boolean isCurrentUserWorker = false;
+                        for (DataSnapshot workerSnapshot : workersSnapshot.getChildren()) {
+                            String workerId = workerSnapshot.getValue(String.class);
+                            if (workerId != null && workerId.equals(userIdFromPelanggan)) {
+                                isCurrentUserWorker = true;
+                                break;
+                            }
+                        }
+
+                        if (isCurrentUserWorker) {
+                            btnAction.setText("BATALKAN PEKERJA");
+                            btnAction.setEnabled(true);
+                            btnAction.setOnClickListener(v -> {
+                                showCancelWorkerConfirmationDialog();
+                            });
+                        } else {
+                            btnAction.setText("PILIH PEKERJA");
+                            btnAction.setEnabled(true);
+                            btnAction.setOnClickListener(v -> {
+                                showApproveApplicantConfirmationDialog();
+                            });
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("FirebaseError", "Failed to fetch job details: " + error.getMessage());
+            }
+        });
     }
 
     private void showApproveApplicantConfirmationDialog() {
@@ -284,6 +319,60 @@ public class PelangganViewProfilePekerjaActivity extends AppCompatActivity {
             dialog.dismiss();
         });
     }
+
+    private void showCancelWorkerConfirmationDialog() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.confirmation_popup_accept_applicant);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setDimAmount(0.7f);
+
+        TextView title = dialog.findViewById(R.id.title_popup);
+        title.setText("Batalkan Pekerja?");
+
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+        Button btnConfirm = dialog.findViewById(R.id.btn_confirm);
+
+        dialog.show();
+
+        btnCancel.setOnClickListener(view -> dialog.dismiss());
+
+        btnConfirm.setOnClickListener(view -> {
+            jobReference.get().addOnCompleteListener(task -> {
+                if (task.isSuccessful() && task.getResult().exists()) {
+                    DataSnapshot snapshot = task.getResult();
+
+                    workersList = new ArrayList<>();
+                    if (snapshot.child("jobWorkers").exists()) {
+                        workersList = (ArrayList<String>) snapshot.child("jobWorkers").getValue();
+                    }
+                    if (workersList == null) {
+                        workersList = new ArrayList<>();
+                    }
+
+                    String userIdToBeRemoved = userIdFromPelanggan;
+                    if (userIdToBeRemoved != null && workersList.contains(userIdToBeRemoved)) {
+                        workersList.remove(userIdToBeRemoved);
+                        jobReference.child("jobWorkers").setValue(workersList).addOnCompleteListener(updateTask -> {
+                            if (updateTask.isSuccessful()) {
+                                Toast.makeText(this, "Berhasil membatalkan pekerja ini", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(this, "Gagal membatalkan pekerja ini", Toast.LENGTH_SHORT).show();
+                            }
+                            Intent intent = new Intent(PelangganViewProfilePekerjaActivity.this, PelangganDetailJobActivity.class);
+                            intent.putExtra("jobId", jobIdFromPelanggan);
+                            startActivity(intent);
+                        });
+                    } else {
+                        Toast.makeText(this, "Pekerja ini tidak terdaftar pada pekerjaan ini", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Gagal mengambil data pekerjaan", Toast.LENGTH_SHORT).show();
+                }
+            });
+            dialog.dismiss();
+        });
+    }
+
 
     private void setPortofolio(User user) {
         userReference.addValueEventListener(new ValueEventListener() {
