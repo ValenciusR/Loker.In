@@ -49,7 +49,7 @@ public class PelangganMyJobFragment extends Fragment {
     private ImageView btnDropdownOpen, btnDropdownClose;
     private LinearLayout linearLayoutFilter;
     private TextView btnSortAz, btnSortZa, btnSortDate;
-    private TextView btnFilterOpen, btnFilterOnGoing, btnFilterEnded;
+    private TextView btnFilterOpen, btnFilterOnGoing, btnFilterEnded, tvEmpthyRv;
     private List<Job> jobList = new ArrayList<>();
     private ListJobAdapter adapter;
 
@@ -70,6 +70,7 @@ public class PelangganMyJobFragment extends Fragment {
         btnFilterOpen = view.findViewById(R.id.btn_filter_status_open);
         btnFilterOnGoing = view.findViewById(R.id.btn_filter_status_ongoing);
         btnFilterEnded = view.findViewById(R.id.btn_filter_status_end);
+        tvEmpthyRv = view.findViewById(R.id.tv_empthyRv);
 
         FirebaseApp.initializeApp(requireContext());
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
@@ -194,6 +195,11 @@ public class PelangganMyJobFragment extends Fragment {
             });
         }
 
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
@@ -207,6 +213,11 @@ public class PelangganMyJobFragment extends Fragment {
                     if (job != null) {
                         jobList.add(job);
                     }
+                }
+                if(jobList.isEmpty()){
+                    tvEmpthyRv.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmpthyRv.setVisibility(View.GONE);
                 }
                 filterAndSortJobs(etSearchBar.getText().toString());
             }
