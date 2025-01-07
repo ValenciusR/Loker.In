@@ -1,6 +1,8 @@
 package com.example.lokerin;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -40,6 +42,10 @@ public class AdminHomeFragment extends Fragment {
     private CardView btnLogOut;
     private TextView tvPengguna, tvPekerja, tvPelanggan, tvPekerjaan, tvPekerjaanAktif;
     private int penggunaCounter, pekerjaCounter, pelangganCounter, pekerjaanCounter, pekerjaanOpenCounter, pekerjaanOnGoingCounter;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,19 +123,20 @@ public class AdminHomeFragment extends Fragment {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                // Revoke access to the current Google account
+
                 GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
                 GoogleSignInClient googleSignIn = GoogleSignIn.getClient(getActivity(), options);
 
                 googleSignIn.revokeAccess()
                         .addOnCompleteListener(task -> {
-                            // Redirect to login screen after successful sign-out and access revocation
+                            sharedPreferences = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE);
+                            editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.apply();
+
                             startActivity(new Intent(getActivity(), LoginActivity.class));
                             getActivity().finish();
                         });
-
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
             }
         });
 
