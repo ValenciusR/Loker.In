@@ -319,13 +319,14 @@
                     <EditText
                         android:id="@+id/et_review_rate"
                         android:layout_width="match_parent"
-                        android:gravity="start|top"
-                        android:layout_height="148dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="5"
+                        android:padding="10sp"
                         android:background="@drawable/shape_rounded_blue_border"
                         android:fontFamily="@font/poppins_regular"
-                        android:inputType="textImeMultiLine"
-                        android:padding="10dp"
+                        android:gravity="top|start"
+                        android:textAlignment="gravity"
                         android:textColor="@color/black" />
 
                     <androidx.appcompat.widget.AppCompatButton

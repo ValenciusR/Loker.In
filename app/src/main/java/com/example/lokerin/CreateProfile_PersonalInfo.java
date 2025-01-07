@@ -159,16 +159,15 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 tvPhoneError.setText("Nomor telepon minimal memiliki 10 angka!");
                 isValid = false;
-            }
-            else if (!phoneInput.matches("\\d+(?:\\.\\d+)?")) {
+            } else if (!phoneInput.matches("^08\\d{8,11}$")) {
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_red_border);
-                tvPhoneError.setText("Nomor telepon hanya boleh memiliki angka!");
+                tvPhoneError.setText("Format nomor telepon tidak valid! Gunakan format: 08XXXXXXXXXX");
                 isValid = false;
-            }
-            else {
+            } else {
                 etPhone.setBackgroundResource(R.drawable.shape_rounded_blue_border);
                 tvPhoneError.setText("");
             }
+
 
             if (locationInput.isEmpty()) {
                 etLocation.setBackgroundResource(R.drawable.shape_rounded_red_border);
