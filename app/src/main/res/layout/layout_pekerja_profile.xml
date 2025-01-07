@@ -57,7 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5sp"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="John Doe"
+                        android:text="NAMA"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
@@ -79,7 +79,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="Location Name"
+                            android:text="Lokasi"
                             android:textSize="14sp" />
 
                     </LinearLayout>
@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_regular"
-                        android:text="Ini ceritanya About Me ges. Lorem ipsum dolor sit amet. Ut recusandae fugit quo eaque impedit eum ipsum illo sit animi galisum ut officia voluptate qui quia ducimus? Et molestias quis qui sunt nulla et omnis alias"
+                        android:text="Deskripsi"
                         android:textSize="14sp" />
 
                 </LinearLayout>
@@ -148,7 +148,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="081211112222"
+                            android:text="Nomor Telfon"
                             android:textSize="14sp" />
                     </LinearLayout>
 
@@ -169,7 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_regular"
-                            android:text="john.doe@gmail.com"
+                            android:text="email@gmail.com"
                             android:textSize="14sp" />
 
                     </LinearLayout>

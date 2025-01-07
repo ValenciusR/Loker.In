@@ -2,6 +2,7 @@ package com.example.lokerin;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -66,81 +67,84 @@ public class LoginActivity extends AppCompatActivity {
 
     GoogleSignInClient googleSignInClient;
 
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    linearView.setClickable(false);
-                    loadingView.setVisibility(View.VISIBLE);
+        new ActivityResultContracts.StartActivityForResult(),
+        new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                linearView.setClickable(false);
+                loadingView.setVisibility(View.VISIBLE);
 
-                    if (result.getResultCode() == RESULT_OK) {
-                        Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
-                        try {
-                            GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
+                if (result.getResultCode() == RESULT_OK) {
+                    Task<GoogleSignInAccount> accountTask = GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                    try {
+                        GoogleSignInAccount signInAccount = accountTask.getResult(ApiException.class);
 
-                            AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
+                        AuthCredential authCredential = GoogleAuthProvider.getCredential(signInAccount.getIdToken(), null);
 
-                            mAuth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    loadingView.setVisibility(View.GONE);
-                                    linearView.setClickable(true);
+                        mAuth.signInWithCredential(authCredential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                loadingView.setVisibility(View.GONE);
+                                linearView.setClickable(true);
 
-                                    if (task.isSuccessful()) {
-                                        mAuth = FirebaseAuth.getInstance();
-                                        String userId = mAuth.getUid();
-                                        userReference = firebaseDatabase.getReference().child("users").child(userId);
+                                if (task.isSuccessful()) {
+                                    mAuth = FirebaseAuth.getInstance();
+                                    String userId = mAuth.getUid();
+                                    userReference = firebaseDatabase.getReference().child("users").child(userId);
 
-                                        // Check if the user exists
-                                        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                if (dataSnapshot.exists()) {
-                                                    // User exists, proceed based on user type
-                                                    User user = dataSnapshot.getValue(User.class);
-                                                    if (user != null) {
-                                                        handleUserType(user);
-                                                    }
-                                                } else {
-                                                    HashMap<String, Object> hashMap = getObjectHashMap(signInAccount.getEmail(), signInAccount.getPhotoUrl().toString(), signInAccount.getDisplayName());
-                                                    userReference.setValue(hashMap);
-                                                    userReference.updateChildren(hashMap);
-
-                                                    // Navigate to CreateProfile activity
-                                                    Intent loginIntent = new Intent(LoginActivity.this, CreateProfile.class);
-                                                    startActivity(loginIntent);
-                                                    finish();
+                                    // Check if the user exists
+                                    userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                // User exists, proceed based on user type
+                                                User user = dataSnapshot.getValue(User.class);
+                                                if (user != null) {
+                                                    handleUserType(user);
                                                 }
-                                            }
+                                            } else {
+                                                HashMap<String, Object> hashMap = getObjectHashMap(signInAccount.getEmail(), signInAccount.getPhotoUrl().toString(), signInAccount.getDisplayName());
+                                                userReference.setValue(hashMap);
+                                                userReference.updateChildren(hashMap);
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-                                                loadingView.setVisibility(View.GONE);
-                                                linearView.setClickable(true);
-                                                Toast.makeText(LoginActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                                // Navigate to CreateProfile activity
+                                                Intent loginIntent = new Intent(LoginActivity.this, CreateProfile.class);
+                                                startActivity(loginIntent);
+                                                finish();
                                             }
-                                        });
-                                    } else {
-                                        Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
-                                    }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+                                            loadingView.setVisibility(View.GONE);
+                                            linearView.setClickable(true);
+                                            Toast.makeText(LoginActivity.this, "Database error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                                 }
-                            });
+                            }
+                        });
 
-                        } catch (ApiException e) {
-                            loadingView.setVisibility(View.GONE);
-                            linearView.setClickable(true);
-                            Toast.makeText(LoginActivity.this, "Google Sign-In failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        // Handle the case where the activity is canceled
-                        linearView.setClickable(true);
+                    } catch (ApiException e) {
                         loadingView.setVisibility(View.GONE);
-                        Toast.makeText(LoginActivity.this, "Sign-In canceled", Toast.LENGTH_SHORT).show();
+                        linearView.setClickable(true);
+                        Toast.makeText(LoginActivity.this, "Google Sign-In failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    // Handle the case where the activity is canceled
+                    linearView.setClickable(true);
+                    loadingView.setVisibility(View.GONE);
+                    Toast.makeText(LoginActivity.this, "Sign-In canceled", Toast.LENGTH_SHORT).show();
                 }
-            });
+            }
+        }
+    );
 
     private void handleUserType(User user) {
         String userType = user.getType();
@@ -193,6 +197,24 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        sharedPreferences = getSharedPreferences("session", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        boolean isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false);
+
+        if (isLoggedIn) {
+            String userType = sharedPreferences.getString("userType", "");
+            if (userType.equals("pelanggan")) {
+                startActivity(new Intent(this, PelangganMainActivity.class));
+            } else if (userType.equals("pekerja")) {
+                startActivity(new Intent(this, PekerjaMainActivity.class));
+            } else if (userType.equals("admin")) {
+                startActivity(new Intent(this, AdminMainActivity.class));
+            } else {
+                startActivity(new Intent(this, CreateProfile.class));
+            }
+            finish();
+        }
+
         etEmail = findViewById(R.id.input_email_loginPage);
         etPassword = findViewById(R.id.input_password_loginPage);
         btnLogin = findViewById(R.id.btn_login_loginPage);
@@ -206,7 +228,6 @@ public class LoginActivity extends AppCompatActivity {
         btnGoogle = findViewById(R.id.btn_loginGoogle_loginPage);
 
         firebaseApp = FirebaseApp.initializeApp(this);
-
 
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.client_id))
@@ -334,6 +355,12 @@ public class LoginActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 User user = dataSnapshot.getValue(User.class);
                                 String userType = user.getType();
+                                editor.putBoolean("isLoggedIn", true);
+                                editor.putString("userType", userType);
+                                editor.putString("userName", user.getName());
+                                editor.putString("userEmail", user.getEmail());
+                                editor.apply();
+
                                 if(userType.equals("pelanggan")) {
                                     if(!user.getName().isEmpty()){
                                         startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));

@@ -1,6 +1,7 @@
 package com.example.lokerin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,6 +53,9 @@ public class PekerjaProfileActivity extends AppCompatActivity {
     private LinearLayoutManager linearLayoutManager, linearLayoutManager2;
     private ListPortofolioAdapter portofolioAdapter;
     private ListReviewAdapter listReviewAdapter;
+
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -256,16 +260,18 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Sign out from Firebase
                 FirebaseAuth.getInstance().signOut();
 
-                // Revoke access to the current Google account
                 GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
                 GoogleSignInClient googleSignIn = GoogleSignIn.getClient(PekerjaProfileActivity.this, options);
 
                 googleSignIn.revokeAccess()
                         .addOnCompleteListener(task -> {
-                            // Redirect to login screen after successful sign-out and access revocation
+                            sharedPreferences = getSharedPreferences("session", MODE_PRIVATE);
+                            editor = sharedPreferences.edit();
+                            editor.clear();
+                            editor.apply();
+
                             startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
                             finish();
                         });

@@ -75,7 +75,7 @@
             android:id="@+id/tv_name_profilePelangganPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="John Doe"
+            android:text="xx"
             android:gravity="end"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_medium"/>
@@ -101,7 +101,7 @@
             android:id="@+id/tv_phone_profilePelangganPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="081211112222"
+            android:text="08xx"
             android:gravity="end"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_medium"/>
@@ -127,7 +127,7 @@
             android:id="@+id/tv_location_profilePelangganPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="South Jakarta"
+            android:text="xx"
             android:gravity="end"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_medium"/>
@@ -153,7 +153,7 @@
             android:id="@+id/tv_email_profilePelangganPage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="john.doe@gmail.com"
+            android:text="email@gmail.com"
             android:gravity="end"
             android:textSize="20sp"
             android:fontFamily="@font/poppins_medium"/>
