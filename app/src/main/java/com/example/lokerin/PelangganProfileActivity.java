@@ -15,6 +15,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -82,6 +85,18 @@ public class PelangganProfileActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
+
+                // Revoke access to the current Google account
+                GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
+                GoogleSignInClient googleSignIn = GoogleSignIn.getClient(PelangganProfileActivity.this, options);
+
+                googleSignIn.revokeAccess()
+                        .addOnCompleteListener(task -> {
+                            // Redirect to login screen after successful sign-out and access revocation
+                            startActivity(new Intent(PelangganProfileActivity.this, LoginActivity.class));
+                            finish();
+                        });
+
                 startActivity(new Intent(PelangganProfileActivity.this, LoginActivity.class));
                 finish();
             }

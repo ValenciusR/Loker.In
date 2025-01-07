@@ -366,6 +366,49 @@
             android:textSize="12sp"
             android:layout_marginBottom="8dp"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Unggah Gambar"
+            android:textColor="#1977F3"
+            android:textSize="12sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_uploadImage_pelangganAddJob"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:background="@drawable/shape_rounded_blue_border"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/iv_uploadImage_pelangganAddJob"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_add_photo"
+                app:tint="@color/blue" />
+            <TextView
+                android:id="@+id/tv_uploadImage_pelangganAddJob"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/iv_uploadImage_pelangganAddJob"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:text="Tekan untuk mengunggah"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="12sp" />
+            <ImageView
+                android:id="@+id/iv_uploadedImage_pelangganAddJob"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+        </RelativeLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_addJob"
             android:layout_width="match_parent"

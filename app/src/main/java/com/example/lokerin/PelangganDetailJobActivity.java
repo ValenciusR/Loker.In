@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,18 +28,23 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
+import java.util.Date;
 
 public class PelangganDetailJobActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference jobsReference;
 
-    private ImageView btnBack,ivProfileNavbar;
+    private ImageView btnBack,ivProfileNavbar, ivJobImage;
     private String jobId, jobStatus;
-    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince, tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers;
-    private Button btnAction, btnDelete, btnAction2, btnEdit;
+    private TextView tvPageTitle, tvTitle, tvCategory, tvProvince,
+            tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers, tvDayLeft, tvAlamat;
+
+    private TextView btnAction, btnDelete, btnAction2, btnEdit;
     private RecyclerView rvApplicants, rvWorkers;
     private LinearLayout btnGroup;
 
@@ -131,6 +137,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvTitle = findViewById(R.id.tv_title);
         tvStatus = findViewById(R.id.tv_status);
+        tvAlamat = findViewById(R.id.tv_alamat);
         tvProvince = findViewById(R.id.tv_province);
         tvCategory = findViewById(R.id.tv_category);
         tvDate = findViewById(R.id.tv_date);
@@ -138,6 +145,8 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         tvApplicants = findViewById(R.id.tv_applicants);
         tvEmptyApplicants = findViewById(R.id.tv_noData_applicants);
         tvEmptyWorkers = findViewById(R.id.tv_noData_workers);
+        tvDayLeft = findViewById(R.id.tv_day_left);
+        ivJobImage = findViewById(R.id.iv_jobImage_pelangganDetailJob);
 
         btnAction = findViewById(R.id.btn_action);
         btnDelete = findViewById(R.id.btn_delete);
@@ -334,7 +343,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                                     btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
                                                     btnDelete.setVisibility(View.GONE);
                                                     tvStatus.setText("ON GOING");
-                                                    tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                                                    tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_yellow_pill));
                                                     tvApplicants.setVisibility(View.GONE);
                                                     tvEmptyApplicants.setVisibility(View.GONE);
                                                 })
@@ -439,7 +448,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                         btnGroup.setVisibility(View.GONE);
                                         btnAction2.setVisibility(View.GONE);
                                         tvStatus.setText("ENDED");
-                                        tvStatus.setTextColor(getResources().getColor(R.color.red));
+                                        tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_red_pill));
                                         tvApplicants.setVisibility(View.GONE);
                                         tvEmptyApplicants.setVisibility(View.GONE);
 
@@ -508,15 +517,50 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
             tvProvince.setText("N/A");
         }
 
+        String alamat = task.getResult().child("jobAddress").getValue(String.class);
+        tvAlamat.setText(alamat);
+
         String category = task.getResult().child("jobCategory").getValue(String.class);
         tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
 
         String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
         String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
         if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
-            tvDate.setText(dateOpen + " - " + dateClose);
+            tvDate.setText(dateClose);
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+            try {
+                // Parse the date strings into Date objects
+                Date openDate = dateFormat.parse(dateOpen);
+                Date closeDate = dateFormat.parse(dateClose);
+
+                // Calculate the difference in milliseconds
+                long diffInMillis = closeDate.getTime() - openDate.getTime();
+
+                // Convert milliseconds to days
+                long diffInDays = diffInMillis / (24 * 60 * 60 * 1000);
+
+                if(diffInDays < 0){
+                    tvDayLeft.setText("waktu habis");
+                }else{
+                    tvDayLeft.setText(diffInDays+" hari lagi");
+                }
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+
+            }
         } else {
             tvDate.setText("N/A");
+        }
+
+        String jobImgUrl = task.getResult().child("jobImgUri").getValue(String.class);
+        if(jobImgUrl.equals("default")){
+            ivJobImage.setImageResource(R.drawable.no_image);
+        } else{
+            if(!PelangganDetailJobActivity.this.isDestroyed()){
+                Glide.with(PelangganDetailJobActivity.this).load(jobImgUrl).into(ivJobImage);
+            }
         }
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
@@ -540,15 +584,15 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         switch (status.toUpperCase()) {
             case "OPEN":
                 tvStatus.setText("TERBUKA");
-                tvStatus.setTextColor(getResources().getColor(R.color.green));
+                tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_green_pill));
                 break;
             case "ON GOING":
                 tvStatus.setText("SEDANG BERJALAN");
-                tvStatus.setTextColor(getResources().getColor(R.color.blue));
+                tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_yellow_pill));
                 break;
             case "ENDED":
                 tvStatus.setText("SELESAI");
-                tvStatus.setTextColor(getResources().getColor(R.color.red));
+                tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_red_pill));
                 break;
             default:
                 tvStatus.setTextColor(getResources().getColor(android.R.color.black));

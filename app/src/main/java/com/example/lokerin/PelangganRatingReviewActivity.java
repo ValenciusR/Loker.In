@@ -18,13 +18,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.HashMap;
 
 public class PelangganRatingReviewActivity extends AppCompatActivity {
@@ -33,8 +36,8 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
     private DatabaseReference reviewReference, jobReference, pekerjaReference;
 
     private String jobId, pekerjaId, pelangganId, pelangganName, pelangganImageUrl;
-    private ImageView btnBack, ivProfileNavbar;
-    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary;
+    private ImageView btnBack, ivProfileNavbar, ivJobImage;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary, tvDayLeft;
     private RatingBar rbRating;
     private CheckBox cbRecommend;
     private EditText etReviewRate;
@@ -67,14 +70,19 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         reviewReference = firebaseDatabase.getReference().child("reviews");
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+        ivJobImage = findViewById(R.id.iv_jobImage_ratingReviewPage);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
         tvTitle = findViewById(R.id.tv_title);
+        tvDayLeft = findViewById(R.id.tv_day_left);
         tvStatus = findViewById(R.id.tv_status);
+        tvStatus.setVisibility(View.GONE);
         tvProvince = findViewById(R.id.tv_province);
         tvCategory = findViewById(R.id.tv_category);
         tvDate = findViewById(R.id.tv_date);
         tvSalary = findViewById(R.id.tv_salary);
+
+        tvDayLeft.setVisibility(View.GONE);
 
         rbRating = findViewById(R.id.rating_bar);
         cbRecommend = findViewById(R.id.checkbox_recommend);
@@ -202,6 +210,15 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         tvStatus.setText(status != null && !status.isEmpty() ? status : "N/A");
         tvStatus.setTextColor(getResources().getColor(R.color.red));
 
+        String jobImgUrl = task.getResult().child("jobImgUri").getValue(String.class);
+        if(jobImgUrl.equals("default")){
+            ivJobImage.setImageResource(R.drawable.no_image);
+        } else{
+            if(!PelangganRatingReviewActivity.this.isDestroyed()){
+                Glide.with(PelangganRatingReviewActivity.this).load(jobImgUrl).into(ivJobImage);
+            }
+        }
+
         String province = task.getResult().child("jobProvince").getValue(String.class);
         String regency = task.getResult().child("jobRegency").getValue(String.class);
         if (province != null && !province.isEmpty() && regency != null && !regency.isEmpty()){
@@ -217,8 +234,18 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         tvDate.setText(date != null && !date.isEmpty() ? date : "N/A");
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
+        NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
+        priceFormat.setMaximumFractionDigits(0);
+        priceFormat.setCurrency(Currency.getInstance("IDR"));
         String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
-        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp " + String.valueOf(salary) + ",00 / " + salaryFrequent : "N/A");
+        if(salaryFrequent.equals("Daily")) {
+            salaryFrequent = "Hari";
+        } else if (salaryFrequent.equals("Weekly")) {
+            salaryFrequent = "Minggu";
+        } else if (salaryFrequent.equals("Monthly")) {
+            salaryFrequent = "Bulan";
+        }
+        tvSalary.setText(salaryFrequent != null && !salaryFrequent.isEmpty() ? "Rp" + String.valueOf(priceFormat.format(salary)).replace("IDR","") + ".00 / " + salaryFrequent : "N/A");
     }
 
     private void backPage() {
