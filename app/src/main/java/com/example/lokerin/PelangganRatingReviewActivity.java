@@ -178,8 +178,8 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
                     Toast.makeText(this, "Gagal menambahkan ulasan. Coba lagi!", Toast.LENGTH_SHORT).show();
                 }
             });
-            Intent intent = new Intent(PelangganRatingReviewActivity.this, PelangganMainActivity.class);
-            startActivity(intent);
+            Intent intentMain = new Intent(PelangganRatingReviewActivity.this, PelangganMainActivity.class);
+            startActivity(intentMain);
             finish();
         }
     }
