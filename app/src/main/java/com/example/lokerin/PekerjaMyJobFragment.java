@@ -46,7 +46,7 @@ public class PekerjaMyJobFragment extends Fragment {
 
     private ImageView btnFilter, btnFilterClose;
     private LinearLayout layoutFilter,layoutFilterStatus;
-    private TextView btnFilterAZ, btnFilterZA,btnFilterTanggal;
+    private TextView btnFilterAZ, btnFilterZA,btnFilterTanggal, tvEmpthyRv;
     private Integer filterNumber;
 
     private RecyclerView rvJobs;
@@ -77,6 +77,8 @@ public class PekerjaMyJobFragment extends Fragment {
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ListJobAdapter(getActivity(), jobList);
         rvJobs.setAdapter(adapter);
+
+        tvEmpthyRv = view.findViewById(R.id.tv_empthyRv);
 
         filterNumber = 0;
         btnFilter = view.findViewById(R.id.btn_dropdown_filter);
@@ -150,6 +152,11 @@ public class PekerjaMyJobFragment extends Fragment {
                 }
             }
         }
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
@@ -182,6 +189,11 @@ public class PekerjaMyJobFragment extends Fragment {
                         }
 
                     }
+                }
+                if(jobList.isEmpty()){
+                    tvEmpthyRv.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmpthyRv.setVisibility(View.GONE);
                 }
                 adapter.updateList(jobList);
             }
@@ -272,6 +284,11 @@ public class PekerjaMyJobFragment extends Fragment {
             });
         }
 
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
