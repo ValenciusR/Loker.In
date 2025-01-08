@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -32,6 +33,8 @@ public class AdminJobsFragment extends Fragment {
     private RecyclerView rvJobs;
     private EditText etSearchBar;
 
+    private TextView tvEmpthyRv;
+
     private List<Job> jobList = new ArrayList<>();
     private ListJobAdapter adapter;
 
@@ -42,6 +45,8 @@ public class AdminJobsFragment extends Fragment {
         FirebaseApp.initializeApp(requireContext());
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         jobsRef = firebaseDatabase.getReference("jobs");
+
+        tvEmpthyRv = view.findViewById(R.id.tv_empthyRv);
 
         rvJobs = view.findViewById(R.id.recyclerView);
         rvJobs.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -74,6 +79,12 @@ public class AdminJobsFragment extends Fragment {
                 filteredList.add(job);
             }
         }
+
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
@@ -87,6 +98,12 @@ public class AdminJobsFragment extends Fragment {
                     if (job != null) {
                         jobList.add(job);
                     }
+                }
+
+                if(jobList.isEmpty()){
+                    tvEmpthyRv.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmpthyRv.setVisibility(View.GONE);
                 }
                 adapter.updateList(jobList);
             }

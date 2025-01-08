@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,8 @@ public class AdminUsersFragment extends Fragment {
     private RecyclerView rvUsers;
     private EditText etSearchBar;
 
+    private TextView tvEmpthyRv;
+
     private List<User> userList = new ArrayList<>();
     private ListUserAdapter adapter;
 
@@ -44,6 +47,8 @@ public class AdminUsersFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
         usersRef = firebaseDatabase.getReference("users");
+
+        tvEmpthyRv = view.findViewById(R.id.tv_empthyRv);
 
         rvUsers = view.findViewById(R.id.recyclerView);
         rvUsers.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,6 +81,12 @@ public class AdminUsersFragment extends Fragment {
                 filteredList.add(user);
             }
         }
+
+        if(filteredList.isEmpty()){
+            tvEmpthyRv.setVisibility(View.VISIBLE);
+        }else{
+            tvEmpthyRv.setVisibility(View.GONE);
+        }
         adapter.updateList(filteredList);
     }
 
@@ -90,6 +101,12 @@ public class AdminUsersFragment extends Fragment {
                         user.setId(userSnapshot.getKey());
                         userList.add(user);
                     }
+                }
+
+                if(userList.isEmpty()){
+                    tvEmpthyRv.setVisibility(View.VISIBLE);
+                }else{
+                    tvEmpthyRv.setVisibility(View.GONE);
                 }
                 adapter.notifyDataSetChanged();
             }
