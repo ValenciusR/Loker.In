@@ -88,13 +88,19 @@ public class CreateProfile_PersonalInfo extends AppCompatActivity {
         userReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                type = snapshot.child("type").getValue().toString();
-                etName.setText(snapshot.child("name").getValue().toString());
-                etPhone.setText(snapshot.child("phoneNumber").getValue().toString());
-                etLocation.setText(snapshot.child("location").getValue().toString());
-                etAge.setText(snapshot.child("age").getValue().toString());
+                User user = snapshot.getValue(User.class);
+                String tempGender = "";
+                if(user != null){
+                    type = snapshot.child("type").getValue().toString();
+                    etName.setText(snapshot.child("name").getValue().toString());
+                    etPhone.setText(snapshot.child("phoneNumber").getValue().toString());
+                    etLocation.setText(snapshot.child("location").getValue().toString());
+                    etAge.setText(snapshot.child("age").getValue().toString());
+                    tempGender = snapshot.child("gender").getValue().toString();
+                }
+
                 if(etAge.getText().toString().equals("0")) etAge.setText("");
-                String tempGender = snapshot.child("gender").getValue().toString();
+                
                 int index = -1;
                 for (int i = 0; i < genderAdapter.getCount(); i++) {
                     if (genderAdapter.getItem(i).equals(tempGender)) {

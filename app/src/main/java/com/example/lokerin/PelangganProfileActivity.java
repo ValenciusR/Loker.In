@@ -3,6 +3,7 @@ package com.example.lokerin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,10 +39,11 @@ public class PelangganProfileActivity extends AppCompatActivity {
 
     private TextView tvPageTitle, tvName, tvEmail, tvPhone, tvLocation;
     private ImageView btnBack, ivProfileNavbar;
-    private AppCompatButton btnEditProfile, btnLogOut;
+    private AppCompatButton btnEditProfile, btnLogOut, btnDeleteAccount;
     private ShapeableImageView ivProfilePicture;
 
     private User user;
+    private FirebaseUser fuser;
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -59,10 +62,12 @@ public class PelangganProfileActivity extends AppCompatActivity {
         tvLocation = findViewById(R.id.tv_location_profilePelangganPage);
         tvEmail = findViewById(R.id.tv_email_profilePelangganPage);
         ivProfilePicture = findViewById(R.id.iv_profile_profilePelangganPage);
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
         getUserData();
 
         btnEditProfile = findViewById(R.id.acb_editProfile_profilePelangganPage);
         btnLogOut = findViewById(R.id.acb_logOut_profilePelangganPage);
+        btnDeleteAccount = findViewById(R.id.acb_deleteAccount_profilePelangganPage);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -83,6 +88,45 @@ public class PelangganProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(PelangganProfileActivity.this, PelangganEditProfileActivity.class));
                 finish();
+            }
+        });
+
+        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+                firebaseDatabase = firebaseDatabase.getInstance("https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app/");
+                DatabaseReference userReference = firebaseDatabase.getReference().child("users").child(fuser.getUid());
+
+
+                if (user != null) {
+                    user.delete()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Log.d("FirebaseAuth", "User account deleted successfully.");
+                                    GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
+                                    GoogleSignInClient googleSignIn = GoogleSignIn.getClient(PelangganProfileActivity.this, options);
+
+                                    googleSignIn.revokeAccess()
+                                            .addOnCompleteListener(task2 -> {
+                                                sharedPreferences = getSharedPreferences("session", MODE_PRIVATE);
+                                                editor = sharedPreferences.edit();
+                                                editor.clear();
+                                                editor.apply();
+
+                                                userReference.removeValue();
+
+                                                startActivity(new Intent(PelangganProfileActivity.this, LoginActivity.class));
+                                                finish();
+                                            });
+                                } else {
+                                    Log.e("FirebaseAuth", "Error deleting user account.", task.getException());
+                                }
+                            });
+                } else {
+                    Log.d("FirebaseAuth", "No user is currently signed in.");
+                }
             }
         });
 
@@ -138,19 +182,22 @@ public class PelangganProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
+                if(user != null){
+                    tvName.setText(user.getName());
+                    tvPhone.setText(user.getPhoneNumber());
+                    tvLocation.setText(user.getLocation());
+                    tvEmail.setText(user.getEmail());
 
-                tvName.setText(user.getName());
-                tvPhone.setText(user.getPhoneNumber());
-                tvLocation.setText(user.getLocation());
-                tvEmail.setText(user.getEmail());
-
-                if(user.getImageUrl().equals("default")){
-                    ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
-                } else{
-                    if(!PelangganProfileActivity.this.isDestroyed()){
-                        Glide.with(PelangganProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    if(user.getImageUrl().equals("default")){
+                        ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
+                    } else{
+                        if(!PelangganProfileActivity.this.isDestroyed()){
+                            Glide.with(PelangganProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                        }
                     }
                 }
+
+
             }
 
             @Override

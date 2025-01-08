@@ -354,36 +354,39 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 User user = dataSnapshot.getValue(User.class);
-                                String userType = user.getType();
-                                editor.putBoolean("isLoggedIn", true);
-                                editor.putString("userType", userType);
-                                editor.putString("userName", user.getName());
-                                editor.putString("userEmail", user.getEmail());
-                                editor.apply();
+                                if(user != null){
+                                    String userType = user.getType();
+                                    editor.putBoolean("isLoggedIn", true);
+                                    editor.putString("userType", userType);
+                                    editor.putString("userName", user.getName());
+                                    editor.putString("userEmail", user.getEmail());
+                                    editor.apply();
 
-                                if(userType.equals("pelanggan")) {
-                                    if(!user.getName().isEmpty()){
-                                        startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                                    if(userType.equals("pelanggan")) {
+                                        if(!user.getName().isEmpty()){
+                                            startActivity(new Intent(LoginActivity.this, PelangganMainActivity.class));
+                                            finish();
+                                        }else{
+                                            startActivity(new Intent(LoginActivity.this, CreateProfile_PersonalInfo.class));
+                                            finish();
+                                        }
+                                    } else if (userType.equals("pekerja")) {
+                                        if(!user.getName().isEmpty()){
+                                            startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
+                                            finish();
+                                        }else{
+                                            startActivity(new Intent(LoginActivity.this, CreateProfile_PersonalInfo.class));
+                                            finish();
+                                        }
+                                    } else if (userType.equals("admin")) {
+                                        startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
                                         finish();
                                     }else{
-                                        startActivity(new Intent(LoginActivity.this, CreateProfile_PersonalInfo.class));
+                                        startActivity(new Intent(LoginActivity.this, CreateProfile.class));
                                         finish();
                                     }
-                                } else if (userType.equals("pekerja")) {
-                                    if(!user.getName().isEmpty()){
-                                        startActivity(new Intent(LoginActivity.this, PekerjaMainActivity.class));
-                                        finish();
-                                    }else{
-                                        startActivity(new Intent(LoginActivity.this, CreateProfile_PersonalInfo.class));
-                                        finish();
-                                    }
-                                } else if (userType.equals("admin")) {
-                                    startActivity(new Intent(LoginActivity.this, AdminMainActivity.class));
-                                    finish();
-                                }else{
-                                    startActivity(new Intent(LoginActivity.this, CreateProfile.class));
-                                    finish();
                                 }
+
                             }
 
                             @Override

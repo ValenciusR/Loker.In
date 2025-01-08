@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -102,23 +103,26 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 user = snapshot.getValue(User.class);
-                tvName.setText(user.getName());
-                tvLocation.setText(user.getLocation());
-                tvAboutMe.setText(user.getAboutMe());
-                tvPhone.setText(user.getPhoneNumber());
-                tvEmail.setText(user.getEmail());
+                if(user != null){
+                    tvName.setText(user.getName());
+                    tvLocation.setText(user.getLocation());
+                    tvAboutMe.setText(user.getAboutMe());
+                    tvPhone.setText(user.getPhoneNumber());
+                    tvEmail.setText(user.getEmail());
 
-                setSkills(user);
+                    setSkills(user);
 
-                setPortofolio(user);
+                    setPortofolio(user);
 
-                if(user.getImageUrl().equals("default")){
-                    ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
-                } else{
-                    if(!PekerjaProfileActivity.this.isDestroyed()){
-                        Glide.with(PekerjaProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                    if(user.getImageUrl().equals("default")){
+                        ivProfilePicture.setImageResource(R.drawable.default_no_profile_icon);
+                    } else{
+                        if(!PekerjaProfileActivity.this.isDestroyed()){
+                            Glide.with(PekerjaProfileActivity.this).load(user.getImageUrl()).into(ivProfilePicture);
+                        }
                     }
                 }
+
             }
 
             @Override
@@ -164,21 +168,24 @@ public class PekerjaProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
-                if(user.getPortofolioJob() != null){
-                    ArrayList<PortofolioJob> portofolios =  user.getPortofolioJob();
-                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
-                    linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
-                    rvPortofolio.setLayoutManager(linearLayoutManager);
-                    rvPortofolio.setAdapter(portofolioAdapter);
-                    tvEmptyPortofolio.setVisibility(View.GONE);
-                }else{
-                    ArrayList<PortofolioJob> portofolios =  new ArrayList<>();
-                    portofolioAdapter = new ListPortofolioAdapter(portofolios);
-                    linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
-                    rvPortofolio.setLayoutManager(linearLayoutManager);
-                    rvPortofolio.setAdapter(portofolioAdapter);
-                    tvEmptyPortofolio.setVisibility(View.VISIBLE);
+                if(user!=null){
+                    if(user.getPortofolioJob() != null){
+                        ArrayList<PortofolioJob> portofolios =  user.getPortofolioJob();
+                        portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                        linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                        rvPortofolio.setLayoutManager(linearLayoutManager);
+                        rvPortofolio.setAdapter(portofolioAdapter);
+                        tvEmptyPortofolio.setVisibility(View.GONE);
+                    }else{
+                        ArrayList<PortofolioJob> portofolios =  new ArrayList<>();
+                        portofolioAdapter = new ListPortofolioAdapter(portofolios);
+                        linearLayoutManager = new LinearLayoutManager(PekerjaProfileActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                        rvPortofolio.setLayoutManager(linearLayoutManager);
+                        rvPortofolio.setAdapter(portofolioAdapter);
+                        tvEmptyPortofolio.setVisibility(View.VISIBLE);
+                    }
                 }
+
 
 
             }
@@ -233,6 +240,7 @@ public class PekerjaProfileActivity extends AppCompatActivity {
         AppCompatButton btnEditKeterampilan = viewBottomSheet.findViewById(R.id.btn_settings_editKeterampilan);
         AppCompatButton btnTambahPekerjaanSebelumnya = viewBottomSheet.findViewById(R.id.btn_settings_tambahPekerjaanSebelumnya);
         AppCompatButton btnLogOut = viewBottomSheet.findViewById(R.id.btn_settings_logOut);
+        AppCompatButton btnDeleteAccount = viewBottomSheet.findViewById(R.id.btn_settings_deleteAccount);
 
         btnEditPersonalInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,14 +275,48 @@ public class PekerjaProfileActivity extends AppCompatActivity {
 
                 googleSignIn.revokeAccess()
                         .addOnCompleteListener(task -> {
+                            startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
+                            finish();
                             sharedPreferences = getSharedPreferences("session", MODE_PRIVATE);
                             editor = sharedPreferences.edit();
                             editor.clear();
                             editor.apply();
-
-                            startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
-                            finish();
                         });
+            }
+        });
+
+        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+                if (user != null) {
+                    user.delete()
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Log.d("FirebaseAuth", "User account deleted successfully.");
+                                    GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build();
+                                    GoogleSignInClient googleSignIn = GoogleSignIn.getClient(PekerjaProfileActivity.this, options);
+
+                                    googleSignIn.revokeAccess()
+                                            .addOnCompleteListener(task2 -> {
+                                                sharedPreferences = getSharedPreferences("session", MODE_PRIVATE);
+                                                editor = sharedPreferences.edit();
+                                                editor.clear();
+                                                editor.apply();
+
+                                                userReference.removeValue();
+
+                                                startActivity(new Intent(PekerjaProfileActivity.this, LoginActivity.class));
+                                                finish();
+                                            });
+                                } else {
+                                    Log.e("FirebaseAuth", "Error deleting user account.", task.getException());
+                                }
+                            });
+                } else {
+                    Log.d("FirebaseAuth", "No user is currently signed in.");
+                }
             }
         });
     }
