@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "730092740154",
+    "firebase_url": "https://lokerin-2d090-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "lokerin-2d090",
     "storage_bucket": "lokerin-2d090.appspot.com"
   },
@@ -12,7 +13,44 @@
           "package_name": "com.example.lokerin"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "730092740154-1u0vbp35sfrsnruv7gm6aso9tnva0khg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lokerin",
+            "certificate_hash": "111a6d71347983b3b302ae87e0e9f15cc0fb5ca0"
+          }
+        },
+        {
+          "client_id": "730092740154-5rs5li9r5g8nbrm7p57sdv3i07bnabb0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lokerin",
+            "certificate_hash": "527d06fef311f892f508865f5166a17fdeb998ed"
+          }
+        },
+        {
+          "client_id": "730092740154-rirb4j1c544fkdnk6h7a8ab38e98afs0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lokerin",
+            "certificate_hash": "9d45a705ee98589010bafffb42311048d402b868"
+          }
+        },
+        {
+          "client_id": "730092740154-vvod4s8q6e2nt6gmt8kjahoo6pparhs5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lokerin",
+            "certificate_hash": "b53647c01e8a0e61df39e18e15633e3cab7b62d7"
+          }
+        },
+        {
+          "client_id": "730092740154-hude8uhafgguvq27lutackek05a1ro71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDHTiAdwj7Iv-xFqYR7roFbV5IVFVamNcE"
@@ -20,7 +58,41 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730092740154-hude8uhafgguvq27lutackek05a1ro71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730092740154:android:a4ee4038686d2f017f5f03",
+        "android_client_info": {
+          "package_name": "com.lokerin.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730092740154-hude8uhafgguvq27lutackek05a1ro71.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHTiAdwj7Iv-xFqYR7roFbV5IVFVamNcE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730092740154-hude8uhafgguvq27lutackek05a1ro71.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

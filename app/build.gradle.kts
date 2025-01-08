@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lokerin"
+    namespace = "com.lokerin.app"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.lokerin"
+        applicationId = "com.lokerin.app"
         minSdk = 23
         targetSdk = 34
         versionCode = 1

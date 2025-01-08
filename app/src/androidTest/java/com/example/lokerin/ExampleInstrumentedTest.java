@@ -1,4 +1,4 @@
-package com.example.lokerin;
+package com.lokerin.app;
 
 import android.content.Context;
 
