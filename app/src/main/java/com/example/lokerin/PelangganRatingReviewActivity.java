@@ -37,7 +37,7 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
 
     private String jobId, pekerjaId, pelangganId, pelangganName, pelangganImageUrl;
     private ImageView btnBack, ivProfileNavbar, ivJobImage;
-    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary, tvDayLeft;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvProvince, tvCategory, tvDate, tvSalary, tvDayLeft, tvDescription;
     private RatingBar rbRating;
     private CheckBox cbRecommend;
     private EditText etReviewRate;
@@ -70,6 +70,7 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
         reviewReference = firebaseDatabase.getReference().child("reviews");
 
         btnBack = findViewById(R.id.btn_back_toolbar);
+        tvDescription = findViewById(R.id.tv_jobDesc);
         ivJobImage = findViewById(R.id.iv_jobImage_ratingReviewPage);
         tvPageTitle = findViewById(R.id.tv_page_toolbar);
         ivProfileNavbar = findViewById(R.id.btn_profile_toolbar);
@@ -235,6 +236,8 @@ public class PelangganRatingReviewActivity extends AppCompatActivity {
 
         Integer salary = task.getResult().child("jobSalary").getValue(Integer.class);
         NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
+        String description = task.getResult().child("jobDescription").getValue(String.class);
+        tvDescription.setText(description != null ? description : "");
         priceFormat.setMaximumFractionDigits(0);
         priceFormat.setCurrency(Currency.getInstance("IDR"));
         String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);

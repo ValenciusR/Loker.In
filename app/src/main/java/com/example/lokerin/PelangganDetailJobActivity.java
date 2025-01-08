@@ -42,7 +42,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
     private ImageView btnBack,ivProfileNavbar, ivJobImage;
     private String jobId, jobStatus;
     private TextView tvPageTitle, tvTitle, tvCategory, tvProvince,
-            tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers, tvDayLeft, tvAlamat;
+            tvStatus, tvDate, tvSalary, tvApplicants, tvEmptyApplicants, tvEmptyWorkers, tvDayLeft, tvAlamat, tvDescription;
 
     private TextView btnAction, btnDelete, btnAction2, btnEdit;
     private RecyclerView rvApplicants, rvWorkers;
@@ -64,6 +64,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         Intent intent = getIntent();
         jobId = intent.getStringExtra("jobId");
 
+        tvDescription = findViewById(R.id.tv_jobDesc);
         if (jobId == null) {
             Toast.makeText(this, "ID pekerjaan tidak ditemukan!", Toast.LENGTH_SHORT).show();
             finish();
@@ -567,6 +568,8 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
         NumberFormat priceFormat = NumberFormat.getCurrencyInstance();
         priceFormat.setMaximumFractionDigits(0);
         priceFormat.setCurrency(Currency.getInstance("IDR"));
+        String description = task.getResult().child("jobDescription").getValue(String.class);
+        tvDescription.setText(description != null ? description : "");
         String salaryFrequent = task.getResult().child("jobSalaryFrequent").getValue(String.class);
         if(salaryFrequent.equals("Daily")) {
             salaryFrequent = "Hari";
