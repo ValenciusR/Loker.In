@@ -37,7 +37,6 @@
         <activity android:name=".PelangganEditProfileActivity" android:exported="false" />
         <activity android:name=".PelangganProfileActivity" android:exported="false" />
         <activity android:name=".PekerjaDetailJobActivity" android:exported="false" />
-        <activity android:name=".PelangganAddJobCategoryFragment" android:exported="false" />
         <activity android:name=".PelangganDetailJobActivity" android:exported="false" />
         <activity android:name=".CreateProfile_WorkExperience" android:exported="false" />
         <activity android:name=".CreateProfile_Skills" android:exported="false" />
