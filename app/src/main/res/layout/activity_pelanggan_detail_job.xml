@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Lorem Ipsum. ini isinya deskripsi dari pekerjaanya nantinya bakal ngapain aja"
+                        android:text="Deskripsi pekerjaan"
                         android:textSize="12sp"
                         android:textColor="@color/grey_60"
                         android:layout_marginHorizontal="16sp"
@@ -228,7 +228,7 @@
                                     android:id="@+id/tv_alamat"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="AlamaSADASDASDASDt"/>
+                                    android:text="Alamat"/>
                             </LinearLayout>
 
                         </LinearLayout>

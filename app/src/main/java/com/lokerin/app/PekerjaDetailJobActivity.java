@@ -41,7 +41,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
     private DatabaseReference userReference;
 
     private ImageView btnBack, ivProfileNavbar, ivJobImage;
-    private TextView tvPageTitle, tvTitle, tvStatus, tvCategory, tvProvince, tvDate, tvSalary, tvDescription, tvDateLeft;
+    private TextView tvPageTitle, tvTitle, tvStatus, tvCategory, tvProvince, tvAlamat, tvDate, tvSalary, tvDescription, tvDateLeft;
     private String jobId, jobStatus, jobMakerId;
     private Button btnAction, btnChat;
     private ArrayList<String> applicantsList, workersList;
@@ -141,6 +141,7 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         tvTitle = findViewById(R.id.tv_title);
         tvStatus = findViewById(R.id.tv_status);
         tvProvince = findViewById(R.id.tv_province);
+        tvAlamat = findViewById(R.id.tv_alamat);
         tvCategory = findViewById(R.id.tv_category);
         tvDate = findViewById(R.id.tv_date);
         tvSalary = findViewById(R.id.tv_salary);
@@ -343,6 +344,9 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
         } else {
             tvProvince.setText("N/A");
         }
+
+        String alamat = task.getResult().child("jobAddress").getValue(String.class);
+        tvAlamat.setText(alamat);
 
         String category = task.getResult().child("jobCategory").getValue(String.class);
         tvCategory.setText(category != null && !category.isEmpty() ? category : "N/A");
