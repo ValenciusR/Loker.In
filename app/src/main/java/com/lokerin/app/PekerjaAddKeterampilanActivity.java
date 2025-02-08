@@ -79,7 +79,7 @@ public class PekerjaAddKeterampilanActivity extends AppCompatActivity {
                 finish();
             }
         });
-        tvPageTitle.setText("Edit Keterampilan");
+        tvPageTitle.setText("Ubah Keterampilan");
         ivProfilePicture.setVisibility(View.GONE);
 
         firebaseApp = FirebaseApp.initializeApp(this);

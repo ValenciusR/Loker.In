@@ -55,7 +55,7 @@
                     android:layout_gravity="bottom|center_horizontal"
                     android:background="@drawable/circular_button"
                     android:padding="4dp"
-                    android:text="Edit"
+                    android:text="Ubah"
                     android:textColor="@color/white"
                     android:textSize="12sp"
                     android:gravity="center"

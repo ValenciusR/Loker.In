@@ -371,7 +371,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Unggah Gambar"
+            android:text="UNGGAH GAMBAR"
             android:textColor="#1977F3"
             android:textSize="12sp" />
 

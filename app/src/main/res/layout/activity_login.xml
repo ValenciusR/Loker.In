@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="Login"
+                    android:text="Masuk"
                     android:textColor="#FFFFFF"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="8dp"

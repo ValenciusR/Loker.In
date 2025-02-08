@@ -4,12 +4,12 @@
     <item
         android:id="@+id/bottom_home"
         android:icon="@drawable/icon_my_job"
-        android:title="DASHBOARD"/>
+        android:title="BERANDA"/>
 
     <item
         android:id="@+id/bottom_users"
         android:icon="@drawable/icon_people"
-        android:title="USER"/>
+        android:title="PENGGUNA"/>
 
     <item
         android:id="@+id/bottom_jobs"

@@ -35,7 +35,7 @@
             android:layout_width="50sp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Chat"
+            android:text="OBROLAN"
             android:textColor="#1977f3"
             android:layout_marginEnd="12sp"
             android:backgroundTint="@null"

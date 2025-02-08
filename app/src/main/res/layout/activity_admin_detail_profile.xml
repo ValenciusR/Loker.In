@@ -179,7 +179,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Gender"
+                                android:text="Jenis Kelamin"
                                 android:layout_gravity="start"
                                 android:textSize="12sp"
                                 android:textColor="@color/grey_60"
@@ -228,7 +228,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Role"
+                            android:text="Peran"
                             android:layout_gravity="start"
                             android:textSize="12sp"
                             android:textColor="@color/grey_60"

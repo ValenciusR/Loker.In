@@ -352,7 +352,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
-                android:text="Edit"
+                android:text="Ubah"
                 android:textColor="#FFFFFF"
                 android:layout_marginEnd="8dp"
                 android:visibility="gone"
@@ -370,7 +370,7 @@
                 android:fontFamily="@font/poppins_medium"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
-                android:text="Action"
+                android:text="Aksi"
                 android:textColor="#FFFFFF"
                 android:layout_marginEnd="8dp" />
 

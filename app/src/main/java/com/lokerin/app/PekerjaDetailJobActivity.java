@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PekerjaDetailJobActivity extends AppCompatActivity {
@@ -353,14 +354,22 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
 
         String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
         String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
-        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
-            tvDate.setText(dateClose);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()) {
+            // Set Locale to Indonesian
+            Locale localeID = new Locale("id", "ID");
+
+            // Parse dates with Indonesian format
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", localeID);
 
             try {
                 // Parse the date strings into Date objects
                 Date openDate = dateFormat.parse(dateOpen);
                 Date closeDate = dateFormat.parse(dateClose);
+
+                // Format and set the date to TextView
+                String formattedDateClose = dateFormat.format(closeDate);
+                tvDate.setText(formattedDateClose);
 
                 // Calculate the difference in milliseconds
                 long diffInMillis = closeDate.getTime() - openDate.getTime();
@@ -368,19 +377,19 @@ public class PekerjaDetailJobActivity extends AppCompatActivity {
                 // Convert milliseconds to days
                 long diffInDays = diffInMillis / (24 * 60 * 60 * 1000);
 
-                if(diffInDays < 0){
+                if (diffInDays < 0) {
                     tvDateLeft.setText("waktu habis");
-                }else{
-                    tvDateLeft.setText(diffInDays+" hari lagi");
+                } else {
+                    tvDateLeft.setText(diffInDays + " hari lagi");
                 }
 
             } catch (ParseException e) {
                 e.printStackTrace();
-
             }
         } else {
             tvDate.setText("N/A");
         }
+
 
         String jobImgUrl = task.getResult().child("jobImgUri").getValue(String.class);
         if(jobImgUrl.equals("default")){

@@ -33,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
+import java.util.Locale;
 
 public class PelangganDetailJobActivity extends AppCompatActivity {
 
@@ -343,7 +344,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                                     btnAction.setText("Akhiri Pekerjaan");
                                                     btnAction.setOnClickListener(v -> showFinishJobConfirmationDialog());
                                                     btnDelete.setVisibility(View.GONE);
-                                                    tvStatus.setText("ON GOING");
+                                                    tvStatus.setText("SEDANG BERJALAN");
                                                     tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_yellow_pill));
                                                     tvApplicants.setVisibility(View.GONE);
                                                     tvEmptyApplicants.setVisibility(View.GONE);
@@ -448,7 +449,7 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
                                         jobStatus = "ENDED";
                                         btnGroup.setVisibility(View.GONE);
                                         btnAction2.setVisibility(View.GONE);
-                                        tvStatus.setText("ENDED");
+                                        tvStatus.setText("SELESAI");
                                         tvStatus.setBackground(getDrawable(R.drawable.shape_rounded_red_pill));
                                         tvApplicants.setVisibility(View.GONE);
                                         tvEmptyApplicants.setVisibility(View.GONE);
@@ -526,30 +527,33 @@ public class PelangganDetailJobActivity extends AppCompatActivity {
 
         String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
         String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
-        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
-            tvDate.setText(dateClose);
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy");
+
+        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()) {
+            Locale localeID = new Locale("id", "ID"); // Indonesian locale
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+            SimpleDateFormat dateFormatIndo = new SimpleDateFormat("dd MMMM yyyy", localeID); // Indonesian format
 
             try {
-                // Parse the date strings into Date objects
+                // Parse the date strings into Date objects (assuming they are in English)
                 Date openDate = dateFormat.parse(dateOpen);
                 Date closeDate = dateFormat.parse(dateClose);
 
+                // Convert dates back to Indonesian format
+                String formattedDateClose = dateFormatIndo.format(closeDate);
+                tvDate.setText(formattedDateClose);
+
                 // Calculate the difference in milliseconds
                 long diffInMillis = closeDate.getTime() - openDate.getTime();
-
-                // Convert milliseconds to days
                 long diffInDays = diffInMillis / (24 * 60 * 60 * 1000);
 
-                if(diffInDays < 0){
+                if (diffInDays < 0) {
                     tvDayLeft.setText("waktu habis");
-                }else{
-                    tvDayLeft.setText(diffInDays+" hari lagi");
+                } else {
+                    tvDayLeft.setText(diffInDays + " hari lagi");
                 }
 
             } catch (ParseException e) {
                 e.printStackTrace();
-
             }
         } else {
             tvDate.setText("N/A");

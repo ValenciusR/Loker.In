@@ -99,7 +99,7 @@ public class PekerjaEditProfileActivity extends AppCompatActivity {
                 startProfilePage();
             }
         });
-        tvPageTitle.setText("Edit Profil");
+        tvPageTitle.setText("Ubah Profil");
         ivProfileNavbar.setVisibility(View.GONE);
 
         provinceAdapter = ArrayAdapter.createFromResource(PekerjaEditProfileActivity.this,

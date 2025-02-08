@@ -319,7 +319,7 @@ public class LoginActivity extends AppCompatActivity {
                 isValid = false;
             }
             if (password.isEmpty()) {
-                passwordError.setText("Password harus diisi");
+                passwordError.setText("Kata sandi harus diisi");
                 etPassword.setBackgroundResource(R.drawable.shape_rounded_red_border);
                 isValid = false;
             }

@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:layout_marginHorizontal="10sp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Tidak ada Chat"
+            android:text="Tidak ada Obrolan"
             android:textColor="@color/grey_40"
             android:textSize="18sp"
             />

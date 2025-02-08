@@ -342,7 +342,7 @@ public class PekerjaModifyWorkExperienceActivity extends AppCompatActivity {
 
         tvPageTitle.setText("Tambah Portofolio");
         if(dataPortofolio != null){
-            tvPageTitle.setText("Update Portofolio");
+            tvPageTitle.setText("Perbarui Portofolio");
             etJob.setText(dataPortofolio.getTitle());
             String targetValue = dataPortofolio.getLocation(); // The string you want to select in the Spinner
 

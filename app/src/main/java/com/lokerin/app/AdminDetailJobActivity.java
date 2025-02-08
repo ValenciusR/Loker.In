@@ -22,7 +22,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class AdminDetailJobActivity extends AppCompatActivity {
 
@@ -250,8 +254,29 @@ public class AdminDetailJobActivity extends AppCompatActivity {
 
         String dateOpen = task.getResult().child("jobDateUpload").getValue(String.class);
         String dateClose = task.getResult().child("jobDateClose").getValue(String.class);
-        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()){
-            tvDate.setText(dateOpen + " - " + dateClose);
+
+        if (dateOpen != null && !dateOpen.isEmpty() && dateClose != null && !dateClose.isEmpty()) {
+            // Set Locale to Indonesian
+            Locale localeID = new Locale("id", "ID");
+
+            // Format dates with Indonesian locale
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", localeID);
+
+            try {
+                // Parse the date strings into Date objects
+                Date openDate = dateFormat.parse(dateOpen);
+                Date closeDate = dateFormat.parse(dateClose);
+
+                // Convert back to Indonesian format
+                String formattedDateOpen = dateFormat.format(openDate);
+                String formattedDateClose = dateFormat.format(closeDate);
+
+                // Set formatted text
+                tvDate.setText(formattedDateOpen + " - " + formattedDateClose);
+            } catch (ParseException e) {
+                e.printStackTrace();
+                tvDate.setText("N/A");
+            }
         } else {
             tvDate.setText("N/A");
         }

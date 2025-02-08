@@ -19,7 +19,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardViewHolder>{
 
@@ -49,9 +53,26 @@ public class ListJobAdapter extends RecyclerView.Adapter<ListJobAdapter.CardView
         }else {
             holder.jobStatus.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
         }
+
+        Locale localeID = new Locale("id", "ID");
+        SimpleDateFormat originalFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH);
+        SimpleDateFormat indonesianFormat = new SimpleDateFormat("dd MMMM yyyy", localeID);
+
+        String jobDate = data.getJobDateUpload();
+        String formattedJobDate = "-";
+
+        if (jobDate != null && !jobDate.isEmpty()) {
+            try {
+                Date date = originalFormat.parse(jobDate);
+                formattedJobDate = indonesianFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
         holder.jobTitle.setText(data.getJobTitle() != null ? data.getJobTitle() : "-");
         holder.jobLocation.setText(data.getJobProvince() != null ? data.getJobProvince() : "-");
-        holder.jobDateUpload.setText(data.getJobDateUpload() != null ? data.getJobDateUpload() : "-");
+        holder.jobDateUpload.setText(formattedJobDate);
         holder.jobCategory.setText(data.getJobCategory() != null ? data.getJobCategory() : "-");
 
         holder.itemView.setOnClickListener(v -> {

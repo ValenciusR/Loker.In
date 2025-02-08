@@ -101,7 +101,7 @@ public class PelangganEditProfileActivity extends AppCompatActivity {
                 startProfilePage();
             }
         });
-        tvPageTitle.setText("Edit Profil");
+        tvPageTitle.setText("Ubah Profil");
         ivProfileNavbar.setVisibility(View.GONE);
 
         btnSaveChanges.setOnClickListener(v -> {

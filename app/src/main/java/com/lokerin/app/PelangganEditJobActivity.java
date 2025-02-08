@@ -106,7 +106,7 @@ public class PelangganEditJobActivity extends AppCompatActivity {
                 backPage();
             }
         });
-        tvPageTitle.setText("Edit Pekerjaan");
+        tvPageTitle.setText("Ubah Pekerjaan");
         ivProfileNavbar.setVisibility(View.GONE);
 
         btnCategory.setOnClickListener(v -> {
